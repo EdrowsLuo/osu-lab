@@ -1,0 +1,11 @@
+@name <TextureSpriteBase.fs>
+varying vec3 f_Position;
+varying vec2 f_SpritePosition;
+varying vec4 f_Color;
+varying vec2 f_TextureCoord;
+
+uniform sampler2D u_Texture;
+
+vec4 getTextureColor(){
+	return texture2D(u_Texture,f_TextureCoord);
+}

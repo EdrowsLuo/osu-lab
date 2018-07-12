@@ -1,0 +1,3 @@
+@name <FragmentFinal>
+//if(c.a<0.001)discard;
+gl_FragColor=c;

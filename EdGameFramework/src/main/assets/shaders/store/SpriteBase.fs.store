@@ -1,0 +1,4 @@
+@name <SpriteBase.fs>
+varying vec3 f_Position;
+varying vec2 f_SpritePosition;
+varying vec4 f_Color;

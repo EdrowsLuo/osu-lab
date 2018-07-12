@@ -1,0 +1,19 @@
+@name <SpriteBase.vs>
+uniform mat4 u_MVPMatrix;
+uniform vec4 u_AccentColor;
+uniform float u_Alpha;
+
+attribute vec3 a_Position;
+attribute vec2 a_SpritePosition;
+attribute vec4 a_Color;
+
+varying vec3 f_Position;
+varying vec2 f_SpritePosition;
+varying vec4 f_Color;
+
+void setUpSpriteBase(){
+	f_SpritePosition=a_SpritePosition;
+	f_Position=a_Position;
+	f_Color=a_Color*u_AccentColor*u_Alpha;
+	gl_Position=u_MVPMatrix*vec4(a_Position,1.0);
+}

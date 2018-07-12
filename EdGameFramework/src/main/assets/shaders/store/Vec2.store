@@ -1,0 +1,11 @@
+@name <Vec2>
+vec2 rotate(vec2 v,float r){
+	float c=cos(r);
+	float s=sin(r);
+	return mat2(c,-s,s,c)*v;
+}
+
+vec2 rotate(vec2 v,vec2 o,float r){
+	vec2 ov=v-o;
+	return o+rotate(ov,r);
+}

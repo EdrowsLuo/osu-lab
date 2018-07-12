@@ -1,0 +1,48 @@
+@name <Rounded>
+float singleDistance(vec2 p,float r){
+	if(p.x<0.0){
+		if(p.y<0.0){
+			return length(p)-r;
+		}else{
+			return -p.x-r;
+		}
+	}else{
+		if(p.y<0.0){
+			return -p.y-r;
+		}else{
+			return -min(p.x,p.y);
+		}
+	}
+}
+
+float calDistance(vec2 p,vec4 r,vec4 rd){
+	float d1=singleDistance(p-r.rg-rd.rr,rd.r);
+	vec2 p2=p-r.bg;
+	p2.x=-p2.x;
+	float d2=singleDistance(p2-rd.gg,rd.g);
+	p2=p-r.ra;
+	p2.y=-p2.y;
+	float d3=singleDistance(p2-rd.bb,rd.b);
+	p2=r.ba-p;
+	float d4=singleDistance(p2-rd.aa,rd.a);
+	if(d1<=0.0&&d2<=0.0&&d3<=0.0&&d4<=0.0){
+		return max(max(d1,d2),max(d3,d4));
+	}else{
+		return min(min(d1,d2),min(d3,d4));
+	}
+}
+
+float distanceFromRoundedRect(vec2 p,vec4 inner,float r){
+	vec2 tlo=inner.xy-p;
+	vec2 bro=p-inner.zw;
+	
+	vec2 dis=max(bro,tlo);
+	
+	float mDis=max(dis.x,dis.y);
+	
+	if(mDis<=0.0){
+		return mDis-r;
+	}else{
+		return length(max(vec2(0.0),dis))-r;
+	}
+}

@@ -1,0 +1,2 @@
+@name <discard>
+//if(c.a<0.001)discard;
