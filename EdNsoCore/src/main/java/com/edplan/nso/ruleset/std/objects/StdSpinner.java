@@ -1,21 +1,20 @@
 package com.edplan.nso.ruleset.std.objects;
 
-public class StdSpinner extends StdHitObject
-{
-	private int endTime;
+public class StdSpinner extends StdHitObject {
+    private int endTime;
 
 
-	public void setEndTime(int endTime){
-		this.endTime=endTime;
-	}
+    public void setEndTime(int endTime) {
+        this.endTime = endTime;
+    }
 
-	public int getEndTime(){
-		return endTime;
-	}
+    public int getEndTime() {
+        return endTime;
+    }
 
-	@Override
-	public StdHitObjectType getResType(){
+    @Override
+    public StdHitObjectType getResType() {
 
-		return StdHitObjectType.Spinner;
-	}
+        return StdHitObjectType.Spinner;
+    }
 }

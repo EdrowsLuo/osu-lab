@@ -1,89 +1,89 @@
 package com.edplan.nso.filepart;
+
 import com.edplan.nso.OsuFilePart;
 import com.edplan.superutils.U;
 
-public class PartDifficulty implements OsuFilePart
-{
-	public static final String HPDrainRate="HPDrainRate";
-	public static final String CircleSize="CircleSize";
-	public static final String OverallDifficulty="OverallDifficulty";
-	public static final String ApproachRate="ApproachRate";
-	public static final String SliderMultiplier="SliderMultiplier";
-	public static final String SliderTickRate="SliderTickRate";
-	
-	public static final String TAG="Difficulty";
-	
-	private float hPDrainRate;
-	private float circleSize;
-	private float overallDifficulty;
-	private float approachRate;
-	private double sliderMultiplier;
-	private double sliderTickRate;
+public class PartDifficulty implements OsuFilePart {
+    public static final String HPDrainRate = "HPDrainRate";
+    public static final String CircleSize = "CircleSize";
+    public static final String OverallDifficulty = "OverallDifficulty";
+    public static final String ApproachRate = "ApproachRate";
+    public static final String SliderMultiplier = "SliderMultiplier";
+    public static final String SliderTickRate = "SliderTickRate";
 
-	public void setHPDrainRate(float hPDrainRate){
-		this.hPDrainRate=hPDrainRate;
-	}
+    public static final String TAG = "Difficulty";
 
-	public float getHPDrainRate(){
-		return hPDrainRate;
-	}
+    private float hPDrainRate;
+    private float circleSize;
+    private float overallDifficulty;
+    private float approachRate;
+    private double sliderMultiplier;
+    private double sliderTickRate;
 
-	public void setCircleSize(float circleSize){
-		this.circleSize=circleSize;
-	}
+    public void setHPDrainRate(float hPDrainRate) {
+        this.hPDrainRate = hPDrainRate;
+    }
 
-	public float getCircleSize(){
-		return circleSize;
-	}
+    public float getHPDrainRate() {
+        return hPDrainRate;
+    }
 
-	public void setOverallDifficulty(float overallDifficulty){
-		this.overallDifficulty=overallDifficulty;
-	}
+    public void setCircleSize(float circleSize) {
+        this.circleSize = circleSize;
+    }
 
-	public float getOverallDifficulty(){
-		return overallDifficulty;
-	}
+    public float getCircleSize() {
+        return circleSize;
+    }
 
-	public void setApproachRate(float approachRate){
-		this.approachRate=approachRate;
-	}
+    public void setOverallDifficulty(float overallDifficulty) {
+        this.overallDifficulty = overallDifficulty;
+    }
 
-	public float getApproachRate(){
-		return approachRate;
-	}
+    public float getOverallDifficulty() {
+        return overallDifficulty;
+    }
 
-	public void setSliderMultiplier(double sliderMultiplier){
-		this.sliderMultiplier=sliderMultiplier;
-	}
+    public void setApproachRate(float approachRate) {
+        this.approachRate = approachRate;
+    }
 
-	public double getSliderMultiplier(){
-		return sliderMultiplier;
-	}
+    public float getApproachRate() {
+        return approachRate;
+    }
 
-	public void setSliderTickRate(double sliderTickRate){
-		this.sliderTickRate=sliderTickRate;
-	}
+    public void setSliderMultiplier(double sliderMultiplier) {
+        this.sliderMultiplier = sliderMultiplier;
+    }
 
-	public double getSliderTickRate(){
-		return sliderTickRate;
-	}
+    public double getSliderMultiplier() {
+        return sliderMultiplier;
+    }
 
-	@Override
-	public String getTag(){
+    public void setSliderTickRate(double sliderTickRate) {
+        this.sliderTickRate = sliderTickRate;
+    }
 
-		return TAG;
-	}
+    public double getSliderTickRate() {
+        return sliderTickRate;
+    }
 
-	@Override
-	public String makeString(){
+    @Override
+    public String getTag() {
 
-		StringBuilder sb=new StringBuilder();
-		U.appendProperty(sb,PartDifficulty.HPDrainRate       ,getHPDrainRate()       ).append(U.NEXT_LINE);
-		U.appendProperty(sb,PartDifficulty.CircleSize        ,getCircleSize()        ).append(U.NEXT_LINE);
-		U.appendProperty(sb,PartDifficulty.OverallDifficulty ,getOverallDifficulty() ).append(U.NEXT_LINE);
-		U.appendProperty(sb,PartDifficulty.ApproachRate      ,getApproachRate()      ).append(U.NEXT_LINE);
-		U.appendProperty(sb,PartDifficulty.SliderMultiplier  ,getSliderMultiplier()  ).append(U.NEXT_LINE);
-		U.appendProperty(sb,PartDifficulty.SliderTickRate    ,getSliderTickRate()    ).append(U.NEXT_LINE);
-		return sb.toString();
-	}
+        return TAG;
+    }
+
+    @Override
+    public String makeString() {
+
+        StringBuilder sb = new StringBuilder();
+        U.appendProperty(sb, PartDifficulty.HPDrainRate, getHPDrainRate()).append(U.NEXT_LINE);
+        U.appendProperty(sb, PartDifficulty.CircleSize, getCircleSize()).append(U.NEXT_LINE);
+        U.appendProperty(sb, PartDifficulty.OverallDifficulty, getOverallDifficulty()).append(U.NEXT_LINE);
+        U.appendProperty(sb, PartDifficulty.ApproachRate, getApproachRate()).append(U.NEXT_LINE);
+        U.appendProperty(sb, PartDifficulty.SliderMultiplier, getSliderMultiplier()).append(U.NEXT_LINE);
+        U.appendProperty(sb, PartDifficulty.SliderTickRate, getSliderTickRate()).append(U.NEXT_LINE);
+        return sb.toString();
+    }
 }

@@ -1,117 +1,117 @@
 package com.edplan.nso.ruleset.std.objects;
+
 import com.edplan.nso.ruleset.base.object.HitObject;
 
-public abstract class StdHitObject extends HitObject
-{
-	private int startX;
-	private int startY;
-	private int startTime;
-	private boolean isNewCombo;
-	private int comboColorsSkip;
-	private int hitSound;
-	private HitObjectAddition addition;
-	
-	public abstract StdHitObjectType getResType();
-	
-	public void setAddition(HitObjectAddition addition){
-		this.addition=addition;
-	}
+public abstract class StdHitObject extends HitObject {
+    private int startX;
+    private int startY;
+    private int startTime;
+    private boolean isNewCombo;
+    private int comboColorsSkip;
+    private int hitSound;
+    private HitObjectAddition addition;
 
-	public HitObjectAddition getAddition(){
-		return addition;
-	}
+    public abstract StdHitObjectType getResType();
 
-	public void setIsNewCombo(boolean isNewCombo){
-		this.isNewCombo=isNewCombo;
-	}
+    public void setAddition(HitObjectAddition addition) {
+        this.addition = addition;
+    }
 
-	public boolean isNewCombo(){
-		return isNewCombo;
-	}
+    public HitObjectAddition getAddition() {
+        return addition;
+    }
 
-	public void setComboColorsSkip(int comboColorsSkip){
-		this.comboColorsSkip=comboColorsSkip;
-	}
+    public void setIsNewCombo(boolean isNewCombo) {
+        this.isNewCombo = isNewCombo;
+    }
 
-	public int getComboColorsSkip(){
-		return comboColorsSkip;
-	}
+    public boolean isNewCombo() {
+        return isNewCombo;
+    }
 
-	public void setHitSound(int hitSound){
-		this.hitSound=hitSound;
-	}
+    public void setComboColorsSkip(int comboColorsSkip) {
+        this.comboColorsSkip = comboColorsSkip;
+    }
 
-	public int getHitSound(){
-		return hitSound;
-	}
+    public int getComboColorsSkip() {
+        return comboColorsSkip;
+    }
 
-	public void setSampleSet(int sampleSet){
-		this.getAddition().setSampleSet(sampleSet);
-	}
+    public void setHitSound(int hitSound) {
+        this.hitSound = hitSound;
+    }
 
-	public int getSampleSet(){
-		return getAddition().getSampleSet();
-	}
+    public int getHitSound() {
+        return hitSound;
+    }
 
-	public void setSampleSetAddition(int addition){
-		this.getAddition().setSampleAddition(addition);
-	}
+    public void setSampleSet(int sampleSet) {
+        this.getAddition().setSampleSet(sampleSet);
+    }
 
-	public int getSampleSetAddition(){
-		return getAddition().getSampleAddition();
-	}
+    public int getSampleSet() {
+        return getAddition().getSampleSet();
+    }
 
-	public void setCustomIndex(int customIndex){
-		this.getAddition().setCustomIndex(customIndex);
-	}
+    public void setSampleSetAddition(int addition) {
+        this.getAddition().setSampleAddition(addition);
+    }
 
-	public int getCustomIndex(){
-		return getAddition().getCustomIndex();
-	}
+    public int getSampleSetAddition() {
+        return getAddition().getSampleAddition();
+    }
 
-	public void setSampleVolume(int sampleVolume){
-		this.getAddition().setSampleVolume(sampleVolume);
-	}
+    public void setCustomIndex(int customIndex) {
+        this.getAddition().setCustomIndex(customIndex);
+    }
 
-	public int getSampleVolume(){
-		return getAddition().getSampleVolume();
-	}
+    public int getCustomIndex() {
+        return getAddition().getCustomIndex();
+    }
 
-	public void setOverrideSampleFile(String overrideSampleFile){
-		this.getAddition().setOverrideSampleFile(overrideSampleFile);
-	}
+    public void setSampleVolume(int sampleVolume) {
+        this.getAddition().setSampleVolume(sampleVolume);
+    }
 
-	public String getOverrideSampleFile(){
-		return getAddition().getOverrideSampleFile();
-	}
-	
-	public boolean hasOverrideSampleFile(){
-		return getOverrideSampleFile()!=null&&getOverrideSampleFile().trim().length()>0;
-	}
+    public int getSampleVolume() {
+        return getAddition().getSampleVolume();
+    }
 
-	public void setStartX(int startX){
-		this.startX=startX;
-	}
+    public void setOverrideSampleFile(String overrideSampleFile) {
+        this.getAddition().setOverrideSampleFile(overrideSampleFile);
+    }
 
-	public int getStartX(){
-		return startX;
-	}
+    public String getOverrideSampleFile() {
+        return getAddition().getOverrideSampleFile();
+    }
 
-	public void setStartY(int startY){
-		this.startY=startY;
-	}
+    public boolean hasOverrideSampleFile() {
+        return getOverrideSampleFile() != null && getOverrideSampleFile().trim().length() > 0;
+    }
 
-	public int getStartY(){
-		return startY;
-	}
+    public void setStartX(int startX) {
+        this.startX = startX;
+    }
 
-	public void setStartTime(int time){
-		this.startTime=time;
-	}
+    public int getStartX() {
+        return startX;
+    }
 
-	public int getStartTime(){
-		return startTime;
-	}
+    public void setStartY(int startY) {
+        this.startY = startY;
+    }
+
+    public int getStartY() {
+        return startY;
+    }
+
+    public void setStartTime(int time) {
+        this.startTime = time;
+    }
+
+    public int getStartTime() {
+        return startTime;
+    }
 	
 	/*
 	public void setEndTime(int time){

@@ -1,50 +1,47 @@
 package com.edplan.nso.resource;
 
-public class ResourceInfo<T>
-{
-	private static int hashIndex;
-	
-	private final int hash;
-	
-	public String path;
-	public T res;
-	
-	public ResourceInfo(String path){
-		this.path=path;
-		hash=hashIndex++;
-	}
+public class ResourceInfo<T> {
+    private static int hashIndex;
 
-	public void setPath(String path) {
-		this.path=path;
-	}
+    private final int hash;
 
-	public String getPath() {
-		return path;
-	}
+    public String path;
+    public T res;
 
-	public void setRes(T res) {
-		this.res=res;
-	}
+    public ResourceInfo(String path) {
+        this.path = path;
+        hash = hashIndex++;
+    }
 
-	public T getRes() {
-		return res;
-	}
+    public void setPath(String path) {
+        this.path = path;
+    }
 
-	@Override
-	public int hashCode()
-	{
+    public String getPath() {
+        return path;
+    }
 
-		return hash;
-	}
+    public void setRes(T res) {
+        this.res = res;
+    }
 
-	@Override
-	public boolean equals(Object obj)
-	{
+    public T getRes() {
+        return res;
+    }
 
-		if(obj!=null&&obj instanceof ResourceInfo){
-			return ((ResourceInfo)obj).hash==hash;
-		}else{
-			return false;
-		}
-	}
+    @Override
+    public int hashCode() {
+
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj != null && obj instanceof ResourceInfo) {
+            return ((ResourceInfo) obj).hash == hash;
+        } else {
+            return false;
+        }
+    }
 }

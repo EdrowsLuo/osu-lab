@@ -1,193 +1,193 @@
 package com.edplan.nso.filepart;
+
 import com.edplan.nso.OsuFilePart;
 import com.edplan.nso.beatmapComponent.SampleSet;
 import com.edplan.superutils.U;
 
-public class PartGeneral implements OsuFilePart
-{
-	public static final String AudioFilename="AudioFilename";
-	public static final String AudioLeadIn="AudioLeadIn";
-	public static final String PreviewTime="PreviewTime";
-	public static final String Countdown="Countdown";
-	public static final String SampleSet="SampleSet";
-	public static final String SampleVolume="SampleVolume";
-	public static final String StackLeniency="StackLeniency";
-	public static final String Mode="Mode";
-	public static final String LetterboxInBreaks="LetterboxInBreaks";
-	public static final String WidescreenStoryboard="WidescreenStoryboard";
-	public static final String SpecialStyle="SpecialStyle";
-	public static final String UseSkinSprites="UseSkinSprites";
-	public static final String StoryFireInFront="StoryFireInFront";
-	public static final String EpilepsyWarning="EpilepsyWarning";
-	public static final String CountdownOffset="CountdownOffset";
-	public static final String TAG="General";
-	
-	private String audioFilename="";
-	private int audioLeadIn=0;
-	private int previewTime=0;
-	private boolean countdown=false;
-	private int countdownOffset=0;
-	private SampleSet sampleSet=null;
-	private int sampleVolume=100;
-	private float stackLeniency=0.7f;
-	private int mode=-1;
-	private boolean letterboxInBreaks=false;
-	private boolean widescreenStoryboard=false;
-	private boolean specialStyle=false;
-	private boolean useSkinSprites=false;
-	private boolean storyFireInFront=false;
-	private boolean epilepsyWarning=false;
-	
-	public PartGeneral(){
-		//Map<String,Object> map=U.makeMap(String.class,Object.class,);
-	}
+public class PartGeneral implements OsuFilePart {
+    public static final String AudioFilename = "AudioFilename";
+    public static final String AudioLeadIn = "AudioLeadIn";
+    public static final String PreviewTime = "PreviewTime";
+    public static final String Countdown = "Countdown";
+    public static final String SampleSet = "SampleSet";
+    public static final String SampleVolume = "SampleVolume";
+    public static final String StackLeniency = "StackLeniency";
+    public static final String Mode = "Mode";
+    public static final String LetterboxInBreaks = "LetterboxInBreaks";
+    public static final String WidescreenStoryboard = "WidescreenStoryboard";
+    public static final String SpecialStyle = "SpecialStyle";
+    public static final String UseSkinSprites = "UseSkinSprites";
+    public static final String StoryFireInFront = "StoryFireInFront";
+    public static final String EpilepsyWarning = "EpilepsyWarning";
+    public static final String CountdownOffset = "CountdownOffset";
+    public static final String TAG = "General";
 
-	public void setCountdownOffset(int countdownOffset){
-		this.countdownOffset=countdownOffset;
-	}
+    private String audioFilename = "";
+    private int audioLeadIn = 0;
+    private int previewTime = 0;
+    private boolean countdown = false;
+    private int countdownOffset = 0;
+    private SampleSet sampleSet = null;
+    private int sampleVolume = 100;
+    private float stackLeniency = 0.7f;
+    private int mode = -1;
+    private boolean letterboxInBreaks = false;
+    private boolean widescreenStoryboard = false;
+    private boolean specialStyle = false;
+    private boolean useSkinSprites = false;
+    private boolean storyFireInFront = false;
+    private boolean epilepsyWarning = false;
 
-	public int getCountdownOffset(){
-		return countdownOffset;
-	}
+    public PartGeneral() {
+        //Map<String,Object> map=U.makeMap(String.class,Object.class,);
+    }
 
-	public void setStoryFireInFront(boolean storyFireInFront){
-		this.storyFireInFront=storyFireInFront;
-	}
+    public void setCountdownOffset(int countdownOffset) {
+        this.countdownOffset = countdownOffset;
+    }
 
-	public boolean isStoryFireInFront(){
-		return storyFireInFront;
-	}
+    public int getCountdownOffset() {
+        return countdownOffset;
+    }
 
-	public void setUseSkinSprites(boolean useSkinSprites) {
-		this.useSkinSprites=useSkinSprites;
-	}
+    public void setStoryFireInFront(boolean storyFireInFront) {
+        this.storyFireInFront = storyFireInFront;
+    }
 
-	public boolean isUseSkinSprites() {
-		return useSkinSprites;
-	}
+    public boolean isStoryFireInFront() {
+        return storyFireInFront;
+    }
 
-	public void setEpilepsyWarning(boolean epilepsyWarning) {
-		this.epilepsyWarning=epilepsyWarning;
-	}
+    public void setUseSkinSprites(boolean useSkinSprites) {
+        this.useSkinSprites = useSkinSprites;
+    }
 
-	public boolean isEpilepsyWarning() {
-		return epilepsyWarning;
-	}
+    public boolean isUseSkinSprites() {
+        return useSkinSprites;
+    }
 
-	public void setSampleVolume(int sampleVolume) {
-		this.sampleVolume=sampleVolume;
-	}
+    public void setEpilepsyWarning(boolean epilepsyWarning) {
+        this.epilepsyWarning = epilepsyWarning;
+    }
 
-	public int getSampleVolume() {
-		return sampleVolume;
-	}
+    public boolean isEpilepsyWarning() {
+        return epilepsyWarning;
+    }
 
-	public void setSpecialStyle(boolean specialStyle){
-		this.specialStyle=specialStyle;
-	}
+    public void setSampleVolume(int sampleVolume) {
+        this.sampleVolume = sampleVolume;
+    }
 
-	public boolean isSpecialStyle(){
-		return specialStyle;
-	}
-	
-	public void setWidescreenStoryboard(boolean widescreenStoryboard){
-		this.widescreenStoryboard=widescreenStoryboard;
-	}
+    public int getSampleVolume() {
+        return sampleVolume;
+    }
 
-	public boolean isWidescreenStoryboard(){
-		return widescreenStoryboard;
-	}
+    public void setSpecialStyle(boolean specialStyle) {
+        this.specialStyle = specialStyle;
+    }
 
-	public void setAudioFilename(String audioFilename){
-		this.audioFilename=audioFilename;
-	}
+    public boolean isSpecialStyle() {
+        return specialStyle;
+    }
 
-	public String getAudioFilename(){
-		return audioFilename;
-	}
+    public void setWidescreenStoryboard(boolean widescreenStoryboard) {
+        this.widescreenStoryboard = widescreenStoryboard;
+    }
 
-	public void setAudioLeadIn(int audioLeadIn){
-		this.audioLeadIn=audioLeadIn;
-	}
+    public boolean isWidescreenStoryboard() {
+        return widescreenStoryboard;
+    }
 
-	public int getAudioLeadIn(){
-		return audioLeadIn;
-	}
+    public void setAudioFilename(String audioFilename) {
+        this.audioFilename = audioFilename;
+    }
 
-	public void setPreviewTime(int previewTime){
-		this.previewTime=previewTime;
-	}
+    public String getAudioFilename() {
+        return audioFilename;
+    }
 
-	public int getPreviewTime(){
-		return previewTime;
-	}
+    public void setAudioLeadIn(int audioLeadIn) {
+        this.audioLeadIn = audioLeadIn;
+    }
 
-	public void setCountdown(boolean countdown){
-		this.countdown=countdown;
-	}
+    public int getAudioLeadIn() {
+        return audioLeadIn;
+    }
 
-	public boolean ifCountdown(){
-		return countdown;
-	}
+    public void setPreviewTime(int previewTime) {
+        this.previewTime = previewTime;
+    }
 
-	public void setSampleSet(SampleSet sampleSet){
-		this.sampleSet=sampleSet;
-	}
+    public int getPreviewTime() {
+        return previewTime;
+    }
 
-	public SampleSet getSampleSet(){
-		return sampleSet;
-	}
+    public void setCountdown(boolean countdown) {
+        this.countdown = countdown;
+    }
 
-	public void setStackLeniency(float stackLeniency){
-		this.stackLeniency=stackLeniency;
-	}
+    public boolean ifCountdown() {
+        return countdown;
+    }
 
-	public float getStackLeniency(){
-		return stackLeniency;
-	}
+    public void setSampleSet(SampleSet sampleSet) {
+        this.sampleSet = sampleSet;
+    }
 
-	public void setMode(int mode){
-		this.mode=mode;
-	}
+    public SampleSet getSampleSet() {
+        return sampleSet;
+    }
 
-	public int getMode(){
-		return mode;
-	}
+    public void setStackLeniency(float stackLeniency) {
+        this.stackLeniency = stackLeniency;
+    }
 
-	public void setLetterboxInBreaks(boolean letterboxInBreaks){
-		this.letterboxInBreaks=letterboxInBreaks;
-	}
+    public float getStackLeniency() {
+        return stackLeniency;
+    }
 
-	public boolean isLetterboxInBreaks(){
-		return letterboxInBreaks;
-	}
-	
-	@Override
-	public String getTag(){
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
 
-		return TAG;
-	}
+    public int getMode() {
+        return mode;
+    }
 
-	@Override
-	public String makeString(){
+    public void setLetterboxInBreaks(boolean letterboxInBreaks) {
+        this.letterboxInBreaks = letterboxInBreaks;
+    }
 
-		StringBuilder sb=new StringBuilder();
-		U.appendProperty(sb,PartGeneral.AudioFilename        ,getAudioFilename()                    ).append(U.NEXT_LINE);
-		U.appendProperty(sb,PartGeneral.AudioLeadIn          ,getAudioLeadIn()                      ).append(U.NEXT_LINE);
-		U.appendProperty(sb,PartGeneral.PreviewTime          ,getPreviewTime()                      ).append(U.NEXT_LINE);
-		U.appendProperty(sb,PartGeneral.Countdown            ,U.toVString(ifCountdown())            ).append(U.NEXT_LINE);
-		U.appendProperty(sb,PartGeneral.SampleSet            ,getSampleSet().makeString()           ).append(U.NEXT_LINE);
-		U.appendProperty(sb,PartGeneral.SampleVolume         ,getSampleVolume()                     ).append(U.NEXT_LINE);
-		U.appendProperty(sb,PartGeneral.StackLeniency        ,getStackLeniency()                    ).append(U.NEXT_LINE);
-		U.appendProperty(sb,PartGeneral.Mode                 ,getMode()                             ).append(U.NEXT_LINE);
-		U.appendProperty(sb,PartGeneral.LetterboxInBreaks    ,U.toVString(isLetterboxInBreaks())    ).append(U.NEXT_LINE);
-		if(isSpecialStyle())
-			U.appendProperty(sb,PartGeneral.SpecialStyle         ,U.toVString(isSpecialStyle())         ).append(U.NEXT_LINE);
-		if(isEpilepsyWarning())
-			U.appendProperty(sb,PartGeneral.EpilepsyWarning      ,U.toVString(isEpilepsyWarning())      ).append(U.NEXT_LINE);
-		if(isWidescreenStoryboard())
-			U.appendProperty(sb,PartGeneral.WidescreenStoryboard ,U.toVString(isWidescreenStoryboard()) ).append(U.NEXT_LINE);
-		
-		return sb.toString();
-	}
+    public boolean isLetterboxInBreaks() {
+        return letterboxInBreaks;
+    }
+
+    @Override
+    public String getTag() {
+
+        return TAG;
+    }
+
+    @Override
+    public String makeString() {
+
+        StringBuilder sb = new StringBuilder();
+        U.appendProperty(sb, PartGeneral.AudioFilename, getAudioFilename()).append(U.NEXT_LINE);
+        U.appendProperty(sb, PartGeneral.AudioLeadIn, getAudioLeadIn()).append(U.NEXT_LINE);
+        U.appendProperty(sb, PartGeneral.PreviewTime, getPreviewTime()).append(U.NEXT_LINE);
+        U.appendProperty(sb, PartGeneral.Countdown, U.toVString(ifCountdown())).append(U.NEXT_LINE);
+        U.appendProperty(sb, PartGeneral.SampleSet, getSampleSet().makeString()).append(U.NEXT_LINE);
+        U.appendProperty(sb, PartGeneral.SampleVolume, getSampleVolume()).append(U.NEXT_LINE);
+        U.appendProperty(sb, PartGeneral.StackLeniency, getStackLeniency()).append(U.NEXT_LINE);
+        U.appendProperty(sb, PartGeneral.Mode, getMode()).append(U.NEXT_LINE);
+        U.appendProperty(sb, PartGeneral.LetterboxInBreaks, U.toVString(isLetterboxInBreaks())).append(U.NEXT_LINE);
+        if (isSpecialStyle())
+            U.appendProperty(sb, PartGeneral.SpecialStyle, U.toVString(isSpecialStyle())).append(U.NEXT_LINE);
+        if (isEpilepsyWarning())
+            U.appendProperty(sb, PartGeneral.EpilepsyWarning, U.toVString(isEpilepsyWarning())).append(U.NEXT_LINE);
+        if (isWidescreenStoryboard())
+            U.appendProperty(sb, PartGeneral.WidescreenStoryboard, U.toVString(isWidescreenStoryboard())).append(U.NEXT_LINE);
+
+        return sb.toString();
+    }
 }

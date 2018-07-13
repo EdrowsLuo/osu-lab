@@ -1,4 +1,5 @@
 package com.edplan.nso.ruleset.std;
+
 import com.edplan.nso.NsoBeatmap;
 import com.edplan.nso.filepart.PartColours;
 import com.edplan.nso.filepart.PartDifficulty;
@@ -14,95 +15,94 @@ import com.edplan.nso.ruleset.std.objects.StdSpinner;
 import com.edplan.nso.ruleset.std.objects.StdHitCircle;
 import com.edplan.nso.ruleset.std.objects.StdSlider;
 
-public class StdBeatmap extends NsoBeatmap
-{
-	public static int SUPPORT_VERSION=14;
+public class StdBeatmap extends NsoBeatmap {
+    public static int SUPPORT_VERSION = 14;
 
-	private int version;
-	private PartGeneral general;
-	private PartEditor editor;
-	private PartMetadata metadata;
-	private PartDifficulty difficulty;
-	private PartEvents event;
-	private PartTimingPoints timingPoints;
-	private PartColours colours;
-	private StdHitObjects<StdHitObject> hitObjects;
+    private int version;
+    private PartGeneral general;
+    private PartEditor editor;
+    private PartMetadata metadata;
+    private PartDifficulty difficulty;
+    private PartEvents event;
+    private PartTimingPoints timingPoints;
+    private PartColours colours;
+    private StdHitObjects<StdHitObject> hitObjects;
 
-	public StdBeatmap(){
-		
-	}
+    public StdBeatmap() {
 
-	public void setHitObjects(StdHitObjects<StdHitObject> hitObjects){
-		this.hitObjects=hitObjects;
-	}
+    }
 
-	public StdHitObjects<StdHitObject> getHitObjects(){
-		return hitObjects;
-	}
-	
-	public void setVersion(int version){
-		this.version=version;
-	}
+    public void setHitObjects(StdHitObjects<StdHitObject> hitObjects) {
+        this.hitObjects = hitObjects;
+    }
 
-	public int getVersion(){
-		return version;
-	}
+    public StdHitObjects<StdHitObject> getHitObjects() {
+        return hitObjects;
+    }
 
-	public void setGeneral(PartGeneral general){
-		this.general=general;
-	}
+    public void setVersion(int version) {
+        this.version = version;
+    }
 
-	public PartGeneral getGeneral(){
-		return general;
-	}
+    public int getVersion() {
+        return version;
+    }
 
-	public void setEditor(PartEditor editor){
-		this.editor=editor;
-	}
+    public void setGeneral(PartGeneral general) {
+        this.general = general;
+    }
 
-	public PartEditor getEditor(){
-		return editor;
-	}
+    public PartGeneral getGeneral() {
+        return general;
+    }
 
-	public void setMetadata(PartMetadata metadata){
-		this.metadata=metadata;
-	}
+    public void setEditor(PartEditor editor) {
+        this.editor = editor;
+    }
 
-	public PartMetadata getMetadata(){
-		return metadata;
-	}
+    public PartEditor getEditor() {
+        return editor;
+    }
 
-	public void setDifficulty(PartDifficulty difficulty){
-		this.difficulty=difficulty;
-	}
+    public void setMetadata(PartMetadata metadata) {
+        this.metadata = metadata;
+    }
 
-	public PartDifficulty getDifficulty(){
-		return difficulty;
-	}
+    public PartMetadata getMetadata() {
+        return metadata;
+    }
 
-	public void setEvent(PartEvents event){
-		this.event=event;
-	}
+    public void setDifficulty(PartDifficulty difficulty) {
+        this.difficulty = difficulty;
+    }
 
-	public PartEvents getEvent(){
-		return event;
-	}
+    public PartDifficulty getDifficulty() {
+        return difficulty;
+    }
 
-	public void setTimingPoints(PartTimingPoints timingPoints){
-		this.timingPoints=timingPoints;
-	}
+    public void setEvent(PartEvents event) {
+        this.event = event;
+    }
 
-	public PartTimingPoints getTimingPoints(){
-		return timingPoints;
-	}
+    public PartEvents getEvent() {
+        return event;
+    }
 
-	public void setColours(PartColours colours){
-		this.colours=colours;
-	}
+    public void setTimingPoints(PartTimingPoints timingPoints) {
+        this.timingPoints = timingPoints;
+    }
 
-	public PartColours getColours(){
-		return colours;
-	}
-	
-	
+    public PartTimingPoints getTimingPoints() {
+        return timingPoints;
+    }
+
+    public void setColours(PartColours colours) {
+        this.colours = colours;
+    }
+
+    public PartColours getColours() {
+        return colours;
+    }
+
+
 }

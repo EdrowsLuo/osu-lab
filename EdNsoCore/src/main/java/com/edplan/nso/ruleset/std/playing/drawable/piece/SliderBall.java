@@ -1,33 +1,33 @@
 package com.edplan.nso.ruleset.std.playing.drawable.piece;
+
 import com.edplan.framework.MContext;
 import com.edplan.framework.timing.PreciseTimeline;
 import com.edplan.framework.graphics.opengl.GLCanvas2D;
 import com.edplan.framework.ui.drawable.interfaces.IRotateable2D;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 
-public class SliderBall extends BasePiece implements IRotateable2D
-{
-	private float rotation=0;
-	
-	public SliderBall(MContext c,PreciseTimeline l){
-		super(c,l);
-	}
-	
-	@Override
-	public void setRotation(float ang) {
+public class SliderBall extends BasePiece implements IRotateable2D {
+    private float rotation = 0;
 
-		rotation=ang;
-	}
+    public SliderBall(MContext c, PreciseTimeline l) {
+        super(c, l);
+    }
 
-	@Override
-	public float getRotation() {
+    @Override
+    public void setRotation(float ang) {
 
-		return rotation;
-	}
+        rotation = ang;
+    }
 
-	@Override
-	public void draw(BaseCanvas canvas) {
+    @Override
+    public float getRotation() {
 
-		if(isFinished())return;
-	}
+        return rotation;
+    }
+
+    @Override
+    public void draw(BaseCanvas canvas) {
+
+        if (isFinished()) return;
+    }
 }

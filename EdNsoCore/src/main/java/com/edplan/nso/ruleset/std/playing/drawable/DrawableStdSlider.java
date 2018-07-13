@@ -1,4 +1,5 @@
 package com.edplan.nso.ruleset.std.playing.drawable;
+
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.line.LinePath;
 import com.edplan.framework.math.Vec2;
@@ -17,220 +18,219 @@ import com.edplan.nso.ruleset.std.playing.controlpoint.TimingControlPoint;
 import com.edplan.nso.ruleset.std.playing.drawable.piece.ComboIndexPiece;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 
-public class DrawableStdSlider extends DrawableStdHitObject implements IHasApproachCircle
-{
-	private final double BASE_SCORING_DISTANCE=100;
-	
-	private ApproachCircle approachCircle;
-	
-	private StdSlider slider;
-	
-	private LinePath path;
-	
-	private Vec2 endPoint;
-	
-	private SliderBody body;
-	
-	private double velocity;
-	
-	private HitCirclePiece startPiece;
-	
-	private ComboIndexPiece comboPiece;
-	
-	private boolean snakeOut=false;
-	
-	public DrawableStdSlider(MContext c,StdSlider slider){
-		super(c,slider);
-		this.slider=slider;
-	}
-	
-	public void setVelocity(double velocity) {
-		this.velocity=velocity;
-	}
+public class DrawableStdSlider extends DrawableStdHitObject implements IHasApproachCircle {
+    private final double BASE_SCORING_DISTANCE = 100;
 
-	public double getVelocity() {
-		return velocity;
-	}
+    private ApproachCircle approachCircle;
 
-	@Override
-	public int getObjPredictedEndTime() {
+    private StdSlider slider;
 
-		return (int)(slider.getStartTime()+slider.getRepeat()*slider.getPixelLength()/getVelocity());
-	}
+    private LinePath path;
 
-	@Override
-	public ApproachCircle getApproachCircle() {
+    private Vec2 endPoint;
 
-		return approachCircle;
-	}
+    private SliderBody body;
 
-	public LinePath getPath() {
-		return path;
-	}
+    private double velocity;
 
-	@Override
-	public Vec2 getEndPoint() {
+    private HitCirclePiece startPiece;
 
-		return endPoint.copy();
-	}
+    private ComboIndexPiece comboPiece;
 
-	@Override
-	public void applyDefault(PlayingBeatmap beatmap) {
+    private boolean snakeOut = false;
 
-		super.applyDefault(beatmap);
-		
-		TimingControlPoint timingPoint=beatmap.getControlPoints().getTimingPointAt(slider.getStartTime());
-		double speedMultiplier=beatmap.getControlPoints().getDifficultyPointAt(slider.getStartTime()).getSpeedMultiplier();
-		
-		double scoringDistance=BASE_SCORING_DISTANCE*beatmap.getDifficulty().getSliderMultiplier()*speedMultiplier;
-		velocity=scoringDistance/timingPoint.getBeatLength();
-		
-		StdSliderPathMaker maker=new StdSliderPathMaker(slider.getPath());
-		maker.setBaseSize(getBaseSize());
-		path=maker.calculatePath();
-		
-		path.measure();
-		path.bufferLength((float)slider.getPixelLength());
-		endPoint=(slider.getRepeat()%2==1)?path.getMeasurer().atLength((float)slider.getPixelLength()):new Vec2(slider.getStartX(),slider.getStartY());
-		
-		body=new SliderBody(getContext(),beatmap.getTimeLine(),this);
-		applyPiece(body,beatmap);
-		
-		startPiece=new HitCirclePiece(getContext(),beatmap.getTimeLine());
-		startPiece.setAlpha(0);
-		applyPiece(startPiece,beatmap);
-		
-		approachCircle=new ApproachCircle(getContext(),getTimeLine());
-		applyPiece(approachCircle,beatmap);
-		
-		comboPiece=new ComboIndexPiece(getContext(),beatmap.getTimeLine(),getComboIndex());
-		applyPiece(comboPiece,beatmap);
-	}
+    public DrawableStdSlider(MContext c, StdSlider slider) {
+        super(c, slider);
+        this.slider = slider;
+    }
 
-	@Override
-	public void onApplyStackHeight(){
+    public void setVelocity(double velocity) {
+        this.velocity = velocity;
+    }
 
-		super.onApplyStackHeight();
-		if(body!=null)body.applyStackOffset(getStackOffset());
-	}
+    public double getVelocity() {
+        return velocity;
+    }
 
-	@Override
-	public void draw(BaseCanvas canvas) {
+    @Override
+    public int getObjPredictedEndTime() {
 
-		super.draw(canvas);
-		body.draw(canvas);
-		startPiece.draw(canvas);
-		comboPiece.draw(canvas);
-	}
+        return (int) (slider.getStartTime() + slider.getRepeat() * slider.getPixelLength() / getVelocity());
+    }
 
-	@Override
-	public void onShow() {
+    @Override
+    public ApproachCircle getApproachCircle() {
 
-		super.onShow();
-		(new ShowSliderAnimation()).post(getTimeLine());
-		approachCircle.fadeAndScaleIn(this);
-	}
+        return approachCircle;
+    }
 
-	@Override
-	public boolean isFinished() {
+    public LinePath getPath() {
+        return path;
+    }
 
-		return super.isFinished()&&startPiece.isFinished();
-	}
+    @Override
+    public Vec2 getEndPoint() {
 
-	@Override
-	public void onFinish() {
+        return endPoint.copy();
+    }
 
-		super.onFinish();
-		startPiece.onFinish();
-		body.onFinish();
-		approachCircle.onFinish();
-	}
-	
-	public class ShowSliderAnimation extends BasePreciseAnimation{
-		public ShowSliderAnimation(){
-			setStartTime(getShowTime());
-			setDuration(getTimeFadein());
-		}
+    @Override
+    public void applyDefault(PlayingBeatmap beatmap) {
 
-		@Override
-		protected void seekToTime(double p) {
+        super.applyDefault(beatmap);
 
-			float fp=AnimationHelper.getFloatProgress(p,getDuration());
-			startPiece.setAlpha(fp);
-			comboPiece.setAlpha(fp);
-			body.setAlpha(fp);
-			body.setProgress2(fp);
-		}
+        TimingControlPoint timingPoint = beatmap.getControlPoints().getTimingPointAt(slider.getStartTime());
+        double speedMultiplier = beatmap.getControlPoints().getDifficultyPointAt(slider.getStartTime()).getSpeedMultiplier();
 
-		@Override
-		public void onFinish() {
+        double scoringDistance = BASE_SCORING_DISTANCE * beatmap.getDifficulty().getSliderMultiplier() * speedMultiplier;
+        velocity = scoringDistance / timingPoint.getBeatLength();
 
-			super.onFinish();
-			(new SlideOutAnimation()).post(getTimeLine());
-		}
-	}
-	
-	public class SlideOutAnimation extends BasePreciseAnimation{
-		public SlideOutAnimation(){
-			setStartTime(getObjStartTime());
-			setDuration(getObjPredictedEndTime()-getObjStartTime());
-		}
+        StdSliderPathMaker maker = new StdSliderPathMaker(slider.getPath());
+        maker.setBaseSize(getBaseSize());
+        path = maker.calculatePath();
 
-		@Override
-		public void onStart() {
+        path.measure();
+        path.bufferLength((float) slider.getPixelLength());
+        endPoint = (slider.getRepeat() % 2 == 1) ? path.getMeasurer().atLength((float) slider.getPixelLength()) : new Vec2(slider.getStartX(), slider.getStartY());
 
-			super.onStart();
-			comboPiece.finish();
-			//comboPiece.fadeOut(DrawableStdSlider.this,getObjStartTime());
-		}
+        body = new SliderBody(getContext(), beatmap.getTimeLine(), this);
+        applyPiece(body, beatmap);
 
-		@Override
-		protected void seekToTime(double p) {
+        startPiece = new HitCirclePiece(getContext(), beatmap.getTimeLine());
+        startPiece.setAlpha(0);
+        applyPiece(startPiece, beatmap);
 
-			float fp=AnimationHelper.getFloatProgress(p,getDuration());
-			float repeatProgress=(fp*slider.getRepeat())%1;
-			int repeatCount=(int)(fp*slider.getRepeat());
-			float positionProgress=((repeatCount%2==0)?repeatProgress:(1-repeatProgress));
-			startPiece.setOrigin(body.getPointAt((float)(slider.getPixelLength()*positionProgress)));
-			if(snakeOut)if(repeatCount==slider.getRepeat()-1){
-					if(repeatCount%2==0){
-						body.setProgress1(positionProgress);
-					}else{
-						body.setProgress2(positionProgress);
-					}
-				}
-		}
+        approachCircle = new ApproachCircle(getContext(), getTimeLine());
+        applyPiece(approachCircle, beatmap);
 
-		@Override
-		public void onFinish() {
+        comboPiece = new ComboIndexPiece(getContext(), beatmap.getTimeLine(), getComboIndex());
+        applyPiece(comboPiece, beatmap);
+    }
 
-			super.onFinish();
-			body.setAlpha(0);
-			startPiece.explode(getObjPredictedEndTime(),DrawableStdSlider.this);
-			finish();
-			(new FadeOutAnimation()).post(getTimeLine());
-		}
-	}
-	
-	public class FadeOutAnimation extends BasePreciseAnimation{
-		public FadeOutAnimation(){
-			setStartTime(getObjPredictedEndTime());
-			setDuration(getTimeFadein()/2);
-		}
+    @Override
+    public void onApplyStackHeight() {
 
-		@Override
-		protected void seekToTime(double p) {
+        super.onApplyStackHeight();
+        if (body != null) body.applyStackOffset(getStackOffset());
+    }
 
-			float fp=AnimationHelper.getFloatProgress(p,getDuration());
-			//startPiece.setAlpha(1-fp);
-			body.setAlpha(1-fp);
-		}
+    @Override
+    public void draw(BaseCanvas canvas) {
 
-		@Override
-		public void onFinish() {
+        super.draw(canvas);
+        body.draw(canvas);
+        startPiece.draw(canvas);
+        comboPiece.draw(canvas);
+    }
 
-			super.onFinish();
-			body.finish();
-		}
-	}
+    @Override
+    public void onShow() {
+
+        super.onShow();
+        (new ShowSliderAnimation()).post(getTimeLine());
+        approachCircle.fadeAndScaleIn(this);
+    }
+
+    @Override
+    public boolean isFinished() {
+
+        return super.isFinished() && startPiece.isFinished();
+    }
+
+    @Override
+    public void onFinish() {
+
+        super.onFinish();
+        startPiece.onFinish();
+        body.onFinish();
+        approachCircle.onFinish();
+    }
+
+    public class ShowSliderAnimation extends BasePreciseAnimation {
+        public ShowSliderAnimation() {
+            setStartTime(getShowTime());
+            setDuration(getTimeFadein());
+        }
+
+        @Override
+        protected void seekToTime(double p) {
+
+            float fp = AnimationHelper.getFloatProgress(p, getDuration());
+            startPiece.setAlpha(fp);
+            comboPiece.setAlpha(fp);
+            body.setAlpha(fp);
+            body.setProgress2(fp);
+        }
+
+        @Override
+        public void onFinish() {
+
+            super.onFinish();
+            (new SlideOutAnimation()).post(getTimeLine());
+        }
+    }
+
+    public class SlideOutAnimation extends BasePreciseAnimation {
+        public SlideOutAnimation() {
+            setStartTime(getObjStartTime());
+            setDuration(getObjPredictedEndTime() - getObjStartTime());
+        }
+
+        @Override
+        public void onStart() {
+
+            super.onStart();
+            comboPiece.finish();
+            //comboPiece.fadeOut(DrawableStdSlider.this,getObjStartTime());
+        }
+
+        @Override
+        protected void seekToTime(double p) {
+
+            float fp = AnimationHelper.getFloatProgress(p, getDuration());
+            float repeatProgress = (fp * slider.getRepeat()) % 1;
+            int repeatCount = (int) (fp * slider.getRepeat());
+            float positionProgress = ((repeatCount % 2 == 0) ? repeatProgress : (1 - repeatProgress));
+            startPiece.setOrigin(body.getPointAt((float) (slider.getPixelLength() * positionProgress)));
+            if (snakeOut) if (repeatCount == slider.getRepeat() - 1) {
+                if (repeatCount % 2 == 0) {
+                    body.setProgress1(positionProgress);
+                } else {
+                    body.setProgress2(positionProgress);
+                }
+            }
+        }
+
+        @Override
+        public void onFinish() {
+
+            super.onFinish();
+            body.setAlpha(0);
+            startPiece.explode(getObjPredictedEndTime(), DrawableStdSlider.this);
+            finish();
+            (new FadeOutAnimation()).post(getTimeLine());
+        }
+    }
+
+    public class FadeOutAnimation extends BasePreciseAnimation {
+        public FadeOutAnimation() {
+            setStartTime(getObjPredictedEndTime());
+            setDuration(getTimeFadein() / 2);
+        }
+
+        @Override
+        protected void seekToTime(double p) {
+
+            float fp = AnimationHelper.getFloatProgress(p, getDuration());
+            //startPiece.setAlpha(1-fp);
+            body.setAlpha(1 - fp);
+        }
+
+        @Override
+        public void onFinish() {
+
+            super.onFinish();
+            body.finish();
+        }
+    }
 }

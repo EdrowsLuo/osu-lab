@@ -1,89 +1,89 @@
 package com.edplan.nso.storyboard.elements;
+
 import com.edplan.framework.ui.animation.Easing;
 
-public class TypedCommand<T> implements ICommand
-{
-	private Easing easing;
-	private double startTime;
-	private double endTime;
-	
-	private T startValue;
-	private T endValue;
+public class TypedCommand<T> implements ICommand {
+    private Easing easing;
+    private double startTime;
+    private double endTime;
 
-	public TypedCommand(Easing e,double startTime,double endTime,T startValue,T endValue){
-		this.easing=e;
-		this.startTime=startTime;
-		this.endTime=endTime;
-		this.startValue=startValue;
-		this.endValue=endValue;
-	}
-	
-	public void setStartValue(T startValue) {
-		this.startValue=startValue;
-	}
+    private T startValue;
+    private T endValue;
 
-	public T getStartValue() {
-		return startValue;
-	}
+    public TypedCommand(Easing e, double startTime, double endTime, T startValue, T endValue) {
+        this.easing = e;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.startValue = startValue;
+        this.endValue = endValue;
+    }
 
-	public void setEndValue(T endValue) {
-		this.endValue=endValue;
-	}
+    public void setStartValue(T startValue) {
+        this.startValue = startValue;
+    }
 
-	public T getEndValue() {
-		return endValue;
-	}
-	
-	@Override
-	public Easing getEasing() {
+    public T getStartValue() {
+        return startValue;
+    }
 
-		return easing;
-	}
+    public void setEndValue(T endValue) {
+        this.endValue = endValue;
+    }
 
-	@Override
-	public void setEasing(Easing easing) {
+    public T getEndValue() {
+        return endValue;
+    }
 
-		this.easing=easing;
-	}
+    @Override
+    public Easing getEasing() {
 
-	@Override
-	public double getStartTime() {
+        return easing;
+    }
 
-		return startTime;
-	}
+    @Override
+    public void setEasing(Easing easing) {
 
-	@Override
-	public void setStartTime(double startTime) {
+        this.easing = easing;
+    }
 
-		this.startTime=startTime;
-	}
+    @Override
+    public double getStartTime() {
 
-	@Override
-	public double getEndTime() {
+        return startTime;
+    }
 
-		return endTime;
-	}
+    @Override
+    public void setStartTime(double startTime) {
 
-	@Override
-	public void setEndTime(double endTime) {
+        this.startTime = startTime;
+    }
 
-		this.endTime=endTime;
-	}
+    @Override
+    public double getEndTime() {
 
-	@Override
-	public double getDuration() {
+        return endTime;
+    }
 
-		return endTime-startTime;
-	}
+    @Override
+    public void setEndTime(double endTime) {
 
-	@Override
-	public int compareTo(ICommand other) {
+        this.endTime = endTime;
+    }
 
-		int result=(int)Math.signum(other.getStartTime()-getStartTime());
-		if(result!=0){
-			return result;
-		}else{
-			return (int)Math.signum(other.getEndTime()-getEndTime());
-		}
-	}
+    @Override
+    public double getDuration() {
+
+        return endTime - startTime;
+    }
+
+    @Override
+    public int compareTo(ICommand other) {
+
+        int result = (int) Math.signum(other.getStartTime() - getStartTime());
+        if (result != 0) {
+            return result;
+        } else {
+            return (int) Math.signum(other.getEndTime() - getEndTime());
+        }
+    }
 }

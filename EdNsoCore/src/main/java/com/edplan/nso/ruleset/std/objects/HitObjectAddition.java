@@ -1,54 +1,53 @@
 package com.edplan.nso.ruleset.std.objects;
 
-public class HitObjectAddition
-{
-	private int sampleSet;
-	private int sampleAddition;
-	private int customIndex;
-	private int sampleVolume;
-	private String overrideSampleFile;
-	
-	public boolean hasOverrideSampleFile(){
-		return overrideSampleFile!=null;
-	}
+public class HitObjectAddition {
+    private int sampleSet;
+    private int sampleAddition;
+    private int customIndex;
+    private int sampleVolume;
+    private String overrideSampleFile;
 
-	public void setSampleSet(int sampleSet){
-		this.sampleSet=sampleSet;
-	}
+    public boolean hasOverrideSampleFile() {
+        return overrideSampleFile != null;
+    }
 
-	public int getSampleSet(){
-		return sampleSet;
-	}
+    public void setSampleSet(int sampleSet) {
+        this.sampleSet = sampleSet;
+    }
 
-	public void setSampleAddition(int sampleAddition){
-		this.sampleAddition=sampleAddition;
-	}
+    public int getSampleSet() {
+        return sampleSet;
+    }
 
-	public int getSampleAddition(){
-		return sampleAddition;
-	}
+    public void setSampleAddition(int sampleAddition) {
+        this.sampleAddition = sampleAddition;
+    }
 
-	public void setCustomIndex(int customIndex){
-		this.customIndex=customIndex;
-	}
+    public int getSampleAddition() {
+        return sampleAddition;
+    }
 
-	public int getCustomIndex(){
-		return customIndex;
-	}
+    public void setCustomIndex(int customIndex) {
+        this.customIndex = customIndex;
+    }
 
-	public void setSampleVolume(int sampleVolume){
-		this.sampleVolume=sampleVolume;
-	}
+    public int getCustomIndex() {
+        return customIndex;
+    }
 
-	public int getSampleVolume(){
-		return sampleVolume;
-	}
+    public void setSampleVolume(int sampleVolume) {
+        this.sampleVolume = sampleVolume;
+    }
 
-	public void setOverrideSampleFile(String overrideSampleFile){
-		this.overrideSampleFile=overrideSampleFile;
-	}
+    public int getSampleVolume() {
+        return sampleVolume;
+    }
 
-	public String getOverrideSampleFile(){
-		return overrideSampleFile;
-	}
+    public void setOverrideSampleFile(String overrideSampleFile) {
+        this.overrideSampleFile = overrideSampleFile;
+    }
+
+    public String getOverrideSampleFile() {
+        return overrideSampleFile;
+    }
 }

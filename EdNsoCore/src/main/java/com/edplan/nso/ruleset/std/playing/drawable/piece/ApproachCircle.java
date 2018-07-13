@@ -1,4 +1,5 @@
 package com.edplan.nso.ruleset.std.playing.drawable.piece;
+
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.GLCanvas2D;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
@@ -11,72 +12,71 @@ import com.edplan.framework.math.FMath;
 import com.edplan.framework.ui.animation.AnimationHelper;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 
-public class ApproachCircle extends BasePiece
-{
-	private GLTexture approachCircle;
-	
-	public ApproachCircle(MContext c,PreciseTimeline l){
-		super(c,l);
-	}
+public class ApproachCircle extends BasePiece {
+    private GLTexture approachCircle;
 
-	@Override
-	public void setSkin(OsuSkin skin) {
+    public ApproachCircle(MContext c, PreciseTimeline l) {
+        super(c, l);
+    }
 
-		super.setSkin(skin);
-		approachCircle=skin.approachCircle.getRes();
-	}
-	
-	@Override
-	public void draw(BaseCanvas canvas) {
+    @Override
+    public void setSkin(OsuSkin skin) {
 
-		if(isFinished())return;
-		simpleDrawWithAccentColor(approachCircle,canvas);
-	}
-	
-	public void fadeAndScaleIn(DrawableStdHitObject obj){
-		(new PreemptAnimation(obj)).post(getTimeline());
-		(new FadeInAnimation(obj)).post(getTimeline());
-	}
-	
-	public class PreemptAnimation extends BasePreciseAnimation{
-		
-		public PreemptAnimation(DrawableStdHitObject obj){
-			setDuration(obj.getTimePreempt());
-			setStartTime(obj.getShowTime());
-			setProgressTime(0);
-		}
+        super.setSkin(skin);
+        approachCircle = skin.approachCircle.getRes();
+    }
 
-		@Override
-		protected void seekToTime(double p) {
+    @Override
+    public void draw(BaseCanvas canvas) {
 
-			float fp=AnimationHelper.getFloatProgress(p,getDuration());
-			//p/(float)getDuration();
-			float s=4f*(1-fp)+1.0f*fp;
-			setScale(s,s);
-		}
+        if (isFinished()) return;
+        simpleDrawWithAccentColor(approachCircle, canvas);
+    }
 
-		@Override
-		public void onEnd() {
+    public void fadeAndScaleIn(DrawableStdHitObject obj) {
+        (new PreemptAnimation(obj)).post(getTimeline());
+        (new FadeInAnimation(obj)).post(getTimeline());
+    }
 
-			super.onEnd();
-			finish();
-		}
-	}
-	
-	public class FadeInAnimation extends BasePreciseAnimation{
+    public class PreemptAnimation extends BasePreciseAnimation {
 
-		public FadeInAnimation(DrawableStdHitObject obj){
-			setDuration(obj.getTimeFadein());
-			setStartTime(obj.getShowTime());
-			setProgressTime(0);
-		}
+        public PreemptAnimation(DrawableStdHitObject obj) {
+            setDuration(obj.getTimePreempt());
+            setStartTime(obj.getShowTime());
+            setProgressTime(0);
+        }
 
-		@Override
-		protected void seekToTime(double p) {
+        @Override
+        protected void seekToTime(double p) {
 
-			float fp=AnimationHelper.getFloatProgress(p,getDuration());
-			//p/(float)getDuration();
-			setAlpha(fp);
-		}
-	}
+            float fp = AnimationHelper.getFloatProgress(p, getDuration());
+            //p/(float)getDuration();
+            float s = 4f * (1 - fp) + 1.0f * fp;
+            setScale(s, s);
+        }
+
+        @Override
+        public void onEnd() {
+
+            super.onEnd();
+            finish();
+        }
+    }
+
+    public class FadeInAnimation extends BasePreciseAnimation {
+
+        public FadeInAnimation(DrawableStdHitObject obj) {
+            setDuration(obj.getTimeFadein());
+            setStartTime(obj.getShowTime());
+            setProgressTime(0);
+        }
+
+        @Override
+        protected void seekToTime(double p) {
+
+            float fp = AnimationHelper.getFloatProgress(p, getDuration());
+            //p/(float)getDuration();
+            setAlpha(fp);
+        }
+    }
 }
