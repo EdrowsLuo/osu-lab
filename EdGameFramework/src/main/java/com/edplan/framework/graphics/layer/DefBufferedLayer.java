@@ -1,74 +1,74 @@
 package com.edplan.framework.graphics.layer;
+
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.bufferObjects.FrameBufferObject;
 import com.edplan.framework.graphics.opengl.GLException;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 
-public class DefBufferedLayer extends BufferedLayer
-{
-	public DefBufferedLayer(MContext con,int width,int height){
-		super(con,new FrameBufferObject.SystemFrameBuffer(width,height));
-	}
-	
-	public void prepare(){
-		bind();
-		unbind();
-	}
+public class DefBufferedLayer extends BufferedLayer {
+    public DefBufferedLayer(MContext con, int width, int height) {
+        super(con, new FrameBufferObject.SystemFrameBuffer(width, height));
+    }
 
-	@Override
-	public void reCreateBuffer() {
+    public void prepare() {
+        bind();
+        unbind();
+    }
 
-		//you can't recreate SystemBuffer
-		return;
-	}
-	
-	private void err(){
-		throw new GLException("err operation on sys_bufferedLayer");
-	}
+    @Override
+    public void reCreateBuffer() {
 
-	@Override
-	public AbstractTexture getTexture() {
+        //you can't recreate SystemBuffer
+        return;
+    }
 
-		return super.getTexture();
-	}
+    private void err() {
+        throw new GLException("err operation on sys_bufferedLayer");
+    }
 
-	@Override
-	public FrameBufferObject getFrameBuffer() {
+    @Override
+    public AbstractTexture getTexture() {
 
-		return super.getFrameBuffer();
-	}
-	
+        return super.getTexture();
+    }
 
-	@Override
-	public void setHeight(int height) {
+    @Override
+    public FrameBufferObject getFrameBuffer() {
 
-		err();
-		super.setHeight(height);
-	}
+        return super.getFrameBuffer();
+    }
 
-	@Override
-	public void setFrameBuffer(FrameBufferObject frameBuffer) {
 
-		err();
-		super.setFrameBuffer(frameBuffer);
-	}
+    @Override
+    public void setHeight(int height) {
 
-	@Override
-	public void setWidth(int width) {
+        err();
+        super.setHeight(height);
+    }
 
-		err();
-		super.setWidth(width);
-	}
+    @Override
+    public void setFrameBuffer(FrameBufferObject frameBuffer) {
 
-	@Override
-	public void recycle() {
+        err();
+        super.setFrameBuffer(frameBuffer);
+    }
 
-		//recycle a SystemBuffer will happen no thing
-	}
+    @Override
+    public void setWidth(int width) {
 
-	@Override
-	protected void finalize() throws Throwable {
+        err();
+        super.setWidth(width);
+    }
 
-		super.finalize();
-	}
+    @Override
+    public void recycle() {
+
+        //recycle a SystemBuffer will happen no thing
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+
+        super.finalize();
+    }
 }

@@ -1,48 +1,49 @@
 package com.edplan.framework.ui.text.font;
+
 import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
 
-public class DrawStringNode
-{
-	private CharacterInfo info;
-	
-	private float drawBaseX;
-	
-	private float drawWidth;
-	
-	private float drawHeight;
+public class DrawStringNode {
+    private CharacterInfo info;
 
-	public void setDrawHeight(float drawHeight) {
-		this.drawHeight=drawHeight;
-	}
+    private float drawBaseX;
 
-	public float getDrawHeight() {
-		return drawHeight;
-	}
+    private float drawWidth;
 
-	public void setDrawWidth(float drawWidth) {
-		this.drawWidth=drawWidth;
-	}
+    private float drawHeight;
 
-	public float getDrawWidth() {
-		return drawWidth;
-	}
+    public void setDrawHeight(float drawHeight) {
+        this.drawHeight = drawHeight;
+    }
 
-	public char getText() {
-		return info.getText();
-	}
+    public float getDrawHeight() {
+        return drawHeight;
+    }
 
-	public void setInfo(CharacterInfo info) {
-		this.info=info;
-	}
+    public void setDrawWidth(float drawWidth) {
+        this.drawWidth = drawWidth;
+    }
 
-	public CharacterInfo getInfo() {
-		return info;
-	}
+    public float getDrawWidth() {
+        return drawWidth;
+    }
 
-	public void setDrawBaseX(float drawBaseX) {
-		this.drawBaseX=drawBaseX;
-	}
+    public char getText() {
+        return info.getText();
+    }
 
-	public float getDrawBaseX() {
-		return drawBaseX;
-	}}
+    public void setInfo(CharacterInfo info) {
+        this.info = info;
+    }
+
+    public CharacterInfo getInfo() {
+        return info;
+    }
+
+    public void setDrawBaseX(float drawBaseX) {
+        this.drawBaseX = drawBaseX;
+    }
+
+    public float getDrawBaseX() {
+        return drawBaseX;
+    }
+}

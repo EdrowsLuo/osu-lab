@@ -28,7 +28,7 @@ public abstract class BaseScene extends RelativeContainer implements Hideable
 
 	@Override
 	public boolean isHidden(){
-		// TODO: Implement this method
+
 		return getVisiblility()==VISIBILITY_GONE||LabGame.get().getScenes().getCurrentScene()!=this;
 	}
 }

@@ -109,7 +109,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 					button.setOnClickListener(new OnClickListener(){
 							@Override
 							public void onClick(EdView view){
-								// TODO: Implement this method
+
 								LabGame.get().getOptionList().show();
 							}
 						});
@@ -131,7 +131,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 						button.setOnClickListener(new OnClickListener(){
 								@Override
 								public void onClick(EdView view){
-									// TODO: Implement this method
+
 									swapGroup(GROUP_PLAY);
 								}
 							});
@@ -148,7 +148,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 						button.setOnClickListener(new OnClickListener(){
 								@Override
 								public void onClick(EdView view){
-									// TODO: Implement this method
+
 									PopupToast.toast(getContext(),"working").show();
 								}
 							});
@@ -165,7 +165,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 						button.setOnClickListener(new OnClickListener(){
 								@Override
 								public void onClick(EdView view){
-									// TODO: Implement this method
+
 									hide();
 									LabGame.get().exit();
 								}
@@ -194,7 +194,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 					button.setOnClickListener(new OnClickListener(){
 							@Override
 							public void onClick(EdView view){
-								// TODO: Implement this method
+
 								swapGroup(GROUP_MAIN);
 							}
 						});
@@ -216,7 +216,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 						button.setOnClickListener(soloClicker=new OnClickListener(){
 								@Override
 								public void onClick(EdView view){
-									// TODO: Implement this method
+
 									hide();
 									LabGame.get().getScenes().swapScene(ScenesName.SongSelect);
 								}
@@ -234,7 +234,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 						button.setOnClickListener(new OnClickListener(){
 								@Override
 								public void onClick(EdView view){
-									// TODO: Implement this method
+
 									PopupToast.toast(getContext(),"working").show();
 								}
 							});
@@ -251,7 +251,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 						button.setOnClickListener(new OnClickListener(){
 								@Override
 								public void onClick(EdView view){
-									// TODO: Implement this method
+
 									PopupToast.toast(getContext(),"working").show();
 									//hide();
 									//LabGame.get().getScenes().swapScene(ScenesName.Edit);
@@ -307,7 +307,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 		post(new Runnable(){
 				@Override
 				public void run(){
-					// TODO: Implement this method
+
 					directSwap(name);
 					currentGroup.show();
 					//PopupToast.toast(getContext(),"swap to "+name).show();
@@ -317,7 +317,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 
 	@Override
 	public boolean onBack(){
-		// TODO: Implement this method
+
 		switch(currentGroupName){
 			case GROUP_MAIN:
 				return false;
@@ -331,7 +331,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 
 	@Override
 	public void onInitialLayouted(){
-		// TODO: Implement this method
+
 		super.onInitialLayouted();
 		directHide();
 	}
@@ -345,7 +345,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 	
 	@Override
 	public void hide(){
-		// TODO: Implement this method
+
 		BackQuery.get().unregist(this);
 		LabGame.get().getJumpingCircle().setBoundOverlay(null);
 		
@@ -356,7 +356,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 		anim.setOnFinishListener(new OnFinishListener(){
 				@Override
 				public void onFinish(){
-					// TODO: Implement this method
+
 					setVisiblility(VISIBILITY_GONE);
 				}
 			});
@@ -369,7 +369,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 
 	@Override
 	public void show(){
-		// TODO: Implement this method
+
 		BackQuery.get().registNoBackButton(this);
 		directSwap(GROUP_MAIN);
 		BaseBoundOverlay bound=new BaseBoundOverlay();
@@ -392,7 +392,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 		anim.setOnFinishListener(new OnFinishListener(){
 				@Override
 				public void onFinish(){
-					// TODO: Implement this method
+
 					update();
 					delayHide(5000);
 				}
@@ -407,7 +407,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 
 	@Override
 	public boolean isHidden(){
-		// TODO: Implement this method
+
 		return getVisiblility()==VISIBILITY_GONE;
 	}
 	
@@ -415,7 +415,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 		post(new Runnable(){
 				@Override
 				public void run(){
-					// TODO: Implement this method
+
 					if(Framework.relativePreciseTimeMillion()-updateClock>10000){
 						if(!isHidden())hide();
 					}else{
@@ -432,14 +432,14 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 	double updateClock;
 	@Override
 	public boolean onMotionEvent(EdMotionEvent e){
-		// TODO: Implement this method
+
 		update();
 		return super.onMotionEvent(e);
 	}
 
 	@Override
 	protected void onDraw(BaseCanvas canvas){
-		// TODO: Implement this method
+
 		
 		float shadowScale=0.5f+JumpingCircle.glowProgress/2;
 		
@@ -461,7 +461,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 		
 		@Override
 		public void hide(){
-			// TODO: Implement this method
+
 			if(onHide!=null)onHide.run();
 			for(EdView v:leftWrapper){
 				((SceneSelectButton)v).hide();
@@ -474,7 +474,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 
 		@Override
 		public void show(){
-			// TODO: Implement this method
+
 			if(onShow!=null)onShow.run();
 			for(EdView v:leftWrapper){
 				((SceneSelectButton)v).show();
@@ -487,7 +487,7 @@ public class SceneSelectButtonBar extends RelativeContainer implements Hideable,
 
 		@Override
 		public boolean isHidden(){
-			// TODO: Implement this method
+
 			return currentGroup!=this;
 		}
 	}

@@ -135,14 +135,14 @@ public class LabGame
 		p.addButton("BACK TO GAME",new EdView.OnClickListener(){
 				@Override
 				public void onClick(EdView view){
-					// TODO: Implement this method
+
 					p.hide();
 				}
 			});
 		p.addButton("EXIT",new EdView.OnClickListener(){
 				@Override
 				public void onClick(EdView view){
-					// TODO: Implement this method
+
 					directExit();
 					p.hide();
 				}

@@ -80,7 +80,7 @@ public class SongsListView extends EdContainer implements Hideable
 	protected Scroller scroller=new Scroller(new Setter<Float>(){
 			@Override
 			public void set(Float t){
-				// TODO: Implement this method
+
 				scrollRate=t;
 				invalidate();
 				invalidateDraw();
@@ -89,7 +89,7 @@ public class SongsListView extends EdContainer implements Hideable
 
 	@Override
 	public boolean onScroll(ScrollEvent event){
-		// TODO: Implement this method
+
 		final float offset=-event.getScrollY();
 		switch(event.getState()){
 			case ScrollEvent.STATE_START:
@@ -140,7 +140,7 @@ public class SongsListView extends EdContainer implements Hideable
 	
 	@Override
 	public void hide(){
-		// TODO: Implement this method
+
 		ComplexAnimationBuilder b=ComplexAnimationBuilder.
 		//start(FloatQueryAnimation.fadeTo(this,0,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));
 		start(new FloatQueryAnimation<EdView>(this,"offsetX")
@@ -152,7 +152,7 @@ public class SongsListView extends EdContainer implements Hideable
 
 	@Override
 	public void show(){
-		// TODO: Implement this method
+
 		setAlpha(0);
 		ComplexAnimationBuilder b=ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this,1,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));
 		b.together(new FloatQueryAnimation<EdView>(this,"offsetX")
@@ -165,13 +165,13 @@ public class SongsListView extends EdContainer implements Hideable
 
 	@Override
 	public boolean isHidden(){
-		// TODO: Implement this method
+
 		return getVisiblility()==VISIBILITY_GONE;
 	}
 
 	@Override
 	protected void onDraw(BaseCanvas canvas){
-		// TODO: Implement this method
+
 		super.onDraw(canvas);
 		
 	}
@@ -188,7 +188,7 @@ public class SongsListView extends EdContainer implements Hideable
 
 	@Override
 	protected void drawContainer(BaseCanvas canvas){
-		// TODO: Implement this method
+
 		final int count=getChildrenCount();
 		for(int i=0;i<count;i++){
 			final EdView view=getChildAt(i);
@@ -209,7 +209,7 @@ public class SongsListView extends EdContainer implements Hideable
 
 	@Override
 	public EdLayoutParam adjustParam(EdView view,EdLayoutParam param){
-		// TODO: Implement this method
+
 		if(param instanceof MarginLayoutParam){
 			return param;
 		}else{
@@ -292,7 +292,7 @@ public class SongsListView extends EdContainer implements Hideable
 
 	@Override
 	protected void onLayout(boolean changed,float left,float top,float right,float bottom){
-		// TODO: Implement this method
+
 		scroller.update();
 		layoutVertical(left,top,right,bottom);
 	}
@@ -351,7 +351,7 @@ public class SongsListView extends EdContainer implements Hideable
 
 	@Override
 	protected void onMeasure(long widthSpec,long heightSpec){
-		// TODO: Implement this method
+
 		measureVertical(widthSpec,heightSpec);
 	}
 	

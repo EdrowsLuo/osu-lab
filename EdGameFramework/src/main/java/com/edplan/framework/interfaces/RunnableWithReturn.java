@@ -1,5 +1,4 @@
 package com.edplan.framework.interfaces;
 
-public interface RunnableWithReturn<T>
-{
+public interface RunnableWithReturn<T> {
 }

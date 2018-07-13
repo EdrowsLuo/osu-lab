@@ -1,6 +1,5 @@
 package com.edplan.framework.timing;
 
-public class Clock 
-{
-	
+public class Clock {
+
 }

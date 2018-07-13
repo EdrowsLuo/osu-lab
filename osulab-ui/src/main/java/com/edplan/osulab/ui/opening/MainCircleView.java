@@ -124,7 +124,7 @@ public class MainCircleView extends EdView
 		post(new Runnable(){
 				@Override
 				public void run(){
-					// TODO: Implement this method
+
 					startOpeningAnim(null);
 					//getContext().toast("开始动画");
 				}
@@ -133,7 +133,7 @@ public class MainCircleView extends EdView
 
 	@Override
 	protected void onDraw(BaseCanvas canvas){
-		// TODO: Implement this method
+
 		super.onDraw(canvas);
 		p1.draw(canvas);
 		p2.draw(canvas);

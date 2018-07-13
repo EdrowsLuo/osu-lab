@@ -72,7 +72,7 @@ public class PopupButtonGroup extends PopupView
 
 	@Override
 	public boolean onOutsideTouch(EdMotionEvent e){
-		// TODO: Implement this method
+
 		if(hideOnOutsidePress){
 			hide();
 		}
@@ -81,7 +81,7 @@ public class PopupButtonGroup extends PopupView
 	
 	@Override
 	protected void onHide(){
-		// TODO: Implement this method
+
 		ComplexAnimationBuilder b=ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this,0,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));
 		b.together(new FloatQueryAnimation<EdView>(this,"alpha")
 				   .transform(getAlpha(),0,Easing.None)
@@ -90,7 +90,7 @@ public class PopupButtonGroup extends PopupView
 		anim.setOnFinishListener(new OnFinishListener(){
 				@Override
 				public void onFinish(){
-					// TODO: Implement this method
+
 					PopupButtonGroup.super.onHide();
 				}
 			});
@@ -99,7 +99,7 @@ public class PopupButtonGroup extends PopupView
 
 	@Override
 	protected void onShow(){
-		// TODO: Implement this method
+
 		super.onShow();
 		setAlpha(0);
 		ComplexAnimationBuilder b=ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this,1,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));

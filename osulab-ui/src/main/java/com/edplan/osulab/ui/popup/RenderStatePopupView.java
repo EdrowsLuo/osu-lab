@@ -64,7 +64,7 @@ public class RenderStatePopupView extends PopupView
 
 	@Override
 	protected void onDraw(BaseCanvas canvas){
-		// TODO: Implement this method
+
 		super.onDraw(canvas);
 		//double frameTime=getContext().getFrameDeltaTime();
 		text.setText(

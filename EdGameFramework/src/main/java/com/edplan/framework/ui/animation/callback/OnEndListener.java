@@ -1,6 +1,5 @@
 package com.edplan.framework.ui.animation.callback;
 
-public interface OnEndListener
-{
-	public void onEnd();
+public interface OnEndListener {
+    public void onEnd();
 }

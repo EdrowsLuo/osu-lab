@@ -1,5 +1,4 @@
 package com.edplan.framework.math;
 
-public class Mat3
-{
+public class Mat3 {
 }

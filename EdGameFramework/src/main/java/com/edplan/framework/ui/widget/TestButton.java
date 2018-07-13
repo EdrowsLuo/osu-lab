@@ -1,4 +1,5 @@
 package com.edplan.framework.ui.widget;
+
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
@@ -8,70 +9,69 @@ import com.edplan.framework.math.Vec2;
 import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 
-public class TestButton extends EdView
-{
-	private OnClickListener onClickListener;
-	
-	public TestButton(MContext c){
-		super(c);
-		setClickable(true);
-	}
+public class TestButton extends EdView {
+    private OnClickListener onClickListener;
 
-	public void setOnClickListener(OnClickListener onClickListener){
-		this.onClickListener=onClickListener;
-	}
+    public TestButton(MContext c) {
+        super(c);
+        setClickable(true);
+    }
 
-	public OnClickListener getOnClickListener(){
-		return onClickListener;
-	}
+    public void setOnClickListener(OnClickListener onClickListener) {
+        this.onClickListener = onClickListener;
+    }
 
-	@Override
-	public void onStartClick(){
+    public OnClickListener getOnClickListener() {
+        return onClickListener;
+    }
 
-		super.onStartClick();
-		//getContext().toast("start click");
-	}
+    @Override
+    public void onStartClick() {
 
-	@Override
-	public void onLongClickEvent(){
+        super.onStartClick();
+        //getContext().toast("start click");
+    }
 
-		super.onLongClickEvent();
-		//getContext().toast("onLongClick");
-	}
+    @Override
+    public void onLongClickEvent() {
 
-	@Override
-	public void onClickEvent(){
+        super.onLongClickEvent();
+        //getContext().toast("onLongClick");
+    }
 
-		super.onClickEvent();
-		if(onClickListener!=null)onClickListener.onClick(this);
-		//getContext().toast("onClick");
-	}
+    @Override
+    public void onClickEvent() {
 
-	@Override
-	public void onClickEventCancel(){
+        super.onClickEvent();
+        if (onClickListener != null) onClickListener.onClick(this);
+        //getContext().toast("onClick");
+    }
 
-		super.onClickEventCancel();
-		//getContext().toast("onClickCancel");
-	}
+    @Override
+    public void onClickEventCancel() {
 
-	@Override
-	protected void onDraw(BaseCanvas canvas){
+        super.onClickEventCancel();
+        //getContext().toast("onClickCancel");
+    }
 
-		GLPaint paint=new GLPaint();
-		if(isPressed()){
-			paint.setMixColor(Color4.gray(0.8f));
-			canvas.drawTextureAnchorCenter(
-				GLTexture.White,
-				new Vec2(canvas.getWidth()/2,canvas.getHeight()/2),
-				new Vec2(canvas.getWidth()*0.4f,canvas.getHeight()*0.4f),
-				paint);
-		}else{
-			paint.setMixColor(Color4.White);
-			canvas.drawTextureAnchorCenter(
-				GLTexture.White,
-				new Vec2(canvas.getWidth()/2,canvas.getHeight()/2),
-				new Vec2(canvas.getWidth()/2,canvas.getHeight()/2),
-				paint);
-		}
-	}
+    @Override
+    protected void onDraw(BaseCanvas canvas) {
+
+        GLPaint paint = new GLPaint();
+        if (isPressed()) {
+            paint.setMixColor(Color4.gray(0.8f));
+            canvas.drawTextureAnchorCenter(
+                    GLTexture.White,
+                    new Vec2(canvas.getWidth() / 2, canvas.getHeight() / 2),
+                    new Vec2(canvas.getWidth() * 0.4f, canvas.getHeight() * 0.4f),
+                    paint);
+        } else {
+            paint.setMixColor(Color4.White);
+            canvas.drawTextureAnchorCenter(
+                    GLTexture.White,
+                    new Vec2(canvas.getWidth() / 2, canvas.getHeight() / 2),
+                    new Vec2(canvas.getWidth() / 2, canvas.getHeight() / 2),
+                    paint);
+        }
+    }
 }

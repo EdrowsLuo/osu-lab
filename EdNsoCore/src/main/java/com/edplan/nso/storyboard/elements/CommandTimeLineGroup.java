@@ -1,7 +1,6 @@
 package com.edplan.nso.storyboard.elements;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.utils.stream.MaxMin;
 import com.edplan.framework.graphics.opengl.BlendType;
 import java.util.List;
 import java.util.ArrayList;

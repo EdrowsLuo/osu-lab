@@ -26,7 +26,7 @@ public class LabMainRenderer extends MainRenderer
 	
 	@Override
 	public EdView createContentView(MContext c){
-		// TODO: Implement this method
+
 		LabGame.createGame();
 		return LabGame.get().createContentView(c);
 	}

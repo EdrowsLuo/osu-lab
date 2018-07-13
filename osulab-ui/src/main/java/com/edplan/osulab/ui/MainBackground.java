@@ -38,7 +38,7 @@ public class MainBackground extends RelativeLayout
 
 	@Override
 	protected void onDraw(BaseCanvas canvas){
-		// TODO: Implement this method
+
 		super.onDraw(canvas);
 		if(testTexture!=null){
 			textureSprite.setAlpha(0.5f);

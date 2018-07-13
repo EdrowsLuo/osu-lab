@@ -2,7 +2,6 @@ package com.edplan.nso.parser.partParsers;
 import com.edplan.superutils.U;
 import com.edplan.nso.filepart.PartEditor;
 import com.edplan.nso.beatmapComponent.Bookmarks;
-import com.edplan.nso.OsuFilePart;
 
 public class EditorParser extends PartParser<PartEditor>
 {

@@ -1,5 +1,4 @@
 package com.edplan.nso.parser.partParsers;
-import com.edplan.nso.OsuFilePart;
 import com.edplan.nso.filepart.PartTimingPoints;
 import com.edplan.nso.timing.TimingPoint;
 import com.edplan.superutils.classes.strings.StringSpliter;

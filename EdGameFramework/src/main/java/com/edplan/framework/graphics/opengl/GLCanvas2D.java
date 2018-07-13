@@ -1,4 +1,5 @@
 package com.edplan.framework.graphics.opengl;
+
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.layer.BufferedLayer;
 import com.edplan.framework.graphics.opengl.batch.BaseColorBatch;
@@ -28,123 +29,123 @@ import com.edplan.framework.media.video.tbv.element.DataDrawBaseTexture;
 
 public class GLCanvas2D extends BaseCanvas // extends AbstractSRable<CanvasData>
 {
-	private BufferedLayer layer;
-	
-	public GLCanvas2D(BufferedLayer layer){
-		this.layer=layer;
-		initial();
-	}
-	
-	public GLCanvas2D(GLTexture texture,MContext context){
-		this(new BufferedLayer(context,texture,true));
-	}
+    private BufferedLayer layer;
 
-	@Override
-	public void onSave(CanvasData t) {
+    public GLCanvas2D(BufferedLayer layer) {
+        this.layer = layer;
+        initial();
+    }
 
-	}
+    public GLCanvas2D(GLTexture texture, MContext context) {
+        this(new BufferedLayer(context, texture, true));
+    }
 
-	@Override
-	public void onRestore(CanvasData now,CanvasData pre) {
+    @Override
+    public void onSave(CanvasData t) {
 
-		pre.recycle();
-	}
+    }
 
-	@Override
-	public CanvasData getDefData() {
+    @Override
+    public void onRestore(CanvasData now, CanvasData pre) {
 
-		CanvasData d=new CanvasData();
-		d.setCurrentProjMatrix(createDefProjMatrix());
-		d.setCurrentMaskMatrix(Mat4.createIdentity());
-		d.setHeight(getLayer().getHeight());
-		d.setWidth(getLayer().getWidth());
-		d.setShaders(ShaderManager.getNewDefault());
-		return d;
-	}
+        pre.recycle();
+    }
 
-	@Override
-	public BlendSetting getBlendSetting() {
+    @Override
+    public CanvasData getDefData() {
 
-		return GLWrapped.blend;
-	}
+        CanvasData d = new CanvasData();
+        d.setCurrentProjMatrix(createDefProjMatrix());
+        d.setCurrentMaskMatrix(Mat4.createIdentity());
+        d.setHeight(getLayer().getHeight());
+        d.setWidth(getLayer().getWidth());
+        d.setShaders(ShaderManager.getNewDefault());
+        return d;
+    }
 
-	@Override
-	public int getDefHeight() {
+    @Override
+    public BlendSetting getBlendSetting() {
 
-		return layer.getHeight();
-	}
+        return GLWrapped.blend;
+    }
 
-	@Override
-	public int getDefWidth() {
+    @Override
+    public int getDefHeight() {
 
-		return layer.getWidth();
-	}
-	
-	@Override
-	public void checkCanDraw(){
-		checkPrepared(
-			"canvas hasn't prepared for draw",
-			true);	
-	}
+        return layer.getHeight();
+    }
 
-	public BufferedLayer getLayer() {
-		return layer;
-	}
-	
-	@Override
-	public boolean isPrepared(){
-		return getLayer().isBind();
-	}
-	
-	@Override
-	public void prepare(){
-		checkPrepared(
-			"you can't call prepare when GLCanvas is prepared",
-			false);
-		getLayer().bind();
-	}
-	
-	@Override
-	public void unprepare(){
-		checkPrepared(
-			"you can't call unprepare when GLCanvas isn't prepared",
-			true);
-		getLayer().unbind();
-	}
-	
-	@Override
-	public void delete(){
-		checkPrepared("you delete a prepared canvas!",false);
-		recycle();
-	}
+    @Override
+    public int getDefWidth() {
 
-	@Override
-	public void drawColor(Color4 color){
-		GLWrapped.setClearColor(color.r,color.g,color.b,color.a);
-		GLWrapped.clearColorBuffer();
-	}
-	
-	public void clearDepthBuffer(){
-		GLWrapped.clearDepthBuffer();
-	}
-	
-	@Override
-	public void clearBuffer(){
-		GLWrapped.clearDepthAndColorBuffer();
-	}
-	
-	public MContext getContext(){
-		return getLayer().getContext();
-	}
+        return layer.getWidth();
+    }
 
-	@Override
-	public void recycle(){
-		super.recycle();
-	}
+    @Override
+    public void checkCanDraw() {
+        checkPrepared(
+                "canvas hasn't prepared for draw",
+                true);
+    }
 
-	@Override
-	protected void finalize() throws Throwable {
+    public BufferedLayer getLayer() {
+        return layer;
+    }
 
-		super.finalize();
-	}
+    @Override
+    public boolean isPrepared() {
+        return getLayer().isBind();
+    }
+
+    @Override
+    public void prepare() {
+        checkPrepared(
+                "you can't call prepare when GLCanvas is prepared",
+                false);
+        getLayer().bind();
+    }
+
+    @Override
+    public void unprepare() {
+        checkPrepared(
+                "you can't call unprepare when GLCanvas isn't prepared",
+                true);
+        getLayer().unbind();
+    }
+
+    @Override
+    public void delete() {
+        checkPrepared("you delete a prepared canvas!", false);
+        recycle();
+    }
+
+    @Override
+    public void drawColor(Color4 color) {
+        GLWrapped.setClearColor(color.r, color.g, color.b, color.a);
+        GLWrapped.clearColorBuffer();
+    }
+
+    public void clearDepthBuffer() {
+        GLWrapped.clearDepthBuffer();
+    }
+
+    @Override
+    public void clearBuffer() {
+        GLWrapped.clearDepthAndColorBuffer();
+    }
+
+    public MContext getContext() {
+        return getLayer().getContext();
+    }
+
+    @Override
+    public void recycle() {
+        super.recycle();
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+
+        super.finalize();
+    }
 }

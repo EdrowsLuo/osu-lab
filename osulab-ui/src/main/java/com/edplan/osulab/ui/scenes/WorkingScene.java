@@ -45,7 +45,7 @@ public class WorkingScene extends BaseScene
 
 	@Override
 	public void hide(){
-		// TODO: Implement this method
+
 		ComplexAnimationBuilder bd=ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this,0,Scenes.SCENE_TRANSITION_DURATION,Easing.None));
 		ComplexAnimation anim=bd.buildAndStart();
 		anim.setOnFinishListener(setVisibilityWhenFinish(VISIBILITY_GONE));
@@ -54,7 +54,7 @@ public class WorkingScene extends BaseScene
 
 	@Override
 	public void show(){
-		// TODO: Implement this method
+
 		setVisiblility(VISIBILITY_SHOW);
 		ComplexAnimationBuilder bd=ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this,1,Scenes.SCENE_TRANSITION_DURATION,Easing.None));
 		ComplexAnimation anim=bd.buildAndStart();
@@ -71,7 +71,7 @@ public class WorkingScene extends BaseScene
 
 	@Override
 	public String getSceneName(){
-		// TODO: Implement this method
+
 		return name;
 	}
 

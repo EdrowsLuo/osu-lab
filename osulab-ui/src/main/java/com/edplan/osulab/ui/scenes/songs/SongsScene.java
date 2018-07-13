@@ -77,19 +77,19 @@ public class SongsScene extends BaseScene
 
 	@Override
 	public double getHideDuration(){
-		// TODO: Implement this method
+
 		return ViewConfiguration.DEFAULT_TRANSITION_TIME;
 	}
 	
 	@Override
 	public void hide(){
-		// TODO: Implement this method
+
 		for(Hideable h:hideableContent)h.hide();
 	}
 
 	@Override
 	public void show(){
-		// TODO: Implement this method
+
 		for(Hideable h:hideableContent)h.show();
 		BaseBoundOverlay bound=new BaseBoundOverlay();
 		RectF area=RectF.anchorOWH(Anchor.Center,
@@ -107,7 +107,7 @@ public class SongsScene extends BaseScene
 
 	@Override
 	public String getSceneName(){
-		// TODO: Implement this method
+
 		return ScenesName.SongSelect;
 	}
 	

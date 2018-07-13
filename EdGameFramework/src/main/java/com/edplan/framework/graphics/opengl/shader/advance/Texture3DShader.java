@@ -1,4 +1,5 @@
 package com.edplan.framework.graphics.opengl.shader.advance;
+
 import com.edplan.framework.graphics.opengl.Camera;
 import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.batch.BaseBatch;
@@ -11,132 +12,132 @@ import com.edplan.framework.graphics.opengl.shader.Unif;
 import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformSample2D;
 import com.edplan.framework.math.Mat4;
+
 import java.nio.FloatBuffer;
 
-public class Texture3DShader extends ColorShader
-{
-	public static Texture3DShader Invalid=new InvalidTexture3DShader();
-	
-	@PointerName(Unif.Texture)
-	public UniformSample2D uTexture;
-	
-	@PointerName(Attr.Texturesition)
-	@AttribType(VertexAttrib.Type.VEC2)
-	public VertexAttrib vTexturePosition;
-	
-	protected Texture3DShader(GLProgram program){
-		super(program,true);
-	}
-	
-	protected Texture3DShader(GLProgram p,boolean i){
-		super(p,i);
-	}
+public class Texture3DShader extends ColorShader {
+    public static Texture3DShader Invalid = new InvalidTexture3DShader();
 
-	@Override
-	public boolean loadBatch(BaseBatch batch) {
+    @PointerName(Unif.Texture)
+    public UniformSample2D uTexture;
 
-		if(super.loadBatch(batch)){
-			if(batch instanceof IHasTexturePosition){
-				loadTexturePosition(((IHasTexturePosition)batch).makeTexturePositionBuffer());
-				return true;
-			}else{
-				return false;
-			}
-		}else{
-			return false;
-		}
-	}
-	
-	public void loadTexture(AbstractTexture texture){
-		uTexture.loadData(texture.getTexture());
-	}
+    @PointerName(Attr.Texturesition)
+    @AttribType(VertexAttrib.Type.VEC2)
+    public VertexAttrib vTexturePosition;
 
-	public void loadTexturePosition(FloatBuffer buffer){
-		vTexturePosition.loadData(buffer);
-	}
+    protected Texture3DShader(GLProgram program) {
+        super(program, true);
+    }
 
-	public static final Texture3DShader createT3S(String vs,String fs){
-		Texture3DShader s=new Texture3DShader(GLProgram.createProgram(vs,fs));
-		return s;
-	}
-	
-	public static class InvalidTexture3DShader extends Texture3DShader{
-		public InvalidTexture3DShader(){
-			super(GLProgram.invalidProgram(),false);
-		}
+    protected Texture3DShader(GLProgram p, boolean i) {
+        super(p, i);
+    }
 
-		@Override
-		public void loadPosition(FloatBuffer buffer) {
+    @Override
+    public boolean loadBatch(BaseBatch batch) {
 
-			//super.loadPosition(buffer);
-		}
+        if (super.loadBatch(batch)) {
+            if (batch instanceof IHasTexturePosition) {
+                loadTexturePosition(((IHasTexturePosition) batch).makeTexturePositionBuffer());
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
-		@Override
-		public void loadTexture(AbstractTexture texture) {
+    public void loadTexture(AbstractTexture texture) {
+        uTexture.loadData(texture.getTexture());
+    }
 
-			//super.loadTexture(texture);
-		}
+    public void loadTexturePosition(FloatBuffer buffer) {
+        vTexturePosition.loadData(buffer);
+    }
 
-		@Override
-		public void loadColor(FloatBuffer buffer) {
+    public static final Texture3DShader createT3S(String vs, String fs) {
+        Texture3DShader s = new Texture3DShader(GLProgram.createProgram(vs, fs));
+        return s;
+    }
 
-			//super.loadColor(buffer);
-		}
+    public static class InvalidTexture3DShader extends Texture3DShader {
+        public InvalidTexture3DShader() {
+            super(GLProgram.invalidProgram(), false);
+        }
 
-		@Override
-		protected void loadMVPMatrix(Mat4 mvp) {
+        @Override
+        public void loadPosition(FloatBuffer buffer) {
 
-			//super.loadMVPMatrix(mvp);
-		}
+            //super.loadPosition(buffer);
+        }
 
-		@Override
-		public void loadPaint(GLPaint paint,float alphaAdjust) {
+        @Override
+        public void loadTexture(AbstractTexture texture) {
 
-			//super.loadPaint(paint, alphaAdjust);
-		}
+            //super.loadTexture(texture);
+        }
 
-		@Override
-		public void loadMatrix(Camera c) {
+        @Override
+        public void loadColor(FloatBuffer buffer) {
 
-			//super.loadMatrix(mvp, mask);
-		}
+            //super.loadColor(buffer);
+        }
 
-		@Override
-		public void loadTexturePosition(FloatBuffer buffer) {
+        @Override
+        protected void loadMVPMatrix(Mat4 mvp) {
 
-			//super.loadTexturePosition(buffer);
-		}
+            //super.loadMVPMatrix(mvp);
+        }
 
-		@Override
-		public boolean loadBatch(BaseBatch batch) {
+        @Override
+        public void loadPaint(GLPaint paint, float alphaAdjust) {
 
-			return true;//super.loadBatch(batch);
-		}
+            //super.loadPaint(paint, alphaAdjust);
+        }
 
-		@Override
-		public void loadMixColor(Color4 c) {
+        @Override
+        public void loadMatrix(Camera c) {
 
-			//super.loadMixColor(c);
-		}
+            //super.loadMatrix(mvp, mask);
+        }
 
-		@Override
-		public void loadAlpha(float a) {
+        @Override
+        public void loadTexturePosition(FloatBuffer buffer) {
 
-			//super.loadAlpha(a);
-		}
+            //super.loadTexturePosition(buffer);
+        }
 
-		@Override
-		protected void loadMaskMatrix(Mat4 mpm) {
+        @Override
+        public boolean loadBatch(BaseBatch batch) {
 
-			//super.loadMaskMatrix(mpm);
-		}
+            return true;//super.loadBatch(batch);
+        }
 
-		@Override
-		public void applyToGL(int mode,int offset,int count) {
+        @Override
+        public void loadMixColor(Color4 c) {
 
-			//super.applyToGL(mode, offset, count);
-		}
-		
-		
-	}
+            //super.loadMixColor(c);
+        }
+
+        @Override
+        public void loadAlpha(float a) {
+
+            //super.loadAlpha(a);
+        }
+
+        @Override
+        protected void loadMaskMatrix(Mat4 mpm) {
+
+            //super.loadMaskMatrix(mpm);
+        }
+
+        @Override
+        public void applyToGL(int mode, int offset, int count) {
+
+            //super.applyToGL(mode, offset, count);
+        }
+
+
+    }
 }

@@ -5,37 +5,38 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.edplan.framework.graphics.opengl.objs.Color4;
+
 import android.util.Log;
 
-public class Color4Buffer extends BaseBuffer<Color4>
-{
+public class Color4Buffer extends BaseBuffer<Color4> {
 
-	public static final int FLOAT_SIZE=4;
+    public static final int FLOAT_SIZE = 4;
 
-	public Color4Buffer(){
-		super(6);
-	}
-	
-	public Color4Buffer(Color4[] ary){
-		super(ary);
-	}
+    public Color4Buffer() {
+        super(6);
+    }
 
-	public Color4Buffer(int size){
-		super(size);
-	}
+    public Color4Buffer(Color4[] ary) {
+        super(ary);
+    }
 
-	@Override
-	public int getFloatSize() {
+    public Color4Buffer(int size) {
+        super(size);
+    }
 
-		return FLOAT_SIZE;
-	}
+    @Override
+    public int getFloatSize() {
 
-	@Override
-	protected void addToBuffer(FloatBuffer fb,Color4 t) {
+        return FLOAT_SIZE;
+    }
 
-		fb.put(t.r).put(t.g).put(t.b).put(t.a);
-	}
+    @Override
+    protected void addToBuffer(FloatBuffer fb, Color4 t) {
+
+        fb.put(t.r).put(t.g).put(t.b).put(t.a);
+    }
 }
 
 /*

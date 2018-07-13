@@ -1,5 +1,7 @@
 package com.edplan.framework.graphics.opengl.buffer;
+
 import com.edplan.framework.math.Vec3;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -7,32 +9,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Vec3Buffer extends BaseBuffer<Vec3> {
-	
-	public static final int FLOAT_SIZE=3;
-	
-	public Vec3Buffer(){
-		super(6);
-	}
-	
-	public Vec3Buffer(Vec3[] ary){
-		super(ary);
-	}
-	
-	public Vec3Buffer(int size){
-		super(size);
-	}
-	
-	@Override
-	public int getFloatSize() {
 
-		return FLOAT_SIZE;
-	}
+    public static final int FLOAT_SIZE = 3;
 
-	@Override
-	protected void addToBuffer(FloatBuffer fb,Vec3 t) {
+    public Vec3Buffer() {
+        super(6);
+    }
 
-		fb.put(t.x).put(t.y).put(t.z);
-	}
+    public Vec3Buffer(Vec3[] ary) {
+        super(ary);
+    }
+
+    public Vec3Buffer(int size) {
+        super(size);
+    }
+
+    @Override
+    public int getFloatSize() {
+
+        return FLOAT_SIZE;
+    }
+
+    @Override
+    protected void addToBuffer(FloatBuffer fb, Vec3 t) {
+
+        fb.put(t.x).put(t.y).put(t.z);
+    }
 }
 
 

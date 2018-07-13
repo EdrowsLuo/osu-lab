@@ -1,127 +1,127 @@
 package com.edplan.framework.ui.animation;
+
 import com.edplan.framework.ui.animation.callback.OnFinishListener;
 import com.edplan.framework.ui.animation.callback.OnEndListener;
 import com.edplan.framework.ui.animation.callback.OnProgressListener;
 
-public class BaseAnimation extends AbstractAnimation
-{
-	private OnFinishListener onFinishListener;
-	
-	private OnEndListener onEndListener;
-	
-	private OnProgressListener onProgressListener;
-	
-	private double progress;
-	
-	private double duration;
-	
-	private LoopType loopType=LoopType.None;
-	
-	private AnimState state=AnimState.Waiting;
+public class BaseAnimation extends AbstractAnimation {
+    private OnFinishListener onFinishListener;
 
-	public void setOnProgressListener(OnProgressListener onProgressListener){
-		this.onProgressListener=onProgressListener;
-	}
+    private OnEndListener onEndListener;
 
-	public OnProgressListener getOnProgressListener(){
-		return onProgressListener;
-	}
+    private OnProgressListener onProgressListener;
 
-	public void setOnEndListener(OnEndListener onEndListener){
-		this.onEndListener=onEndListener;
-	}
+    private double progress;
 
-	public OnEndListener getOnEndListener(){
-		return onEndListener;
-	}
+    private double duration;
 
-	protected void setState(AnimState state){
-		this.state=state;
-	}
+    private LoopType loopType = LoopType.None;
 
-	public void setLoopType(LoopType loopType){
-		this.loopType=loopType;
-	}
+    private AnimState state = AnimState.Waiting;
 
-	public void setDuration(double duration){
-		this.duration=duration;
-	}
+    public void setOnProgressListener(OnProgressListener onProgressListener) {
+        this.onProgressListener = onProgressListener;
+    }
 
-	public void setOnFinishListener(OnFinishListener onFinishListener){
-		this.onFinishListener=onFinishListener;
-	}
+    public OnProgressListener getOnProgressListener() {
+        return onProgressListener;
+    }
 
-	public OnFinishListener getOnFinishListener(){
-		return onFinishListener;
-	}
-	
-	public void start(){
-		setState(AnimState.Running);
-	}
-	
-	@Override
-	public void onStart(){
+    public void setOnEndListener(OnEndListener onEndListener) {
+        this.onEndListener = onEndListener;
+    }
 
-	}
+    public OnEndListener getOnEndListener() {
+        return onEndListener;
+    }
 
-	@Override
-	public void onProgress(double p){
+    protected void setState(AnimState state) {
+        this.state = state;
+    }
 
-		if(onProgressListener!=null)onProgressListener.onProgress(p);
-	}
+    public void setLoopType(LoopType loopType) {
+        this.loopType = loopType;
+    }
 
-	@Override
-	public void onFinish(){
+    public void setDuration(double duration) {
+        this.duration = duration;
+    }
 
-		state=AnimState.Stop;
-		if(onFinishListener!=null)onFinishListener.onFinish();
-	}
+    public void setOnFinishListener(OnFinishListener onFinishListener) {
+        this.onFinishListener = onFinishListener;
+    }
 
-	@Override
-	public void onEnd(){
+    public OnFinishListener getOnFinishListener() {
+        return onFinishListener;
+    }
 
-		state=AnimState.Stop;
-		if(onEndListener!=null)onEndListener.onEnd();
-	}
+    public void start() {
+        setState(AnimState.Running);
+    }
 
-	@Override
-	public double getDuration(){
+    @Override
+    public void onStart() {
 
-		return duration;
-	}
+    }
 
-	@Override
-	public LoopType getLoopType(){
+    @Override
+    public void onProgress(double p) {
 
-		return loopType;
-	}
+        if (onProgressListener != null) onProgressListener.onProgress(p);
+    }
 
-	@Override
-	public AnimState getState(){
+    @Override
+    public void onFinish() {
 
-		return state;
-	}
+        state = AnimState.Stop;
+        if (onFinishListener != null) onFinishListener.onFinish();
+    }
 
-	@Override
-	public void setProgressTime(double p){
+    @Override
+    public void onEnd() {
 
-		progress=p;
-	}
+        state = AnimState.Stop;
+        if (onEndListener != null) onEndListener.onEnd();
+    }
 
-	@Override
-	public void postProgressTime(double deltaTime){
+    @Override
+    public double getDuration() {
 
-		progress+=deltaTime;
-	}
+        return duration;
+    }
 
-	@Override
-	public double getProgressTime(){
+    @Override
+    public LoopType getLoopType() {
 
-		return progress;
-	}
+        return loopType;
+    }
 
-	@Override
-	public void dispos(){
+    @Override
+    public AnimState getState() {
 
-	}
+        return state;
+    }
+
+    @Override
+    public void setProgressTime(double p) {
+
+        progress = p;
+    }
+
+    @Override
+    public void postProgressTime(double deltaTime) {
+
+        progress += deltaTime;
+    }
+
+    @Override
+    public double getProgressTime() {
+
+        return progress;
+    }
+
+    @Override
+    public void dispos() {
+
+    }
 }

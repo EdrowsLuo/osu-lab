@@ -56,7 +56,7 @@ public class BackButton extends EdView implements Hideable
 
 	@Override
 	public void onInitialLayouted(){
-		// TODO: Implement this method
+
 		super.onInitialLayouted();
 		directHide();
 	}
@@ -109,7 +109,7 @@ public class BackButton extends EdView implements Hideable
 		anim.setOnFinishListener(new OnFinishListener(){
 				@Override
 				public void onFinish(){
-					// TODO: Implement this method
+
 					setVisiblility(VISIBILITY_GONE);
 				}
 			});
@@ -141,7 +141,7 @@ public class BackButton extends EdView implements Hideable
 		anim.setOnFinishListener(new OnFinishListener(){
 				@Override
 				public void onFinish(){
-					// TODO: Implement this method
+
 					setVisiblility(VISIBILITY_GONE);
 				}
 			});
@@ -168,20 +168,20 @@ public class BackButton extends EdView implements Hideable
 
 	@Override
 	public boolean isHidden(){
-		// TODO: Implement this method
+
 		return getVisiblility()==VISIBILITY_GONE;
 	}
 	
 	@Override
 	public void onStartClick(){
-		// TODO: Implement this method
+
 		super.onStartClick();
 		performOnPressAnimation();
 	}
 
 	@Override
 	public void onClickEvent(){
-		// TODO: Implement this method
+
 		super.onClickEvent();
 		BackQuery.get().back();
 		if(BackQuery.get().remind()>0){
@@ -193,14 +193,14 @@ public class BackButton extends EdView implements Hideable
 
 	@Override
 	public void onClickEventCancel(){
-		// TODO: Implement this method
+
 		super.onClickEventCancel();
 		performOffPressAnimation();
 	}
 
 	@Override
 	protected void onDraw(BaseCanvas canvas){
-		// TODO: Implement this method
+
 		super.onDraw(canvas);
 		float r=Math.min(canvas.getWidth(),canvas.getHeight());
 		circle.setArea(RectF.ltrb(0,-canvas.getHeight(),canvas.getWidth(),0));
@@ -227,7 +227,7 @@ public class BackButton extends EdView implements Hideable
 
 	@Override
 	public boolean inViewBound(float x,float y){
-		// TODO: Implement this method
+
 		float r=Math.min(getWidth(),getHeight());
 		return Vec2.length(x-getLeft(),getBottom()-y)<r;
 	}

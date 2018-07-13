@@ -123,7 +123,7 @@ public class JumpingCircle extends EdView
 
 	@Override
 	public void performAnimation(double deltaTime){
-		// TODO: Implement this method
+
 		super.performAnimation(deltaTime);
 		if(boundAnim!=null){
 			if(AnimationHandler.handleSingleAnima(boundAnim,deltaTime)){
@@ -134,7 +134,7 @@ public class JumpingCircle extends EdView
 	
 	@Override
 	public void onInitialLayouted(){
-		// TODO: Implement this method
+
 		super.onInitialLayouted();
 		BaseBoundOverlay b=new BaseBoundOverlay();
 		initialBound=b;
@@ -182,7 +182,7 @@ public class JumpingCircle extends EdView
 		builder.together(new FloatQueryAnimation<JumpingCircle>(this,new FloatInvokeSetter<JumpingCircle>(){
 								 @Override
 								 public void invoke(JumpingCircle target,float v){
-									 // TODO: Implement this method
+
 									 for(PartRing r:rings){
 										 r.sprite.setScale(v);
 									 }
@@ -196,7 +196,7 @@ public class JumpingCircle extends EdView
 		camin.setOnFinishListener(new OnFinishListener(){
 				@Override
 				public void onFinish(){
-					// TODO: Implement this method
+
 					System.exit(0);
 				}
 			});
@@ -233,7 +233,7 @@ public class JumpingCircle extends EdView
 		anim.setOnFinishListener(new OnFinishListener(){
 				@Override
 				public void onFinish(){
-					// TODO: Implement this method
+
 					boundOverlay=next;
 				}
 			});
@@ -252,7 +252,7 @@ public class JumpingCircle extends EdView
 
 	@Override
 	public float getLeft(){
-		// TODO: Implement this method
+
 		if(boundOverlay!=null){
 			return boundOverlay.getLeft()+getOffsetX();
 		}
@@ -261,7 +261,7 @@ public class JumpingCircle extends EdView
 
 	@Override
 	public float getTop(){
-		// TODO: Implement this method
+
 		if(boundOverlay!=null){
 			return boundOverlay.getTop()+getOffsetY();
 		}
@@ -270,7 +270,7 @@ public class JumpingCircle extends EdView
 
 	@Override
 	public float getRight(){
-		// TODO: Implement this method
+
 		if(boundOverlay!=null){
 			return boundOverlay.getRight()+getOffsetX();
 		}
@@ -279,7 +279,7 @@ public class JumpingCircle extends EdView
 
 	@Override
 	public float getBottom(){
-		// TODO: Implement this method
+
 		if(boundOverlay!=null){
 			return boundOverlay.getBottom()+getOffsetY();
 		}
@@ -347,7 +347,7 @@ public class JumpingCircle extends EdView
 		builder.together(new FloatQueryAnimation<JumpingCircle>(this,new FloatInvokeSetter<JumpingCircle>(){
 								 @Override
 								 public void invoke(JumpingCircle target,float v){
-									 // TODO: Implement this method
+
 									 for(PartRing r:rings){
 										 r.sprite.setAlpha(v);
 									 }
@@ -360,7 +360,7 @@ public class JumpingCircle extends EdView
 		builder.together(new FloatQueryAnimation<JumpingCircle>(this,new FloatInvokeSetter<JumpingCircle>(){
 								 @Override
 								 public void invoke(JumpingCircle target,float v){
-									 // TODO: Implement this method
+
 									 for(PartRing r:rings){
 										 r.sprite.setScale(v);
 									 }
@@ -374,7 +374,7 @@ public class JumpingCircle extends EdView
 		camin.setOnFinishListener(new OnFinishListener(){
 				@Override
 				public void onFinish(){
-					// TODO: Implement this method
+
 					performingAnim=false;
 					setClickable(true);
 					if(l!=null)l.onFinish();
@@ -397,7 +397,7 @@ public class JumpingCircle extends EdView
 
 	@Override
 	public void onClickEvent(){
-		// TODO: Implement this method
+
 		super.onClickEvent();
 		
 		BaseScene s=LabGame.get().getScenes().getCurrentScene();
@@ -434,7 +434,7 @@ public class JumpingCircle extends EdView
 	public static float glowProgress;
 	@Override
 	protected void onDraw(BaseCanvas canvas){
-		// TODO: Implement this method
+
 		super.onDraw(canvas);
 		
 		if(!performingAnim){
@@ -490,7 +490,7 @@ public class JumpingCircle extends EdView
 
 	@Override
 	public boolean inViewBound(float x,float y){
-		// TODO: Implement this method
+
 		return Vec2.length(x-(getLeft()+getRight())/2,y-(getTop()+getBottom())/2)<Math.min(getWidth(),getHeight())/2;
 	}
 	

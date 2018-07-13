@@ -4,12 +4,8 @@ import com.edplan.superutils.MTimer;
 
 import android.content.Context;
 
-import com.edplan.framework.resource.AResource;
-import com.edplan.framework.resource.AssetResource;
 import com.edplan.framework.resource.advance.ApplicationAssetResource;
 import com.edplan.framework.graphics.opengl.ShaderManager;
-import com.edplan.superutils.classes.advance.RunnableHandler;
-import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.looper.UILooper;
 import com.edplan.superutils.classes.advance.IRunnableHandler;
 import com.edplan.framework.ui.looper.UIStep;

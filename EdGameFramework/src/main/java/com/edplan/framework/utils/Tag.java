@@ -1,6 +1,5 @@
 package com.edplan.framework.utils;
 
-public @interface Tag
-{
-	public String value();
+public @interface Tag {
+    public String value();
 }

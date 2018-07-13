@@ -1,7 +1,6 @@
 package com.edplan.nso.filepart;
 import com.edplan.nso.OsuFilePart;
 import com.edplan.nso.beatmapComponent.SampleSet;
-import java.util.Map;
 import com.edplan.superutils.U;
 
 public class PartGeneral implements OsuFilePart

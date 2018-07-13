@@ -1,5 +1,4 @@
 package com.edplan.nso.parser;
-import android.util.Log;
 import com.edplan.nso.NsoBeatmapParsingException;
 import com.edplan.nso.NsoException;
 import com.edplan.nso.NsoBeatmap;
@@ -32,8 +31,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 public class BeatmapDecoder extends BaseDecoder implements StringMakeable
 {

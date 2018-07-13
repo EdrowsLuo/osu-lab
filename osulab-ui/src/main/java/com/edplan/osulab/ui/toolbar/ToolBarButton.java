@@ -69,14 +69,14 @@ public class ToolBarButton extends EdView
 
 	@Override
 	public void onClickEvent(){
-		// TODO: Implement this method
+
 		super.onClickEvent();
 		if(onClickListener!=null)onClickListener.onClick(this);
 	}
 
 	@Override
 	public void setPressed(boolean pressed){
-		// TODO: Implement this method
+
 		super.setPressed(pressed);
 		if(pressed){
 			onPressAnim();
@@ -91,7 +91,7 @@ public class ToolBarButton extends EdView
 
 	@Override
 	protected void onDraw(BaseCanvas canvas){
-		// TODO: Implement this method
+
 		super.onDraw(canvas);
 		
 		backlight.setArea(RectF.xywh(0,0,canvas.getWidth(),canvas.getHeight()));

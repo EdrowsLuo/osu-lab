@@ -57,7 +57,7 @@ public class PopupToast extends PopupView
 
 	@Override
 	protected void onHide(){
-		// TODO: Implement this method
+
 		ComplexAnimationBuilder b=ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this,0,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));
 		b.together(new FloatQueryAnimation<EdView>(this,"offsetY")
 				   .transform(getOffsetY(),0,Easing.None)
@@ -66,7 +66,7 @@ public class PopupToast extends PopupView
 		anim.setOnFinishListener(new OnFinishListener(){
 				@Override
 				public void onFinish(){
-					// TODO: Implement this method
+
 					PopupToast.super.onHide();
 				}
 			});
@@ -75,7 +75,7 @@ public class PopupToast extends PopupView
 
 	@Override
 	protected void onShow(){
-		// TODO: Implement this method
+
 		super.onShow();
 		setAlpha(0);
 		ComplexAnimationBuilder b=ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this,1,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));
@@ -88,7 +88,7 @@ public class PopupToast extends PopupView
 		post(new Runnable(){
 				@Override
 				public void run(){
-					// TODO: Implement this method
+
 					hide();
 				}
 			},1500);

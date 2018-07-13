@@ -57,7 +57,7 @@ public class MessageList extends ScrollContainer implements Hideable
 
 	@Override
 	public void onInitialLayouted(){
-		// TODO: Implement this method
+
 		super.onInitialLayouted();
 		directHide();
 	}
@@ -74,7 +74,7 @@ public class MessageList extends ScrollContainer implements Hideable
 		anim.setOnFinishListener(new OnFinishListener(){
 				@Override
 				public void onFinish(){
-					// TODO: Implement this method
+
 					setVisiblility(VISIBILITY_GONE);
 					BackQuery.get().unregist(MessageList.this);
 				}
@@ -91,7 +91,7 @@ public class MessageList extends ScrollContainer implements Hideable
 
 	@Override
 	public boolean onOutsideTouch(EdMotionEvent e){
-		// TODO: Implement this method
+
 		if(e.getEventType()==EdMotionEvent.EventType.Down){
 			if(!isHidden())hide();
 			return true;
@@ -101,7 +101,7 @@ public class MessageList extends ScrollContainer implements Hideable
 
 	@Override
 	public boolean isOutsideTouchable(){
-		// TODO: Implement this method
+
 		return super.isOutsideTouchable()&&!isHidden();
 	}
 
@@ -122,20 +122,20 @@ public class MessageList extends ScrollContainer implements Hideable
 
 	@Override
 	public boolean isHidden(){
-		// TODO: Implement this method
+
 		return getVisiblility()==VISIBILITY_GONE;
 	}
 
 	@Override
 	public void setAlpha(float alpha){
-		// TODO: Implement this method
+
 		super.setAlpha(alpha);
 		shadowSprite.setAlpha(alpha);
 	}
 
 	@Override
 	protected void onDraw(BaseCanvas canvas){
-		// TODO: Implement this method
+
 		super.onDraw(canvas);
 		shadowSprite.setArea(RectF.anchorOWH(Anchor.TopRight,0,0,ViewConfiguration.dp(9),canvas.getHeight()));
 		shadowSprite.draw(canvas);

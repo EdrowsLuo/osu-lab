@@ -1,4 +1,5 @@
 package com.edplan.framework.ui.animation.precise.advance;
+
 import com.edplan.framework.ui.animation.precise.BasePreciseAnimation;
 import com.edplan.framework.ui.animation.callback.OnStartListener;
 import com.edplan.framework.ui.animation.callback.OnProgressListener;
@@ -6,77 +7,76 @@ import com.edplan.framework.ui.animation.callback.OnFinishListener;
 import com.edplan.framework.ui.animation.callback.OnEndListener;
 import com.edplan.framework.ui.animation.AnimationHelper;
 
-public class AdvancePreciseAnimation extends BasePreciseAnimation
-{
-	private OnStartListener onStartListener;
-	
-	private OnProgressListener onProgressListener;
-	
-	private OnFinishListener onFinishListener;
-	
-	private OnEndListener onEndListener;
+public class AdvancePreciseAnimation extends BasePreciseAnimation {
+    private OnStartListener onStartListener;
 
-	public void setOnStartListener(OnStartListener onStartListener) {
-		this.onStartListener=onStartListener;
-	}
+    private OnProgressListener onProgressListener;
 
-	public OnStartListener getOnStartListener() {
-		return onStartListener;
-	}
+    private OnFinishListener onFinishListener;
 
-	public void setOnProgressListener(OnProgressListener onProgressListener) {
-		this.onProgressListener=onProgressListener;
-	}
+    private OnEndListener onEndListener;
 
-	public OnProgressListener getOnProgressListener() {
-		return onProgressListener;
-	}
+    public void setOnStartListener(OnStartListener onStartListener) {
+        this.onStartListener = onStartListener;
+    }
 
-	public void setOnFinishListener(OnFinishListener onFinishListener) {
-		this.onFinishListener=onFinishListener;
-	}
+    public OnStartListener getOnStartListener() {
+        return onStartListener;
+    }
 
-	public OnFinishListener getOnFinishListener() {
-		return onFinishListener;
-	}
+    public void setOnProgressListener(OnProgressListener onProgressListener) {
+        this.onProgressListener = onProgressListener;
+    }
 
-	public void setOnEndListener(OnEndListener onEndListener) {
-		this.onEndListener=onEndListener;
-	}
+    public OnProgressListener getOnProgressListener() {
+        return onProgressListener;
+    }
 
-	public OnEndListener getOnEndListener() {
-		return onEndListener;
-	}
+    public void setOnFinishListener(OnFinishListener onFinishListener) {
+        this.onFinishListener = onFinishListener;
+    }
 
-	@Override
-	public void onStart() {
+    public OnFinishListener getOnFinishListener() {
+        return onFinishListener;
+    }
 
-		super.onStart();
-		if(onStartListener!=null)onStartListener.onStart();
-	}
+    public void setOnEndListener(OnEndListener onEndListener) {
+        this.onEndListener = onEndListener;
+    }
 
-	@Override
-	public void onProgress(double p) {
+    public OnEndListener getOnEndListener() {
+        return onEndListener;
+    }
 
-		super.onProgress(p);
-		if(onProgressListener!=null)onProgressListener.onProgress(p);
-	}
-	
-	public void setValueProgress(float fp){
-		
-	}
+    @Override
+    public void onStart() {
 
-	@Override
-	public void onFinish() {
+        super.onStart();
+        if (onStartListener != null) onStartListener.onStart();
+    }
 
-		super.onFinish();
-		if(onFinishListener!=null)onFinishListener.onFinish();
-	}
+    @Override
+    public void onProgress(double p) {
 
-	@Override
-	public void onEnd() {
+        super.onProgress(p);
+        if (onProgressListener != null) onProgressListener.onProgress(p);
+    }
 
-		super.onEnd();
-		if(onEndListener!=null)onEndListener.onEnd();
-	}
+    public void setValueProgress(float fp) {
+
+    }
+
+    @Override
+    public void onFinish() {
+
+        super.onFinish();
+        if (onFinishListener != null) onFinishListener.onFinish();
+    }
+
+    @Override
+    public void onEnd() {
+
+        super.onEnd();
+        if (onEndListener != null) onEndListener.onEnd();
+    }
 }

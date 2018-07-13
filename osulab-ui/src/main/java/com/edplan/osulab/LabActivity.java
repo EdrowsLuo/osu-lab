@@ -21,7 +21,7 @@ public class LabActivity extends EdMainActivity
 
 	@Override
 	protected void createGame(){
-		// TODO: Implement this method
+
 		try {
 			File f=new File(Environment.getExternalStorageDirectory(),"osu!lab/logs/log.txt");
 			if(f.exists()){
@@ -46,25 +46,25 @@ public class LabActivity extends EdMainActivity
 	{
 		@Override
 		public MainRenderer createRenderer(MContext context){
-			// TODO: Implement this method
+
 			return new LabMainRenderer(context,this);
 		}
 
 		@Override
 		public boolean onBackPressNotHandled(){
-			// TODO: Implement this method
+
 			return BackQuery.get().back();
 		}
 
 		@Override
 		public void onExit(){
-			// TODO: Implement this method
+
 			LabGame.get().exit();
 		}
 
 		@Override
 		public void onGLCreate(){
-			// TODO: Implement this method
+
 			double s=Framework.relativePreciseTimeMillion();
 			super.onGLCreate();
 			try{

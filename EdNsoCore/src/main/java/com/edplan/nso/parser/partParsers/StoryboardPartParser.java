@@ -8,7 +8,6 @@ import com.edplan.nso.storyboard.Storyboard;
 import com.edplan.nso.storyboard.elements.CommandTimeLineGroup;
 import com.edplan.nso.storyboard.elements.StoryboardSprite;
 import com.edplan.superutils.U;
-import com.edplan.framework.ui.animation.LoopType;
 import com.edplan.nso.storyboard.elements.StoryboardAnimation;
 import com.edplan.nso.storyboard.elements.StoryboardSample;
 import com.edplan.framework.ui.animation.Easing;

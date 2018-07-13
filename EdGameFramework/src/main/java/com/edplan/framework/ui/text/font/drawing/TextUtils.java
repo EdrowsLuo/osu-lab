@@ -13,6 +13,7 @@ public class TextUtils
 	}
 	
 	public static int calwidth(final BMFont font,final char[] block,int offset,int length){
+
 		if(length<=0){
 			return 0;
 		}else if(length==1){

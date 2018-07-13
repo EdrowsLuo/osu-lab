@@ -4,60 +4,60 @@ import com.edplan.framework.utils.AbstractSRable;
 
 public class BlendSetting extends AbstractSRable<BlendProperty> {
 
-	public BlendSetting(){
+    public BlendSetting() {
 
-	}
+    }
 
-	public BlendSetting setUp(){
-		initial();
-		apply(getData());
-		return this;
-	}
-	
-	public void apply(BlendProperty p){
-		p.applyToGL();
-	}
+    public BlendSetting setUp() {
+        initial();
+        apply(getData());
+        return this;
+    }
 
-	public boolean isEnable(){
-		return getData().enable;
-	}
+    public void apply(BlendProperty p) {
+        p.applyToGL();
+    }
 
-	public BlendType getBlendType(){
-		return getData().blendType;
-	}
+    public boolean isEnable() {
+        return getData().enable;
+    }
 
-	public void set(boolean enable,BlendType blendType){
-		if(!getData().equals(enable,blendType)){
-			BlendProperty prop=new BlendProperty(enable,blendType);
-			setCurrentData(prop);
-			apply(prop);
-		}
-	}
+    public BlendType getBlendType() {
+        return getData().blendType;
+    }
 
-	public void setEnable(boolean enable){
-		set(enable,getBlendType());
-	}
+    public void set(boolean enable, BlendType blendType) {
+        if (!getData().equals(enable, blendType)) {
+            BlendProperty prop = new BlendProperty(enable, blendType);
+            setCurrentData(prop);
+            apply(prop);
+        }
+    }
 
-	public void setBlendType(BlendType type){
-		set(isEnable(),type);
-	}
+    public void setEnable(boolean enable) {
+        set(enable, getBlendType());
+    }
 
-	@Override
-	public void onSave(BlendProperty t) {
+    public void setBlendType(BlendType type) {
+        set(isEnable(), type);
+    }
 
-	}
+    @Override
+    public void onSave(BlendProperty t) {
 
-	@Override
-	public void onRestore(BlendProperty now,BlendProperty pre) {
+    }
 
-		if(!now.equals(pre)){
-			apply(now);
-		}
-	}
+    @Override
+    public void onRestore(BlendProperty now, BlendProperty pre) {
 
-	@Override
-	public BlendProperty getDefData() {
+        if (!now.equals(pre)) {
+            apply(now);
+        }
+    }
 
-		return new BlendProperty();
-	}
+    @Override
+    public BlendProperty getDefData() {
+
+        return new BlendProperty();
+    }
 }

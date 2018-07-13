@@ -1,4 +1,5 @@
 package com.edplan.framework.ui.widget;
+
 import com.edplan.framework.MContext;
 import com.edplan.framework.ui.EdContainer;
 import com.edplan.framework.ui.EdView;
@@ -7,120 +8,119 @@ import com.edplan.framework.ui.layout.EdMeasureSpec;
 import com.edplan.framework.ui.layout.Gravity;
 import com.edplan.framework.ui.widget.RelativeLayout.*;
 
-public class RelativeContainer extends EdContainer
-{
-	public RelativeContainer(MContext c){
-		super(c);
-	}
-	
-	@Override
-	public EdLayoutParam getDefaultParam(EdView view){
+public class RelativeContainer extends EdContainer {
+    public RelativeContainer(MContext c) {
+        super(c);
+    }
 
-		return new RelativeParam();
-	}
+    @Override
+    public EdLayoutParam getDefaultParam(EdView view) {
 
-	@Override
-	public EdLayoutParam adjustParam(EdView view,EdLayoutParam param){
+        return new RelativeParam();
+    }
 
-		if(param instanceof RelativeParam){
-			return param;
-		}else{
-			return new RelativeParam(param);
-		}
-	}
+    @Override
+    public EdLayoutParam adjustParam(EdView view, EdLayoutParam param) {
 
-	@Override
-	protected void onLayout(boolean changed,float left,float top,float right,float bottom){
+        if (param instanceof RelativeParam) {
+            return param;
+        } else {
+            return new RelativeParam(param);
+        }
+    }
 
-		final int count=getChildrenCount();
+    @Override
+    protected void onLayout(boolean changed, float left, float top, float right, float bottom) {
 
-		final float parentLeft=getPaddingLeft();
-		final float parentTop=getPaddingTop();
-		final float parentBottom=bottom-top-getPaddingBottom();
-		final float parentRight=right-left-getPaddingRight();
+        final int count = getChildrenCount();
 
-		final float parentCenterHorizon=(parentLeft+parentRight)/2;
-		final float parentCenterVertical=(parentTop+parentBottom)/2;
+        final float parentLeft = getPaddingLeft();
+        final float parentTop = getPaddingTop();
+        final float parentBottom = bottom - top - getPaddingBottom();
+        final float parentRight = right - left - getPaddingRight();
 
-		for(int i=0;i<count;i++){
-			final EdView view=getChildAt(i);
-			if(view.getVisiblility()!=VISIBILITY_GONE){
-				final RelativeParam param=(RelativeParam)view.getLayoutParam();
-				final float ox;
-				final float oy;
-				switch(param.gravity&Gravity.MASK_HORIZON){
+        final float parentCenterHorizon = (parentLeft + parentRight) / 2;
+        final float parentCenterVertical = (parentTop + parentBottom) / 2;
 
-					case Gravity.CENTER_HORIZON:
-						ox=param.xoffset+parentCenterHorizon-view.getMeasuredWidth()/2;
-						break;
-					case Gravity.RIGHT:
-						ox=param.xoffset+parentRight-view.getMeasuredWidth()-param.marginRight;
-						break;
-					case Gravity.LEFT:
-					default:
-						ox=param.xoffset+parentLeft+param.marginLeft;
-						break;
-				}
-				switch(param.gravity&Gravity.MASK_VERTICAL){
-					case Gravity.CENTER_VERTICAL:
-						oy=param.yoffset+parentCenterVertical-view.getMeasuredHeight()/2;
-						break;
-					case Gravity.BOTTOM:
-						oy=param.yoffset+parentBottom-view.getMeasuredHeight()-param.marginBottom;
-						break;
-					case Gravity.TOP:
-					default:
-						oy=param.yoffset+parentTop+param.marginTop;
-						break;
-				}
-				view.layout(ox,oy,ox+view.getMeasuredWidth(),oy+view.getMeasuredHeight());
-			}
-		}
-	}
+        for (int i = 0; i < count; i++) {
+            final EdView view = getChildAt(i);
+            if (view.getVisiblility() != VISIBILITY_GONE) {
+                final RelativeParam param = (RelativeParam) view.getLayoutParam();
+                final float ox;
+                final float oy;
+                switch (param.gravity & Gravity.MASK_HORIZON) {
 
-	@Override
-	protected void onMeasure(long widthSpec,long heightSpec){
+                    case Gravity.CENTER_HORIZON:
+                        ox = param.xoffset + parentCenterHorizon - view.getMeasuredWidth() / 2;
+                        break;
+                    case Gravity.RIGHT:
+                        ox = param.xoffset + parentRight - view.getMeasuredWidth() - param.marginRight;
+                        break;
+                    case Gravity.LEFT:
+                    default:
+                        ox = param.xoffset + parentLeft + param.marginLeft;
+                        break;
+                }
+                switch (param.gravity & Gravity.MASK_VERTICAL) {
+                    case Gravity.CENTER_VERTICAL:
+                        oy = param.yoffset + parentCenterVertical - view.getMeasuredHeight() / 2;
+                        break;
+                    case Gravity.BOTTOM:
+                        oy = param.yoffset + parentBottom - view.getMeasuredHeight() - param.marginBottom;
+                        break;
+                    case Gravity.TOP:
+                    default:
+                        oy = param.yoffset + parentTop + param.marginTop;
+                        break;
+                }
+                view.layout(ox, oy, ox + view.getMeasuredWidth(), oy + view.getMeasuredHeight());
+            }
+        }
+    }
 
-		final int count=getChildrenCount();
-		for(int i=0;i<count;i++){
-			final EdView view=getChildAt(i);
-			if(view.getVisiblility()!=VISIBILITY_GONE){
-				measureChildWithMargin(view,widthSpec,heightSpec,0,0);
-			}
-		}
-		final float xd;
-		final float yd;
-		{
-			final int mode=EdMeasureSpec.getMode(widthSpec);
-			switch(mode){
-				case EdMeasureSpec.MODE_DEFINEDED:
-					xd=EdMeasureSpec.getSize(widthSpec);
-					break;
-				case EdMeasureSpec.MODE_AT_MOST:
-					xd=Math.min(EdMeasureSpec.getSize(widthSpec),getPaddingHorizon()+getDefaultMaxChildrenMeasuredWidthWithMargin());
-					break;
-				case EdMeasureSpec.MODE_NONE:
-				default:
-					xd=getPaddingHorizon()+getDefaultMaxChildrenMeasuredWidthWithMargin();
-					break;
-			}
-		}
-		{
-			final int mode=EdMeasureSpec.getMode(heightSpec);
-			switch(mode){
-				case EdMeasureSpec.MODE_DEFINEDED:
-					yd=EdMeasureSpec.getSize(heightSpec);
-					break;
-				case EdMeasureSpec.MODE_AT_MOST:
-					yd=Math.min(EdMeasureSpec.getSize(heightSpec),getPaddingVertical()+getDefaultMaxChildrenMeasuredHeightWithMargin());
-					break;
-				case EdMeasureSpec.MODE_NONE:
-				default:
-					yd=getPaddingVertical()+getDefaultMaxChildrenMeasuredHeightWithMargin();
-					break;
-			}
-		}
-		setMeasuredDimensition(xd,yd);
-	}
-	
+    @Override
+    protected void onMeasure(long widthSpec, long heightSpec) {
+
+        final int count = getChildrenCount();
+        for (int i = 0; i < count; i++) {
+            final EdView view = getChildAt(i);
+            if (view.getVisiblility() != VISIBILITY_GONE) {
+                measureChildWithMargin(view, widthSpec, heightSpec, 0, 0);
+            }
+        }
+        final float xd;
+        final float yd;
+        {
+            final int mode = EdMeasureSpec.getMode(widthSpec);
+            switch (mode) {
+                case EdMeasureSpec.MODE_DEFINEDED:
+                    xd = EdMeasureSpec.getSize(widthSpec);
+                    break;
+                case EdMeasureSpec.MODE_AT_MOST:
+                    xd = Math.min(EdMeasureSpec.getSize(widthSpec), getPaddingHorizon() + getDefaultMaxChildrenMeasuredWidthWithMargin());
+                    break;
+                case EdMeasureSpec.MODE_NONE:
+                default:
+                    xd = getPaddingHorizon() + getDefaultMaxChildrenMeasuredWidthWithMargin();
+                    break;
+            }
+        }
+        {
+            final int mode = EdMeasureSpec.getMode(heightSpec);
+            switch (mode) {
+                case EdMeasureSpec.MODE_DEFINEDED:
+                    yd = EdMeasureSpec.getSize(heightSpec);
+                    break;
+                case EdMeasureSpec.MODE_AT_MOST:
+                    yd = Math.min(EdMeasureSpec.getSize(heightSpec), getPaddingVertical() + getDefaultMaxChildrenMeasuredHeightWithMargin());
+                    break;
+                case EdMeasureSpec.MODE_NONE:
+                default:
+                    yd = getPaddingVertical() + getDefaultMaxChildrenMeasuredHeightWithMargin();
+                    break;
+            }
+        }
+        setMeasuredDimensition(xd, yd);
+    }
+
 }

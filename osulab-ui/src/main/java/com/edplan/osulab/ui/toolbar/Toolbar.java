@@ -97,7 +97,7 @@ public class Toolbar extends RelativeContainer implements Hideable
 				msgShowButton.setOnClickListener(new OnClickListener(){
 						@Override
 						public void onClick(EdView view){
-							// TODO: Implement this method
+
 							OptionList list=LabGame.get().getOptionList();
 							if(list.getVisiblility()==VISIBILITY_GONE){
 								list.show();
@@ -135,7 +135,7 @@ public class Toolbar extends RelativeContainer implements Hideable
 				msgShowButton.setOnClickListener(new OnClickListener(){
 						@Override
 						public void onClick(EdView view){
-							// TODO: Implement this method
+
 							SongPanel panel=SongPanel.getInstance();
 							if(panel==null){
 								panel=new SongPanel(getContext());
@@ -175,7 +175,7 @@ public class Toolbar extends RelativeContainer implements Hideable
 				msgShowButton.setOnClickListener(new OnClickListener(){
 						@Override
 						public void onClick(EdView view){
-							// TODO: Implement this method
+
 							if(LabGame.get().getSceneOverlay().getVisiblility()!=VISIBILITY_GONE){
 								LabGame.get().getSceneOverlay().hide();
 							}else{
@@ -209,7 +209,7 @@ public class Toolbar extends RelativeContainer implements Hideable
 				msgShowButton.setOnClickListener(new OnClickListener(){
 						@Override
 						public void onClick(EdView view){
-							// TODO: Implement this method
+
 							if(!LabGame.get().getMessageList().isHidden()){
 								LabGame.get().getMessageList().hide();
 							}else{
@@ -224,14 +224,14 @@ public class Toolbar extends RelativeContainer implements Hideable
 
 	@Override
 	public void onInitialLayouted(){
-		// TODO: Implement this method
+
 		super.onInitialLayouted();
 		directHide();
 	}
 
 	@Override
 	public boolean onMotionEvent(EdMotionEvent e){
-		// TODO: Implement this method
+
 		preTouchTime=Framework.relativePreciseTimeMillion();
 		if(!highlight){
 			highlightOn();
@@ -259,7 +259,7 @@ public class Toolbar extends RelativeContainer implements Hideable
 		anim.setOnFinishListener(new OnFinishListener(){
 				@Override
 				public void onFinish(){
-					// TODO: Implement this method
+
 					setVisiblility(VISIBILITY_GONE);
 				}
 			});
@@ -291,7 +291,7 @@ public class Toolbar extends RelativeContainer implements Hideable
 		post(new Runnable(){
 				@Override
 				public void run(){
-					// TODO: Implement this method
+
 					if(Framework.relativePreciseTimeMillion()-preTouchTime>700){
 						highlightOff();
 					}else{
@@ -312,7 +312,7 @@ public class Toolbar extends RelativeContainer implements Hideable
 		anim.setOnFinishListener(new OnFinishListener(){
 				@Override
 				public void onFinish(){
-					// TODO: Implement this method
+
 					postHighlightOff(1000);
 				}
 			});
@@ -332,7 +332,7 @@ public class Toolbar extends RelativeContainer implements Hideable
 		anim.setOnFinishListener(new OnFinishListener(){
 				@Override
 				public void onFinish(){
-					// TODO: Implement this method
+
 					highlight=false;
 				}
 			});
@@ -353,7 +353,7 @@ public class Toolbar extends RelativeContainer implements Hideable
 
 	@Override
 	public void setAlpha(float alpha){
-		// TODO: Implement this method
+
 		settedAlpha=alpha;
 		shadowSprite.setAlpha(alpha);
 		updateAlpha();
@@ -361,13 +361,13 @@ public class Toolbar extends RelativeContainer implements Hideable
 
 	@Override
 	public float getAlpha(){
-		// TODO: Implement this method
+
 		return settedAlpha;
 	}
 	
 	@Override
 	public boolean isHidden(){
-		// TODO: Implement this method
+
 		return getVisiblility()==VISIBILITY_GONE;
 	}
 	
@@ -377,7 +377,7 @@ public class Toolbar extends RelativeContainer implements Hideable
 
 	@Override
 	protected void onDraw(BaseCanvas canvas){
-		// TODO: Implement this method
+
 		super.onDraw(canvas);
 		
 	}
@@ -390,19 +390,19 @@ public class Toolbar extends RelativeContainer implements Hideable
 
 		@Override
 		public float getOffsetX(){
-			// TODO: Implement this method
+
 			return Toolbar.this.getOffsetX();
 		}
 
 		@Override
 		public float getOffsetY(){
-			// TODO: Implement this method
+
 			return Toolbar.this.getOffsetY();
 		}
 
 		@Override
 		protected void onDraw(BaseCanvas canvas){
-			// TODO: Implement this method
+
 			super.onDraw(canvas);
 			shadowSprite.setArea(RectF.xywh(0,canvas.getHeight(),canvas.getWidth(),ViewConfiguration.dp(shadowHeight)));
 			shadowSprite.draw(canvas);

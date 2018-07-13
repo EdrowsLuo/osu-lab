@@ -1,6 +1,5 @@
 package com.edplan.framework.database;
 
-public @interface DatabaseIndex
-{
-	public int value();
+public @interface DatabaseIndex {
+    public int value();
 }

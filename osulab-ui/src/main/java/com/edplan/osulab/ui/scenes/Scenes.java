@@ -79,7 +79,7 @@ public class Scenes extends RelativeContainer implements Hideable,BackQuery.Back
 
 	@Override
 	public void onInitialLayouted(){
-		// TODO: Implement this method
+
 		super.onInitialLayouted();
 		setVisiblility(VISIBILITY_GONE);
 		setAlpha(0);
@@ -87,13 +87,13 @@ public class Scenes extends RelativeContainer implements Hideable,BackQuery.Back
 
 	@Override
 	public int getChildrenCount(){
-		// TODO: Implement this method
+
 		return currentScene==null?0:1;
 	}
 
 	@Override
 	public EdView getChildAt(int i){
-		// TODO: Implement this method
+
 		return i==0?currentScene:null;
 	}
 	
@@ -120,7 +120,7 @@ public class Scenes extends RelativeContainer implements Hideable,BackQuery.Back
 			post(new Runnable(){
 					@Override
 					public void run(){
-						// TODO: Implement this method
+
 						scenesStack.remove(currentScene);
 						scenesStack.add(s);
 						currentScene=s;
@@ -141,7 +141,7 @@ public class Scenes extends RelativeContainer implements Hideable,BackQuery.Back
 	
 	@Override
 	public void hide(){
-		// TODO: Implement this method
+
 		BackQuery.get().unregist(this);
 		ComplexAnimationBuilder b=ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this,0,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));
 		ComplexAnimation anim=b.buildAndStart();
@@ -152,7 +152,7 @@ public class Scenes extends RelativeContainer implements Hideable,BackQuery.Back
 
 	@Override
 	public void show(){
-		// TODO: Implement this method
+
 		BackQuery.get().regist(this);
 		setVisiblility(VISIBILITY_SHOW);
 		ComplexAnimationBuilder b=ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this,1,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));
@@ -162,13 +162,13 @@ public class Scenes extends RelativeContainer implements Hideable,BackQuery.Back
 
 	@Override
 	public boolean isHidden(){
-		// TODO: Implement this method
+
 		return getVisiblility()==VISIBILITY_GONE;
 	}
 
 	@Override
 	public boolean onBack(){
-		// TODO: Implement this method
+
 		if(currentScene.onBackPressed())return true;
 		
 		if(scenesStack.size()>0){
@@ -176,7 +176,7 @@ public class Scenes extends RelativeContainer implements Hideable,BackQuery.Back
 			post(new Runnable(){
 					@Override
 					public void run(){
-						// TODO: Implement this method
+
 						scenesStack.remove(currentScene);
 						currentScene=scenesStack.size()>0?scenesStack.get(scenesStack.size()-1):null;
 						if(currentScene==null){

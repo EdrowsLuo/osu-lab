@@ -2,33 +2,33 @@ package com.edplan.framework.graphics.opengl.shader;
 
 import android.opengl.GLES20;
 import android.util.Log;
+
 import com.edplan.framework.graphics.opengl.GLException;
 
-public class GLShader 
-{
-	private int id;
-	
-	private Type type;
-	
-	private GLShader(Type type,int id){
-		this.type=type;
-		this.id=id;
-	}
-	
-	public Type getType(){
-		return type;
-	}
-	
-	public int getShaderId(){
-		return id;
-	}
+public class GLShader {
+    private int id;
 
-	public static GLShader loadShader(Type shaderType,String source) {
-	    //创建一个新shader
+    private Type type;
+
+    private GLShader(Type type, int id) {
+        this.type = type;
+        this.id = id;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public int getShaderId() {
+        return id;
+    }
+
+    public static GLShader loadShader(Type shaderType, String source) {
+        //创建一个新shader
         int shader = GLES20.glCreateShader(shaderType.getFlag());
         //若创建成功则加载shader
         if (shader != 0) {
-        	//加载shader的源代码
+            //加载shader的源代码
             GLES20.glShaderSource(shader, source);
             //编译shader
             GLES20.glCompileShader(shader);
@@ -40,22 +40,23 @@ public class GLShader
                 Log.e("ES20_ERROR", "Could not compile shader " + shaderType + ":");
                 Log.e("ES20_ERROR", GLES20.glGetShaderInfoLog(shader));
                 GLES20.glDeleteShader(shader);
-                throw new GLException("err complie shader: "+source.substring(0,Math.min(source.length(),500)));
-            }  
+                throw new GLException("err complie shader: " + source.substring(0, Math.min(source.length(), 500)));
+            }
         }
-        return new GLShader(shaderType,shader);
+        return new GLShader(shaderType, shader);
     }
-	
-	public enum Type{
-		Vertex(GLES20.GL_VERTEX_SHADER),
-		Fragment(GLES20.GL_FRAGMENT_SHADER);
-		private final int flag;
-		Type(int flag){
-			this.flag=flag;
-		}
-		
-		public int getFlag(){
-			return flag;
-		}
-	}
+
+    public enum Type {
+        Vertex(GLES20.GL_VERTEX_SHADER),
+        Fragment(GLES20.GL_FRAGMENT_SHADER);
+        private final int flag;
+
+        Type(int flag) {
+            this.flag = flag;
+        }
+
+        public int getFlag() {
+            return flag;
+        }
+    }
 }

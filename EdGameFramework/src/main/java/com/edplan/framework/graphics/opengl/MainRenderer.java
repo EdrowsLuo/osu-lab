@@ -1,5 +1,4 @@
 package com.edplan.framework.graphics.opengl;
-import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.util.Log;
 import android.view.MotionEvent;

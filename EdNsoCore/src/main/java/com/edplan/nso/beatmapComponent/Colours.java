@@ -1,5 +1,4 @@
 package com.edplan.nso.beatmapComponent;
-import java.util.ArrayList;
 import com.edplan.superutils.interfaces.StringMakeable;
 import android.graphics.Color;
 import com.edplan.superutils.U;

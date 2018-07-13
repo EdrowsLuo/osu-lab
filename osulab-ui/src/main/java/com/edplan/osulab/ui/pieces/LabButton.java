@@ -56,7 +56,7 @@ public class LabButton extends RelativeContainer
 
 	@Override
 	public void setPressed(boolean pressed){
-		// TODO: Implement this method
+
 		super.setPressed(pressed);
 		if(pressed){
 			onPressAnim();
@@ -75,7 +75,7 @@ public class LabButton extends RelativeContainer
 
 	@Override
 	public void onClickEvent(){
-		// TODO: Implement this method
+
 		super.onClickEvent();
 		if(onClickListener!=null)onClickListener.onClick(this);
 	}

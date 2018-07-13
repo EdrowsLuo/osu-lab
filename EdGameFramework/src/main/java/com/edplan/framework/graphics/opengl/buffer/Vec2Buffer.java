@@ -1,39 +1,40 @@
 package com.edplan.framework.graphics.opengl.buffer;
+
 import com.edplan.framework.math.Vec2;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vec2Buffer extends BaseBuffer<Vec2>
-{
+public class Vec2Buffer extends BaseBuffer<Vec2> {
 
-	public static final int FLOAT_SIZE=8;
-	
-	public Vec2Buffer(int size){
-		super(size);
-	}
-	
-	public Vec2Buffer(Vec2[] ary){
-		super(ary);
-	}
-	
-	public Vec2Buffer(){
-		super(6);
-	}
-	
-	@Override
-	public int getFloatSize() {
+    public static final int FLOAT_SIZE = 8;
 
-		return FLOAT_SIZE;
-	}
+    public Vec2Buffer(int size) {
+        super(size);
+    }
 
-	@Override
-	protected void addToBuffer(FloatBuffer fb,Vec2 t) {
+    public Vec2Buffer(Vec2[] ary) {
+        super(ary);
+    }
 
-		fb.put(t.x).put(t.y);
-	}
+    public Vec2Buffer() {
+        super(6);
+    }
+
+    @Override
+    public int getFloatSize() {
+
+        return FLOAT_SIZE;
+    }
+
+    @Override
+    protected void addToBuffer(FloatBuffer fb, Vec2 t) {
+
+        fb.put(t.x).put(t.y);
+    }
 }
 
 

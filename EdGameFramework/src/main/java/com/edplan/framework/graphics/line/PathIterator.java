@@ -1,26 +1,26 @@
 package com.edplan.framework.graphics.line;
 
 import com.edplan.framework.math.Vec2;
+
 import java.util.Iterator;
 
-public class PathIterator implements Iterator<Vec2> 
-{
-	
-	
-	@Override
-	public boolean hasNext() {
+public class PathIterator implements Iterator<Vec2> {
 
-		return false;
-	}
 
-	@Override
-	public Vec2 next() {
+    @Override
+    public boolean hasNext() {
 
-		return null;
-	}
+        return false;
+    }
 
-	@Override
-	public void remove() {
+    @Override
+    public Vec2 next() {
 
-	}
+        return null;
+    }
+
+    @Override
+    public void remove() {
+
+    }
 }

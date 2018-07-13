@@ -1,83 +1,82 @@
 package com.edplan.framework.ui.looper;
+
 import com.edplan.superutils.interfaces.AbstractLooper;
 import com.edplan.superutils.interfaces.Loopable;
-import com.edplan.superutils.interfaces.Loopable.Flag;
 
-public class StepLooper extends BaseLooper<StepedLoopable>
-{
-	private int step;
+public class StepLooper extends BaseLooper<StepedLoopable> {
+    private int step;
 
-	protected void setStep(int step) {
-		this.step=step;
-	}
+    protected void setStep(int step) {
+        this.step = step;
+    }
 
-	public int getStep() {
-		return step;
-	}
+    public int getStep() {
+        return step;
+    }
 
-	public void addLoopable(Loopable l,int step){
-		addLoopable(new WrapStepedLoopable(l,step));
-	}
-	
-	@Override
-	protected void runLoopable(StepedLoopable l) {
+    public void addLoopable(Loopable l, int step) {
+        addLoopable(new WrapStepedLoopable(l, step));
+    }
 
-		setStep(l.getStep());
-		super.runLoopable(l);
-	}
-	
-	public class WrapStepedLoopable extends StepedLoopable {
-		
-		private int step=-1;
-		
-		private Loopable loopable;
-		
-		public WrapStepedLoopable(Loopable l,int step){
-			this.loopable=l;
-			this.step=step;
-		}
-		
-		@Override
-		public void onLoop(double deltaTime) {
+    @Override
+    protected void runLoopable(StepedLoopable l) {
 
-			loopable.onLoop(deltaTime);
-		}
+        setStep(l.getStep());
+        super.runLoopable(l);
+    }
 
-		@Override
-		public void onRemove() {
+    public class WrapStepedLoopable extends StepedLoopable {
 
-			loopable.onRemove();
-		}
+        private int step = -1;
 
-		@Override
-		public Loopable.Flag getFlag() {
+        private Loopable loopable;
 
-			return loopable.getFlag();
-		}
+        public WrapStepedLoopable(Loopable l, int step) {
+            this.loopable = l;
+            this.step = step;
+        }
 
-		
-		@Override
-		public void setFlag(Loopable.Flag flag) {
+        @Override
+        public void onLoop(double deltaTime) {
 
-			loopable.setFlag(flag);
-		}
+            loopable.onLoop(deltaTime);
+        }
 
-		@Override
-		public AbstractLooper getLooper() {
+        @Override
+        public void onRemove() {
 
-			return loopable.getLooper();
-		}
+            loopable.onRemove();
+        }
 
-		@Override
-		public void setLooper(AbstractLooper lp) {
+        @Override
+        public Loopable.Flag getFlag() {
 
-			loopable.setLooper(lp);
-		}
+            return loopable.getFlag();
+        }
 
-		@Override
-		public int getStep() {
 
-			return step;
-		}
-	}
+        @Override
+        public void setFlag(Loopable.Flag flag) {
+
+            loopable.setFlag(flag);
+        }
+
+        @Override
+        public AbstractLooper getLooper() {
+
+            return loopable.getLooper();
+        }
+
+        @Override
+        public void setLooper(AbstractLooper lp) {
+
+            loopable.setLooper(lp);
+        }
+
+        @Override
+        public int getStep() {
+
+            return step;
+        }
+    }
 }

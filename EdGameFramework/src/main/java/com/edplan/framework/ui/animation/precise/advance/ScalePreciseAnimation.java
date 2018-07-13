@@ -1,45 +1,45 @@
 package com.edplan.framework.ui.animation.precise.advance;
+
 import com.edplan.framework.ui.drawable.interfaces.IScaleable2D;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.ui.animation.AnimationHelper;
 
-public class ScalePreciseAnimation extends AdvancePreciseAnimation
-{
-	private IScaleable2D target;
-	
-	private Vec2 startScale=new  Vec2(1,1);
-	
-	private Vec2 endScale=new Vec2(1,1);
+public class ScalePreciseAnimation extends AdvancePreciseAnimation {
+    private IScaleable2D target;
 
-	public void setTarget(IScaleable2D target) {
-		this.target=target;
-	}
+    private Vec2 startScale = new Vec2(1, 1);
 
-	public IScaleable2D getTarget() {
-		return target;
-	}
+    private Vec2 endScale = new Vec2(1, 1);
 
-	public void setStartScale(Vec2 startScale) {
-		this.startScale.set(startScale);
-	}
+    public void setTarget(IScaleable2D target) {
+        this.target = target;
+    }
 
-	public Vec2 getStartScale() {
-		return startScale;
-	}
+    public IScaleable2D getTarget() {
+        return target;
+    }
 
-	public void setEndScale(Vec2 endScale) {
-		this.endScale.set(endScale);
-	}
+    public void setStartScale(Vec2 startScale) {
+        this.startScale.set(startScale);
+    }
 
-	public Vec2 getEndScale() {
-		return endScale;
-	}
+    public Vec2 getStartScale() {
+        return startScale;
+    }
 
-	@Override
-	public void setValueProgress(float fp) {
+    public void setEndScale(Vec2 endScale) {
+        this.endScale.set(endScale);
+    }
 
-		super.setValueProgress(fp);
-		Vec2 itp=startScale.copy().zoom(1-fp).add(endScale.copy().zoom(fp));
-		target.setScale(itp.x,itp.y);
-	}
+    public Vec2 getEndScale() {
+        return endScale;
+    }
+
+    @Override
+    public void setValueProgress(float fp) {
+
+        super.setValueProgress(fp);
+        Vec2 itp = startScale.copy().zoom(1 - fp).add(endScale.copy().zoom(fp));
+        target.setScale(itp.x, itp.y);
+    }
 }

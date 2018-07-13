@@ -47,7 +47,7 @@ public class SceneOverlay extends RelativeContainer implements Hideable
 			button.setOnClickListener(new OnClickListener(){
 					@Override
 					public void onClick(EdView view){
-						// TODO: Implement this method
+
 						updateText();
 					}
 				});
@@ -86,7 +86,7 @@ public class SceneOverlay extends RelativeContainer implements Hideable
 
 	@Override
 	public void onInitialLayouted(){
-		// TODO: Implement this method
+
 		super.onInitialLayouted();
 		directHide();
 	}
@@ -103,7 +103,7 @@ public class SceneOverlay extends RelativeContainer implements Hideable
 		anim.setOnFinishListener(new OnFinishListener(){
 				@Override
 				public void onFinish(){
-					// TODO: Implement this method
+
 					setVisiblility(VISIBILITY_GONE);
 					BackQuery.get().unregist(SceneOverlay.this);
 				}
@@ -135,7 +135,7 @@ public class SceneOverlay extends RelativeContainer implements Hideable
 	
 	@Override
 	public boolean isHidden(){
-		// TODO: Implement this method
+
 		return getVisiblility()==VISIBILITY_GONE;
 	}
 }

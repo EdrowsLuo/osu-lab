@@ -68,7 +68,7 @@ public class LabTextCheckBox extends RelativeLayout
 
 	@Override
 	public void onClickEvent(){
-		// TODO: Implement this method
+
 		super.onClickEvent();
 		checkBox.performCheckEvent();
 	}

@@ -1,23 +1,23 @@
 package com.edplan.framework.ui.animation.precise;
+
 import com.edplan.framework.ui.animation.AnimState;
 import com.edplan.framework.timing.PreciseTimeline;
 
-public class BasePreciseAnimation extends AbstractPreciseAnimation
-{
-	private double startTime;
-	
-	private double duration;
-	
-	private double progressTime;
-	
-	private AnimState state=AnimState.Waiting;
-	
-	public void start(){
-		state=AnimState.Running;
-		setProgressTime(0);
-	}
-	
-	public void post(PreciseTimeline timeline){
+public class BasePreciseAnimation extends AbstractPreciseAnimation {
+    private double startTime;
+
+    private double duration;
+
+    private double progressTime;
+
+    private AnimState state = AnimState.Waiting;
+
+    public void start() {
+        state = AnimState.Running;
+        setProgressTime(0);
+    }
+
+    public void post(PreciseTimeline timeline) {
 		/*
 		double endTime=getEndTime();
 		if(endTime<=timeline.frameTime()){
@@ -28,93 +28,93 @@ public class BasePreciseAnimation extends AbstractPreciseAnimation
 			onEnd();
 		}else{
 			*/
-			
-		timeline.addAnimation(this);
-		start();
-		//}
-		//timeline.frameTime()-getStartTimeAtTimeline());
-	}
-	
-	public double currentTime(){
-		return getStartTimeAtTimeline()+getProgressTime();
-	}
-	
-	public void setStartTime(double startTime){
-		this.startTime=startTime;
-	}
-	
-	public void setDuration(double duration){
-		this.duration=duration;
-	}
-	
-	protected void postTime(double deltaTime,double progressTime){
-		seekToTime(progressTime);
-	}
-	
-	protected void seekToTime(double progressTime){
-		
-	}
-	
-	@Override
-	public double getDuration() {
 
-		return duration;
-	}
+        timeline.addAnimation(this);
+        start();
+        //}
+        //timeline.frameTime()-getStartTimeAtTimeline());
+    }
 
-	@Override
-	public AnimState getState() {
+    public double currentTime() {
+        return getStartTimeAtTimeline() + getProgressTime();
+    }
 
-		return state;
-	}
+    public void setStartTime(double startTime) {
+        this.startTime = startTime;
+    }
 
-	@Override
-	public void setProgressTime(double p) {
+    public void setDuration(double duration) {
+        this.duration = duration;
+    }
 
-		progressTime=p;
-		seekToTime(p);
-	}
+    protected void postTime(double deltaTime, double progressTime) {
+        seekToTime(progressTime);
+    }
 
-	@Override
-	public void postProgressTime(double deltaTime) {
+    protected void seekToTime(double progressTime) {
 
-		progressTime+=deltaTime;
-		postTime(deltaTime,progressTime);
-	}
+    }
 
-	@Override
-	public double getProgressTime() {
+    @Override
+    public double getDuration() {
 
-		return progressTime;
-	}
+        return duration;
+    }
 
-	@Override
-	public void onStart() {
+    @Override
+    public AnimState getState() {
 
-	}
+        return state;
+    }
 
-	@Override
-	public void onProgress(double p) {
+    @Override
+    public void setProgressTime(double p) {
 
-	}
+        progressTime = p;
+        seekToTime(p);
+    }
 
-	@Override
-	public void onFinish() {
+    @Override
+    public void postProgressTime(double deltaTime) {
 
-	}
+        progressTime += deltaTime;
+        postTime(deltaTime, progressTime);
+    }
 
-	@Override
-	public void onEnd() {
+    @Override
+    public double getProgressTime() {
 
-	}
+        return progressTime;
+    }
 
-	@Override
-	public double getStartTimeAtTimeline() {
+    @Override
+    public void onStart() {
 
-		return startTime;
-	}
+    }
 
-	@Override
-	public void dispos() {
+    @Override
+    public void onProgress(double p) {
 
-	}
+    }
+
+    @Override
+    public void onFinish() {
+
+    }
+
+    @Override
+    public void onEnd() {
+
+    }
+
+    @Override
+    public double getStartTimeAtTimeline() {
+
+        return startTime;
+    }
+
+    @Override
+    public void dispos() {
+
+    }
 }

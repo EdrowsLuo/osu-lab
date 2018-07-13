@@ -8,6 +8,6 @@ import java.lang.annotation.Target;
 
 @Documented
 @Retention(RetentionPolicy.CLASS)
-public @interface TableName{
-	public String value() default "";
+public @interface TableName {
+    public String value() default "";
 }

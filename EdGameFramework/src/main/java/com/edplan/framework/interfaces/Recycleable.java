@@ -1,6 +1,5 @@
 package com.edplan.framework.interfaces;
 
-public interface Recycleable
-{
-	public void recycle();
+public interface Recycleable {
+    public void recycle();
 }

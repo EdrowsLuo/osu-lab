@@ -68,7 +68,7 @@ public class LabCheckBox extends EdView
 
 	@Override
 	public void onClickEvent(){
-		// TODO: Implement this method
+
 		super.onClickEvent();
 		performCheckEvent();
 	}
@@ -102,7 +102,7 @@ public class LabCheckBox extends EdView
 
 	@Override
 	public void performAnimation(double deltaTime){
-		// TODO: Implement this method
+
 		super.performAnimation(deltaTime);
 		if(checkAnim!=null){
 			if(AnimationHandler.handleSingleAnima(checkAnim,deltaTime)){
@@ -114,7 +114,7 @@ public class LabCheckBox extends EdView
 
 	@Override
 	protected void onDraw(BaseCanvas canvas){
-		// TODO: Implement this method
+
 		super.onDraw(canvas);
 		float r=Math.max(0,Math.min(canvas.getWidth(),canvas.getHeight())/2-outerWidth);
 		RectF area=RectF.xywh(0,0,canvas.getWidth(),canvas.getHeight());

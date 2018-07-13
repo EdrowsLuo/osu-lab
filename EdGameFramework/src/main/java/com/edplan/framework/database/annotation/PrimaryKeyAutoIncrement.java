@@ -6,6 +6,5 @@ import java.lang.annotation.RetentionPolicy;
 
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PrimaryKeyAutoIncrement
-{
+public @interface PrimaryKeyAutoIncrement {
 }

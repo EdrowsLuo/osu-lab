@@ -130,7 +130,7 @@ public class SceneSelectButton extends LinearLayout implements Hideable
 	/*
 	@Override
 	public void setAlpha(float alpha){
-		// TODO: Implement this method
+
 		super.setAlpha(alpha);
 		bg.setAlpha(alpha);
 	}
@@ -168,7 +168,7 @@ public class SceneSelectButton extends LinearLayout implements Hideable
 
 	@Override
 	public void performAnimation(double deltaTime){
-		// TODO: Implement this method
+
 		if(pressAnim!=null){
 			if(AnimationHandler.handleSingleAnima(pressAnim,deltaTime)){
 				pressAnim=null;
@@ -179,7 +179,7 @@ public class SceneSelectButton extends LinearLayout implements Hideable
 	
 	@Override
 	public void setPressed(boolean pressed){
-		// TODO: Implement this method
+
 		super.setPressed(pressed);
 		if(pressed){
 			onPressAnim();
@@ -190,14 +190,14 @@ public class SceneSelectButton extends LinearLayout implements Hideable
 
 	@Override
 	public void onClickEvent(){
-		// TODO: Implement this method
+
 		super.onClickEvent();
 		if(onClickListener!=null)onClickListener.onClick(this);
 	}
 
 	@Override
 	protected void onDraw(BaseCanvas canvas){
-		// TODO: Implement this method
+
 		
 		//widthAddition=isPressed()?maxWidthAddition:0;
 		
@@ -219,7 +219,7 @@ public class SceneSelectButton extends LinearLayout implements Hideable
 	
 	@Override
 	public void hide(){
-		// TODO: Implement this method
+
 		showOffset=getParent().getWidth()+getWidth();
 		ComplexAnimationBuilder builder=ComplexAnimationBuilder.start(new FloatQueryAnimation<SceneSelectButton>(this,"offsetX")
 																	  .transform(getOffsetX(),0,Easing.None)
@@ -234,7 +234,7 @@ public class SceneSelectButton extends LinearLayout implements Hideable
 
 	@Override
 	public void show(){
-		// TODO: Implement this method
+
 		showOffset=getParent().getWidth()+getWidth();
 		ComplexAnimationBuilder builder=ComplexAnimationBuilder.start(new FloatQueryAnimation<SceneSelectButton>(this,"offsetX")
 																	  .transform(leftShadow?-showOffset:showOffset,0,Easing.None)
@@ -250,7 +250,7 @@ public class SceneSelectButton extends LinearLayout implements Hideable
 
 	@Override
 	public boolean isHidden(){
-		// TODO: Implement this method
+
 		return getVisiblility()==VISIBILITY_GONE;
 	}
 }

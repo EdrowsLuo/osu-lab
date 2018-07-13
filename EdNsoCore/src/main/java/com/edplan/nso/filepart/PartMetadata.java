@@ -1,6 +1,5 @@
 package com.edplan.nso.filepart;
 import com.edplan.nso.OsuFilePart;
-import com.edplan.nso.StrR;
 import com.edplan.nso.beatmapComponent.Tags;
 import com.edplan.superutils.U;
 

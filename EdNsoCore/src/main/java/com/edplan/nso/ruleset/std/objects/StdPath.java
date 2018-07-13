@@ -1,5 +1,4 @@
 package com.edplan.nso.ruleset.std.objects;
-import com.edplan.superutils.math.Vct2;
 import java.util.List;
 import java.util.ArrayList;
 import com.edplan.framework.math.Vec2;

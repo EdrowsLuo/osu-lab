@@ -22,7 +22,7 @@ public class BottomBar extends RelativeContainer implements Hideable
 	
 	@Override
 	public void hide(){
-		// TODO: Implement this method
+
 		ComplexAnimationBuilder builder=ComplexAnimationBuilder.start(new FloatQueryAnimation<BottomBar>(this,"offsetY")
 																	  .transform(getOffsetY(),0,Easing.None)
 																	  .transform(getHeight(),ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.OutExpo));
@@ -33,7 +33,7 @@ public class BottomBar extends RelativeContainer implements Hideable
 
 	@Override
 	public void show(){
-		// TODO: Implement this method
+
 		ComplexAnimationBuilder builder=ComplexAnimationBuilder.start(new FloatQueryAnimation<BottomBar>(this,"offsetY")
 																	  .transform(getHeight(),0,Easing.None)
 																	  .transform(0,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.OutExpo));
@@ -44,7 +44,7 @@ public class BottomBar extends RelativeContainer implements Hideable
 
 	@Override
 	public boolean isHidden(){
-		// TODO: Implement this method
+
 		return getVisiblility()==VISIBILITY_GONE;
 	}
 }

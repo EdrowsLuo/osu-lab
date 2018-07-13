@@ -6,7 +6,6 @@ import java.lang.annotation.RetentionPolicy;
 
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public @interface SQLAddition
-{
-	public String value() default "";
+public @interface SQLAddition {
+    public String value() default "";
 }

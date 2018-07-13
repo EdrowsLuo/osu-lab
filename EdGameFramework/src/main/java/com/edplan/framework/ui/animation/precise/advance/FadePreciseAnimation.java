@@ -1,48 +1,48 @@
 package com.edplan.framework.ui.animation.precise.advance;
+
 import com.edplan.framework.ui.drawable.interfaces.IFadeable;
 import com.edplan.framework.ui.animation.AnimationHelper;
 
-public class FadePreciseAnimation extends AdvancePreciseAnimation
-{
-	private IFadeable target;
-	
-	private float startValue;
-	
-	private float endValue;
-	
-	public FadePreciseAnimation(){
-		
-	}
+public class FadePreciseAnimation extends AdvancePreciseAnimation {
+    private IFadeable target;
 
-	public void setTarget(IFadeable target) {
-		this.target=target;
-	}
+    private float startValue;
 
-	public IFadeable getTarget() {
-		return target;
-	}
+    private float endValue;
 
-	public void setStartValue(float startValue) {
-		this.startValue=startValue;
-	}
+    public FadePreciseAnimation() {
 
-	public float getStartValue() {
-		return startValue;
-	}
+    }
 
-	public void setEndValue(float endValue) {
-		this.endValue=endValue;
-	}
+    public void setTarget(IFadeable target) {
+        this.target = target;
+    }
 
-	public float getEndValue() {
-		return endValue;
-	}
+    public IFadeable getTarget() {
+        return target;
+    }
 
-	@Override
-	public void setValueProgress(float fp) {
+    public void setStartValue(float startValue) {
+        this.startValue = startValue;
+    }
 
-		super.setValueProgress(fp);
-		float v=startValue*(1-fp)+endValue*fp;
-		target.setAlpha(v);
-	}
+    public float getStartValue() {
+        return startValue;
+    }
+
+    public void setEndValue(float endValue) {
+        this.endValue = endValue;
+    }
+
+    public float getEndValue() {
+        return endValue;
+    }
+
+    @Override
+    public void setValueProgress(float fp) {
+
+        super.setValueProgress(fp);
+        float v = startValue * (1 - fp) + endValue * fp;
+        target.setAlpha(v);
+    }
 }

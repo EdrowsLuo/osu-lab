@@ -20,7 +20,7 @@ public class DetailsPanel extends RelativeContainer implements Hideable
 	
 	@Override
 	public void hide(){
-		// TODO: Implement this method
+
 		ComplexAnimationBuilder b=ComplexAnimationBuilder.
 			//start(FloatQueryAnimation.fadeTo(this,0,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));
 			start(new FloatQueryAnimation<EdView>(this,"offsetX")
@@ -32,7 +32,7 @@ public class DetailsPanel extends RelativeContainer implements Hideable
 
 	@Override
 	public void show(){
-		// TODO: Implement this method
+
 		setAlpha(0);
 		ComplexAnimationBuilder b=ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this,1,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));
 		b.together(new FloatQueryAnimation<EdView>(this,"offsetX")
@@ -45,7 +45,7 @@ public class DetailsPanel extends RelativeContainer implements Hideable
 
 	@Override
 	public boolean isHidden(){
-		// TODO: Implement this method
+
 		return getVisiblility()==VISIBILITY_GONE;
 	}
 	
