@@ -23,121 +23,120 @@ import com.edplan.osulab.ui.BackQuery;
 import com.edplan.osulab.ui.MessageList;
 import com.edplan.framework.ui.Anchor;
 
-public class MessageList extends ScrollContainer implements Hideable
-{
-	private ColorRectSprite shadowSprite;
+public class MessageList extends ScrollContainer implements Hideable {
+    private ColorRectSprite shadowSprite;
 
-	public MessageList(MContext c){
-		super(c);
-		setOutsideTouchable(true);
-		setChildoffset(ViewConfiguration.dp(1));
-		setBackground(Color4.rgba(0,0,0,0.5f));
-		setOrientation(Orientation.DIRECTION_T2B);
-		setPaddingLeft(ViewConfiguration.dp(2));
-		setPaddingRight(ViewConfiguration.dp(2));
-		setGravity(Gravity.CenterLeft);
+    public MessageList(MContext c) {
+        super(c);
+        setOutsideTouchable(true);
+        setChildoffset(ViewConfiguration.dp(1));
+        setBackground(Color4.rgba(0, 0, 0, 0.5f));
+        setOrientation(Orientation.DIRECTION_T2B);
+        setPaddingLeft(ViewConfiguration.dp(2));
+        setPaddingRight(ViewConfiguration.dp(2));
+        setGravity(Gravity.CenterLeft);
 
-		shadowSprite=new ColorRectSprite(c);
-		shadowSprite.setColor(Color4.rgba(0,0,0,0f),
-							  Color4.rgba(0,0,0,0.6f),
-							  Color4.rgba(0,0,0,0f),
-							  Color4.rgba(0,0,0,0.6f));
+        shadowSprite = new ColorRectSprite(c);
+        shadowSprite.setColor(Color4.rgba(0, 0, 0, 0f),
+                Color4.rgba(0, 0, 0, 0.6f),
+                Color4.rgba(0, 0, 0, 0f),
+                Color4.rgba(0, 0, 0, 0.6f));
 
 
-		{
-			TextView b=new TextView(c);
-			b.setTextSize(ViewConfiguration.dp(40));
-			b.setText("[Messages]");
-			MarginLayoutParam param=new MarginLayoutParam();
-			param.width=Param.MODE_MATCH_PARENT;
-			param.height=Param.MODE_MATCH_PARENT;
-			addView(b,param);
-		}
-	}
+        {
+            TextView b = new TextView(c);
+            b.setTextSize(ViewConfiguration.dp(40));
+            b.setText("[Messages]");
+            MarginLayoutParam param = new MarginLayoutParam();
+            param.width = Param.MODE_MATCH_PARENT;
+            param.height = Param.MODE_MATCH_PARENT;
+            addView(b, param);
+        }
+    }
 
-	@Override
-	public void onInitialLayouted(){
+    @Override
+    public void onInitialLayouted() {
 
-		super.onInitialLayouted();
-		directHide();
-	}
+        super.onInitialLayouted();
+        directHide();
+    }
 
-	@Override
-	public void hide(){
-		ComplexAnimationBuilder builder=ComplexAnimationBuilder.start(new FloatQueryAnimation<MessageList>(this,"alpha")
-																	  .transform(getAlpha(),0,Easing.None)
-																	  .transform(0,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));
-		builder.together(new FloatQueryAnimation<MessageList>(this,"offsetX")
-						 .transform(getOffsetX(),0,Easing.None)
-						 .transform(getWidth(),ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.InQuad));
-		ComplexAnimation anim=builder.build();
-		anim.setOnFinishListener(new OnFinishListener(){
-				@Override
-				public void onFinish(){
+    @Override
+    public void hide() {
+        ComplexAnimationBuilder builder = ComplexAnimationBuilder.start(new FloatQueryAnimation<MessageList>(this, "alpha")
+                .transform(getAlpha(), 0, Easing.None)
+                .transform(0, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.None));
+        builder.together(new FloatQueryAnimation<MessageList>(this, "offsetX")
+                .transform(getOffsetX(), 0, Easing.None)
+                .transform(getWidth(), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.InQuad));
+        ComplexAnimation anim = builder.build();
+        anim.setOnFinishListener(new OnFinishListener() {
+            @Override
+            public void onFinish() {
 
-					setVisiblility(VISIBILITY_GONE);
-					BackQuery.get().unregist(MessageList.this);
-				}
-			});
-		anim.start();
-		setAnimation(anim);
-	}
+                setVisiblility(VISIBILITY_GONE);
+                BackQuery.get().unregist(MessageList.this);
+            }
+        });
+        anim.start();
+        setAnimation(anim);
+    }
 
-	public void directHide(){
-		setVisiblility(VISIBILITY_GONE);
-		setOffsetX(getWidth());
-		setAlpha(0);
-	}
+    public void directHide() {
+        setVisiblility(VISIBILITY_GONE);
+        setOffsetX(getWidth());
+        setAlpha(0);
+    }
 
-	@Override
-	public boolean onOutsideTouch(EdMotionEvent e){
+    @Override
+    public boolean onOutsideTouch(EdMotionEvent e) {
 
-		if(e.getEventType()==EdMotionEvent.EventType.Down){
-			if(!isHidden())hide();
-			return true;
-		}
-		return false;
-	}
+        if (e.getEventType() == EdMotionEvent.EventType.Down) {
+            if (!isHidden()) hide();
+            return true;
+        }
+        return false;
+    }
 
-	@Override
-	public boolean isOutsideTouchable(){
+    @Override
+    public boolean isOutsideTouchable() {
 
-		return super.isOutsideTouchable()&&!isHidden();
-	}
+        return super.isOutsideTouchable() && !isHidden();
+    }
 
-	@Override
-	public void show(){
-		ComplexAnimationBuilder builder=ComplexAnimationBuilder.start(new FloatQueryAnimation<MessageList>(this,"alpha")
-																	  .transform(getAlpha(),0,Easing.None)
-																	  .transform(1,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));
-		builder.together(new FloatQueryAnimation<MessageList>(this,"offsetX")
-						 .transform(getOffsetX(),0,Easing.None)
-						 .transform(0,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.OutQuad));
-		ComplexAnimation anim=builder.build();
-		anim.start();
-		setAnimation(anim);
-		setVisiblility(VISIBILITY_SHOW);
-		BackQuery.get().regist(this);
-	}
+    @Override
+    public void show() {
+        ComplexAnimationBuilder builder = ComplexAnimationBuilder.start(new FloatQueryAnimation<MessageList>(this, "alpha")
+                .transform(getAlpha(), 0, Easing.None)
+                .transform(1, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.None));
+        builder.together(new FloatQueryAnimation<MessageList>(this, "offsetX")
+                .transform(getOffsetX(), 0, Easing.None)
+                .transform(0, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.OutQuad));
+        ComplexAnimation anim = builder.build();
+        anim.start();
+        setAnimation(anim);
+        setVisiblility(VISIBILITY_SHOW);
+        BackQuery.get().regist(this);
+    }
 
-	@Override
-	public boolean isHidden(){
+    @Override
+    public boolean isHidden() {
 
-		return getVisiblility()==VISIBILITY_GONE;
-	}
+        return getVisiblility() == VISIBILITY_GONE;
+    }
 
-	@Override
-	public void setAlpha(float alpha){
+    @Override
+    public void setAlpha(float alpha) {
 
-		super.setAlpha(alpha);
-		shadowSprite.setAlpha(alpha);
-	}
+        super.setAlpha(alpha);
+        shadowSprite.setAlpha(alpha);
+    }
 
-	@Override
-	protected void onDraw(BaseCanvas canvas){
+    @Override
+    protected void onDraw(BaseCanvas canvas) {
 
-		super.onDraw(canvas);
-		shadowSprite.setArea(RectF.anchorOWH(Anchor.TopRight,0,0,ViewConfiguration.dp(9),canvas.getHeight()));
-		shadowSprite.draw(canvas);
-	}
+        super.onDraw(canvas);
+        shadowSprite.setArea(RectF.anchorOWH(Anchor.TopRight, 0, 0, ViewConfiguration.dp(9), canvas.getHeight()));
+        shadowSprite.draw(canvas);
+    }
 }

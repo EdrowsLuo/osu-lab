@@ -25,241 +25,240 @@ import com.edplan.framework.ui.widget.component.Hideable;
 import com.edplan.framework.ui.widget.component.Scroller;
 import com.edplan.osulab.ui.pieces.SongPanel;
 import com.edplan.framework.ui.widget.RelativeContainer;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class SongsListView extends EdContainer implements Hideable
-{
-	public static float WIDTH_DP=350;
-	
-	protected float childoffset=ViewConfiguration.dp(5);
+public class SongsListView extends EdContainer implements Hideable {
+    public static float WIDTH_DP = 350;
 
-	protected float startOffset;
+    protected float childoffset = ViewConfiguration.dp(5);
 
-	protected float scrollRate;
+    protected float startOffset;
 
-	protected float maxChildrenSize=500;
+    protected float scrollRate;
 
-	protected boolean enableGravityCenter=false;
-	
-	private int startIndex=0;
-	
-	private int showItemCount=0;
-	
-	private ArrayList<EdView> contents=new ArrayList<EdView>();
-	
-	private LinkedList<EntryContainer> showContent=new LinkedList<EntryContainer>();
-	
-	public SongsListView(MContext c){
-		super(c);
-		setScrollableFlag(ScrollEvent.DIRECTION_VERTICAL);
-		//setDebug(true);
-		
-		scroller.setEnableOverscroll(false);
-		
-		
-		for(int i=0;i<20;i++){
-			MarginLayoutParam p=new MarginLayoutParam();
-			RelativeContainer view=new RelativeContainer(c);
-			
-			RoundedRectDrawable bg=new RoundedRectDrawable(c);
-			bg.setColor(Color4.rgba(0,0,0,0.5f));
-			bg.setRadius(ViewConfiguration.dp(10));
-			view.setBackground(bg);
-			
-			p.width=Param.makeUpDP(WIDTH_DP);
-			p.height=Param.makeUpDP(WIDTH_DP*0.15f);
-			view.setLayoutParam(p);
-			contents.add(view);
+    protected float maxChildrenSize = 500;
+
+    protected boolean enableGravityCenter = false;
+
+    private int startIndex = 0;
+
+    private int showItemCount = 0;
+
+    private ArrayList<EdView> contents = new ArrayList<EdView>();
+
+    private LinkedList<EntryContainer> showContent = new LinkedList<EntryContainer>();
+
+    public SongsListView(MContext c) {
+        super(c);
+        setScrollableFlag(ScrollEvent.DIRECTION_VERTICAL);
+        //setDebug(true);
+
+        scroller.setEnableOverscroll(false);
+
+
+        for (int i = 0; i < 20; i++) {
+            MarginLayoutParam p = new MarginLayoutParam();
+            RelativeContainer view = new RelativeContainer(c);
+
+            RoundedRectDrawable bg = new RoundedRectDrawable(c);
+            bg.setColor(Color4.rgba(0, 0, 0, 0.5f));
+            bg.setRadius(ViewConfiguration.dp(10));
+            view.setBackground(bg);
+
+            p.width = Param.makeUpDP(WIDTH_DP);
+            p.height = Param.makeUpDP(WIDTH_DP * 0.15f);
+            view.setLayoutParam(p);
+            contents.add(view);
 			/*
 			addView(view,p);
 			*/
-		}
-	}
+        }
+    }
 
-	protected Scroller scroller=new Scroller(new Setter<Float>(){
-			@Override
-			public void set(Float t){
+    protected Scroller scroller = new Scroller(new Setter<Float>() {
+        @Override
+        public void set(Float t) {
 
-				scrollRate=t;
-				invalidate();
-				invalidateDraw();
-			}
-		});
+            scrollRate = t;
+            invalidate();
+            invalidateDraw();
+        }
+    });
 
-	@Override
-	public boolean onScroll(ScrollEvent event){
+    @Override
+    public boolean onScroll(ScrollEvent event) {
 
-		final float offset=-event.getScrollY();
-		switch(event.getState()){
-			case ScrollEvent.STATE_START:
-				scroller.setStartValue(getScrollRateMin());
-				scroller.setEndValue(getScrollRateMax());
-				scroller.start(scrollRate);
-				scroller.update();
-				return true;
-			case ScrollEvent.STATE_SCROLLING:
-				scroller.add(offset,event.getDeltaTime());
-				scroller.update();
-				return true;
-			case ScrollEvent.STATE_END:
-				scroller.end();
-				scroller.update();
-				return true;
-			case ScrollEvent.STATE_CANCEL:
-				scroller.cancel();
-				scroller.update();
-				return true;
-		}
-		return false;
-	}
+        final float offset = -event.getScrollY();
+        switch (event.getState()) {
+            case ScrollEvent.STATE_START:
+                scroller.setStartValue(getScrollRateMin());
+                scroller.setEndValue(getScrollRateMax());
+                scroller.start(scrollRate);
+                scroller.update();
+                return true;
+            case ScrollEvent.STATE_SCROLLING:
+                scroller.add(offset, event.getDeltaTime());
+                scroller.update();
+                return true;
+            case ScrollEvent.STATE_END:
+                scroller.end();
+                scroller.update();
+                return true;
+            case ScrollEvent.STATE_CANCEL:
+                scroller.cancel();
+                scroller.update();
+                return true;
+        }
+        return false;
+    }
 
-	public void setEnableGravityCenter(boolean enableGravityCenter){
-		this.enableGravityCenter=enableGravityCenter;
-	}
+    public void setEnableGravityCenter(boolean enableGravityCenter) {
+        this.enableGravityCenter = enableGravityCenter;
+    }
 
-	public boolean isEnableGravityCenter(){
-		return enableGravityCenter;
-	}
+    public boolean isEnableGravityCenter() {
+        return enableGravityCenter;
+    }
 
-	public void setStartOffset(float startOffset){
-		this.startOffset=startOffset;
-	}
+    public void setStartOffset(float startOffset) {
+        this.startOffset = startOffset;
+    }
 
-	public float getStartOffset(){
-		return startOffset;
-	}
+    public float getStartOffset() {
+        return startOffset;
+    }
 
-	public void setChildoffset(float childoffset){
-		this.childoffset=childoffset;
-	}
+    public void setChildoffset(float childoffset) {
+        this.childoffset = childoffset;
+    }
 
-	public float getChildoffset(){
-		return childoffset;
-	}
-	
-	@Override
-	public void hide(){
+    public float getChildoffset() {
+        return childoffset;
+    }
 
-		ComplexAnimationBuilder b=ComplexAnimationBuilder.
-		//start(FloatQueryAnimation.fadeTo(this,0,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));
-		start(new FloatQueryAnimation<EdView>(this,"offsetX")
-				   .transform(0,0,Easing.None)
-				   .transform(ViewConfiguration.dp(WIDTH_DP),ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.InQuad));
-		ComplexAnimation anim=b.buildAndStart();
-		setAnimation(anim);
-	}
+    @Override
+    public void hide() {
 
-	@Override
-	public void show(){
+        ComplexAnimationBuilder b = ComplexAnimationBuilder.
+                //start(FloatQueryAnimation.fadeTo(this,0,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));
+                        start(new FloatQueryAnimation<EdView>(this, "offsetX")
+                        .transform(0, 0, Easing.None)
+                        .transform(ViewConfiguration.dp(WIDTH_DP), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.InQuad));
+        ComplexAnimation anim = b.buildAndStart();
+        setAnimation(anim);
+    }
 
-		setAlpha(0);
-		ComplexAnimationBuilder b=ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this,1,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));
-		b.together(new FloatQueryAnimation<EdView>(this,"offsetX")
-				   .transform(ViewConfiguration.dp(WIDTH_DP),0,Easing.None)
-				   .transform(0,ViewConfiguration.DEFAULT_TRANSITION_TIME*2,Easing.OutQuad));
-		ComplexAnimation anim=b.buildAndStart();
-		setAnimation(anim);
-	}
-	
+    @Override
+    public void show() {
 
-	@Override
-	public boolean isHidden(){
-
-		return getVisiblility()==VISIBILITY_GONE;
-	}
-
-	@Override
-	protected void onDraw(BaseCanvas canvas){
-
-		super.onDraw(canvas);
-		
-	}
-	
-	
-
-	protected float getScrollRateMax(){
-		return getHeight()/2;
-	}
-
-	protected float getScrollRateMin(){
-		return -getHeight()/2;
-	}
-
-	@Override
-	protected void drawContainer(BaseCanvas canvas){
-
-		final int count=getChildrenCount();
-		for(int i=0;i<count;i++){
-			final EdView view=getChildAt(i);
-			if(view.getBottom()<0)continue;
-			if(view.getTop()>getHeight())break;
-			if(view.getVisiblility()==VISIBILITY_SHOW){
-				final int savedcount=canvas.save();
-				try{
-					canvas.translate(view.getLeft(),view.getTop());
-					canvas.clip(view.getWidth(),view.getHeight());
-					view.draw(canvas);
-				}finally{
-					canvas.restoreToCount(savedcount);
-				}
-			}
-		}
-	}
-
-	@Override
-	public EdLayoutParam adjustParam(EdView view,EdLayoutParam param){
-
-		if(param instanceof MarginLayoutParam){
-			return param;
-		}else{
-			return new MarginLayoutParam(param);
-		}
-	}
-
-	private boolean hasPreviousEntry(EntryContainer entry){
-		return false;
-	}
+        setAlpha(0);
+        ComplexAnimationBuilder b = ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this, 1, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.None));
+        b.together(new FloatQueryAnimation<EdView>(this, "offsetX")
+                .transform(ViewConfiguration.dp(WIDTH_DP), 0, Easing.None)
+                .transform(0, ViewConfiguration.DEFAULT_TRANSITION_TIME * 2, Easing.OutQuad));
+        ComplexAnimation anim = b.buildAndStart();
+        setAnimation(anim);
+    }
 
 
-	private boolean hasNextEntry(EntryContainer entry){
-		return false;
-	}
+    @Override
+    public boolean isHidden() {
 
-	private EntryContainer previousEntry(EntryContainer entry){
-		return null;
-	}
+        return getVisiblility() == VISIBILITY_GONE;
+    }
 
-	private EntryContainer nextEntry(EntryContainer entry){
-		return null;
-	}
+    @Override
+    protected void onDraw(BaseCanvas canvas) {
 
-	private EntryContainer gainEntryAtStart(){
-		EntryContainer e=showContent.getFirst();
-		if(e==null){
-			return null;
-		}
+        super.onDraw(canvas);
 
-		if(e.getTop()<0)return null;
-		EntryContainer p=previousEntry(e);
-		if(p==null)return null;
-
-		showContent.addFirst(p);
-		return  p;
-	}
-
-	private EntryContainer gainEntryAtEnd(){
-		return null;
-	}
-
-	private boolean isInitialLayout=true;
+    }
 
 
-	protected void layoutVertical(float left,float top,float right,float bottom){
-		final int count=getChildrenCount();
+    protected float getScrollRateMax() {
+        return getHeight() / 2;
+    }
 
-		final float parentTop=getPaddingTop();
-		final float parentRight=right-left-getPaddingRight();
+    protected float getScrollRateMin() {
+        return -getHeight() / 2;
+    }
+
+    @Override
+    protected void drawContainer(BaseCanvas canvas) {
+
+        final int count = getChildrenCount();
+        for (int i = 0; i < count; i++) {
+            final EdView view = getChildAt(i);
+            if (view.getBottom() < 0) continue;
+            if (view.getTop() > getHeight()) break;
+            if (view.getVisiblility() == VISIBILITY_SHOW) {
+                final int savedcount = canvas.save();
+                try {
+                    canvas.translate(view.getLeft(), view.getTop());
+                    canvas.clip(view.getWidth(), view.getHeight());
+                    view.draw(canvas);
+                } finally {
+                    canvas.restoreToCount(savedcount);
+                }
+            }
+        }
+    }
+
+    @Override
+    public EdLayoutParam adjustParam(EdView view, EdLayoutParam param) {
+
+        if (param instanceof MarginLayoutParam) {
+            return param;
+        } else {
+            return new MarginLayoutParam(param);
+        }
+    }
+
+    private boolean hasPreviousEntry(EntryContainer entry) {
+        return false;
+    }
+
+
+    private boolean hasNextEntry(EntryContainer entry) {
+        return false;
+    }
+
+    private EntryContainer previousEntry(EntryContainer entry) {
+        return null;
+    }
+
+    private EntryContainer nextEntry(EntryContainer entry) {
+        return null;
+    }
+
+    private EntryContainer gainEntryAtStart() {
+        EntryContainer e = showContent.getFirst();
+        if (e == null) {
+            return null;
+        }
+
+        if (e.getTop() < 0) return null;
+        EntryContainer p = previousEntry(e);
+        if (p == null) return null;
+
+        showContent.addFirst(p);
+        return p;
+    }
+
+    private EntryContainer gainEntryAtEnd() {
+        return null;
+    }
+
+    private boolean isInitialLayout = true;
+
+
+    protected void layoutVertical(float left, float top, float right, float bottom) {
+        final int count = getChildrenCount();
+
+        final float parentTop = getPaddingTop();
+        final float parentRight = right - left - getPaddingRight();
 
 
 
@@ -288,23 +287,23 @@ public class SongsListView extends EdContainer implements Hideable
 		}
 
 		*/
-	}
+    }
 
-	@Override
-	protected void onLayout(boolean changed,float left,float top,float right,float bottom){
+    @Override
+    protected void onLayout(boolean changed, float left, float top, float right, float bottom) {
 
-		scroller.update();
-		layoutVertical(left,top,right,bottom);
-	}
+        scroller.update();
+        layoutVertical(left, top, right, bottom);
+    }
 
-	private void measureEntry(EntryContainer view){
-		final EdLayoutParam param=view.getLayoutParam();
-		final float marginVertical=(param instanceof MarginLayoutParam)?(((MarginLayoutParam)param).getMarginVertical()):0;
-		measureChildWithMarginIgnorePadding(view, EdMeasureSpec.makeupMeasureSpec(getWidth(),EdMeasureSpec.MODE_DEFINEDED),EdMeasureSpec.makeupMeasureSpec(getWidth(),EdMeasureSpec.MODE_NONE),getPaddingHorizon(),0);
-	}
+    private void measureEntry(EntryContainer view) {
+        final EdLayoutParam param = view.getLayoutParam();
+        final float marginVertical = (param instanceof MarginLayoutParam) ? (((MarginLayoutParam) param).getMarginVertical()) : 0;
+        measureChildWithMarginIgnorePadding(view, EdMeasureSpec.makeupMeasureSpec(getWidth(), EdMeasureSpec.MODE_DEFINEDED), EdMeasureSpec.makeupMeasureSpec(getWidth(), EdMeasureSpec.MODE_NONE), getPaddingHorizon(), 0);
+    }
 
-	protected void measureVertical(long widthSpec,long heightSpec){
-		//对内容的measure在layout的时候进行
+    protected void measureVertical(long widthSpec, long heightSpec) {
+        //对内容的measure在layout的时候进行
 		/*
 		final int count=getChildrenCount();
 		final long adjustedSpec=EdMeasureSpec.makeupMeasureSpec(Math.max(EdMeasureSpec.getSize(heightSpec),maxChildrenSize),EdMeasureSpec.MODE_AT_MOST);
@@ -317,8 +316,9 @@ public class SongsListView extends EdContainer implements Hideable
 			}
 		}
 		*/
-		float xd=EdMeasureSpec.getSize(widthSpec);;
-		float yd;
+        float xd = EdMeasureSpec.getSize(widthSpec);
+        ;
+        float yd;
 		/*
 		{
 			final int mmode=EdMeasureSpec.getMode(widthSpec);
@@ -333,75 +333,76 @@ public class SongsListView extends EdContainer implements Hideable
 			}
 		}
 		*/
-		{
-			final int mmode=EdMeasureSpec.getMode(heightSpec);
-			switch(mmode){
-				case EdMeasureSpec.MODE_DEFINEDED:
-					yd=EdMeasureSpec.getSize(heightSpec);
-					break;
-				case EdMeasureSpec.MODE_NONE:
-				default:
-					yd=Math.max(getPaddingHorizon(),EdMeasureSpec.getSize(heightSpec));
-					break;
-			}
-		}
-		//Log.v("layout","measure ScrollContainer Vertical, height used "+heightUsed+", set dimensition "+xd+";"+yd+" spec:"+EdMeasureSpec.toString(widthSpec)+":"+EdMeasureSpec.toString(heightSpec));
-		setMeasuredDimensition(xd,yd);
-	}
+        {
+            final int mmode = EdMeasureSpec.getMode(heightSpec);
+            switch (mmode) {
+                case EdMeasureSpec.MODE_DEFINEDED:
+                    yd = EdMeasureSpec.getSize(heightSpec);
+                    break;
+                case EdMeasureSpec.MODE_NONE:
+                default:
+                    yd = Math.max(getPaddingHorizon(), EdMeasureSpec.getSize(heightSpec));
+                    break;
+            }
+        }
+        //Log.v("layout","measure ScrollContainer Vertical, height used "+heightUsed+", set dimensition "+xd+";"+yd+" spec:"+EdMeasureSpec.toString(widthSpec)+":"+EdMeasureSpec.toString(heightSpec));
+        setMeasuredDimensition(xd, yd);
+    }
 
-	@Override
-	protected void onMeasure(long widthSpec,long heightSpec){
+    @Override
+    protected void onMeasure(long widthSpec, long heightSpec) {
 
-		measureVertical(widthSpec,heightSpec);
-	}
-	
-	
-	public class EntryContainer extends AbsoluteContainer{
+        measureVertical(widthSpec, heightSpec);
+    }
 
-		private Object adaptedObject;
 
-		private int adaptedIndex;
+    public class EntryContainer extends AbsoluteContainer {
 
-		private boolean isSelectedItem=false;
+        private Object adaptedObject;
 
-		private EdView content;
+        private int adaptedIndex;
 
-		public EntryContainer(MContext c){
-			super(c);
-		}
+        private boolean isSelectedItem = false;
 
-		public Object getAdaptedObject() {
-			return adaptedObject;
-		}
+        private EdView content;
 
-		public void setAdaptedObject(Object adaptedObject) {
-			this.adaptedObject = adaptedObject;
-		}
-		@Override
-		public int getChildrenCount() {
-			return content==null?0:1;
-		}
+        public EntryContainer(MContext c) {
+            super(c);
+        }
 
-		@Override
-		public EdView getChildAt(int i) {
-			if(i==0)return content;
-			return null;
-		}
+        public Object getAdaptedObject() {
+            return adaptedObject;
+        }
 
-		public EdView getContent() {
-			return content;
-		}
+        public void setAdaptedObject(Object adaptedObject) {
+            this.adaptedObject = adaptedObject;
+        }
 
-		public void setContent(EdView content) {
-			this.content = content;
-		}
+        @Override
+        public int getChildrenCount() {
+            return content == null ? 0 : 1;
+        }
 
-		public int getAdaptedIndex() {
-			return adaptedIndex;
-		}
+        @Override
+        public EdView getChildAt(int i) {
+            if (i == 0) return content;
+            return null;
+        }
 
-		public void setAdaptedIndex(int adaptedIndex) {
-			this.adaptedIndex = adaptedIndex;
-		}
-	}
+        public EdView getContent() {
+            return content;
+        }
+
+        public void setContent(EdView content) {
+            this.content = content;
+        }
+
+        public int getAdaptedIndex() {
+            return adaptedIndex;
+        }
+
+        public void setAdaptedIndex(int adaptedIndex) {
+            this.adaptedIndex = adaptedIndex;
+        }
+    }
 }

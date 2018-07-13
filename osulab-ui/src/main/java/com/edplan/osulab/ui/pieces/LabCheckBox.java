@@ -1,4 +1,5 @@
 package com.edplan.osulab.ui.pieces;
+
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.Color4;
@@ -15,124 +16,123 @@ import com.edplan.framework.ui.animation.FloatQueryAnimation;
 import com.edplan.framework.ui.animation.Easing;
 import com.edplan.framework.ui.Anchor;
 
-public class LabCheckBox extends EdView
-{
-	private float outerWidth=ViewConfiguration.dp(2);
-	
-	private boolean checked;
-	
-	private AbstractAnimation checkAnim;
-	
-	private RoundedShadowSprite outer;
-	
-	private RoundedRectSprite inner;
-	
-	private OnCheckListener onCheckListener;
-	
-	private float innerAlpha=0;
-	
-	private float hintAlpha=0.5f;
-	
-	public LabCheckBox(MContext c){
-		super(c);
-		setClickable(true);
-		outer=new RoundedShadowSprite(c);
-		outer.setAccentColor(Color4.rgba(1,1,1,1));
-		outer.setColor(Color4.rgba(1,1,1,1),Color4.rgba(1,1,1,1),
-					   Color4.rgba(1,1,1,1),Color4.rgba(1,1,1,1));
-		outer.setShadowColor(Color4.rgba(1,1,1,1),Color4.rgba(1,1,1,1));
-		
-		inner=new RoundedRectSprite(c);
-		inner.setAccentColor(Color4.rgba(1,1,1,1));
-		inner.setColor(Color4.rgba(1,1,1,1),Color4.rgba(1,1,1,1),
-					   Color4.rgba(1,1,1,1),Color4.rgba(1,1,1,1));
-		
-	}
+public class LabCheckBox extends EdView {
+    private float outerWidth = ViewConfiguration.dp(2);
 
-	public void setInnerAlpha(float innerAlpha){
-		this.innerAlpha=innerAlpha;
-		invalidateDraw();
-	}
+    private boolean checked;
 
-	public float getInnerAlpha(){
-		return innerAlpha;
-	}
+    private AbstractAnimation checkAnim;
 
-	public void setOnCheckListener(OnCheckListener onCheckListener){
-		this.onCheckListener=onCheckListener;
-	}
+    private RoundedShadowSprite outer;
 
-	public OnCheckListener getOnCheckListener(){
-		return onCheckListener;
-	}
+    private RoundedRectSprite inner;
 
-	@Override
-	public void onClickEvent(){
+    private OnCheckListener onCheckListener;
 
-		super.onClickEvent();
-		performCheckEvent();
-	}
-	
-	public void performCheckEvent(){
-		setChecked(!isChecked());
-		if(onCheckListener!=null)onCheckListener.onCheck(isChecked(),this);
-	}
+    private float innerAlpha = 0;
 
-	public void setChecked(boolean checked){
-		if(checked!=this.checked){
-			this.checked=checked;
-			invalidateDraw();
-			if(checked){
-				ComplexAnimationBuilder b=ComplexAnimationBuilder.start(new FloatQueryAnimation<LabCheckBox>(this,"innerAlpha")
-												 .transform(getInnerAlpha(),0,Easing.None)
-												 .transform(1,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.OutQuad));
-				checkAnim=b.buildAndStart();
-			}else{
-				ComplexAnimationBuilder b=ComplexAnimationBuilder.start(new FloatQueryAnimation<LabCheckBox>(this,"innerAlpha")
-																		.transform(getInnerAlpha(),0,Easing.None)
-																		.transform(0,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.OutQuad));
-				checkAnim=b.buildAndStart();
-			}
-		}
-	}
+    private float hintAlpha = 0.5f;
 
-	public boolean isChecked(){
-		return checked;
-	}
+    public LabCheckBox(MContext c) {
+        super(c);
+        setClickable(true);
+        outer = new RoundedShadowSprite(c);
+        outer.setAccentColor(Color4.rgba(1, 1, 1, 1));
+        outer.setColor(Color4.rgba(1, 1, 1, 1), Color4.rgba(1, 1, 1, 1),
+                Color4.rgba(1, 1, 1, 1), Color4.rgba(1, 1, 1, 1));
+        outer.setShadowColor(Color4.rgba(1, 1, 1, 1), Color4.rgba(1, 1, 1, 1));
 
-	@Override
-	public void performAnimation(double deltaTime){
+        inner = new RoundedRectSprite(c);
+        inner.setAccentColor(Color4.rgba(1, 1, 1, 1));
+        inner.setColor(Color4.rgba(1, 1, 1, 1), Color4.rgba(1, 1, 1, 1),
+                Color4.rgba(1, 1, 1, 1), Color4.rgba(1, 1, 1, 1));
 
-		super.performAnimation(deltaTime);
-		if(checkAnim!=null){
-			if(AnimationHandler.handleSingleAnima(checkAnim,deltaTime)){
-				onRemoveAnimation(checkAnim);
-				checkAnim=null;
-			}
-		}
-	}
+    }
 
-	@Override
-	protected void onDraw(BaseCanvas canvas){
+    public void setInnerAlpha(float innerAlpha) {
+        this.innerAlpha = innerAlpha;
+        invalidateDraw();
+    }
 
-		super.onDraw(canvas);
-		float r=Math.max(0,Math.min(canvas.getWidth(),canvas.getHeight())/2-outerWidth);
-		RectF area=RectF.xywh(0,0,canvas.getWidth(),canvas.getHeight());
-		RectF iarea=area.copy().padding(outerWidth);
-		outer.setArea(area);
-		outer.setRect(iarea);
-		outer.setShadowWidth(outerWidth);
-		outer.setRoundedRadius(r);
-		outer.setAlpha(hintAlpha+innerAlpha*(1-hintAlpha));
-		if(checked||checkAnim!=null){
-			inner.setAlpha(innerAlpha);
-			inner.setArea(iarea);
-			inner.setRect(iarea.copy().scale(Anchor.Center,innerAlpha,innerAlpha));
-			inner.setRoundedRadius(r);
-			inner.draw(canvas);
-		}
-		outer.draw(canvas);
-	}
-	
-	
+    public float getInnerAlpha() {
+        return innerAlpha;
+    }
+
+    public void setOnCheckListener(OnCheckListener onCheckListener) {
+        this.onCheckListener = onCheckListener;
+    }
+
+    public OnCheckListener getOnCheckListener() {
+        return onCheckListener;
+    }
+
+    @Override
+    public void onClickEvent() {
+
+        super.onClickEvent();
+        performCheckEvent();
+    }
+
+    public void performCheckEvent() {
+        setChecked(!isChecked());
+        if (onCheckListener != null) onCheckListener.onCheck(isChecked(), this);
+    }
+
+    public void setChecked(boolean checked) {
+        if (checked != this.checked) {
+            this.checked = checked;
+            invalidateDraw();
+            if (checked) {
+                ComplexAnimationBuilder b = ComplexAnimationBuilder.start(new FloatQueryAnimation<LabCheckBox>(this, "innerAlpha")
+                        .transform(getInnerAlpha(), 0, Easing.None)
+                        .transform(1, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.OutQuad));
+                checkAnim = b.buildAndStart();
+            } else {
+                ComplexAnimationBuilder b = ComplexAnimationBuilder.start(new FloatQueryAnimation<LabCheckBox>(this, "innerAlpha")
+                        .transform(getInnerAlpha(), 0, Easing.None)
+                        .transform(0, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.OutQuad));
+                checkAnim = b.buildAndStart();
+            }
+        }
+    }
+
+    public boolean isChecked() {
+        return checked;
+    }
+
+    @Override
+    public void performAnimation(double deltaTime) {
+
+        super.performAnimation(deltaTime);
+        if (checkAnim != null) {
+            if (AnimationHandler.handleSingleAnima(checkAnim, deltaTime)) {
+                onRemoveAnimation(checkAnim);
+                checkAnim = null;
+            }
+        }
+    }
+
+    @Override
+    protected void onDraw(BaseCanvas canvas) {
+
+        super.onDraw(canvas);
+        float r = Math.max(0, Math.min(canvas.getWidth(), canvas.getHeight()) / 2 - outerWidth);
+        RectF area = RectF.xywh(0, 0, canvas.getWidth(), canvas.getHeight());
+        RectF iarea = area.copy().padding(outerWidth);
+        outer.setArea(area);
+        outer.setRect(iarea);
+        outer.setShadowWidth(outerWidth);
+        outer.setRoundedRadius(r);
+        outer.setAlpha(hintAlpha + innerAlpha * (1 - hintAlpha));
+        if (checked || checkAnim != null) {
+            inner.setAlpha(innerAlpha);
+            inner.setArea(iarea);
+            inner.setRect(iarea.copy().scale(Anchor.Center, innerAlpha, innerAlpha));
+            inner.setRoundedRadius(r);
+            inner.draw(canvas);
+        }
+        outer.draw(canvas);
+    }
+
+
 }
