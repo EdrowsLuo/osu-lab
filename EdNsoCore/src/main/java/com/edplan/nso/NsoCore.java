@@ -65,7 +65,7 @@ public class NsoCore {
     }
 
     protected void loadBeatmapDatabase() {
-        //beatmapDatabase.getTable(LowDetailBeatmap.class);
+        //beatmapDatabase.getTable(LowDetailBeatmap.class, "beatmap_base");
     }
 
     public void setMainDatabase(Database mainDatabase) {

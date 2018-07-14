@@ -7,6 +7,7 @@ import com.edplan.framework.database.annotation.PrimaryKeyAutoIncrement;
 import com.edplan.framework.database.annotation.SQLAddition;
 import com.edplan.framework.database.annotation.TableName;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
@@ -35,8 +36,8 @@ public class DatabaseTable {
         this.database = db;
     }
 
-    public void initial(Class<? extends DatabaseLine> klass) {
-        tableName = klass.getAnnotation(TableName.class).value();
+    public void initial(Class<? extends DatabaseLine> klass,String tableName) {
+        this.tableName = tableName;
         StringBuilder createTable = new StringBuilder(String.format("CREATE TABLE IF NOT EXISTS %s (", tableName));
         StringBuilder insert = new StringBuilder(String.format("INSERT INTO %S(", tableName));
         ArrayList<LineNode> nodes = new ArrayList<LineNode>();

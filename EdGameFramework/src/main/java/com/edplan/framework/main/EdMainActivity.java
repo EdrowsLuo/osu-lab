@@ -1,7 +1,11 @@
 package com.edplan.framework.main;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
 import com.edplan.framework.graphics.opengl.MainRenderer;
 import com.edplan.framework.ui.EdView;
@@ -37,8 +41,18 @@ public abstract class EdMainActivity extends Activity {
 
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            }
+        }
         createGame();
     }
 

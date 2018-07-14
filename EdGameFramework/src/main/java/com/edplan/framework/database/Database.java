@@ -18,12 +18,12 @@ public class Database {
         database = SQLiteDatabase.openOrCreateDatabase(file, null);
     }
 
-    public DatabaseTable getTable(Class<? extends DatabaseLine> line) {
+    public DatabaseTable getTable(Class<? extends DatabaseLine> line,String tableName) {
         if (tables.containsKey(line)) {
             return tables.get(line);
         } else {
             DatabaseTable table = new DatabaseTable(database);
-            table.initial(line);
+            table.initial(line,tableName);
             tables.put(line, table);
             return table;
         }
