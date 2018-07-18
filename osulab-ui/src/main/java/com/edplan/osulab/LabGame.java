@@ -271,7 +271,7 @@ public class LabGame {
             mparam.gravity = Gravity.BottomLeft;
             mainLayout.addView(backButton, mparam);
         }
-        c.getViewRoot().getRootContainer().setAlpha(0);
+        //c.getViewRoot().getRootContainer().setAlpha(0);
         //mainLayout.setVisiblility(EdView.VISIBILITY_GONE);
         //(new RenderStatePopupView(c)).show();
         return mainLayout;

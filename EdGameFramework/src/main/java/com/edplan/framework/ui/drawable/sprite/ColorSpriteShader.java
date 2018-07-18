@@ -7,14 +7,21 @@ public class ColorSpriteShader extends SpriteShader {
 
     static {
         VERTEX_SHADER = StringUtil.link(StringUtil.LINE_BREAK, new String[]{
-                "@include <SpriteBase.vs>",
-                "void main(){ setUpSpriteBase(); }"
+                "uniform mat4 u_MVPMatrix;",
+                "uniform vec4 u_AccentColor;",
+                "uniform float u_Alpha;",
+                "attribute vec3 a_Position;",
+                "attribute vec4 a_Color;",
+                "varying vec4 f_Color;",
+                "void main(){",
+                "    f_Color=a_Color*u_AccentColor*u_Alpha;",
+                "    gl_Position=u_MVPMatrix*vec4(a_Position,1.0);",
+                "}"
         });
         FRAGMENT_SHADER = StringUtil.link(StringUtil.LINE_BREAK, new String[]{
-                "precision highp float;",
-                "@include <SpriteBase.fs>",
+                "precision mediump float;",
+                "varying vec4 f_Color;",
                 "void main(){",
-                //"    @include <discard>",
                 "    gl_FragColor=f_Color;",
                 "}"
         });

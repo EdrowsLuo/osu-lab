@@ -77,9 +77,12 @@ public class GLWrapped {
 
     public static void onFrame() {
         drawCalls = 0;
+        fboCreate = 0;
     }
 
     private static int drawCalls = 0;
+
+    private static int fboCreate = 0;
 
     public static void drawArrays(int mode, int offset, int count) {
         if (enable) GLES20.glDrawArrays(mode, offset, count);
@@ -145,6 +148,18 @@ public class GLWrapped {
 
     public static void setClearColor(Color4 c) {
         setClearColor(c.r, c.g, c.b, c.a);
+    }
+
+
+    public static int genFrameBufferObject() {
+        int[] i = new int[1];
+        GLES20.glGenFramebuffers(1, i, 0);
+        fboCreate++;
+        return i[0];
+    }
+
+    public static int getFboCreate() {
+        return fboCreate;
     }
 
     public static int getIntegerValue(int key) {

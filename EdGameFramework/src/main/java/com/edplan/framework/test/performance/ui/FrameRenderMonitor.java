@@ -24,6 +24,8 @@ public class FrameRenderMonitor extends EdView {
 
     public static int possibleBlockTimes;
 
+    public static int fboCreate;
+
     public static int getFPS() {
         return (avg != 0) ? (int) (1000 / avg) : 0;
     }
@@ -41,6 +43,7 @@ public class FrameRenderMonitor extends EdView {
         layout.update(Tracker.InvalidateMeasureAndLayout.totalTimeMS);
         drawUI.update(Tracker.DrawUI.totalTimeMS);
         drawCalls = GLWrapped.frameDrawCalls();
+        fboCreate = GLWrapped.getFboCreate();
         possibleBlockTimes = 0;
         float deltaTime = (float) c.getFrameDeltaTime();
         for (int i = timelist.length - 1; i > 0; i--) {

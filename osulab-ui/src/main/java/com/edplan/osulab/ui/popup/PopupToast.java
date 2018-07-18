@@ -24,11 +24,11 @@ public class PopupToast extends PopupView {
 
     public PopupToast(MContext c) {
         super(c);
-        setRounded(ViewConfiguration.dp(5));
+        setBackgroundRoundedRect(Color4.rgba(0, 0, 0, 0.4f),ViewConfiguration.dp(5));
         //.setShadow(ViewConfiguration.dp(3),Color4.rgba(0.5f,0.5f,0.5f,0.3f),Color4.Alpha);
         LinearLayout l = new LinearLayout(c);
         l.setGravity(Gravity.Center);
-        l.setBackground(Color4.rgba(0, 0, 0, 0.4f));
+        //l.setBackground(Color4.rgba(0, 0, 0, 0.4f));
         text = new TextView(c);
         text.setTextSize(ViewConfiguration.dp(17));
         RelativeLayout.RelativeParam p = new RelativeLayout.RelativeParam();

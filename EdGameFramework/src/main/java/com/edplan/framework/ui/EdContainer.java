@@ -33,6 +33,8 @@ public abstract class EdContainer extends EdAbstractViewGroup implements IHasAlp
 
     private boolean needRefresh = true;
 
+    private Color4 clearColor = Color4.Alpha.copyNew();
+
     public EdContainer(MContext c) {
         super(c);
         layer = new BufferedLayer(c);
@@ -107,31 +109,28 @@ public abstract class EdContainer extends EdAbstractViewGroup implements IHasAlp
 
     @Override
     public void invalidateDraw() {
-
         super.invalidateDraw();
         needRefresh = true;
     }
 
     @Override
     protected void dispatchDraw(BaseCanvas canvas) {
-
-		/*
 		drawBackground(canvas);
 		drawContainer(canvas);
-		*/
 
-        if (needRefresh || alwaysRefresh) {
-            needRefresh = false;
-            updateLayerSize(canvas);
-            updateCanvas(canvas);
-            layerCanvas.prepare();
-            layerCanvas.drawColor(Color4.Alpha);
-            layerCanvas.clearBuffer();
-            drawBackground(layerCanvas);
-            drawContainer(layerCanvas);
-            layerCanvas.unprepare();
-        }
-        postLayer(canvas, layer, RectF.xywh(0, 0, getWidth(), getHeight()), postPaint);
+
+//        if (needRefresh || alwaysRefresh) {
+//            needRefresh = false;
+//            updateLayerSize(canvas);
+//            updateCanvas(canvas);
+//            layerCanvas.prepare();
+//            layerCanvas.drawColor(clearColor);
+//            layerCanvas.clearBuffer();
+//            drawBackground(layerCanvas);
+//            drawContainer(layerCanvas);
+//            layerCanvas.unprepare();
+//        }
+//        postLayer(canvas, layer, RectF.xywh(0, 0, getWidth(), getHeight()), postPaint);
     }
 
     protected void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, GLPaint paint) {
@@ -152,9 +151,17 @@ public abstract class EdContainer extends EdAbstractViewGroup implements IHasAlp
 
     @Override
     protected void onDraw(BaseCanvas canvas) {
-
+        canvas.save();
+        canvas.setCanvasAlpha(canvas.getCanvasAlpha()*getAlpha());
         dispatchDraw(canvas);
+        canvas.restore();
     }
+
+//    @Override
+//    public void setBackground(Color4 c) {
+//        clearColor.set(c);
+//        invalidateDraw();
+//    }
 
     public interface LayerPoster {
         public void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, GLPaint paint);

@@ -65,9 +65,8 @@ public abstract class Sprite<S extends SpriteShader> extends AbstractSprite {
 
     @Override
     protected void prepareShader(BaseCanvas canvas) {
-
         shader.loadAccentColor(accentColor);
-        shader.loadAlpha(alpha);
+        shader.loadAlpha(alpha*canvas.getCanvasAlpha());
         shader.loadCamera(canvas.getCamera());
     }
 

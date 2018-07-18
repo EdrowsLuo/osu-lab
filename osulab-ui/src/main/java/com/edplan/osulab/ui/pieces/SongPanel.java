@@ -37,8 +37,9 @@ public class SongPanel extends PopupView {
             p.marginRight = ViewConfiguration.dp(10);
             setLayoutParam(p);
         }
-        setBackground(Color4.Black);
-        setRounded(ViewConfiguration.dp(20));
+        //setBackground(Color4.Black);
+        //setRounded(ViewConfiguration.dp(20));
+        setBackgroundRoundedRect(Color4.Black,ViewConfiguration.dp(20));
         setClickable(true);
         setOutsideTouchable(true);
 		/* .setShadow(

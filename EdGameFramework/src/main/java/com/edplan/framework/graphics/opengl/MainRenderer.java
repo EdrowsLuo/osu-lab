@@ -149,11 +149,11 @@ public abstract class MainRenderer implements GLSurfaceView.Renderer,OnTouchList
 		//if(debugUi){
 			context.getUiLooper().handlerExpensiveTask();
 			canvas.drawColor(Color4.gray(0.0f));
-			GLES20.glFlush();
+			//GLES20.glFlush();
 			viewRoot.onNewFrame(canvas,tmer.getDeltaTime());
 		//}
 		canvas.unprepare();
-		GLES20.glFlush();
+		//GLES20.glFlush();
 		
 		Tracker.TotalFrameTime.end();
 		/*

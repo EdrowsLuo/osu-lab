@@ -1,5 +1,6 @@
 package com.edplan.framework.ui.additions;
 
+import com.edplan.framework.ui.EdAbstractViewGroup;
 import com.edplan.framework.ui.EdContainer;
 import com.edplan.framework.MContext;
 import com.edplan.framework.ui.EdView;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.GLWrapped;
 
-public class RootContainer extends EdContainer {
+public class RootContainer extends EdAbstractViewGroup {
     /**
      * 内容层
      */
@@ -26,7 +27,7 @@ public class RootContainer extends EdContainer {
     public RootContainer(MContext c) {
         super(c);
         //setPixelScale(1);
-        setAlwaysRefresh(true);
+        //setAlwaysRefresh(true);
         {
             EdLayoutParam p = new EdLayoutParam();
             p.width = Param.MODE_MATCH_PARENT;
@@ -70,9 +71,8 @@ public class RootContainer extends EdContainer {
         return content;
     }
 
-    @Override
-    protected void drawContainer(BaseCanvas canvas) {
-
+    /*@Override
+    protected void onDraw(BaseCanvas canvas) {
         c:
         {
             final EdView view = content;
@@ -103,11 +103,10 @@ public class RootContainer extends EdContainer {
                 }
             }
         }
-    }
+    }*/
 
     @Override
     public int getChildrenCount() {
-
         return 2;
     }
 
@@ -121,11 +120,6 @@ public class RootContainer extends EdContainer {
                 return popupViewLayer;
         }
         return null;
-    }
-
-    @Override
-    public void onFrameStart() {
-        super.onFrameStart();
     }
 
     @Override

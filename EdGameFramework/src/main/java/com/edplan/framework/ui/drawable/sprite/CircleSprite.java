@@ -71,13 +71,10 @@ class CircleShader extends SpriteShader {
                 "uniform vec2 u_Radius;",
                 "void main(){",
                 "    float v=length(f_Position);",
-
                 "    float a=min(",
                 "        smoothstep(u_Radius.x-1.0,u_Radius.x,v),",
                 "        1.0-smoothstep(u_Radius.y-1.0,u_Radius.y,v));",
-                "    vec4 c=f_Color*a;",
-                "    @include <discard>",
-                "    gl_FragColor=c;",
+                "    gl_FragColor=f_Color*a;",
                 "}"
         });
     }

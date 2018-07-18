@@ -179,7 +179,6 @@ public class FrameBufferObject {
 
     @Override
     protected void finalize() throws Throwable {
-
         super.finalize();
         delete();
     }
@@ -224,9 +223,7 @@ public class FrameBufferObject {
 
 
     private static int genOne() {
-        int[] i = new int[1];
-        GLES20.glGenFramebuffers(1, i, 0);
-        return i[0];
+        return GLWrapped.genFrameBufferObject();
     }
 
     //-----for-bindable---

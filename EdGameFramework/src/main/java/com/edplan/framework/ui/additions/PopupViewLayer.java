@@ -14,7 +14,7 @@ import java.util.Iterator;
 import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.layout.Param;
 
-public class PopupViewLayer extends RelativeContainer implements FrameListener {
+public class PopupViewLayer extends RelativeLayout {
     private ArrayList<PopupView> popupViews = new ArrayList<PopupView>();
 
     public PopupViewLayer(MContext c) {
@@ -30,6 +30,8 @@ public class PopupViewLayer extends RelativeContainer implements FrameListener {
             p.height = Param.MODE_MATCH_PARENT;
             v.setLayoutParam(p);
         }
+        invalidate();
+        invalidateDraw();
     }
 
     @Override
@@ -52,10 +54,9 @@ public class PopupViewLayer extends RelativeContainer implements FrameListener {
             if (v.getVisiblility() == VISIBILITY_GONE) {
                 v.setParent(null);
                 iter.remove();
+                invalidateDraw();
             }
         }
-        invalidateDraw();
-
         super.onFrameStart();
     }
 }

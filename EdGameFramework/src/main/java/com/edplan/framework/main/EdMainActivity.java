@@ -14,28 +14,28 @@ public abstract class EdMainActivity extends Activity {
     private MainApplication app;
 
     /**
-     * 在这个方法里面创建游戏，有下面几个方法来初始化
-     * <p>
-     * ①自定义一个类继承MainApplication然后注册的方法：
+     * 在这个方法里面创建游戏，有下面几个方法来初始化。
+     * <p>自定义一个类继承MainApplication然后注册的方法：
+     * <pre>{@code
+     * protected void createGame(){
+     *          YourApplication app=new YourApplication(args);
+     *          app.setUpActivity(this);
+     *          register(app);
+     * }
+     * }</pre>
      *
-     * @Override protected void createGame(){
-     * YourApplication app=new YourApplication(args);
-     * app.setUpActivity(this);
-     * register(app);
+     * <p>自定义一个类继承MainRenderer，并确保一个(MContext c,MainApplication app)的构造方法：
+     * <pre>{@code
+     * protected void createGame(){
+     *      initialWithRenderer(YourRenderer.class);
      * }
-     * -----------------------------------------------------
-     * ②自定义一个类继承MainRenderer，
-     * 并确保一个(MContext c,MainApplication app)的构造方法：
-     * @Override protected void createGame(){
-     * initialWithRenderer(YourRenderer.class);
+     * }</pre>
+     * <p>直接使用自定义的View来初始化，根据约定，所有EdView的子类应该有一个单参数(MContext c)的构造方法：
+     * <pre>{@code
+     * protected void createGame(){
+     *      initialWithView(YourView.class);
      * }
-     * -----------------------------------------------------
-     * ③直接使用自定义的View来初始化，根据约定，
-     * 所有EdView的子类应该有一个单参数(MContext c)的构造方法：
-     * @Override protected void createGame(){
-     * initialWithView(YourView.class);
-     * }
-     * -----------------------------------------------------
+     * }</pre>
      */
     protected abstract void createGame();
 

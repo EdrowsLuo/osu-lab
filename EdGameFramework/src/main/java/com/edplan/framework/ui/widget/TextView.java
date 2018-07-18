@@ -142,8 +142,11 @@ public class TextView extends EdView {
 
     @Override
     protected void onLayout(boolean changed, float left, float top, float right, float bottom) {
-
         super.onLayout(changed, left, top, right, bottom);
+        if (breaked == null) {
+            //when no text set, direct return
+            return;
+        }
         final int width = (int) Math.max(0, right - left - getPaddingHorizon());
         final int pleft = (int) getPaddingLeft();
 

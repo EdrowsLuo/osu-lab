@@ -202,9 +202,9 @@ public class JumpingCircle extends EdView {
             }
         });
         camin.start();
-        ComplexAnimationBuilder builder2 = ComplexAnimationBuilder.start(
+        /*ComplexAnimationBuilder builder2 = ComplexAnimationBuilder.start(
                 FloatQueryAnimation.fadeTo(getContext().getViewRoot().getRootContainer(), 0, 500, Easing.OutQuad));
-        getContext().getViewRoot().getRootContainer().setAnimation(builder2.buildAndStart());
+        getContext().getViewRoot().getRootContainer().setAnimation(builder2.buildAndStart());*/
         setAnimation(camin);
         boundAnim = null;
     }
@@ -386,11 +386,11 @@ public class JumpingCircle extends EdView {
         setAnimation(camin);
 
 
-        ComplexAnimationBuilder builder2 = ComplexAnimationBuilder.start(
+        /*ComplexAnimationBuilder builder2 = ComplexAnimationBuilder.start(
                 new FloatQueryAnimation<EdContainer>(getContext().getViewRoot().getRootContainer(), "alpha")
                         .transform(0, 0, Easing.None)
                         .transform(1, 300, Easing.InQuad));
-        getContext().getViewRoot().getRootContainer().setAnimation(builder2.buildAndStart());
+        getContext().getViewRoot().getRootContainer().setAnimation(builder2.buildAndStart());*/
         RenderStatePopupView r = new RenderStatePopupView(getContext());
         r.show();
         RenderStatePopupView.setInstance(r);

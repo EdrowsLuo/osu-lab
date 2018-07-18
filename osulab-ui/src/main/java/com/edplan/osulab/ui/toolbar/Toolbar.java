@@ -63,13 +63,7 @@ public class Toolbar extends RelativeContainer implements Hideable {
         super(c);
         shadow = new ToolbarShadow(c);
         setClickable(true);
-        setAccentColor(Color4.rgba(1, 1, 1, 1f));
-        ColorDrawable cd = new ColorDrawable(c);
-        cd.setColor(Color4.rgba(0, 0, 0, 0.5f),
-                Color4.rgba(0, 0, 0, 0.5f),
-                Color4.rgba(0, 0, 0, 0.5f),
-                Color4.rgba(0, 0, 0, 0.5f));
-        setBackground(cd);
+        setBackground(Color4.rgba(0, 0, 0, 0.5f));
         shadowSprite = new ColorRectSprite(c);
         float gr = 0f;
         Color4 dividerColor = Color4.rgba(1, 1, 1, 0.4f);
@@ -175,7 +169,6 @@ public class Toolbar extends RelativeContainer implements Hideable {
                 msgShowButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(EdView view) {
-
                         if (LabGame.get().getSceneOverlay().getVisiblility() != VISIBILITY_GONE) {
                             LabGame.get().getSceneOverlay().hide();
                         } else {
@@ -209,7 +202,6 @@ public class Toolbar extends RelativeContainer implements Hideable {
                 msgShowButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(EdView view) {
-
                         if (!LabGame.get().getMessageList().isHidden()) {
                             LabGame.get().getMessageList().hide();
                         } else {
@@ -312,7 +304,6 @@ public class Toolbar extends RelativeContainer implements Hideable {
         anim.setOnFinishListener(new OnFinishListener() {
             @Override
             public void onFinish() {
-
                 postHighlightOff(1000);
             }
         });
@@ -332,7 +323,6 @@ public class Toolbar extends RelativeContainer implements Hideable {
         anim.setOnFinishListener(new OnFinishListener() {
             @Override
             public void onFinish() {
-
                 highlight = false;
             }
         });
@@ -389,13 +379,11 @@ public class Toolbar extends RelativeContainer implements Hideable {
 
         @Override
         public float getOffsetX() {
-
             return Toolbar.this.getOffsetX();
         }
 
         @Override
         public float getOffsetY() {
-
             return Toolbar.this.getOffsetY();
         }
 

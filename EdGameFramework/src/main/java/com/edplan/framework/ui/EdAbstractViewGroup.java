@@ -33,6 +33,8 @@ public abstract class EdAbstractViewGroup extends EdView {
 
     private float paddingLeft, paddingTop, paddingRight, paddingBottom;
 
+    private float alpha = 1;
+
     public void setBackwardsDraw(boolean backwardsDraw) {
         this.backwardsDraw = backwardsDraw;
     }
@@ -52,6 +54,14 @@ public abstract class EdAbstractViewGroup extends EdView {
     public void setChildrenWrapper(ChildrenWrapper w) {
         childrenWrapper = w;
         invalidate();
+    }
+
+    public float getAlpha() {
+        return alpha;
+    }
+
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
     }
 
     @Override
@@ -265,9 +275,11 @@ public abstract class EdAbstractViewGroup extends EdView {
 
     @Override
     protected void onDraw(BaseCanvas canvas) {
-
+        canvas.save();
+        canvas.setCanvasAlpha(canvas.getCanvasAlpha()*getAlpha());
         drawBackground(canvas);
         dispatchDraw(canvas);
+        canvas.restore();
     }
 	
 	/*

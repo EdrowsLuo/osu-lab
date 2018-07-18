@@ -28,9 +28,7 @@ public class TextureSpriteShader extends SpriteShader {
                 "precision highp float;",
                 "@include <TextureSpriteBase.fs>",
                 "void main(){",
-                "    vec4 c=f_Color*getTextureColor();",
-                "    @include <discard>",
-                "    gl_FragColor=c;",
+                "    gl_FragColor=f_Color*texture2D(u_Texture,f_TextureCoord);",
                 "}"
         });
     }

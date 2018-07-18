@@ -1,5 +1,4 @@
-package com.edplan.osulab.ui.popup;
-
+package com.edplan.framework.ui.additions.popupview.defviews;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.Color4;
@@ -13,17 +12,19 @@ import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.widget.TextView;
 import com.edplan.framework.test.performance.ui.FrameRenderMonitor;
 
-public class RenderStatePopupView extends PopupView {
-    private static RenderStatePopupView instance;
+public class RenderStatPopupView extends PopupView {
+    private static RenderStatPopupView instance;
 
     TextView text;
 
-    public RenderStatePopupView(MContext c) {
+    public RenderStatPopupView(MContext c) {
         super(c);
+        //setRounded(ViewConfiguration.dp(5));
         setBackgroundRoundedRect(Color4.rgba(0, 0, 0, 0.4f),ViewConfiguration.dp(5));
         //.setShadow(ViewConfiguration.dp(3),Color4.rgba(0.5f,0.5f,0.5f,0.3f),Color4.Alpha);
         LinearLayout l = new LinearLayout(c);
         l.setGravity(Gravity.Center);
+        //l.setBackground(Color4.rgba(0, 0, 0, 0.4f));
         RelativeLayout.RelativeParam p = new RelativeLayout.RelativeParam();
         p.width = Param.MODE_WRAP_CONTENT;
         p.height = Param.MODE_WRAP_CONTENT;
@@ -53,11 +54,11 @@ public class RenderStatePopupView extends PopupView {
         setHideWhenBackpress(false);
     }
 
-    public static void setInstance(RenderStatePopupView _instance) {
+    public static void setInstance(RenderStatPopupView _instance) {
         instance = _instance;
     }
 
-    public static RenderStatePopupView getInstance() {
+    public static RenderStatPopupView getInstance() {
         return instance;
     }
 
@@ -66,11 +67,18 @@ public class RenderStatePopupView extends PopupView {
         super.onFrameStart();
         text.setText(
                 FrameRenderMonitor.getFPS() + "/60fps\n"
-                        + "PB:" + FrameRenderMonitor.possibleBlockTimes + "\n"
+                        + "FBO:" + FrameRenderMonitor.fboCreate + "\n"
                         + "DrawCalls:" + FrameRenderMonitor.drawCalls + "\n"
                         + "Total:" + (int) FrameRenderMonitor.frameRenderTime.avg + "ms\n"
                         + "UI:" + (int) FrameRenderMonitor.drawUI.avg + "ms\n"
                         + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000 / 1000 + "/" + Runtime.getRuntime().maxMemory() / 1000 / 1000 + "MB"
         );
+    }
+
+    @Override
+    protected void onDraw(BaseCanvas canvas) {
+
+        super.onDraw(canvas);
+        //double frameTime=getContext().getFrameDeltaTime();
     }
 }
