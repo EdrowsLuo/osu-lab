@@ -2,17 +2,17 @@ package com.edplan.framework.ui.additions.popupview;
 
 import com.edplan.framework.ui.widget.RelativeContainer;
 import com.edplan.framework.MContext;
+import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.widget.component.Hideable;
 import com.edplan.framework.ui.additions.PopupViewLayer;
 
-public class PopupView extends RelativeContainer implements Hideable {
+public class PopupView extends RelativeLayout implements Hideable {
     private boolean hideWhenBackpress = true;
 
     private PopupViewLayer layer;
 
     public PopupView(MContext c) {
         super(c);
-        setAlwaysRefresh(true);
         layer = c.getViewRoot().getPopupViewLayer();
     }
 

@@ -20,6 +20,7 @@ import com.edplan.framework.ui.layout.Orientation;
 import com.edplan.framework.ui.layout.Param;
 import com.edplan.framework.ui.widget.LinearLayout;
 import com.edplan.framework.ui.widget.RelativeContainer;
+import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.widget.RelativeLayout.RelativeParam;
 import com.edplan.framework.ui.widget.component.Hideable;
 import com.edplan.osulab.LabGame;
@@ -34,7 +35,7 @@ import com.edplan.osulab.ui.pieces.JumpingCircle;
 import com.edplan.osulab.ScenesName;
 import com.edplan.osulab.ui.popup.PopupToast;
 
-public class SceneSelectButtonBar extends RelativeContainer implements Hideable, BackQuery.BackHandler {
+public class SceneSelectButtonBar extends RelativeLayout implements Hideable, BackQuery.BackHandler {
     public static final String GROUP_MAIN = "main";
 
     public static final String GROUP_PLAY = "play";

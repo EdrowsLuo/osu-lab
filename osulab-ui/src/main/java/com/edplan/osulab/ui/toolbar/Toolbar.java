@@ -23,6 +23,7 @@ import com.edplan.framework.ui.text.font.FontAwesome;
 import com.edplan.framework.ui.widget.FontAwesomeTextView;
 import com.edplan.framework.ui.widget.LinearLayout;
 import com.edplan.framework.ui.widget.RelativeContainer;
+import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.widget.RelativeLayout.RelativeParam;
 import com.edplan.framework.ui.widget.TestButton;
 import com.edplan.framework.ui.widget.component.Hideable;
@@ -32,7 +33,7 @@ import com.edplan.osulab.ui.pieces.TextButton;
 import com.edplan.osulab.ui.pieces.SongPanel;
 import com.edplan.osulab.ui.popup.PopupToast;
 
-public class Toolbar extends RelativeContainer implements Hideable {
+public class Toolbar extends RelativeLayout implements Hideable {
     private float normalBaseAlpha = 0.7f;
 
     private float highlightBaseAlpha = 1;
@@ -91,7 +92,6 @@ public class Toolbar extends RelativeContainer implements Hideable {
                 msgShowButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(EdView view) {
-
                         OptionList list = LabGame.get().getOptionList();
                         if (list.getVisiblility() == VISIBILITY_GONE) {
                             list.show();

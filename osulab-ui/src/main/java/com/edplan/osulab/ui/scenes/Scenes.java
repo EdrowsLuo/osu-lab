@@ -11,6 +11,7 @@ import com.edplan.framework.ui.animation.FloatQueryAnimation;
 import com.edplan.framework.ui.layout.EdMeasureSpec;
 import com.edplan.framework.ui.layout.MeasureCore;
 import com.edplan.framework.ui.widget.RelativeContainer;
+import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.widget.component.Hideable;
 import com.edplan.osulab.ScenesName;
 import com.edplan.osulab.ui.BackQuery;
@@ -22,7 +23,7 @@ import java.util.HashMap;
 import com.edplan.osulab.LabGame;
 import com.edplan.osulab.ui.scenes.songs.SongsScene;
 
-public class Scenes extends RelativeContainer implements Hideable, BackQuery.BackHandler {
+public class Scenes extends RelativeLayout implements Hideable, BackQuery.BackHandler {
     public static final String STATIC_GET_SCENE_NAME = "getSceneNameStatic";
 
     public static final String STATIC_IS_SINGLE_INSTANCE = "isSingleInstanceStatic";

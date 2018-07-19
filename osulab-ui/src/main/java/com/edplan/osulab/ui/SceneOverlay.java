@@ -23,7 +23,7 @@ import com.edplan.osulab.ui.pieces.LabButton;
 /**
  *
  */
-public class SceneOverlay extends RelativeContainer implements Hideable {
+public class SceneOverlay extends RelativeLayout implements Hideable {
     LabButton button;
     TextView text;
 

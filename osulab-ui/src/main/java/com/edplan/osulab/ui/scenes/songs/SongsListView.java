@@ -80,7 +80,6 @@ public class SongsListView extends EdContainer implements Hideable {
     protected Scroller scroller = new Scroller(new Setter<Float>() {
         @Override
         public void set(Float t) {
-
             scrollRate = t;
             invalidate();
             invalidateDraw();
@@ -142,7 +141,6 @@ public class SongsListView extends EdContainer implements Hideable {
     public void hide() {
 
         ComplexAnimationBuilder b = ComplexAnimationBuilder.
-                //start(FloatQueryAnimation.fadeTo(this,0,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));
                         start(new FloatQueryAnimation<EdView>(this, "offsetX")
                         .transform(0, 0, Easing.None)
                         .transform(ViewConfiguration.dp(WIDTH_DP), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.InQuad));
@@ -152,7 +150,6 @@ public class SongsListView extends EdContainer implements Hideable {
 
     @Override
     public void show() {
-
         setAlpha(0);
         ComplexAnimationBuilder b = ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this, 1, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.None));
         b.together(new FloatQueryAnimation<EdView>(this, "offsetX")
@@ -187,7 +184,6 @@ public class SongsListView extends EdContainer implements Hideable {
 
     @Override
     protected void drawContainer(BaseCanvas canvas) {
-
         final int count = getChildrenCount();
         for (int i = 0; i < count; i++) {
             final EdView view = getChildAt(i);
@@ -250,9 +246,6 @@ public class SongsListView extends EdContainer implements Hideable {
     private EntryContainer gainEntryAtEnd() {
         return null;
     }
-
-    private boolean isInitialLayout = true;
-
 
     protected void layoutVertical(float left, float top, float right, float bottom) {
         final int count = getChildrenCount();
@@ -317,7 +310,6 @@ public class SongsListView extends EdContainer implements Hideable {
 		}
 		*/
         float xd = EdMeasureSpec.getSize(widthSpec);
-        ;
         float yd;
 		/*
 		{
@@ -345,13 +337,11 @@ public class SongsListView extends EdContainer implements Hideable {
                     break;
             }
         }
-        //Log.v("layout","measure ScrollContainer Vertical, height used "+heightUsed+", set dimensition "+xd+";"+yd+" spec:"+EdMeasureSpec.toString(widthSpec)+":"+EdMeasureSpec.toString(heightSpec));
         setMeasuredDimensition(xd, yd);
     }
 
     @Override
     protected void onMeasure(long widthSpec, long heightSpec) {
-
         measureVertical(widthSpec, heightSpec);
     }
 

@@ -11,6 +11,7 @@ import com.edplan.framework.MContext;
 import java.util.ArrayList;
 
 import com.edplan.framework.graphics.opengl.GLCanvas2D;
+import com.edplan.framework.ui.animation.interfaces.IHasAlpha;
 import com.edplan.framework.ui.layout.EdLayoutParam;
 import com.edplan.framework.ui.layout.MeasureCore;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
@@ -20,7 +21,7 @@ import com.edplan.framework.interfaces.Invoker;
 
 import java.util.Iterator;
 
-public abstract class EdAbstractViewGroup extends EdView {
+public abstract class EdAbstractViewGroup extends EdView implements IHasAlpha{
     private ChildrenWrapper childrenWrapper = new ChildrenWrapper();
 
     private LayoutTransition transition;
