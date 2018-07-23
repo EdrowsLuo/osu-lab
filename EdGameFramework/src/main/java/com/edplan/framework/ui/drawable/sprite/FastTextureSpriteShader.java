@@ -9,26 +9,38 @@ import java.nio.Buffer;
 
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 
-public class TextureSpriteShader extends SpriteShader {
+/**
+ * 舍弃功能达到较快的绘制速度
+ * 对alpha的设置被无效了，请通过AccentColor处理alpha
+ */
+public class FastTextureSpriteShader extends TextureSpriteShader{
     public static final String VERTEX_SHADER, FRAGMENT_SHADER;
 
-    private static TextureSpriteShader instance;
+    private static FastTextureSpriteShader instance;
 
-    public static TextureSpriteShader get() {
-        if (instance == null) instance = new TextureSpriteShader(VERTEX_SHADER, FRAGMENT_SHADER);
+    public static FastTextureSpriteShader get() {
+        if (instance == null) instance = new FastTextureSpriteShader(VERTEX_SHADER, FRAGMENT_SHADER);
         return instance;
     }
 
     static {
         VERTEX_SHADER = StringUtil.link(StringUtil.LINE_BREAK, new String[]{
-                "@include <TextureSpriteBase.vs>",
-                "void main(){ setUpSpriteBase(); }"
+                "uniform mat4 u_MVPMatrix;",
+                "attribute vec3 a_Position;",
+                "attribute vec2 a_TextureCoord;",
+                "varying vec2 f_TextureCoord;",
+                "void main(){",
+                "    f_TextureCoord=a_TextureCoord;",
+                "    gl_Position=u_MVPMatrix*vec4(a_Position,1.0);",
+                "}"
         });
         FRAGMENT_SHADER = StringUtil.link(StringUtil.LINE_BREAK, new String[]{
                 "precision mediump float;",
-                "@include <TextureSpriteBase.fs>",
+                "varying vec2 f_TextureCoord;",
+                "uniform sampler2D u_Texture;",
+                "uniform float u_Alpha;",
                 "void main(){",
-                "    gl_FragColor=f_Color*texture2D(u_Texture,f_TextureCoord);",
+                "    gl_FragColor=u_Alpha*texture2D(u_Texture,f_TextureCoord);",
                 "}"
         });
     }
@@ -40,7 +52,7 @@ public class TextureSpriteShader extends SpriteShader {
     @AttribType(VertexAttrib.Type.VEC2)
     public VertexAttrib aTextureCoord;
 
-    public TextureSpriteShader(String vs, String fs) {
+    public FastTextureSpriteShader(String vs, String fs) {
         super(vs, fs);
     }
 

@@ -62,7 +62,6 @@ public abstract class ObjectSprite<S extends SpriteShader> extends Sprite<S> {
 
     @Override
     protected void startDraw(BaseCanvas canvas) {
-
         super.startDraw(canvas);
         canvas.save();
         canvas.translate(position.x, position.y);

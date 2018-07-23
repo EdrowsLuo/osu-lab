@@ -46,6 +46,18 @@ public class Color4 {
         return this;
     }
 
+    public Color4 multipleAlpha(float a) {
+        if (premultiple) {
+            this.r *= a;
+            this.g *= a;
+            this.b *= a;
+            this.a *= a;
+        } else {
+            this.a *= a;
+        }
+        return this;
+    }
+
     public void put2buffer(FloatBuffer bf) {
         bf.put(r).put(g).put(b).put(a);
     }

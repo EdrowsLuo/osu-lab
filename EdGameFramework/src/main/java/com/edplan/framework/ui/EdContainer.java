@@ -9,6 +9,7 @@ import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.ui.animation.interfaces.IHasAlpha;
+import com.edplan.framework.ui.drawable.sprite.FastTextureSprite;
 import com.edplan.framework.ui.drawable.sprite.RoundedRectSprite;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.ui.drawable.sprite.RoundedShadowSprite;
@@ -38,6 +39,7 @@ public abstract class EdContainer extends EdAbstractViewGroup {
     public EdContainer(MContext c) {
         super(c);
         layer = new BufferedLayer(c);
+        layerPoster = new DefaultLayerPoster(c);
         layerCanvas = new GLCanvas2D(layer);
         postPaint = new GLPaint();
     }
@@ -166,6 +168,24 @@ public abstract class EdContainer extends EdAbstractViewGroup {
 
     public interface LayerPoster {
         public void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, GLPaint paint);
+    }
+
+    public static class DefaultLayerPoster implements LayerPoster {
+
+        FastTextureSprite sprite;
+
+        public DefaultLayerPoster(MContext context) {
+            sprite = new FastTextureSprite(context);
+        }
+
+        @Override
+        public void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, GLPaint paint) {
+            sprite.setArea(area);
+            sprite.setTexture(layer.getTexture());
+            sprite.setAlpha(paint.getFinalAlpha());
+            sprite.setAccentColor(paint.getMixColor());
+            sprite.draw(canvas);
+        }
     }
 
     public static class RoundedLayerPoster implements LayerPoster {

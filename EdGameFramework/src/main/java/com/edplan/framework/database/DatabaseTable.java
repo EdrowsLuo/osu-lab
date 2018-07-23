@@ -45,6 +45,8 @@ public class DatabaseTable {
         boolean hasPrimaryKey = false;
         boolean hasAppendValue = false;
         for (Field field : klass.getFields()) {
+            Log.i("db", field.toString());
+            Log.i("db", Arrays.toString(field.getAnnotations()));
             if (field.isAnnotationPresent(DBIgnore.class)) {
                 continue;
             }

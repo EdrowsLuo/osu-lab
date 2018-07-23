@@ -18,7 +18,7 @@ public class Database {
         database = SQLiteDatabase.openOrCreateDatabase(file, null);
     }
 
-    public DatabaseTable getTable(Class<? extends DatabaseLine> line,String tableName) {
+    public DatabaseTable initialTable(Class<? extends DatabaseLine> line,String tableName) {
         if (tables.containsKey(line)) {
             return tables.get(line);
         } else {
@@ -27,5 +27,9 @@ public class Database {
             tables.put(line, table);
             return table;
         }
+    }
+
+    public DatabaseTable getTable(Class<? extends DatabaseLine> line) {
+        return tables.get(line);
     }
 }

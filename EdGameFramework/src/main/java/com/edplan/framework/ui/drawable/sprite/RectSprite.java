@@ -51,7 +51,6 @@ public abstract class RectSprite<S extends SpriteShader> extends ObjectSprite<S>
 
     @Override
     protected void loadVertexs(BaseCanvas canvas) {
-
         shader.loadColor((colorBuffer != null) ? colorBuffer : BufferUtil.STD_RECT_COLOR_ONE_BUFFER);
         shader.loadSpritePositionBuffer(BufferUtil.STD_1X1_POSITION_BUFFER);
         shader.loadPositionBuffer(positionBuffer);

@@ -8,11 +8,11 @@ import com.edplan.framework.graphics.opengl.BlendType;
 public abstract class Sprite<S extends SpriteShader> extends AbstractSprite {
     protected S shader;
 
-    private float alpha = 1;
+    protected float alpha = 1;
 
-    private Color4 accentColor = Color4.ONE.copyNew();
+    protected Color4 accentColor = Color4.ONE.copyNew();
 
-    private BlendType blendType = BlendType.Normal;
+    protected BlendType blendType = BlendType.Normal;
 
     public Sprite(MContext c) {
         super(c);
@@ -54,7 +54,6 @@ public abstract class Sprite<S extends SpriteShader> extends AbstractSprite {
 
     @Override
     protected void startDraw(BaseCanvas canvas) {
-
         shader.useThis();
         changeBlend = (canvas.getBlendSetting().getBlendType() == blendType);
         if (changeBlend) {
@@ -63,10 +62,14 @@ public abstract class Sprite<S extends SpriteShader> extends AbstractSprite {
         }
     }
 
+    protected void prepareColorUniformBase(BaseCanvas canvas) {
+        shader.loadAccentColor(accentColor.copyNew().multipleAlpha(alpha*canvas.getCanvasAlpha()));
+        shader.loadAlpha(1);
+    }
+
     @Override
     protected void prepareShader(BaseCanvas canvas) {
-        shader.loadAccentColor(accentColor);
-        shader.loadAlpha(alpha*canvas.getCanvasAlpha());
+        prepareColorUniformBase(canvas);
         shader.loadCamera(canvas.getCamera());
     }
 
