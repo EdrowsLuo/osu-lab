@@ -14,6 +14,8 @@ import com.edplan.framework.math.Mat4;
 
 import android.util.Log;
 
+import java.io.BufferedReader;
+
 /**
  * 通过FBO，完全分离的绘制，最后的结果是一个Texture
  */
@@ -39,6 +41,25 @@ public class BufferedLayer {
     private boolean permissionToTexture = true;
 
     private boolean joinPool = true;
+
+    private boolean directLayer = false;
+
+
+    /**
+     * 分离一个direct layer出来
+     *
+     * @param layer
+     */
+    public BufferedLayer(BufferedLayer layer, int ox, int oy, int width, int height) {
+        this.context = layer.context;
+        this.directLayer = true;
+        this.frameBuffer = layer.frameBuffer;
+        this.height = height;
+        this.width = width;
+        this.ox = ox;
+        this.oy = oy;
+        this.permissionToTexture = false;
+    }
 
     public BufferedLayer(MContext context, int width, int height, boolean hasDepthBuffer) {
         this.context = context;
@@ -70,6 +91,10 @@ public class BufferedLayer {
         permissionToTexture = false;
     }
 
+    public boolean isDirectLayer() {
+        return directLayer;
+    }
+
     public void setJoinPool(boolean joinPool) {
         this.joinPool = joinPool;
     }
@@ -90,7 +115,9 @@ public class BufferedLayer {
 
     public void setFrameBuffer(FrameBufferObject frameBuffer) {
         checkBind("setFrameBuffer", false);
-        this.frameBuffer = frameBuffer;
+        if (!isDirectLayer()) {
+            this.frameBuffer = frameBuffer;
+        }
     }
 
     public FrameBufferObject getFrameBuffer() {
@@ -103,6 +130,9 @@ public class BufferedLayer {
 
     public void setWidth(int width) {
         checkBind("setWidth", false);
+        if (isDirectLayer()) {
+            throw new GLException("改变direct layer是不允许的");
+        }
         if (width <= 0) width = 1;
         this.width = width;
     }
@@ -113,6 +143,9 @@ public class BufferedLayer {
 
     public void setHeight(int height) {
         checkBind("setHeight", false);
+        if (isDirectLayer()) {
+            throw new GLException("改变direct layer是不允许的");
+        }
         if (height <= 0) height = 1;
         this.height = height;
     }
@@ -129,6 +162,9 @@ public class BufferedLayer {
 
     public void reCreateBuffer() {
         //Log.v("fbo-test","start reCreateBuffer");
+        if (isDirectLayer()) {
+            return;
+        }
         if (frameBuffer != null) {
             if (frameBuffer.getCreatedHeight() >= height && frameBuffer.getCreatedWidth() >= width) {
                 frameBuffer.setBound(width, height);
@@ -172,17 +208,22 @@ public class BufferedLayer {
 
     public void bind() {
         checkChange();
-        getFrameBuffer().bind();
+        if (!getFrameBuffer().isBind()) {
+            getFrameBuffer().bind();
+        }
+        GLWrapped.setViewport(ox, oy, width, height);
     }
 
     public void unbind() {
-        getFrameBuffer().unBind();
+        if (getFrameBuffer().isBind()) {
+            getFrameBuffer().unBind();
+        }
     }
 
     boolean recycled = false;
 
     public void recycle() {
-        if (recycled) {
+        if (recycled || isDirectLayer()) {
             return;
         } else {
             if (permissionToTexture) {
