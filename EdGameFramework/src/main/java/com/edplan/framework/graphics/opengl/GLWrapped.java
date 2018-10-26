@@ -20,6 +20,7 @@ import android.opengl.GLES31Ext;
 import android.opengl.GLES11Ext;
 
 import java.nio.Buffer;
+import java.util.Stack;
 
 public class GLWrapped {
     public static int GL_VERSION;
@@ -98,19 +99,19 @@ public class GLWrapped {
         return drawCalls;
     }
 
-    private static int px1, px2, py1, py2;
+    private static int px1, pw, py1, ph;
 
-    public static void setViewport(int x1, int y1, int x2, int y2) {
+    public static void setViewport(int x1, int y1, int w, int h) {
         //if(!(px1==x1&&px2==x2&&py1==y1&&py2==y2)){
         if (GL_VERSION == 2) {
-            GLES20.glViewport(x1, y1, x2 - x1, y2 - y1);
+            GLES20.glViewport(x1, y1, w, h);
         } else {
-            GLES10.glViewport(x1, y1, x2 - x1, y2 - y1);
+            GLES10.glViewport(x1, y1, w, h);
         }
         px1 = x1;
-        px2 = x2;
+        pw = w;
         py1 = y1;
-        py2 = y2;
+        ph = h;
         //}
     }
 
@@ -179,6 +180,32 @@ public class GLWrapped {
         while ((error = GLES20.glGetError()) != GLES20.GL_NO_ERROR) {
             Log.e("ES20_ERROR", op + ": glError " + error);
             throw new GLException(op + ": glError " + error);
+        }
+    }
+
+    private static Stack<BaseCanvas> canvasStack = new Stack<>();
+
+    protected static void prepareCanvas(BaseCanvas canvas) {
+        if (!canvasStack.empty()) {
+            final BaseCanvas pre = canvasStack.peek();
+            if (pre.isPrepared()) {
+                //忘记释放，这里就帮忙释放
+                pre.onUnprepare();
+            }
+        }
+        canvasStack.push(canvas);
+        canvas.onPrepare();
+    }
+
+    protected static void unprepareCanvas(BaseCanvas canvas) {
+        if (canvasStack.empty() || canvasStack.peek() != canvas) {
+            //发生错误，释放的画板不是当前画板
+            throw new GLException("错误的canvas释放顺序！");
+        }
+        canvas.onUnprepare();
+        canvasStack.pop();
+        if (!canvasStack.empty()) {
+            canvasStack.peek().onPrepare();
         }
     }
 }

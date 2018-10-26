@@ -146,15 +146,10 @@ public abstract class MainRenderer implements GLSurfaceView.Renderer,OnTouchList
 		GLCanvas2D canvas=new GLCanvas2D(rootLayer);
 		canvas.prepare();
 		canvas.getMProjMatrix().setOrtho(0,canvas.getWidth(),canvas.getHeight(),0,-100,100);
-		//if(debugUi){
-			context.getUiLooper().handlerExpensiveTask();
-			canvas.drawColor(Color4.gray(0.0f));
-			//GLES20.glFlush();
-			viewRoot.onNewFrame(canvas,tmer.getDeltaTime());
-		//}
+		context.getUiLooper().handlerExpensiveTask();
+		canvas.drawColor(Color4.gray(0.0f));
+		viewRoot.onNewFrame(canvas,tmer.getDeltaTime());
 		canvas.unprepare();
-		//GLES20.glFlush();
-		
 		Tracker.TotalFrameTime.end();
 		/*
 		if(Tracker.TotalFrameTime.totalTimeMS<14.5){

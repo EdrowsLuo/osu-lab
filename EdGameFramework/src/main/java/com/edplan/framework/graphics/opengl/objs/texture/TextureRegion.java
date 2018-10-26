@@ -27,6 +27,10 @@ public class TextureRegion extends AbstractTexture {
         updateArea();
     }
 
+    public RectF getArea() {
+        return area;
+    }
+
     private void updateArea() {
         width = (int) area.getWidth();
         height = (int) area.getHeight();

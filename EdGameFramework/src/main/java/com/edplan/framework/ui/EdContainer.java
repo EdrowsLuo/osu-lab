@@ -144,7 +144,10 @@ public abstract class EdContainer extends EdAbstractViewGroup {
             layerPoster.postLayer(canvas, layer, area, paint);
             return;
         }
+        canvas.getBlendSetting().save();
+        canvas.getBlendSetting().setEnable(false);
         canvas.drawTexture(layer.getTexture(), area, paint);
+        canvas.getBlendSetting().restore();
     }
 
     public RoundedLayerPoster setRounded(float radius) {
@@ -174,17 +177,34 @@ public abstract class EdContainer extends EdAbstractViewGroup {
 
         FastTextureSprite sprite;
 
+        boolean enableBlending = true;
+
         public DefaultLayerPoster(MContext context) {
             sprite = new FastTextureSprite(context);
         }
 
+        public void setEnableBlending(boolean enableBlending) {
+            this.enableBlending = enableBlending;
+        }
+
+        public boolean isEnableBlending() {
+            return enableBlending;
+        }
+
         @Override
         public void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, GLPaint paint) {
+            if(!enableBlending){
+                canvas.getBlendSetting().save();
+                canvas.getBlendSetting().setEnable(false);
+            }
             sprite.setArea(area);
             sprite.setTexture(layer.getTexture());
             sprite.setAlpha(paint.getFinalAlpha());
             sprite.setAccentColor(paint.getMixColor());
             sprite.draw(canvas);
+            if (!enableBlending) {
+                canvas.getBlendSetting().restore();
+            }
         }
     }
 

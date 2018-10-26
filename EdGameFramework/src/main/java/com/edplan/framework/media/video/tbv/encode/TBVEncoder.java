@@ -253,13 +253,13 @@ public class TBVEncoder {
         }
 
         @Override
-        public void prepare() {
+        public void onPrepare() {
 
             prepare = true;
         }
 
         @Override
-        public void unprepare() {
+        public void onUnprepare() {
 
             prepare = false;
         }

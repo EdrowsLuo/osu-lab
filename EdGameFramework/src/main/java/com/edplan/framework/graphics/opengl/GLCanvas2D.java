@@ -55,7 +55,7 @@ public class GLCanvas2D extends BaseCanvas // extends AbstractSRable<CanvasData>
     public CanvasData getDefData() {
 
         CanvasData d = new CanvasData();
-        d.setCurrentProjMatrix(createDefProjMatrix());
+        d.setCurrentProjMatrix(layer.createProjMatrix());
         d.setCurrentMaskMatrix(Mat4.createIdentity());
         d.setHeight(getLayer().getHeight());
         d.setWidth(getLayer().getWidth());
@@ -98,7 +98,7 @@ public class GLCanvas2D extends BaseCanvas // extends AbstractSRable<CanvasData>
     }
 
     @Override
-    public void prepare() {
+    protected void onPrepare() {
         checkPrepared(
                 "you can't call prepare when GLCanvas is prepared",
                 false);
@@ -106,7 +106,7 @@ public class GLCanvas2D extends BaseCanvas // extends AbstractSRable<CanvasData>
     }
 
     @Override
-    public void unprepare() {
+    protected void onUnprepare() {
         checkPrepared(
                 "you can't call unprepare when GLCanvas isn't prepared",
                 true);
@@ -136,6 +136,17 @@ public class GLCanvas2D extends BaseCanvas // extends AbstractSRable<CanvasData>
 
     public MContext getContext() {
         return getLayer().getContext();
+    }
+
+    @Override
+    public boolean supportClip() {
+        return true;
+    }
+
+    @Override
+    protected BaseCanvas clipCanvas(int x, int y, int width, int height) {
+
+        return super.clipCanvas(x, y, width, height);
     }
 
     @Override

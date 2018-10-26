@@ -54,7 +54,6 @@ public class BeatmapDecoder extends BaseDecoder implements StringMakeable {
 
     private HitObjectsParser hitObjectsParser;
 
-
     public BeatmapDecoder(InputStream in, String resInfo) {
         super(in, resInfo);
         initialParsers();
@@ -136,7 +135,6 @@ public class BeatmapDecoder extends BaseDecoder implements StringMakeable {
     }
 
     public void initialParsers() {
-
         generalParser = new GeneralParser();
         editorParser = new EditorParser();
         metadataParser = new MetadataParser();
@@ -182,7 +180,6 @@ public class BeatmapDecoder extends BaseDecoder implements StringMakeable {
 
     @Override
     protected void onSelectParser(PartParser parser) throws NsoException, NsoBeatmapParsingException, IOException {
-
         super.onSelectParser(parser);
         if (parser == hitObjectsParser) {
             hitObjectsParser.initial(((PartGeneral) (generalParser.getPart())).getMode());

@@ -5,6 +5,7 @@ import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.interfaces.Setter;
 import com.edplan.framework.math.FMath;
+import com.edplan.framework.ui.EdAbstractViewGroup;
 import com.edplan.framework.ui.EdContainer;
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.ViewConfiguration;
@@ -29,7 +30,7 @@ import com.edplan.framework.ui.widget.RelativeContainer;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class SongsListView extends EdContainer implements Hideable {
+public class SongsListView extends EdAbstractViewGroup implements Hideable {
     public static float WIDTH_DP = 350;
 
     protected float childoffset = ViewConfiguration.dp(5);
@@ -166,14 +167,6 @@ public class SongsListView extends EdContainer implements Hideable {
         return getVisiblility() == VISIBILITY_GONE;
     }
 
-    @Override
-    protected void onDraw(BaseCanvas canvas) {
-
-        super.onDraw(canvas);
-
-    }
-
-
     protected float getScrollRateMax() {
         return getHeight() / 2;
     }
@@ -183,7 +176,7 @@ public class SongsListView extends EdContainer implements Hideable {
     }
 
     @Override
-    protected void drawContainer(BaseCanvas canvas) {
+    protected void onDraw(BaseCanvas canvas) {
         final int count = getChildrenCount();
         for (int i = 0; i < count; i++) {
             final EdView view = getChildAt(i);

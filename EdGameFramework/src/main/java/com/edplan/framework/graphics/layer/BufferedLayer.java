@@ -10,6 +10,7 @@ import com.edplan.framework.graphics.opengl.GLException;
 import com.edplan.framework.graphics.opengl.GLWrapped;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.bufferObjects.FBOPool;
+import com.edplan.framework.math.Mat4;
 
 import android.util.Log;
 
@@ -30,6 +31,10 @@ public class BufferedLayer {
     private int width;
 
     private int height;
+
+    private int ox = 0;
+
+    private int oy = 0;
 
     private boolean permissionToTexture = true;
 
@@ -114,6 +119,12 @@ public class BufferedLayer {
 
     public int getHeight() {
         return height;
+    }
+
+    public Mat4 createProjMatrix() {
+        Mat4 projMatrix = new Mat4();
+        projMatrix.setOrtho(0, getWidth(), 0, getHeight(), -100, 100);
+        return projMatrix;
     }
 
     public void reCreateBuffer() {

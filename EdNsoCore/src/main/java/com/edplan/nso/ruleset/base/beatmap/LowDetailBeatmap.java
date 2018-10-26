@@ -12,6 +12,7 @@ import com.edplan.framework.database.DatabaseIndex;
 
 /**
  * 只包含一个.osu文件的部分信息，这些信息会被填入一张SQLite表里，都属于直接可以从.osu文件里直接获取的值
+ * 注：不包含和Ruleset动态相关的属性
  */
 @TableName("beatmap_base")
 public class LowDetailBeatmap extends DatabaseLine {

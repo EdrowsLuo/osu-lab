@@ -293,7 +293,11 @@ public class FrameBufferObject {
 
     private static void setCurrentFBO(FrameBufferObject fbo) {
         CURRENT_FRAMEBUFFER = fbo;
-        GLWrapped.setViewport(0, 0, fbo.getWidth(), fbo.getHeight());
+        if (fbo.region != null) {
+            GLWrapped.setViewport((int) fbo.region.getArea().getLeft(), (int) fbo.region.getArea().getTop(), fbo.getWidth(), fbo.getHeight());
+        } else {
+            GLWrapped.setViewport(0, 0, fbo.getWidth(), fbo.getHeight());
+        }
         bind(fbo.getFBOId());
     }
 
@@ -350,4 +354,6 @@ public class FrameBufferObject {
             //super.delete();
         }
     }
+
+
 }

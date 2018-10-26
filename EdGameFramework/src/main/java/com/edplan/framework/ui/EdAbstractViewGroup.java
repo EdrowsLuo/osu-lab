@@ -277,7 +277,7 @@ public abstract class EdAbstractViewGroup extends EdView implements IHasAlpha{
     @Override
     protected void onDraw(BaseCanvas canvas) {
         canvas.save();
-        canvas.setCanvasAlpha(canvas.getCanvasAlpha()*getAlpha());
+        canvas.setCanvasAlpha(canvas.getCanvasAlpha() * getAlpha());
         drawBackground(canvas);
         dispatchDraw(canvas);
         canvas.restore();

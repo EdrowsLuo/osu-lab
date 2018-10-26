@@ -322,7 +322,7 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
         return layoutParam;
     }
 
-    public boolean checkCurrentThread() {
+    public final boolean checkCurrentThread() {
         return Thread.currentThread() == getContext().getMainThread();
     }
 

@@ -1,13 +1,34 @@
 package com.edplan.framework;
 
+import android.os.Environment;
+
+import com.edplan.framework.utils.FileUtils;
+
+import java.io.File;
+
 public class Framework {
 
+    public static final int PLATFORM_WIN_PC = 1;
+
+    public static final int PLATFORM_ANDROID = 2;
+
     private static final int frameworkVersion = 1;
+
+    private static final int platform = PLATFORM_ANDROID;
 
     public static int getFrameworkVersion() {
         return frameworkVersion;
     }
 
+    public static int getPlatform() {
+        return platform;
+    }
+
+    public static File getFrameworkDir() {
+        final File dir = new File(Environment.getExternalStorageDirectory(), "EdFramework");
+        FileUtils.checkExistDir(dir);
+        return dir;
+    }
 
     /**
      * 获取相对的精确时间

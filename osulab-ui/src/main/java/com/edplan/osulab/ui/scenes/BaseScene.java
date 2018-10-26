@@ -12,7 +12,7 @@ import com.edplan.framework.ui.layout.Param;
  * 使用反射，确保继承类有getSceneNameStatic和isSingleInstanceStatic方法
  * 以及(MContext c)构造方法
  */
-public abstract class BaseScene extends RelativeContainer implements Hideable {
+public abstract class BaseScene extends RelativeLayout implements Hideable {
     public BaseScene(MContext c) {
         super(c);
         RelativeLayout.RelativeParam p = new RelativeLayout.RelativeParam();
@@ -29,7 +29,6 @@ public abstract class BaseScene extends RelativeContainer implements Hideable {
 
     @Override
     public boolean isHidden() {
-
         return getVisiblility() == VISIBILITY_GONE || LabGame.get().getScenes().getCurrentScene() != this;
     }
 }

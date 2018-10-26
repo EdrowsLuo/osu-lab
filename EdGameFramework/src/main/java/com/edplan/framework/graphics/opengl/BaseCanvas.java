@@ -166,9 +166,17 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
 
     public abstract boolean isPrepared();
 
-    public abstract void prepare();
+    public final void prepare() {
+        GLWrapped.prepareCanvas(this);
+    }
 
-    public abstract void unprepare();
+    protected abstract void onPrepare();
+
+    public void unprepare() {
+        GLWrapped.unprepareCanvas(this);
+    }
+
+    protected abstract void onUnprepare();
 
     @Override
     public void onSave(CanvasData t) {
@@ -589,8 +597,38 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
 
     public void drawTextureAnchorCenter(AbstractTexture texture, Vec2 org, Vec4 w, GLPaint paint) {
         RectF dst = RectF.ltrb(org.x - w.r, org.y - w.g, org.x + w.b, org.y + w.a);
-        drawTexture(texture, new RectF(0, 0, texture.getWidth(), texture.getHeight()), dst, paint);
+        drawTexture(texture, RectF.ltrb(0, 0, texture.getWidth(), texture.getHeight()), dst, paint);
     }
+
+    /**
+     * @return 返回是否支持裁剪画板的一部分
+     */
+    public boolean supportClip() {
+        return false;
+    }
+
+    /**
+     * 返回一个被裁剪的画板，
+     * @param x 裁剪区域起始x
+     * @param y 裁剪区域起始y
+     * @param width 裁剪区域宽度
+     * @param height 裁剪区域高度
+     * @return 返回一个新画板，画板的新原点为裁剪起点（会产生新对象）
+     */
+    protected BaseCanvas clipCanvas(int x, int y, int width, int height) {
+        return null;
+    }
+
+
+    public final BaseCanvas requestClipCanvas(int x, int y, int width, int height) {
+        checkPrepared("you can only clip canvas when it is not working", false);
+        if (supportClip()) {
+            return clipCanvas(x, y, width, height);
+        } else {
+            return null;
+        }
+    }
+
 
     public abstract int getDefWidth();
 

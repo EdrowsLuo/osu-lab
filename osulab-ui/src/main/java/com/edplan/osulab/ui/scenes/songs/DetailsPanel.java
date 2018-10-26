@@ -8,9 +8,10 @@ import com.edplan.framework.ui.animation.ComplexAnimationBuilder;
 import com.edplan.framework.ui.animation.Easing;
 import com.edplan.framework.ui.animation.FloatQueryAnimation;
 import com.edplan.framework.ui.widget.RelativeContainer;
+import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.widget.component.Hideable;
 
-public class DetailsPanel extends RelativeContainer implements Hideable {
+public class DetailsPanel extends RelativeLayout implements Hideable {
     public static float WIDTH_DP = 350;
 
     public DetailsPanel(MContext c) {

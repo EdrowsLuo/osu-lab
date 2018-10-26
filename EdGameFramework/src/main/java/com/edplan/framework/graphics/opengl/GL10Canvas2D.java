@@ -20,12 +20,12 @@ public class GL10Canvas2D extends BaseCanvas {
     }
 
     @Override
-    public void prepare() {
+    public void onPrepare() {
 
     }
 
     @Override
-    public void unprepare() {
+    public void onUnprepare() {
 
     }
 
