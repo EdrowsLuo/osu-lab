@@ -144,6 +144,12 @@ public class Mat4 implements Recycleable {
         return this;
     }
 
+    public Vec2 mapToProj(float x, float y) {
+        return new Vec2(
+                x * get(0, 0) + y * get(1, 0) + get(3, 0),
+                x * get(0, 1) + y * get(1, 1) + get(3, 1));
+    }
+
     public Mat4 copy() {
         return new Mat4(this.data);
     }

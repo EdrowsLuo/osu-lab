@@ -25,12 +25,27 @@ public class ConfigList implements StructObject {
         return dataList.iterator();
     }
 
-    public void setListName(String listName) {
+    protected final void setListName(String listName) {
         this.listName = listName;
     }
 
     public String getListName() {
         return listName;
+    }
+
+    public ConfigEntry putInt(String name, int v) {
+        if (data.containsKey(name)) {
+            ConfigEntry e = data.get(name);
+            e.asInt().set(v);
+            return e;
+        } else {
+            ConfigEntry e = new ConfigEntry();
+            e.setName(name);
+            e.asInt().set(v);
+            data.put(name, e);
+            dataList.add(e);
+            return e;
+        }
     }
 
     public ConfigEntry putBoolean(String name, boolean b) {

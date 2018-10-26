@@ -1,6 +1,7 @@
 package com.edplan.framework.graphics.opengl;
 
 import com.edplan.framework.math.Mat4;
+import com.edplan.framework.math.Vec2;
 
 public class Camera {
     private Mat4 maskMatrix = new Mat4();
@@ -19,6 +20,10 @@ public class Camera {
         maskMatrix.set(c.maskMatrix);
         projectionMatrix.set(c.projectionMatrix);
         hasChange = true;
+    }
+
+    public Vec2 toProjPostion(float x, float y) {
+        return maskMatrix.mapToProj(x, y);
     }
 
     public void setMaskMatrix(Mat4 maskMatrix) {

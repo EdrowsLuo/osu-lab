@@ -20,6 +20,8 @@ public class CanvasData implements Recycleable, Copyable {
 
     private ShaderManager shaders = new ShaderManager();
 
+    private Vec2 theOrigin = new Vec2();
+
     public CanvasData(CanvasData c) {
         this.camera = c.camera.copy();
         this.width = c.width;
@@ -27,10 +29,15 @@ public class CanvasData implements Recycleable, Copyable {
         this.pixelDensity = c.pixelDensity;
         this.canvasAlpha = c.canvasAlpha;
         this.shaders.set(c.shaders);
+        this.theOrigin.set(theOrigin);
     }
 
     public CanvasData() {
         camera = new Camera();
+    }
+
+    public Vec2 getTheOrigin() {
+        return theOrigin;
     }
 
     public void setShaders(ShaderManager shaders) {
@@ -106,6 +113,7 @@ public class CanvasData implements Recycleable, Copyable {
 
     public CanvasData translate(float tx, float ty) {
         getCurrentMaskMatrix().translate(tx, ty, 0);
+        theOrigin.add(tx, ty);
         freshMatrix();
         return this;
     }
@@ -125,6 +133,8 @@ public class CanvasData implements Recycleable, Copyable {
     //可能导致部分运算误差（像素密度相关）
     public CanvasData scale(float sx, float sy) {
         getCurrentMaskMatrix().scale(sx, sy, 1);
+        theOrigin.x *= sx;
+        theOrigin.y *= sy;
         freshMatrix();
         return this;
     }

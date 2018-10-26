@@ -56,8 +56,14 @@ public class BufferedLayer {
         this.frameBuffer = layer.frameBuffer;
         this.height = height;
         this.width = width;
-        this.ox = ox;
-        this.oy = oy;
+        if (layer.isDirectLayer()) {
+            this.ox = ox + layer.ox;
+            this.oy = oy + layer.oy;
+        } else {
+            this.ox = ox;
+            this.oy = oy;
+        }
+
         this.permissionToTexture = false;
     }
 
