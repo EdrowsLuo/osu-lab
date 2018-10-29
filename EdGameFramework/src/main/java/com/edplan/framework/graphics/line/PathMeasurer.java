@@ -1,16 +1,10 @@
 package com.edplan.framework.graphics.line;
 
-import java.util.List;
-import java.util.ArrayList;
-
 import com.edplan.framework.math.Vec2;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-
-import com.edplan.framework.math.FMath;
 import com.edplan.framework.utils.MLog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PathMeasurer {
     private LinePath path;

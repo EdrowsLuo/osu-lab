@@ -1,15 +1,12 @@
 package com.edplan.framework.ui.animation;
 
+import com.edplan.framework.interfaces.InvokeGetter;
+import com.edplan.framework.utils.CollectionUtil;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-
-import com.edplan.framework.utils.CollectionUtil;
-import com.edplan.framework.interfaces.InvokeGetter;
-
 import java.util.Iterator;
-
-import com.edplan.framework.test.TestStaticData;
 
 public class ComplexAnimation extends BaseAnimation {
     private ArrayList<Node> nodes = new ArrayList<Node>();

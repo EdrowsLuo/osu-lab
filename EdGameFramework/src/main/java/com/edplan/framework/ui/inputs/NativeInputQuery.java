@@ -2,11 +2,11 @@ package com.edplan.framework.ui.inputs;
 
 import android.view.MotionEvent;
 
-import java.util.List;
-import java.util.ArrayList;
-
-import com.edplan.framework.ui.inputs.EdMotionEvent.*;
 import com.edplan.framework.MContext;
+import com.edplan.framework.ui.inputs.EdMotionEvent.RawType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NativeInputQuery {
     private List<EdMotionEvent> eventQuery1 = new ArrayList<EdMotionEvent>(), eventQuery2 = new ArrayList<EdMotionEvent>();

@@ -1,28 +1,20 @@
 package com.edplan.framework.media.video.tbv.element;
 
-import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
-import com.edplan.framework.media.video.tbv.decode.TBVInputStream;
-
-import java.io.IOException;
-
-import com.edplan.framework.media.video.tbv.encode.TBVOutputStream;
+import com.edplan.framework.graphics.opengl.batch.BaseBatch;
+import com.edplan.framework.graphics.opengl.batch.interfaces.ITexture3DBatch;
+import com.edplan.framework.graphics.opengl.buffer.Color4Buffer;
 import com.edplan.framework.graphics.opengl.buffer.Vec2Buffer;
 import com.edplan.framework.graphics.opengl.buffer.Vec3Buffer;
-import com.edplan.framework.graphics.opengl.buffer.Color4Buffer;
-import com.edplan.framework.graphics.opengl.batch.BaseBatch;
-import com.edplan.framework.graphics.opengl.batch.base.IHasPosition;
-import com.edplan.framework.graphics.opengl.batch.base.IHasColor;
-import com.edplan.framework.graphics.opengl.batch.base.IHasTexturePosition;
+import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.math.Vec3;
-import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.media.video.tbv.decode.TBVInputStream;
+import com.edplan.framework.media.video.tbv.encode.TBVOutputStream;
 
-import java.util.List;
-
-import com.edplan.framework.graphics.opengl.batch.interfaces.ITexture3DBatch;
-import com.edplan.framework.utils.Tag;
-
+import java.io.IOException;
 import java.nio.FloatBuffer;
+import java.util.List;
 
 public class DataDrawBaseTexture implements ITexture3DBatch<TextureVertex3D> {
 

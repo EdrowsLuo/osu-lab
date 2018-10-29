@@ -1,9 +1,7 @@
 package com.edplan.framework.ui.widget.component;
 
-import java.util.Arrays;
-
-import com.edplan.framework.interfaces.Setter;
 import com.edplan.framework.Framework;
+import com.edplan.framework.interfaces.Setter;
 
 public class Scroller {
     public static int RECODE_ARRAY_SIZE = 10;

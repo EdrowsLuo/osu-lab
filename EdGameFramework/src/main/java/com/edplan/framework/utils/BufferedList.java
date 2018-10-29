@@ -1,10 +1,7 @@
 package com.edplan.framework.utils;
 
-import com.edplan.framework.interfaces.Setable;
-
-import java.util.ArrayList;
-
 import com.edplan.framework.interfaces.ArrayConstructor;
+import com.edplan.framework.interfaces.Setable;
 
 import java.util.Iterator;
 

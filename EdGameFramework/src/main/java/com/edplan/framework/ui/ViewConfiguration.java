@@ -1,9 +1,9 @@
 package com.edplan.framework.ui;
 
-import com.edplan.framework.MContext;
-
-import android.util.TypedValue;
 import android.util.Log;
+import android.util.TypedValue;
+
+import com.edplan.framework.MContext;
 
 public class ViewConfiguration {
     public static int LONGCLICK_DELAY_MS = 1200;

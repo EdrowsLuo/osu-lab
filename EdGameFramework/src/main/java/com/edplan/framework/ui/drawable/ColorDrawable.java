@@ -1,10 +1,10 @@
 package com.edplan.framework.ui.drawable;
 
-import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.MContext;
-import com.edplan.framework.ui.drawable.sprite.ColorRectSprite;
-import com.edplan.framework.math.RectF;
+import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.math.RectF;
+import com.edplan.framework.ui.drawable.sprite.ColorRectSprite;
 
 public class ColorDrawable extends EdDrawable {
     private ColorRectSprite sprite;

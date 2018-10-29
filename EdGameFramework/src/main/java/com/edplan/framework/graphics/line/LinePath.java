@@ -1,12 +1,11 @@
 package com.edplan.framework.graphics.line;
 
-import com.edplan.framework.math.Vec2;
-
-import java.util.List;
-import java.util.ArrayList;
-
 import com.edplan.framework.math.RectF;
+import com.edplan.framework.math.Vec2;
 import com.edplan.framework.utils.MLog;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class LinePath implements AbstractPath {
     private List<Vec2> positions;

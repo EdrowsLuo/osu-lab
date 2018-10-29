@@ -2,7 +2,6 @@ package com.edplan.framework.graphics.opengl.buffer.direct;
 
 import com.edplan.framework.graphics.opengl.buffer.BufferUtil;
 import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
-import com.edplan.framework.math.Vec2;
 
 import java.nio.FloatBuffer;
 import java.util.Arrays;

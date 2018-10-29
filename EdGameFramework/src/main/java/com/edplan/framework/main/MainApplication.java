@@ -1,21 +1,18 @@
 package com.edplan.framework.main;
 
-import android.app.Activity;
 import android.content.Context;
 
+import com.edplan.framework.Framework;
+import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseGLSurfaceView;
 import com.edplan.framework.graphics.opengl.MainRenderer;
-import com.edplan.framework.ui.text.font.bmfont.BMFont;
-import com.edplan.framework.ui.text.font.drawing.TextPrinter;
-import com.edplan.framework.MContext;
 import com.edplan.framework.resource.AResource;
-
-import java.io.IOException;
-
 import com.edplan.framework.test.TestStaticData;
 import com.edplan.framework.ui.ViewConfiguration;
 import com.edplan.framework.ui.text.font.FontAwesome;
-import com.edplan.framework.Framework;
+import com.edplan.framework.ui.text.font.bmfont.BMFont;
+
+import java.io.IOException;
 
 public abstract class MainApplication implements MainCallBack {
     protected Context context;

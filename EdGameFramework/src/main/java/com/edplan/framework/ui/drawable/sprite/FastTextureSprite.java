@@ -5,7 +5,6 @@ import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.Anchor;
-import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 
 public class FastTextureSprite extends BaseRectTextureSprite<FastTextureSpriteShader> {
     public FastTextureSprite(MContext c) {

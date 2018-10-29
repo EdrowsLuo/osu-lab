@@ -3,10 +3,6 @@ package com.edplan.framework.graphics.opengl.bufferObjects;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import android.util.Log;
-
-import com.edplan.framework.graphics.layer.BufferedLayer;
-
 public class FBOPool {
     private int maxMemory = 1080 * 1920 * 10 * 0;
 

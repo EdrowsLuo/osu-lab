@@ -1,7 +1,9 @@
 package com.edplan.framework.ui.additions.popupview.defviews;
+
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.test.performance.ui.FrameRenderMonitor;
 import com.edplan.framework.ui.ViewConfiguration;
 import com.edplan.framework.ui.additions.popupview.PopupView;
 import com.edplan.framework.ui.layout.Gravity;
@@ -10,7 +12,6 @@ import com.edplan.framework.ui.layout.Param;
 import com.edplan.framework.ui.widget.LinearLayout;
 import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.widget.TextView;
-import com.edplan.framework.test.performance.ui.FrameRenderMonitor;
 
 public class RenderStatPopupView extends PopupView {
     private static RenderStatPopupView instance;

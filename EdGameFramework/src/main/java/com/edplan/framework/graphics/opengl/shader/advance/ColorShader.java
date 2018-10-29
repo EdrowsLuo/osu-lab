@@ -9,7 +9,6 @@ import com.edplan.framework.graphics.opengl.batch.base.IHasPosition;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.shader.Attr;
 import com.edplan.framework.graphics.opengl.shader.GLProgram;
-import com.edplan.framework.graphics.opengl.shader.Unif;
 import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformColor4;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformFloat;
@@ -17,8 +16,6 @@ import com.edplan.framework.graphics.opengl.shader.uniforms.UniformMat4;
 import com.edplan.framework.math.Mat4;
 
 import java.nio.FloatBuffer;
-
-import android.util.Log;
 
 public class ColorShader extends BaseShader {
     public static ColorShader Invalid = new InvalidColorShader();

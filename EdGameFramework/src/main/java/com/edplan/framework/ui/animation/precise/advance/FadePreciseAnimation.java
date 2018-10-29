@@ -1,7 +1,6 @@
 package com.edplan.framework.ui.animation.precise.advance;
 
 import com.edplan.framework.ui.drawable.interfaces.IFadeable;
-import com.edplan.framework.ui.animation.AnimationHelper;
 
 public class FadePreciseAnimation extends AdvancePreciseAnimation {
     private IFadeable target;

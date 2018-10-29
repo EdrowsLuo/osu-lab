@@ -1,9 +1,8 @@
 package com.edplan.framework.test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Arrays;
-import java.util.ArrayList;
 
 public class Test {
     public static final String IS_RELEASE = "is_release";

@@ -1,43 +1,27 @@
 package com.edplan.framework.graphics.opengl.objs.texture;
 
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
-import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
-import com.edplan.framework.graphics.opengl.GLCanvas2D;
-import com.edplan.framework.MContext;
-import com.edplan.framework.graphics.opengl.GLPaint;
-import com.edplan.framework.math.RectF;
-import com.edplan.framework.math.RectI;
-
-import java.util.List;
-import java.util.ArrayList;
-
-import com.edplan.framework.graphics.opengl.objs.Color4;
-
-import java.io.File;
-
 import android.graphics.Bitmap;
-
-import java.io.FileOutputStream;
-import java.io.FileNotFoundException;
-
-import com.edplan.framework.graphics.layer.BufferedLayer;
-
 import android.util.ArrayMap;
 
-import java.util.Map;
-
-import com.edplan.framework.graphics.opengl.objs.texture.TexturePool.MsgTexture;
-
-import java.util.Collections;
-import java.util.Comparator;
-import java.io.IOException;
-
+import com.edplan.framework.MContext;
+import com.edplan.framework.graphics.layer.BufferedLayer;
+import com.edplan.framework.graphics.opengl.GLCanvas2D;
+import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.GLWrapped;
-import com.edplan.framework.graphics.opengl.ShaderManager;
+import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
+import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.interfaces.Function;
+import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.looper.ExpensiveTask;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class AutoPackTexturePool extends TexturePool {
     public static String LOADING = null;

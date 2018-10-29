@@ -1,7 +1,7 @@
 package com.edplan.framework.ui.text.font.drawing;
 
-import com.edplan.framework.ui.text.font.bmfont.FNTChar;
 import com.edplan.framework.ui.text.font.bmfont.BMFont;
+import com.edplan.framework.ui.text.font.bmfont.FNTChar;
 
 /**
  * 对应一个文字块

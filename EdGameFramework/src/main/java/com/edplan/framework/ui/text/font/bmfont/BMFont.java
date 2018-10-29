@@ -1,16 +1,12 @@
 package com.edplan.framework.ui.text.font.bmfont;
 
+import com.edplan.framework.MContext;
 import com.edplan.framework.resource.AResource;
-import com.edplan.framework.ui.text.font.bmfont.BMFontDescription;
-import com.edplan.framework.ui.text.font.bmfont.FNTPage;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.edplan.framework.ui.looper.ExpensiveTask;
-import com.edplan.framework.MContext;
 
 /**
  * 单个字体，包含所有face相同的字体文件

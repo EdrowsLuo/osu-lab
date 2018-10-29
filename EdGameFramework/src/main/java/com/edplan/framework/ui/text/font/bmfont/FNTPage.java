@@ -1,7 +1,5 @@
 package com.edplan.framework.ui.text.font.bmfont;
 
-import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
-
 public class FNTPage {
     public static final String ID = "id";
     public static final String FILE = "file";

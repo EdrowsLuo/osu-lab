@@ -2,7 +2,6 @@ package com.edplan.framework.graphics.opengl.fast;
 
 import com.edplan.framework.math.IQuad;
 import com.edplan.framework.math.Quad;
-import com.edplan.framework.math.ReferenceQuad;
 
 public class FastQuad {
     private final FastRenderer.FastVertex[] vertexs = new FastRenderer.FastVertex[4];

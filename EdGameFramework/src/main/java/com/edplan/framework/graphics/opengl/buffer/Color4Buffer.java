@@ -1,14 +1,8 @@
 package com.edplan.framework.graphics.opengl.buffer;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.edplan.framework.graphics.opengl.objs.Color4;
 
-import android.util.Log;
+import java.nio.FloatBuffer;
 
 public class Color4Buffer extends BaseBuffer<Color4> {
 

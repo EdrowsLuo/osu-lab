@@ -1,14 +1,9 @@
 package com.edplan.framework.math;
 
-import java.util.List;
-
+import com.edplan.framework.math.its.IVec2;
 import com.edplan.framework.ui.animation.interpolate.Interplateable;
 import com.edplan.framework.ui.animation.interpolate.ValueInterpolator;
 import com.edplan.framework.ui.animation.interpolate.Vec2Interpolator;
-
-import java.util.Stack;
-
-import com.edplan.framework.math.its.IVec2;
 
 import java.nio.FloatBuffer;
 

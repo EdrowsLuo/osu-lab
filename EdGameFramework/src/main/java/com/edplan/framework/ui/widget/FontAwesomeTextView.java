@@ -1,8 +1,8 @@
 package com.edplan.framework.ui.widget;
 
 import com.edplan.framework.MContext;
-import com.edplan.framework.ui.text.font.bmfont.BMFont;
 import com.edplan.framework.ui.text.font.FontAwesome;
+import com.edplan.framework.ui.text.font.bmfont.BMFont;
 
 public class FontAwesomeTextView extends TextView {
     public FontAwesomeTextView(MContext c) {

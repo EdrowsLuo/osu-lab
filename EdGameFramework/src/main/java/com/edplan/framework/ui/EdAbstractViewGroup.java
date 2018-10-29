@@ -1,24 +1,14 @@
 package com.edplan.framework.ui;
 
-import java.util.List;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Arrays;
-import java.util.HashMap;
-
 import com.edplan.framework.MContext;
-
-import java.util.ArrayList;
-
-import com.edplan.framework.graphics.opengl.GLCanvas2D;
+import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.interfaces.Invoker;
 import com.edplan.framework.ui.animation.interfaces.IHasAlpha;
+import com.edplan.framework.ui.inputs.EdMotionEvent;
 import com.edplan.framework.ui.layout.EdLayoutParam;
 import com.edplan.framework.ui.layout.MeasureCore;
-import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.ui.inputs.EdMotionEvent;
-import com.edplan.framework.math.RectF;
-import com.edplan.framework.interfaces.Invoker;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 public abstract class EdAbstractViewGroup extends EdView implements IHasAlpha{

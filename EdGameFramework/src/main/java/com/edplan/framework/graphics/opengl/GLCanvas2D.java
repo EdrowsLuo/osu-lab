@@ -2,30 +2,9 @@ package com.edplan.framework.graphics.opengl;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.layer.BufferedLayer;
-import com.edplan.framework.graphics.opengl.batch.BaseColorBatch;
-import com.edplan.framework.graphics.opengl.batch.RectVertexBatch;
-import com.edplan.framework.graphics.opengl.batch.Texture3DBatch;
 import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
-import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
-import com.edplan.framework.graphics.opengl.objs.Vertex3D;
-import com.edplan.framework.graphics.opengl.objs.vertex.RectVertex;
-import com.edplan.framework.graphics.opengl.shader.advance.RectTextureShader;
-import com.edplan.framework.graphics.opengl.shader.advance.RoundedRectTextureShader;
-import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
-import com.edplan.framework.math.Mat4;
-import com.edplan.framework.math.RectF;
-import com.edplan.framework.math.Vec2;
-import com.edplan.framework.math.Vec3;
-import com.edplan.framework.math.Vec4;
-import com.edplan.framework.utils.AbstractSRable;
-import com.edplan.framework.graphics.opengl.shader.advance.ColorShader;
-import com.edplan.framework.utils.MLog;
-import com.edplan.framework.math.IQuad;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
-import com.edplan.framework.graphics.opengl.batch.BaseBatch;
-import com.edplan.framework.graphics.opengl.batch.interfaces.ITexture3DBatch;
-import com.edplan.framework.media.video.tbv.element.DataDrawBaseTexture;
+import com.edplan.framework.math.Mat4;
 
 public class GLCanvas2D extends BaseCanvas // extends AbstractSRable<CanvasData>
 {

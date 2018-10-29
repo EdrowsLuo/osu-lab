@@ -6,7 +6,6 @@ import com.edplan.framework.ui.animation.interfaces.IHasAlpha;
 import com.edplan.framework.ui.animation.interpolate.RawFloatInterpolator;
 import com.edplan.framework.ui.animation.precise.BasePreciseAnimation;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;

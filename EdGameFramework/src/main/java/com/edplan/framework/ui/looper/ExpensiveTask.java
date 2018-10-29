@@ -6,8 +6,6 @@ import com.edplan.framework.resource.AResource;
 
 import java.io.IOException;
 
-import com.edplan.framework.interfaces.Wrapper;
-
 public class ExpensiveTask<T> {
     private Task<T> task;
 

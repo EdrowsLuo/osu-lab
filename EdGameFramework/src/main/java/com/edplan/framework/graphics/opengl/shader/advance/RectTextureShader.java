@@ -1,20 +1,14 @@
 package com.edplan.framework.graphics.opengl.shader.advance;
 
-import com.edplan.framework.graphics.opengl.shader.GLProgram;
-import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
-import com.edplan.framework.graphics.opengl.shader.uniforms.UniformFloat;
-import com.edplan.framework.graphics.opengl.shader.Unif;
-import com.edplan.framework.graphics.opengl.shader.Attr;
-import com.edplan.framework.graphics.opengl.shader.uniforms.UniformMat2;
-import com.edplan.framework.math.RectF;
-import com.edplan.framework.graphics.opengl.buffer.Vec2Buffer;
-import com.edplan.framework.graphics.opengl.shader.uniforms.UniformColor4;
-import com.edplan.framework.math.Vec4;
-import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
-import com.edplan.framework.graphics.opengl.batch.Texture3DBatch;
-import com.edplan.framework.graphics.opengl.batch.RectVertexBatch;
 import com.edplan.framework.graphics.opengl.batch.BaseBatch;
 import com.edplan.framework.graphics.opengl.batch.base.IHasRectPosition;
+import com.edplan.framework.graphics.opengl.shader.Attr;
+import com.edplan.framework.graphics.opengl.shader.GLProgram;
+import com.edplan.framework.graphics.opengl.shader.Unif;
+import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
+import com.edplan.framework.graphics.opengl.shader.uniforms.UniformColor4;
+import com.edplan.framework.math.RectF;
+import com.edplan.framework.math.Vec4;
 
 import java.nio.FloatBuffer;
 

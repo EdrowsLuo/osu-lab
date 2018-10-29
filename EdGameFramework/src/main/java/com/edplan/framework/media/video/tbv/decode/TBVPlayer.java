@@ -1,24 +1,20 @@
 package com.edplan.framework.media.video.tbv.decode;
 
-import java.io.File;
-
-import com.edplan.framework.resource.AResource;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
-import com.edplan.framework.resource.DirResource;
 import com.edplan.framework.MContext;
-import com.edplan.framework.interfaces.Reflection;
+import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
+import com.edplan.framework.interfaces.Reflection;
 import com.edplan.framework.media.video.tbv.TBVException;
-
-import java.io.IOException;
+import com.edplan.framework.resource.AResource;
+import com.edplan.framework.resource.DirResource;
+import com.edplan.framework.timing.PreciseTimeline;
 
 import org.json.JSONException;
 
-import com.edplan.framework.timing.PreciseTimeline;
-import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class TBVPlayer {
     PreciseTimeline timeline;

@@ -1,7 +1,7 @@
 package com.edplan.framework.config.property;
 
-import org.json.JSONObject;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ConfigBoolean extends ConfigProperty {
     public static final String TYPE = "boolean";

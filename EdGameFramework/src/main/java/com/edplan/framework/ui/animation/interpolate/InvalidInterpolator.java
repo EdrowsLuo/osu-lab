@@ -1,7 +1,7 @@
 package com.edplan.framework.ui.animation.interpolate;
 
-import com.edplan.framework.ui.animation.Easing;
 import com.edplan.framework.graphics.opengl.BlendType;
+import com.edplan.framework.ui.animation.Easing;
 
 public class InvalidInterpolator<T> implements ValueInterpolator<T> {
     public static InvalidInterpolator<Boolean> ForBoolean = new InvalidInterpolator<Boolean>();

@@ -1,13 +1,13 @@
 package com.edplan.framework.ui.text.font.drawing;
 
-import com.edplan.framework.ui.text.font.bmfont.BMFont;
+import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.batch.Texture3DBatch;
+import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
-import com.edplan.framework.ui.text.font.bmfont.FNTChar;
-import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.math.RectF;
-import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.ui.text.font.bmfont.BMFont;
+import com.edplan.framework.ui.text.font.bmfont.FNTChar;
 
 public class TextBuffer {
     private Texture3DBatch[] bactchs;

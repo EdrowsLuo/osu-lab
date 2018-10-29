@@ -1,9 +1,7 @@
 package com.edplan.framework.graphics.opengl;
 
-import org.json.JSONObject;
-
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CanvasUtil {
     public static final String Translate = "translate";

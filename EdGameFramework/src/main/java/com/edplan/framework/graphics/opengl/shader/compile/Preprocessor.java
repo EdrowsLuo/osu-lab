@@ -2,8 +2,6 @@ package com.edplan.framework.graphics.opengl.shader.compile;
 
 import com.edplan.framework.utils.StringUtil;
 
-import java.util.Arrays;
-
 /**
  * 主要用于处理库函数什么的
  * 扩展块需要以"/**"行注解开始，

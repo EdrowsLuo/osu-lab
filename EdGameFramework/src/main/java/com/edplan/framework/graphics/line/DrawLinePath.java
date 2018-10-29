@@ -1,16 +1,12 @@
 package com.edplan.framework.graphics.line;
 
-import com.edplan.framework.graphics.opengl.drawui.DrawInfo;
-import com.edplan.framework.graphics.opengl.buffer.Vec3Buffer;
-import com.edplan.framework.math.Vec2;
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
-import com.edplan.framework.math.FMath;
-import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.graphics.opengl.batch.Texture3DBatch;
-import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
-import com.edplan.framework.math.Vec3;
-import com.edplan.framework.utils.MLog;
 import com.edplan.framework.graphics.opengl.batch.BaseColorBatch;
+import com.edplan.framework.graphics.opengl.drawui.DrawInfo;
+import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
+import com.edplan.framework.math.FMath;
+import com.edplan.framework.math.Vec2;
+import com.edplan.framework.math.Vec3;
 
 import java.util.ArrayList;
 

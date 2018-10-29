@@ -23,10 +23,6 @@ import com.edplan.framework.math.Vec3;
 import com.edplan.framework.math.Vec4;
 import com.edplan.framework.utils.AbstractSRable;
 
-import java.util.Arrays;
-
-import com.edplan.framework.media.video.tbv.element.DataDrawBaseTexture;
-
 public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
     private float defZ = 0;
 

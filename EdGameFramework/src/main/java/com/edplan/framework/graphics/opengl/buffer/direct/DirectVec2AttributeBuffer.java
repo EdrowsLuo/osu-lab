@@ -1,11 +1,10 @@
 package com.edplan.framework.graphics.opengl.buffer.direct;
 
-import java.nio.FloatBuffer;
-
+import com.edplan.framework.graphics.opengl.buffer.BufferUtil;
 import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
 import com.edplan.framework.math.Vec2;
-import com.edplan.framework.graphics.opengl.buffer.BufferUtil;
 
+import java.nio.FloatBuffer;
 import java.util.Arrays;
 
 public class DirectVec2AttributeBuffer implements DirectAttributeBuffer {

@@ -1,13 +1,12 @@
 package com.edplan.framework.ui.drawable.sprite;
 
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
+import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformSample2D;
 import com.edplan.framework.utils.StringUtil;
 
 import java.nio.Buffer;
-
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
 
 /**
  * 舍弃功能达到较快的绘制速度

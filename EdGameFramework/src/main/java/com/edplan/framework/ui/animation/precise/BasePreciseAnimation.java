@@ -1,7 +1,7 @@
 package com.edplan.framework.ui.animation.precise;
 
-import com.edplan.framework.ui.animation.AnimState;
 import com.edplan.framework.timing.PreciseTimeline;
+import com.edplan.framework.ui.animation.AnimState;
 
 public class BasePreciseAnimation extends AbstractPreciseAnimation {
     private double startTime;

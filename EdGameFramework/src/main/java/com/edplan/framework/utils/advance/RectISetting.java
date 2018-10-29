@@ -1,9 +1,9 @@
 package com.edplan.framework.utils.advance;
 
 import com.edplan.framework.interfaces.Setter;
+import com.edplan.framework.math.RectI;
 import com.edplan.framework.utils.SRable;
 import com.edplan.framework.utils.SRable.SROperation;
-import com.edplan.framework.math.RectI;
 
 public class RectISetting {
     private SRable<RectI> saves;

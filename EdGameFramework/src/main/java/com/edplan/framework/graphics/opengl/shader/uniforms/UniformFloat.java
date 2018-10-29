@@ -2,10 +2,8 @@ package com.edplan.framework.graphics.opengl.shader.uniforms;
 
 import android.opengl.GLES20;
 
-import com.edplan.framework.graphics.opengl.GLException;
 import com.edplan.framework.graphics.opengl.shader.DataUniform;
 import com.edplan.framework.graphics.opengl.shader.GLProgram;
-import com.edplan.framework.graphics.opengl.GLWrapped;
 
 public class UniformFloat extends DataUniform<Float> {
     private UniformFloat(int h) {

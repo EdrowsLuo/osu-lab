@@ -1,20 +1,15 @@
 package com.edplan.framework.graphics.opengl;
 
-import android.opengl.GLSurfaceView;
 import android.content.Context;
+import android.opengl.GLSurfaceView;
+import android.util.Log;
+import android.view.MotionEvent;
+
+import com.edplan.framework.test.TestStaticData;
 
 import javax.microedition.khronos.egl.EGL10;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLDisplay;
-
-import android.view.MotionEvent;
-import android.util.Log;
-
-import com.edplan.framework.test.TestStaticData;
-
-import android.view.View;
-
-import com.edplan.framework.main.MainApplication;
 
 public class BaseGLSurfaceView extends GLSurfaceView {
     MainRenderer mRenderer;

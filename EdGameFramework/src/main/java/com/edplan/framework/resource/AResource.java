@@ -1,22 +1,17 @@
 package com.edplan.framework.resource;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import com.edplan.framework.graphics.opengl.objs.GLTexture;
+import com.edplan.framework.utils.StringUtil;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-
-import android.graphics.BitmapFactory;
-
 import java.nio.ByteBuffer;
-import java.io.BufferedInputStream;
 import java.nio.ByteOrder;
-
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
-import com.edplan.framework.utils.StringUtil;
-
-import java.util.ArrayList;
 
 public abstract class AResource {
     public BufferedReader openBufferedReader(String path) throws IOException {

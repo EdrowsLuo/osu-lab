@@ -4,26 +4,23 @@ import android.view.MotionEvent;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.main.MainCallBack;
 import com.edplan.framework.test.performance.Tracker;
+import com.edplan.framework.ui.additions.PopupViewLayer;
+import com.edplan.framework.ui.additions.RootContainer;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
 import com.edplan.framework.ui.inputs.NativeInputQuery;
 import com.edplan.framework.ui.layout.EdLayoutParam;
 import com.edplan.framework.ui.layout.EdMeasureSpec;
-import com.edplan.framework.ui.layout.Gravity;
 import com.edplan.framework.ui.layout.MeasureCore;
 import com.edplan.framework.ui.layout.Param;
 import com.edplan.framework.utils.BitUtil;
+import com.edplan.framework.utils.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
-import com.edplan.framework.main.MainCallBack;
-import com.edplan.framework.ui.widget.AbsoluteLayout;
-import com.edplan.framework.ui.additions.RootContainer;
-import com.edplan.framework.ui.additions.PopupViewLayer;
-import com.edplan.framework.utils.StringUtil;
 
 public class ViewRoot implements MainCallBack {
     public static final int FLAG_INVALIDATE_MEASURE = Invalidate.FLAG_INVALIDATE_MEASURE;

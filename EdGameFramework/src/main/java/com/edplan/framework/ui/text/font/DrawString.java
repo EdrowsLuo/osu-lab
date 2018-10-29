@@ -1,12 +1,11 @@
 package com.edplan.framework.ui.text.font;
 
-import java.util.ArrayList;
-
-import com.edplan.framework.graphics.opengl.GLCanvas2D;
-import com.edplan.framework.graphics.opengl.GLPaint;
-import com.edplan.framework.math.Vec2;
-import com.edplan.framework.math.RectF;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.graphics.opengl.GLPaint;
+import com.edplan.framework.math.RectF;
+import com.edplan.framework.math.Vec2;
+
+import java.util.ArrayList;
 
 public class DrawString {
     private TextureCharacterPool pool;

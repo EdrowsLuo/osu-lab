@@ -1,9 +1,9 @@
 package com.edplan.framework.graphics.opengl.objs;
 
-import com.edplan.framework.math.Vec2;
-import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.IQuad;
 import com.edplan.framework.math.Quad;
+import com.edplan.framework.math.RectF;
+import com.edplan.framework.math.Vec2;
 
 public abstract class AbstractTexture {
     public abstract int getTextureId();

@@ -1,7 +1,5 @@
 package com.edplan.framework.graphics.opengl.buffer;
 
-import com.edplan.framework.graphics.opengl.objs.Color4;
-
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;

@@ -1,7 +1,7 @@
 package com.edplan.framework.ui.drawable;
 
 import com.edplan.framework.MContext;
-import com.edplan.framework.graphics.opengl.GLCanvas2D;
+import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.math.Vec2;
@@ -11,8 +11,6 @@ import com.edplan.framework.ui.drawable.interfaces.IScaleable2D;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.edplan.framework.graphics.opengl.BaseCanvas;
 
 /**
  * 用来封装将材质绘制到canvas上的Drawable，有类似canvas.drawTexture的方法

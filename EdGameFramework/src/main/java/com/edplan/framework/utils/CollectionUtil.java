@@ -1,8 +1,8 @@
 package com.edplan.framework.utils;
 
-import java.util.Collection;
-
 import com.edplan.framework.interfaces.InvokeGetter;
+
+import java.util.Collection;
 
 public class CollectionUtil {
     public static <T> double getMaxDouble(Collection<T> coll, InvokeGetter<T, Double> getter) {

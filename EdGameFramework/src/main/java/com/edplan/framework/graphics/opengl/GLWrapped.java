@@ -1,23 +1,14 @@
 package com.edplan.framework.graphics.opengl;
 
+import android.opengl.GLES10;
 import android.opengl.GLES20;
 import android.util.Log;
 
-import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.utils.AbstractSRable;
-import com.edplan.framework.utils.SRable;
-import com.edplan.framework.utils.SRable.SROperation;
-import com.edplan.framework.utils.advance.BooleanCopyable;
-import com.edplan.framework.utils.advance.BooleanSetting;
-import com.edplan.framework.interfaces.Setter;
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
-import com.edplan.framework.interfaces.Copyable;
 import com.edplan.framework.graphics.opengl.bufferObjects.FBOPool;
-
-import android.opengl.GLES10;
-import android.opengl.GLES30;
-import android.opengl.GLES31Ext;
-import android.opengl.GLES11Ext;
+import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.graphics.opengl.objs.GLTexture;
+import com.edplan.framework.interfaces.Setter;
+import com.edplan.framework.utils.advance.BooleanSetting;
 
 import java.nio.Buffer;
 import java.util.Stack;

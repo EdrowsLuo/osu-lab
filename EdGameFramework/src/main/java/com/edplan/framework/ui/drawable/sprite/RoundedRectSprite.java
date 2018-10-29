@@ -1,11 +1,10 @@
 package com.edplan.framework.ui.drawable.sprite;
 
-import com.edplan.framework.utils.StringUtil;
-import com.edplan.framework.graphics.opengl.shader.uniforms.UniformFloat;
-import com.edplan.framework.graphics.opengl.shader.uniforms.UniformColor4;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.graphics.opengl.shader.uniforms.UniformColor4;
 import com.edplan.framework.math.RectF;
+import com.edplan.framework.utils.StringUtil;
 
 public class RoundedRectSprite extends BaseRectTextureSprite<RoundedShader> {
 

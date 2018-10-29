@@ -1,7 +1,5 @@
 package com.edplan.framework.graphics.opengl.shader.advance;
 
-import android.util.Log;
-
 import com.edplan.framework.graphics.opengl.GLException;
 import com.edplan.framework.graphics.opengl.shader.GLProgram;
 import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
@@ -10,6 +8,7 @@ import com.edplan.framework.graphics.opengl.shader.uniforms.UniformFloat;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformMat2;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformMat4;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformSample2D;
+import com.edplan.framework.graphics.opengl.shader.uniforms.UniformVec2;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -17,8 +16,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
-
-import com.edplan.framework.graphics.opengl.shader.uniforms.UniformVec2;
 
 public abstract class BaseShader extends GLProgram {
     protected BaseShader(GLProgram program, boolean initial) {

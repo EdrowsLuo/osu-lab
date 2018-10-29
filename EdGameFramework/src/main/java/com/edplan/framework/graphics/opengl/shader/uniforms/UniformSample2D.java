@@ -1,9 +1,7 @@
 package com.edplan.framework.graphics.opengl.shader.uniforms;
 
 import android.opengl.GLES20;
-import android.util.Log;
 
-import com.edplan.framework.graphics.opengl.GLException;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.graphics.opengl.shader.DataUniform;
 import com.edplan.framework.graphics.opengl.shader.GLProgram;

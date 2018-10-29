@@ -1,9 +1,8 @@
 package com.edplan.framework.ui.inputs;
 
-import com.edplan.framework.math.Vec2;
-import com.edplan.framework.interfaces.Copyable;
-
 import android.view.MotionEvent;
+
+import com.edplan.framework.math.Vec2;
 
 /**
  * 对于鼠标，触摸等事件的封装，包含事件发生位置，事件种类等信息

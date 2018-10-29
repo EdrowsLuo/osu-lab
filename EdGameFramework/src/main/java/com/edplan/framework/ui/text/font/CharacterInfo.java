@@ -1,10 +1,9 @@
 package com.edplan.framework.ui.text.font;
 
-import com.edplan.framework.math.RectF;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.graphics.opengl.objs.texture.TextureRegion;
-import com.edplan.framework.math.RectI;
+import com.edplan.framework.math.RectF;
 
 public class CharacterInfo {
     private char text;

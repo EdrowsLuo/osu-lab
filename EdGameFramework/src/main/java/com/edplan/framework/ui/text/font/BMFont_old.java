@@ -1,8 +1,10 @@
 package com.edplan.framework.ui.text.font;
-import com.edplan.framework.ui.text.font.bmfont.BMFontDescription;
+
 import com.edplan.framework.resource.AResource;
-import java.util.ArrayList;
+import com.edplan.framework.ui.text.font.bmfont.BMFontDescription;
 import com.edplan.framework.ui.text.font.bmfont.FNTPage;
+
+import java.util.ArrayList;
 
 /**
  *单个字体，包含所有face相同的字体文件

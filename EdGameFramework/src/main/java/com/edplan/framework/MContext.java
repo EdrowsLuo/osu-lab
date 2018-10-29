@@ -1,18 +1,16 @@
 package com.edplan.framework;
 
-import com.edplan.superutils.MTimer;
-
 import android.content.Context;
-
-import com.edplan.framework.resource.advance.ApplicationAssetResource;
-import com.edplan.framework.graphics.opengl.ShaderManager;
-import com.edplan.framework.ui.looper.UILooper;
-import com.edplan.superutils.classes.advance.IRunnableHandler;
-import com.edplan.framework.ui.looper.UIStep;
-import com.edplan.framework.ui.ViewRoot;
-import com.edplan.framework.graphics.opengl.BaseGLSurfaceView;
-
 import android.widget.Toast;
+
+import com.edplan.framework.graphics.opengl.BaseGLSurfaceView;
+import com.edplan.framework.graphics.opengl.ShaderManager;
+import com.edplan.framework.resource.advance.ApplicationAssetResource;
+import com.edplan.framework.ui.ViewRoot;
+import com.edplan.framework.ui.looper.UILooper;
+import com.edplan.framework.ui.looper.UIStep;
+import com.edplan.superutils.MTimer;
+import com.edplan.superutils.classes.advance.IRunnableHandler;
 
 import java.util.HashMap;
 

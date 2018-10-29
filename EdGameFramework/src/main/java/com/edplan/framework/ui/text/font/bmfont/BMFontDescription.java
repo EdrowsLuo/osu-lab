@@ -1,11 +1,10 @@
 package com.edplan.framework.ui.text.font.bmfont;
 
-import java.util.HashMap;
-import java.io.InputStream;
-
 import com.edplan.superutils.AdvancedBufferedReader;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 
 public class BMFontDescription {
     public FNTInfo info;

@@ -1,8 +1,6 @@
 package com.edplan.framework.graphics.opengl.objs.texture;
 
-import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
-import com.edplan.framework.math.RectI;
 import com.edplan.framework.math.RectF;
 
 public class TextureHelper {

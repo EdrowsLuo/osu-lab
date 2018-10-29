@@ -1,16 +1,9 @@
 package com.edplan.framework.ui.widget;
 
-import com.edplan.framework.ui.layout.EdMeasureSpec;
-import com.edplan.framework.ui.EdContainer;
 import com.edplan.framework.MContext;
-
-import java.util.HashMap;
-import java.util.TreeMap;
-
+import com.edplan.framework.ui.EdContainer;
 import com.edplan.framework.ui.EdView;
-
-import android.util.ArrayMap;
-
+import com.edplan.framework.ui.layout.EdMeasureSpec;
 import com.edplan.framework.utils.BadMap;
 
 public class FrameContainer extends EdContainer {

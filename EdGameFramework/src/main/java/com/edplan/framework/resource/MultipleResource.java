@@ -2,9 +2,9 @@ package com.edplan.framework.resource;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class MultipleResource extends AResource {
     private List<AResource> ress = new ArrayList<AResource>();

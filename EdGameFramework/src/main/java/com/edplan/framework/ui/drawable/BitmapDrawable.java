@@ -9,11 +9,10 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 
 import com.edplan.framework.MContext;
-import com.edplan.framework.graphics.opengl.GLCanvas2D;
+import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.ui.drawable.operation.ITexturePoster;
 import com.edplan.framework.ui.drawable.operation.TestPoster;
-import com.edplan.framework.graphics.opengl.BaseCanvas;
 
 public class BitmapDrawable extends EdDrawable {
     public int[] timelist = new int[80];

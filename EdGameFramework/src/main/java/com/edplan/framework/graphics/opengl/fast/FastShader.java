@@ -1,19 +1,18 @@
 package com.edplan.framework.graphics.opengl.fast;
 
-import com.edplan.framework.graphics.opengl.shader.advance.BaseShader;
-import com.edplan.framework.graphics.opengl.shader.GLProgram;
-import com.edplan.framework.utils.StringUtil;
-import com.edplan.framework.graphics.opengl.shader.uniforms.UniformMat4;
-import com.edplan.framework.graphics.opengl.shader.uniforms.UniformSample2D;
-import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
 import com.edplan.framework.graphics.opengl.Camera;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
+import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.graphics.opengl.shader.GLProgram;
+import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
+import com.edplan.framework.graphics.opengl.shader.advance.BaseShader;
+import com.edplan.framework.graphics.opengl.shader.uniforms.UniformMat4;
+import com.edplan.framework.graphics.opengl.shader.uniforms.UniformSample2D;
+import com.edplan.framework.math.Vec2;
+import com.edplan.framework.math.Vec3;
+import com.edplan.framework.utils.StringUtil;
 
 import java.nio.Buffer;
-
-import com.edplan.framework.math.Vec3;
-import com.edplan.framework.math.Vec2;
-import com.edplan.framework.graphics.opengl.objs.Color4;
 
 public class FastShader extends BaseShader {
     public static final String VertexShader;

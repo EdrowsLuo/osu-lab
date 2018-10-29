@@ -1,18 +1,13 @@
 package com.edplan.framework.ui.additions;
 
-import com.edplan.framework.ui.EdContainer;
 import com.edplan.framework.MContext;
-import com.edplan.framework.ui.widget.RelativeContainer;
+import com.edplan.framework.ui.EdView;
+import com.edplan.framework.ui.additions.popupview.PopupView;
+import com.edplan.framework.ui.layout.Param;
+import com.edplan.framework.ui.widget.RelativeLayout;
 
 import java.util.ArrayList;
-
-import com.edplan.framework.ui.additions.popupview.PopupView;
-import com.edplan.framework.ui.EdView;
-
 import java.util.Iterator;
-
-import com.edplan.framework.ui.widget.RelativeLayout;
-import com.edplan.framework.ui.layout.Param;
 
 public class PopupViewLayer extends RelativeLayout {
     private ArrayList<PopupView> popupViews = new ArrayList<PopupView>();

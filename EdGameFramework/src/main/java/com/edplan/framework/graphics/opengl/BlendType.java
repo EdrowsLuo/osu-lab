@@ -1,6 +1,5 @@
 package com.edplan.framework.graphics.opengl;
 
-import android.opengl.GLES10;
 import android.opengl.GLES20;
 
 public enum BlendType {

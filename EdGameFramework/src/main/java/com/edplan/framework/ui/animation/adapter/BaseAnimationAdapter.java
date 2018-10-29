@@ -1,8 +1,8 @@
 package com.edplan.framework.ui.animation.adapter;
 
-import com.edplan.framework.ui.animation.IAnimationAdapter;
-import com.edplan.framework.ui.animation.Easing;
 import com.edplan.framework.interfaces.InvokeSetter;
+import com.edplan.framework.ui.animation.Easing;
+import com.edplan.framework.ui.animation.IAnimationAdapter;
 import com.edplan.framework.ui.animation.interpolate.ValueInterpolator;
 
 public class BaseAnimationAdapter<T, V> implements IAnimationAdapter<T, V> {

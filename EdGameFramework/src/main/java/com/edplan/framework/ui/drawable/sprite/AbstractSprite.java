@@ -1,8 +1,8 @@
 package com.edplan.framework.ui.drawable.sprite;
 
-import com.edplan.framework.ui.drawable.EdDrawable;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.ui.drawable.EdDrawable;
 
 
 /**

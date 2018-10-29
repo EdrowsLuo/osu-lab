@@ -1,14 +1,14 @@
 package com.edplan.framework.media.video.tbv.decode;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-
-import org.json.JSONObject;
-import org.json.JSONException;
-
+import com.edplan.framework.graphics.opengl.BlendType;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
-import com.edplan.framework.graphics.opengl.BlendType;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.DataInputStream;
+import java.io.IOException;
 
 public class TBVInputStream {
     private DataInputStream in;

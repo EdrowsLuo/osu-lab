@@ -1,8 +1,8 @@
 package com.edplan.framework.ui.text.font.bmfont;
 
-import java.util.Arrays;
-
 import com.edplan.framework.math.RectF;
+
+import java.util.Arrays;
 
 /**
  * 文档：

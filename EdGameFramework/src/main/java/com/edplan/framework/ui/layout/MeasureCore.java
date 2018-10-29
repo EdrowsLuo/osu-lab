@@ -1,9 +1,6 @@
 package com.edplan.framework.ui.layout;
 
 import com.edplan.framework.ui.EdView;
-
-import android.util.Log;
-
 import com.edplan.framework.ui.ViewConfiguration;
 
 public class MeasureCore {

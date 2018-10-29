@@ -1,7 +1,7 @@
 package com.edplan.framework.ui.animation;
 
-import com.edplan.framework.ui.animation.callback.OnFinishListener;
 import com.edplan.framework.ui.animation.callback.OnEndListener;
+import com.edplan.framework.ui.animation.callback.OnFinishListener;
 import com.edplan.framework.ui.animation.callback.OnProgressListener;
 
 public class BaseAnimation extends AbstractAnimation {

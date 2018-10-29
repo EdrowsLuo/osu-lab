@@ -4,8 +4,6 @@ import android.opengl.Matrix;
 
 import com.edplan.framework.interfaces.Recycleable;
 
-import java.util.Arrays;
-
 public class Mat4 implements Recycleable {
     public static final int WIDTH = 4;
 

@@ -1,8 +1,8 @@
 package com.edplan.framework.graphics.opengl.objs;
 
-import com.edplan.framework.math.Vec4;
-
 import android.graphics.Color;
+
+import com.edplan.framework.math.Vec4;
 
 import java.nio.FloatBuffer;
 

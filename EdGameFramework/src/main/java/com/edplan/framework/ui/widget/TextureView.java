@@ -1,13 +1,13 @@
 package com.edplan.framework.ui.widget;
 
-import com.edplan.framework.ui.EdView;
 import com.edplan.framework.MContext;
-import com.edplan.framework.ui.drawable.sprite.TextureSprite;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.math.RectF;
-import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
-import com.edplan.framework.ui.layout.EdMeasureSpec;
 import com.edplan.framework.graphics.opengl.BlendType;
+import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
+import com.edplan.framework.math.RectF;
+import com.edplan.framework.ui.EdView;
+import com.edplan.framework.ui.drawable.sprite.TextureSprite;
+import com.edplan.framework.ui.layout.EdMeasureSpec;
 
 public class TextureView extends EdView {
     private TextureSprite sprite;

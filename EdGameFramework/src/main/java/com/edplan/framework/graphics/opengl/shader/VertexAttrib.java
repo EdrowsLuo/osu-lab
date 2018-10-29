@@ -2,18 +2,7 @@ package com.edplan.framework.graphics.opengl.shader;
 
 import android.opengl.GLES20;
 
-import com.edplan.framework.graphics.opengl.GLException;
-import com.edplan.framework.graphics.opengl.buffer.Color4Buffer;
-import com.edplan.framework.graphics.opengl.buffer.Vec2Buffer;
-import com.edplan.framework.graphics.opengl.buffer.Vec3Buffer;
-
 import java.nio.Buffer;
-
-import com.edplan.framework.utils.MLog;
-
-import android.util.Log;
-
-import java.nio.FloatBuffer;
 
 public class VertexAttrib {
     public enum Type {

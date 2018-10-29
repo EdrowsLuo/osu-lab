@@ -1,12 +1,12 @@
 package com.edplan.framework.graphics.opengl.buffer;
 
+import com.edplan.framework.graphics.opengl.objs.Color4;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
-
-import com.edplan.framework.graphics.opengl.objs.Color4;
 
 public class BufferUtil {
     /**

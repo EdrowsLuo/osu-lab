@@ -1,8 +1,5 @@
 package com.edplan.framework.ui.text.font.bmfont;
 
-import com.edplan.framework.ui.text.font.bmfont.FNTKerning;
-import com.edplan.framework.ui.text.font.bmfont.KerningPair;
-
 import java.util.HashMap;
 
 public class KerningMap {

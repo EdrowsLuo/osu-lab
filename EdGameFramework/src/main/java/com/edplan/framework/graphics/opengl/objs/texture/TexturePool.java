@@ -1,17 +1,14 @@
 package com.edplan.framework.graphics.opengl.objs.texture;
 
-import java.util.HashMap;
+import android.util.Log;
 
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Map;
-
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 
-import android.util.Log;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TexturePool {
     protected HashMap<String, AbstractTexture> pool = new HashMap<String, AbstractTexture>();

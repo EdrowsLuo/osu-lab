@@ -1,19 +1,17 @@
 package com.edplan.framework.media.video.tbv;
 
 import com.edplan.framework.graphics.opengl.BlendType;
+import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.media.video.tbv.decode.TBVInputStream;
 import com.edplan.framework.media.video.tbv.encode.TBVOutputStream;
-
-import java.io.IOException;
-import java.util.ArrayList;
+import com.edplan.framework.utils.Tag;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.edplan.framework.utils.Tag;
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
 
 /**
  * 一种渲染材质组成的视频，将所有信息存在文件里然后播放

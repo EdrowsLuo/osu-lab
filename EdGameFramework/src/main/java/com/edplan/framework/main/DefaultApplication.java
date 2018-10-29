@@ -1,11 +1,10 @@
 package com.edplan.framework.main;
 
-import com.edplan.framework.graphics.opengl.MainRenderer;
 import com.edplan.framework.MContext;
+import com.edplan.framework.graphics.opengl.MainRenderer;
 import com.edplan.framework.ui.EdView;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 
 public class DefaultApplication extends MainApplication {
     private Class<? extends MainRenderer> renderer;

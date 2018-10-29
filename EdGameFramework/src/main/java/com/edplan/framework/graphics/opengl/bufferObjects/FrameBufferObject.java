@@ -1,16 +1,14 @@
 package com.edplan.framework.graphics.opengl.bufferObjects;
 
 import android.opengl.GLES20;
+import android.util.Log;
 
 import com.edplan.framework.graphics.opengl.GLException;
 import com.edplan.framework.graphics.opengl.GLWrapped;
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
+import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.graphics.opengl.objs.texture.TextureRegion;
 import com.edplan.framework.math.RectF;
-import com.edplan.framework.math.RectI;
-
-import android.util.Log;
 
 public class FrameBufferObject {
     private DepthBufferObject depthAttachment;

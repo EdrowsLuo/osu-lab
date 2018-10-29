@@ -1,10 +1,12 @@
 package com.edplan.framework.fallback;
 
 import android.content.Context;
+import android.opengl.GLES10;
 import android.opengl.GLSurfaceView;
 import android.util.Log;
 
 import com.edplan.framework.MContext;
+import com.edplan.framework.graphics.opengl.GL10Canvas2D;
 import com.edplan.framework.graphics.opengl.GLWrapped;
 import com.edplan.framework.ui.looper.UILooper;
 import com.edplan.framework.utils.MLog;
@@ -12,10 +14,6 @@ import com.edplan.superutils.MTimer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
-
-import android.opengl.GLES10;
-
-import com.edplan.framework.graphics.opengl.GL10Canvas2D;
 
 public class GLES10MainRenderer implements GLSurfaceView.Renderer {
     private MContext context;

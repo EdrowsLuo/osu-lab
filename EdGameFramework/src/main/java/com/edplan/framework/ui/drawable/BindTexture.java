@@ -2,7 +2,6 @@ package com.edplan.framework.ui.drawable;
 
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.math.Vec2;
-import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 
 public class BindTexture {
     private GLTexture texture;

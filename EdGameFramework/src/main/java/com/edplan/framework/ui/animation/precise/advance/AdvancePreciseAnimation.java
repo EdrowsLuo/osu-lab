@@ -1,11 +1,10 @@
 package com.edplan.framework.ui.animation.precise.advance;
 
-import com.edplan.framework.ui.animation.precise.BasePreciseAnimation;
-import com.edplan.framework.ui.animation.callback.OnStartListener;
-import com.edplan.framework.ui.animation.callback.OnProgressListener;
-import com.edplan.framework.ui.animation.callback.OnFinishListener;
 import com.edplan.framework.ui.animation.callback.OnEndListener;
-import com.edplan.framework.ui.animation.AnimationHelper;
+import com.edplan.framework.ui.animation.callback.OnFinishListener;
+import com.edplan.framework.ui.animation.callback.OnProgressListener;
+import com.edplan.framework.ui.animation.callback.OnStartListener;
+import com.edplan.framework.ui.animation.precise.BasePreciseAnimation;
 
 public class AdvancePreciseAnimation extends BasePreciseAnimation {
     private OnStartListener onStartListener;

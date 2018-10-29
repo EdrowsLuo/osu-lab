@@ -1,13 +1,12 @@
 package com.edplan.framework.ui.widget;
 
-import com.edplan.framework.ui.EdView;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
-import com.edplan.framework.math.RectF;
-import com.edplan.framework.math.Vec2;
 import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.graphics.opengl.objs.GLTexture;
+import com.edplan.framework.math.Vec2;
+import com.edplan.framework.ui.EdView;
 
 public class TestButton extends EdView {
     private OnClickListener onClickListener;

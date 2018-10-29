@@ -1,7 +1,8 @@
 package com.edplan.framework.ui.text.font.drawing;
+
 import com.edplan.framework.ui.text.font.bmfont.BMFont;
 import com.edplan.framework.ui.text.font.bmfont.FNTChar;
-import com.edplan.framework.ui.text.font.bmfont.FNTKerning;
+
 import java.util.ArrayList;
 
 public class TextUtils

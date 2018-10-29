@@ -1,11 +1,10 @@
 package com.edplan.superutils.classes.advance;
 
 import com.edplan.superutils.classes.SafeList;
+import com.edplan.superutils.interfaces.AbstractLooper;
 import com.edplan.superutils.interfaces.Loopable;
 
 import java.util.Iterator;
-
-import com.edplan.superutils.interfaces.AbstractLooper;
 
 public class RunnableHandler extends Loopable implements IRunnableHandler {
     private AbstractLooper looper;

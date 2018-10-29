@@ -1,9 +1,7 @@
 package com.edplan.framework.ui.widget;
 
-import com.edplan.framework.ui.EdAbstractViewGroup;
 import com.edplan.framework.MContext;
-import com.edplan.framework.ui.layout.EdLayoutParam;
-import com.edplan.framework.ui.EdView;
+import com.edplan.framework.ui.EdAbstractViewGroup;
 import com.edplan.framework.ui.layout.EdMeasureSpec;
 
 public class AbsoluteLayout extends EdAbstractViewGroup {

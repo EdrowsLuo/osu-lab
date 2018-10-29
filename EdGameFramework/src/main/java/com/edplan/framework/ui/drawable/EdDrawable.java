@@ -1,8 +1,5 @@
 package com.edplan.framework.ui.drawable;
 
-import com.edplan.framework.graphics.opengl.GLCanvas2D;
-import com.edplan.framework.math.Vec2;
-import com.edplan.framework.math.Mat4;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 

@@ -1,10 +1,9 @@
 package com.edplan.framework.graphics.opengl.objs.vertex;
 
 import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
-import com.edplan.framework.math.Vec2;
-import com.edplan.framework.math.RectF;
-import com.edplan.framework.math.IQuad;
 import com.edplan.framework.graphics.opengl.objs.Vertex3D;
+import com.edplan.framework.math.IQuad;
+import com.edplan.framework.math.Vec2;
 
 public class RectVertex extends TextureVertex3D {
     public Vec2 rectPosition = new Vec2();

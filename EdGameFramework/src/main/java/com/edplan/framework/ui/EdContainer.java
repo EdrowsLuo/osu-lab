@@ -1,19 +1,18 @@
 package com.edplan.framework.ui;
 
 import com.edplan.framework.MContext;
-import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.layer.BufferedLayer;
+import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.graphics.opengl.BlendType;
 import com.edplan.framework.graphics.opengl.GLCanvas2D;
 import com.edplan.framework.graphics.opengl.GLPaint;
+import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
-import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.ui.animation.interfaces.IHasAlpha;
 import com.edplan.framework.ui.drawable.sprite.FastTextureSprite;
 import com.edplan.framework.ui.drawable.sprite.RoundedRectSprite;
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.ui.drawable.sprite.RoundedShadowSprite;
-import com.edplan.framework.graphics.opengl.BlendType;
 
 
 /**
@@ -111,7 +110,6 @@ public abstract class EdContainer extends EdAbstractViewGroup {
 
     @Override
     public void invalidateDraw() {
-
         super.invalidateDraw();
         needRefresh = true;
     }

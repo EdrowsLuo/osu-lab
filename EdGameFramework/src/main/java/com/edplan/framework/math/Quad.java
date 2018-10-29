@@ -2,8 +2,6 @@ package com.edplan.framework.math;
 
 import com.edplan.framework.ui.Anchor;
 
-import java.util.Stack;
-
 public class Quad implements IQuad {
     public final Vec2 topLeft = new Vec2();
     public final Vec2 topRight = new Vec2();

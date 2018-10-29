@@ -1,26 +1,18 @@
 package com.edplan.framework.ui.text.font.drawing;
 
-import java.util.ArrayList;
-
+import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.graphics.opengl.GL10Canvas2D;
+import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.batch.Texture3DBatch;
+import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
+import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
+import com.edplan.framework.graphics.opengl.objs.advanced.Texture3DRect;
+import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.text.font.bmfont.BMFont;
 import com.edplan.framework.ui.text.font.bmfont.FNTChar;
-import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.text.font.bmfont.FNTKerning;
-import com.edplan.framework.graphics.opengl.GLPaint;
-import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
-import com.edplan.framework.math.Vec3;
-import com.edplan.framework.graphics.opengl.objs.advanced.Texture3DRect;
-import com.edplan.framework.graphics.opengl.GLCanvas2D;
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
-import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 
-import android.util.Log;
-
-import java.util.HashMap;
-
-import com.edplan.framework.graphics.opengl.GL10Canvas2D;
-import com.edplan.framework.graphics.opengl.BaseCanvas;
+import java.util.ArrayList;
 
 public class TextPrinter {
     public static final char NO_PREVIOUS_CHAR = 0;

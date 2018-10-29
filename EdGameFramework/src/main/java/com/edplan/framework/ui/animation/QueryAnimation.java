@@ -1,14 +1,11 @@
 package com.edplan.framework.ui.animation;
 
+import com.edplan.framework.interfaces.InvokeSetter;
+import com.edplan.framework.ui.animation.interpolate.ValueInterpolator;
 import com.edplan.framework.ui.animation.precise.BasePreciseAnimation;
 
-import java.util.List;
 import java.util.ArrayList;
-
-import com.edplan.framework.ui.animation.interpolate.IInterpolator;
-import com.edplan.framework.ui.animation.interpolate.ValueInterpolator;
-import com.edplan.framework.interfaces.Setter;
-import com.edplan.framework.interfaces.InvokeSetter;
+import java.util.List;
 
 public class QueryAnimation<T, V> extends BasePreciseAnimation {
     private List<AnimNode> nodes = new ArrayList<AnimNode>();

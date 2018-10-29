@@ -1,17 +1,13 @@
 package com.edplan.framework.ui.drawable.sprite;
 
-import android.graphics.drawable.shapes.RectShape;
-
-import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.MContext;
+import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.graphics.opengl.GLWrapped;
 import com.edplan.framework.graphics.opengl.buffer.BufferUtil;
+import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.math.IQuad;
 
 import java.nio.FloatBuffer;
-
-import com.edplan.framework.math.IQuad;
-import com.edplan.framework.math.Vec2;
-import com.edplan.framework.graphics.opengl.GLWrapped;
-import com.edplan.framework.graphics.opengl.objs.Color4;
 
 public abstract class RectSprite<S extends SpriteShader> extends ObjectSprite<S> {
     private FloatBuffer positionBuffer;

@@ -1,14 +1,13 @@
 package com.edplan.framework.ui.drawable.sprite;
 
-import com.edplan.framework.graphics.opengl.shader.Attr;
+import com.edplan.framework.graphics.opengl.Camera;
+import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.shader.GLProgram;
 import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
 import com.edplan.framework.graphics.opengl.shader.advance.BaseShader;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformColor4;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformFloat;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformMat4;
-import com.edplan.framework.graphics.opengl.Camera;
-import com.edplan.framework.graphics.opengl.objs.Color4;
 
 import java.nio.Buffer;
 

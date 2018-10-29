@@ -1,8 +1,8 @@
 package com.edplan.framework.graphics.layer;
 
 import com.edplan.framework.MContext;
-import com.edplan.framework.graphics.opengl.bufferObjects.FrameBufferObject;
 import com.edplan.framework.graphics.opengl.GLException;
+import com.edplan.framework.graphics.opengl.bufferObjects.FrameBufferObject;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 
 public class DefBufferedLayer extends BufferedLayer {

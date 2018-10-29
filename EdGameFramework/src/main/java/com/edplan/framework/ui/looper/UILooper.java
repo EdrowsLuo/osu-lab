@@ -1,14 +1,13 @@
 package com.edplan.framework.ui.looper;
 
+import android.os.SystemClock;
+
+import com.edplan.framework.Framework;
 import com.edplan.framework.ui.animation.AnimationHandler;
+import com.edplan.framework.utils.ThreadSafeLinkQuery;
 import com.edplan.superutils.classes.advance.IRunnableHandler;
 import com.edplan.superutils.classes.advance.RunnableHandler;
 import com.edplan.superutils.interfaces.Loopable;
-
-import android.os.SystemClock;
-
-import com.edplan.framework.utils.ThreadSafeLinkQuery;
-import com.edplan.framework.Framework;
 
 public class UILooper extends StepLooper implements IRunnableHandler {
     private int expensiveTaskTime = 5;

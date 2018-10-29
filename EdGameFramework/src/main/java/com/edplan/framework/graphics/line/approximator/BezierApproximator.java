@@ -1,11 +1,10 @@
 package com.edplan.framework.graphics.line.approximator;
 
-import java.util.List;
-
 import com.edplan.framework.math.Vec2;
 import com.edplan.superutils.useful.ArrayUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class BezierApproximator {

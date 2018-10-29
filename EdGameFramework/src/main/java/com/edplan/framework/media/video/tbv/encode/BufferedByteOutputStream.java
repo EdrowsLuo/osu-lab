@@ -1,7 +1,7 @@
 package com.edplan.framework.media.video.tbv.encode;
 
-import java.io.OutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 public class BufferedByteOutputStream extends OutputStream {
     public static final int MAX_BUFFER = 1024 * 1024 * 5;

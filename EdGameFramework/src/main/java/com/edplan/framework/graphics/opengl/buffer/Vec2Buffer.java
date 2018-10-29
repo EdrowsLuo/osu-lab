@@ -2,11 +2,7 @@ package com.edplan.framework.graphics.opengl.buffer;
 
 import com.edplan.framework.math.Vec2;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Vec2Buffer extends BaseBuffer<Vec2> {
 

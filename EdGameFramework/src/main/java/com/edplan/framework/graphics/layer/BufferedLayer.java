@@ -1,20 +1,13 @@
 package com.edplan.framework.graphics.layer;
 
-import com.edplan.framework.graphics.opengl.bufferObjects.FrameBufferObject;
-import com.edplan.framework.graphics.opengl.drawui.GLDrawable;
-import com.edplan.framework.graphics.opengl.drawui.DrawInfo;
-import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.GLException;
 import com.edplan.framework.graphics.opengl.GLWrapped;
-import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.bufferObjects.FBOPool;
+import com.edplan.framework.graphics.opengl.bufferObjects.FrameBufferObject;
+import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
+import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.math.Mat4;
-
-import android.util.Log;
-
-import java.io.BufferedReader;
 
 /**
  * 通过FBO，完全分离的绘制，最后的结果是一个Texture

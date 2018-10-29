@@ -1,10 +1,9 @@
 package com.edplan.framework.utils;
 
 import com.edplan.framework.interfaces.Copyable;
+import com.edplan.framework.interfaces.Recycleable;
 
 import java.util.Stack;
-
-import com.edplan.framework.interfaces.Recycleable;
 
 public abstract class AbstractSRable<T extends Copyable> implements Recycleable {
     private Stack<T> saves;

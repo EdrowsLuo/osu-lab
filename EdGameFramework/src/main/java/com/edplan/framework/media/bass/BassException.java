@@ -1,11 +1,11 @@
 package com.edplan.framework.media.bass;
 
+import android.util.Log;
+
 import com.un4seen.bass.BASS;
 
 import java.util.Map;
 import java.util.TreeMap;
-
-import android.util.Log;
 
 public class BassException extends Exception {
     public static final String[] errString = new String[]{

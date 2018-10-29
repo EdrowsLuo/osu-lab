@@ -1,12 +1,10 @@
 package com.edplan.framework.graphics.opengl.shader.uniforms;
 
+import android.opengl.GLES20;
+
 import com.edplan.framework.graphics.opengl.shader.DataUniform;
 import com.edplan.framework.graphics.opengl.shader.GLProgram;
 import com.edplan.framework.math.Mat4;
-
-import android.opengl.GLES20;
-
-import com.edplan.framework.graphics.opengl.GLException;
 
 public class UniformMat4 extends DataUniform<Mat4> {
     protected UniformMat4(int h) {

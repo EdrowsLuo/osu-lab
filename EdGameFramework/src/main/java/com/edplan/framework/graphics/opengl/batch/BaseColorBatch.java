@@ -3,17 +3,12 @@ package com.edplan.framework.graphics.opengl.batch;
 import com.edplan.framework.graphics.opengl.batch.base.IHasColor;
 import com.edplan.framework.graphics.opengl.batch.base.IHasPosition;
 import com.edplan.framework.graphics.opengl.buffer.BufferUtil;
-import com.edplan.framework.graphics.opengl.buffer.Color4Buffer;
+import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.Vertex3D;
 import com.edplan.framework.graphics.opengl.objs.VertexList;
 import com.edplan.framework.math.Vec3;
 
 import java.nio.FloatBuffer;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.edplan.framework.graphics.opengl.objs.Color4;
-
 import java.util.Arrays;
 
 public class BaseColorBatch<T extends Vertex3D> implements BaseBatch<T>, IHasColor, IHasPosition {

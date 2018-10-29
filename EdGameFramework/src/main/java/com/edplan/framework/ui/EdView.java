@@ -2,31 +2,30 @@ package com.edplan.framework.ui;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.graphics.opengl.objs.GLTexture;
+import com.edplan.framework.main.MainCallBack;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.additions.FrameListener;
+import com.edplan.framework.ui.animation.AbstractAnimation;
+import com.edplan.framework.ui.animation.AnimationHandler;
+import com.edplan.framework.ui.animation.callback.OnFinishListener;
+import com.edplan.framework.ui.animation.callback.OnProgressListener;
+import com.edplan.framework.ui.drawable.ColorDrawable;
 import com.edplan.framework.ui.drawable.EdDrawable;
+import com.edplan.framework.ui.drawable.RoundedRectDrawable;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
 import com.edplan.framework.ui.inputs.HoverEvent;
 import com.edplan.framework.ui.inputs.ScrollEvent;
 import com.edplan.framework.ui.layout.EdLayoutParam;
 import com.edplan.framework.ui.layout.EdMeasureSpec;
+import com.edplan.framework.ui.layout.Gravity;
 import com.edplan.framework.ui.layout.LayoutException;
-import com.edplan.superutils.classes.advance.IRunnableHandler;
-import com.edplan.framework.utils.BitUtil;
 import com.edplan.framework.ui.layout.MarginLayoutParam;
+import com.edplan.framework.utils.BitUtil;
+import com.edplan.superutils.classes.advance.IRunnableHandler;
 
 import java.lang.ref.WeakReference;
-
-import com.edplan.framework.ui.animation.AbstractAnimation;
-import com.edplan.framework.ui.animation.AnimationHandler;
-import com.edplan.framework.main.MainCallBack;
-import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.ui.drawable.ColorDrawable;
-import com.edplan.framework.ui.layout.Gravity;
-import com.edplan.framework.ui.animation.callback.OnFinishListener;
-import com.edplan.framework.ui.drawable.RoundedRectDrawable;
-import com.edplan.framework.ui.animation.callback.OnProgressListener;
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
 
 public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
     protected static int CUSTOM_INDEX = 0;

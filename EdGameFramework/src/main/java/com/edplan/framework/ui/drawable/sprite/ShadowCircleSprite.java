@@ -1,11 +1,10 @@
 package com.edplan.framework.ui.drawable.sprite;
 
 import com.edplan.framework.MContext;
+import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformColor4;
-import com.edplan.framework.graphics.opengl.shader.uniforms.UniformVec2;
 import com.edplan.framework.utils.StringUtil;
-import com.edplan.framework.graphics.opengl.BaseCanvas;
 
 public class ShadowCircleSprite extends CircleSprite {
     private Color4 startColor = Color4.rgba(0, 0, 0, 0), endColor = Color4.rgba(0, 0, 0, 0);

@@ -1,28 +1,24 @@
 package com.edplan.framework.graphics.opengl.fast;
 
+import android.opengl.GLES20;
+
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.BlendType;
+import com.edplan.framework.graphics.opengl.GLWrapped;
+import com.edplan.framework.graphics.opengl.buffer.BufferUtil;
+import com.edplan.framework.graphics.opengl.bufferObjects.VertexArrayObject;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
+import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
+import com.edplan.framework.math.Vec2;
+import com.edplan.framework.math.Vec3;
 import com.edplan.framework.math.its.IColor4;
 import com.edplan.framework.math.its.IVec2;
 import com.edplan.framework.math.its.IVec3;
 
-import java.util.Arrays;
-import java.nio.ShortBuffer;
-
-import com.edplan.framework.graphics.opengl.buffer.BufferUtil;
-
 import java.nio.FloatBuffer;
-
-import com.edplan.framework.graphics.opengl.GLWrapped;
-
-import android.opengl.GLES20;
-
-import com.edplan.framework.graphics.opengl.bufferObjects.VertexArrayObject;
-import com.edplan.framework.math.Vec2;
-import com.edplan.framework.math.Vec3;
-import com.edplan.framework.graphics.opengl.objs.Color4;
+import java.nio.ShortBuffer;
+import java.util.Arrays;
 
 public class FastRenderer {
     public static final int MAX_VERTEX_COUNT = 4000;

@@ -1,7 +1,5 @@
 package com.edplan.framework.utils;
 
-import com.edplan.framework.interfaces.Copyable;
-
 public class SettingSRable<T extends SettingState> extends AbstractSRable<T> {
     private T defValue;
 

@@ -1,20 +1,15 @@
 package com.edplan.framework.graphics.opengl;
 
-import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
 import com.edplan.framework.MContext;
-
-import java.io.IOException;
-
-import com.edplan.framework.resource.AResource;
+import com.edplan.framework.graphics.opengl.shader.advance.ColorShader;
+import com.edplan.framework.graphics.opengl.shader.advance.GLES10Texture3DShader;
 import com.edplan.framework.graphics.opengl.shader.advance.RectTextureShader;
 import com.edplan.framework.graphics.opengl.shader.advance.RoundedRectTextureShader;
-import com.edplan.framework.graphics.opengl.shader.advance.ColorShader;
-import com.edplan.framework.graphics.opengl.objs.Vertex3D;
-import com.edplan.framework.graphics.opengl.batch.BaseColorBatch;
-import com.edplan.framework.graphics.opengl.batch.RectVertexBatch;
-import com.edplan.framework.graphics.opengl.batch.Texture3DBatch;
-import com.edplan.framework.graphics.opengl.shader.advance.GLES10Texture3DShader;
+import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
 import com.edplan.framework.graphics.opengl.shader.compile.CompileRawStringStore;
+import com.edplan.framework.resource.AResource;
+
+import java.io.IOException;
 
 public class ShaderManager {
     public static class PATH {

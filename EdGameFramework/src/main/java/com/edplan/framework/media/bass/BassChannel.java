@@ -2,14 +2,12 @@ package com.edplan.framework.media.bass;
 
 import android.util.Log;
 
-import com.un4seen.bass.BASS;
-
-import java.nio.ByteBuffer;
-
 import com.edplan.framework.MContext;
 import com.edplan.framework.resource.AResource;
+import com.un4seen.bass.BASS;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 public class BassChannel {
     private Type type;

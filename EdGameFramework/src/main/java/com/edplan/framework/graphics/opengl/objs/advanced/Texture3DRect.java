@@ -1,11 +1,11 @@
 package com.edplan.framework.graphics.opengl.objs.advanced;
 
-import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
-import com.edplan.framework.math.RectF;
 import com.edplan.framework.graphics.opengl.GLPaint;
+import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
 import com.edplan.framework.graphics.opengl.objs.VertexList;
-import com.edplan.framework.math.Vec3;
+import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
+import com.edplan.framework.math.Vec3;
 
 public class Texture3DRect implements VertexList<TextureVertex3D> {
     private TextureVertex3D[] v = new TextureVertex3D[4];

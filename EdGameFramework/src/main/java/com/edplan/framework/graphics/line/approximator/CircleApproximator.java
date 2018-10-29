@@ -1,12 +1,10 @@
 package com.edplan.framework.graphics.line.approximator;
 
+import com.edplan.framework.math.FMath;
 import com.edplan.framework.math.Vec2;
 
-import java.util.List;
-
-import com.edplan.framework.math.FMath;
-
 import java.util.ArrayList;
+import java.util.List;
 
 public class CircleApproximator {
     private Vec2 p1;

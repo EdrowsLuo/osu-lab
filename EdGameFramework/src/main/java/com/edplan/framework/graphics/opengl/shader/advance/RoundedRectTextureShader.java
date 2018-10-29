@@ -1,15 +1,13 @@
 package com.edplan.framework.graphics.opengl.shader.advance;
 
-import com.edplan.framework.graphics.opengl.shader.GLProgram;
-import com.edplan.framework.graphics.opengl.shader.uniforms.UniformFloat;
-import com.edplan.framework.graphics.opengl.shader.uniforms.UniformMat2;
-import com.edplan.framework.graphics.opengl.shader.Unif;
-import com.edplan.framework.math.RectF;
-import com.edplan.framework.graphics.opengl.shader.uniforms.UniformColor4;
-import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.math.Vec4;
 import com.edplan.framework.graphics.opengl.GLPaint;
-import com.edplan.framework.graphics.opengl.batch.RectVertexBatch;
+import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.graphics.opengl.shader.GLProgram;
+import com.edplan.framework.graphics.opengl.shader.Unif;
+import com.edplan.framework.graphics.opengl.shader.uniforms.UniformColor4;
+import com.edplan.framework.graphics.opengl.shader.uniforms.UniformFloat;
+import com.edplan.framework.math.RectF;
+import com.edplan.framework.math.Vec4;
 
 public class RoundedRectTextureShader extends RectTextureShader {
     public static final float DEFAULT_GLOW_FACTOR = 0.5f;

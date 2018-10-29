@@ -6,7 +6,7 @@ import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.layout.EdLayoutParam;
 import com.edplan.framework.ui.layout.EdMeasureSpec;
 import com.edplan.framework.ui.layout.Gravity;
-import com.edplan.framework.ui.widget.RelativeLayout.*;
+import com.edplan.framework.ui.widget.RelativeLayout.RelativeParam;
 
 public class RelativeContainer extends EdContainer {
     public RelativeContainer(MContext c) {

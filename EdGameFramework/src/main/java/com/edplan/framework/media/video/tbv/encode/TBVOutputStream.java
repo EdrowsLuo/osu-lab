@@ -1,13 +1,13 @@
 package com.edplan.framework.media.video.tbv.encode;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
 
 import org.json.JSONObject;
+
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 public class TBVOutputStream {
     private DataOutputStream out;

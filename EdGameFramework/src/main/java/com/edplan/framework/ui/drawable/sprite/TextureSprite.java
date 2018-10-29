@@ -3,7 +3,6 @@ package com.edplan.framework.ui.drawable.sprite;
 import com.edplan.framework.MContext;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.Anchor;
-import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 
 public class TextureSprite extends BaseRectTextureSprite<TextureSpriteShader> {
     public TextureSprite(MContext c) {

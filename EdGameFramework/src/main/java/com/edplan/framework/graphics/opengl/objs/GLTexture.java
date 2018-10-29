@@ -13,6 +13,9 @@ import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.layer.BufferedLayer;
 import com.edplan.framework.graphics.opengl.GLCanvas2D;
 import com.edplan.framework.graphics.opengl.GLPaint;
+import com.edplan.framework.graphics.opengl.GLWrapped;
+import com.edplan.framework.math.IQuad;
+import com.edplan.framework.math.Quad;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.resource.AResource;
@@ -24,15 +27,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.IntBuffer;
-
-import com.edplan.framework.graphics.opengl.GLWrapped;
-import com.edplan.framework.graphics.opengl.ShaderManager;
-
-import android.util.Log;
-
-import com.edplan.framework.math.Quad;
-import com.edplan.framework.math.IQuad;
-import com.edplan.framework.Framework;
 
 public class GLTexture extends AbstractTexture {
     public static BitmapFactory.Options DEF_CREATE_OPTIONS;

@@ -1,7 +1,5 @@
 package com.edplan.framework.ui.text.font;
 
-import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
-
 public class DrawStringNode {
     private CharacterInfo info;
 

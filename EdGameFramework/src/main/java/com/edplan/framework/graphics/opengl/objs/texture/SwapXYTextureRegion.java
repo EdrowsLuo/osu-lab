@@ -1,10 +1,10 @@
 package com.edplan.framework.graphics.opengl.objs.texture;
 
+import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
+import com.edplan.framework.math.IQuad;
 import com.edplan.framework.math.RectI;
 import com.edplan.framework.math.Vec2;
-import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
-import com.edplan.framework.math.IQuad;
 
 public class SwapXYTextureRegion extends AbstractTexture {
     private GLTexture texture;

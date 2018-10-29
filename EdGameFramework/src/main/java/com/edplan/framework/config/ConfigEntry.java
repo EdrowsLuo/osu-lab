@@ -1,20 +1,18 @@
 package com.edplan.framework.config;
 
+import com.edplan.framework.config.property.ConfigBoolean;
+import com.edplan.framework.config.property.ConfigInteger;
 import com.edplan.framework.config.property.ConfigProperty;
-
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-
+import com.edplan.framework.config.property.ConfigString;
 import com.edplan.framework.utils.structobj.StructObject;
 
-import org.json.JSONObject;
-import org.json.JSONException;
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-import com.edplan.framework.config.property.ConfigBoolean;
-import com.edplan.framework.config.property.ConfigString;
-import com.edplan.framework.config.property.ConfigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ConfigEntry implements StructObject {
     private ConfigProperty property;

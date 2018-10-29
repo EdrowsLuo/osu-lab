@@ -5,13 +5,11 @@ import java.util.HashMap;
 import com.edplan.nso.ruleset.base.Ruleset;
 import com.edplan.nso.ruleset.base.beatmap.BeatmapStorage;
 import com.edplan.framework.MContext;
-import com.edplan.framework.database.Database;
 
 import java.io.File;
 
 import android.os.Environment;
 
-import com.edplan.nso.ruleset.base.beatmap.LowDetailBeatmap;
 import com.edplan.framework.utils.FileUtils;
 
 /**
@@ -36,10 +34,6 @@ public class NsoCore {
 
     private HashMap<Class, Ruleset> class2ruleset = new HashMap<Class, Ruleset>();
 
-    private Database mainDatabase;
-
-    private Database beatmapDatabase;
-
     private BeatmapStorage beatmapStorage;
 
     public NsoCore(MContext context, NsoConfig conf) {
@@ -53,27 +47,6 @@ public class NsoCore {
         databaseDir = new File(mainDir, "database");
         FileUtils.checkExistDir(databaseDir);
 
-        mainDatabase = new Database(new File(databaseDir, "main.db"));
-        loadMainDatabase();
-
-        beatmapDatabase = new Database(new File(databaseDir, "beatmap.db"));
-        loadBeatmapDatabase();
-    }
-
-    protected void loadMainDatabase() {
-
-    }
-
-    protected void loadBeatmapDatabase() {
-        beatmapDatabase.initialTable(LowDetailBeatmap.class, "beatmap_base");
-    }
-
-    public void setMainDatabase(Database mainDatabase) {
-        this.mainDatabase = mainDatabase;
-    }
-
-    public Database getMainDatabase() {
-        return mainDatabase;
     }
 
     protected void setConfig(NsoConfig config) {

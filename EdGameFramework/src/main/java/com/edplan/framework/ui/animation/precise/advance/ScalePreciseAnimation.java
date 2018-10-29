@@ -1,8 +1,7 @@
 package com.edplan.framework.ui.animation.precise.advance;
 
-import com.edplan.framework.ui.drawable.interfaces.IScaleable2D;
 import com.edplan.framework.math.Vec2;
-import com.edplan.framework.ui.animation.AnimationHelper;
+import com.edplan.framework.ui.drawable.interfaces.IScaleable2D;
 
 public class ScalePreciseAnimation extends AdvancePreciseAnimation {
     private IScaleable2D target;

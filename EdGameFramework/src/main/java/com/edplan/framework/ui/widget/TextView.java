@@ -1,22 +1,16 @@
 package com.edplan.framework.ui.widget;
 
-import com.edplan.framework.ui.EdView;
 import com.edplan.framework.MContext;
+import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.graphics.opengl.GLPaint;
+import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.ui.EdView;
+import com.edplan.framework.ui.ViewConfiguration;
+import com.edplan.framework.ui.layout.EdMeasureSpec;
 import com.edplan.framework.ui.layout.Gravity;
 import com.edplan.framework.ui.text.font.bmfont.BMFont;
-import com.edplan.framework.ui.layout.EdMeasureSpec;
-import com.edplan.framework.ui.ViewConfiguration;
-import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.ui.text.font.drawing.TextBlock;
-import com.edplan.framework.ui.text.font.drawing.TextUtils;
-import com.edplan.framework.ui.text.font.drawing.TextBuffer;
-import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
-import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.text.font.drawing.TextPrinter;
-import com.edplan.framework.graphics.opengl.GLPaint;
-
-import java.util.Arrays;
+import com.edplan.framework.ui.text.font.drawing.TextUtils;
 
 public class TextView extends EdView {
     private BMFont font;

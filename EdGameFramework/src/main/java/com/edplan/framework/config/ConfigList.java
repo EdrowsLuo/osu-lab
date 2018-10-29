@@ -2,13 +2,13 @@ package com.edplan.framework.config;
 
 import com.edplan.framework.utils.structobj.StructObject;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class ConfigList implements StructObject {
     private HashMap<String, ConfigEntry> data = new HashMap<String, ConfigEntry>();

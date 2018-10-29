@@ -1,19 +1,13 @@
 package com.edplan.framework.resource;
 
-import java.io.InputStream;
-
 import android.content.Context;
-import android.content.res.Resources;
-
-import java.io.IOException;
-
 import android.content.res.AssetManager;
 import android.util.Log;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
-import java.util.SortedSet;
 import java.util.HashMap;
-import java.util.Map;
 
 public class AssetResource extends AResource {
     private AssetManager res;

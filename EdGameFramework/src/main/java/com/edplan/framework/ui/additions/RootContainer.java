@@ -1,11 +1,11 @@
 package com.edplan.framework.ui.additions;
 
-import com.edplan.framework.ui.EdAbstractViewGroup;
 import com.edplan.framework.MContext;
+import com.edplan.framework.ui.EdAbstractViewGroup;
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.layout.EdLayoutParam;
-import com.edplan.framework.ui.layout.Param;
 import com.edplan.framework.ui.layout.EdMeasureSpec;
+import com.edplan.framework.ui.layout.Param;
 
 public class RootContainer extends EdAbstractViewGroup {
     /**

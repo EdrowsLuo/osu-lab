@@ -1,8 +1,8 @@
 package com.edplan.framework.graphics.opengl.shader.compile;
 
-import java.util.HashMap;
-
 import com.edplan.framework.utils.StringUtil;
+
+import java.util.HashMap;
 
 public class CompileRawStringStore {
     public static CompileRawStringStore DEFAULT;
