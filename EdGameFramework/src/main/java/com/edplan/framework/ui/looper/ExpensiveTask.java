@@ -15,7 +15,7 @@ public class ExpensiveTask<T> {
 
     private T data;
 
-    public Object lock = new Object();
+    public final Object lock = new Object();
 
     public ExpensiveTask(MContext c, Runnable task) {
         this.task = new RunnableWrappedTask<T>(task);
@@ -99,7 +99,6 @@ public class ExpensiveTask<T> {
 
         @Override
         public void run(ExpensiveTask<T> task) {
-
             r.run();
         }
     }

@@ -11,4 +11,8 @@ public class StringUtil {
         }
         return sb.toString();
     }
+
+    public static boolean isCommentLine(String string) {
+        return string.trim().startsWith("//");
+    }
 }

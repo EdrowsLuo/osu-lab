@@ -4,7 +4,6 @@ import com.edplan.framework.graphics.opengl.BlendType;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.media.video.tbv.decode.TBVInputStream;
 import com.edplan.framework.media.video.tbv.encode.TBVOutputStream;
-import com.edplan.framework.utils.Tag;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -77,7 +76,6 @@ public class TBV {
         public JSONObject jsonData;
         public TextureNode[] textures;
         //用来映射到实际的
-        @Tag("no-write-no-read")
         public HashMap<Integer, Integer> textureIdReflects;
 
         public HashMap<Integer, Integer> getTextureReflections() {

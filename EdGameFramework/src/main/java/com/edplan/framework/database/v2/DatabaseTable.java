@@ -4,7 +4,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.edplan.framework.utils.AdvancedStringBuilder;
+import com.edplan.framework.utils.CollectionUtil;
 import com.edplan.framework.utils.Function;
+import com.edplan.framework.utils.JudgeStatement;
+import com.edplan.framework.utils.Lazy;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -18,9 +21,21 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class DatabaseTable {
+public abstract class DatabaseTable {
 
     private static final int NOT_PREPARE=0,IN_PREPARE=1, PREPARED = 3;
+
+    protected static final String WHERE = "WHERE";
+
+    protected static final String AND = "AND";
+
+    protected static final String OR = "OR";
+
+    protected static final String SELECT = "SELECT";
+
+    protected static final String INSERT_INTO = "INSERT INTO";
+
+    protected static final String LIMIT = "LIMIT";
 
     private List<Row> structs;
 
@@ -29,14 +44,13 @@ public class DatabaseTable {
     private String tablename;
 
     public DatabaseTable() {
-
+        loadAnnotation();
     }
 
     public final void load(SQLiteDatabase database) {
         if (this.database != null) {
             return;
         }
-        loadAnnotation();
         this.database = database;
         onLoad();
     }
@@ -58,7 +72,7 @@ public class DatabaseTable {
                     String extra = f.isAnnotationPresent(Extra.class) ? f.getAnnotation(Extra.class).value() : null;
                     int index = f.getAnnotation(Index.class).value();
                     f.setAccessible(true);
-                    Row row = new Row(index, name, dataType, extra);
+                    Row row = new Row(this, index, name, dataType, extra, Extra.PKA.equals(extra));
                     f.set(this, row);
                     structs.add(row);
                 }
@@ -78,7 +92,7 @@ public class DatabaseTable {
         }
     }
 
-    private void checkAndCreateTable() {
+    protected void checkAndCreateTable() {
         database.execSQL(createTableSQL());
     }
 
@@ -98,6 +112,38 @@ public class DatabaseTable {
         return String.format("SELECT * FROM %s", tablename);
     }
 
+    protected final void checkRows(List<Row> list) {
+        if (list == null) {
+            return;
+        }
+        if (CollectionUtil.oneMatch(list, new JudgeStatement<Row>() {
+            @Override
+            public boolean judge(Row v) {
+                return v.table != DatabaseTable.this;
+            }
+        })) {
+            throw new RuntimeException("创建列数组时请使用本类创建的Row");
+        }
+    }
+
+    protected final void checkRows(Row... rows) {
+        if (rows == null) {
+            return;
+        }
+        checkRows(Arrays.asList(rows));
+    }
+
+    protected String selectSQL(Row[] rows, String... extra) {
+        checkRows(rows);
+        AdvancedStringBuilder stringBuilder = new AdvancedStringBuilder("SELECT ");
+        if (rows == null) {
+            stringBuilder.append("*");
+        } else {
+            stringBuilder.append("(").append(Arrays.asList(rows), ", ").append(")");
+        }
+        stringBuilder.append(" FROM ").append(tablename).append(" ").append(Arrays.asList(extra), " ");
+        return stringBuilder.toString();
+    }
 
     /**
      * @param data 一个row一个match方式相对应
@@ -116,39 +162,100 @@ public class DatabaseTable {
     }
 
     protected String insertSQL() {
+        final List<Row> notAuto = new ArrayList<>();
+        for (Row row : structs) {
+            if (!row.autoIncrement) {
+                notAuto.add(row);
+            }
+        }
+        return insertSQL(notAuto.toArray(new Row[notAuto.size()]));
+    }
+
+    protected String insertSQL(Row... rows) {
         AdvancedStringBuilder stringBuilder = new AdvancedStringBuilder();
-        stringBuilder.append("INSERT INTO ").append(tablename).append(" VALUES (")
-                .appendRepeat("?", ", ", structs.size());
+        stringBuilder.append("INSERT INTO ").append(tablename).append(" (")
+                .append(Arrays.asList(rows), ", ", new Function<Row, String>() {
+                    @Override
+                    public String reflect(Row value) {
+                        return value.name;
+                    }
+                })
+                .append(") VALUES (")
+                .appendRepeat("?", ", ", rows.length);
         return stringBuilder.toString();
     }
 
-    protected void onLoad() {
-        checkAndCreateTable();
-    }
+    protected abstract void onLoad();
 
     public Cursor rawqurey(String sql, String... data) {
         return database.rawQuery(sql, data);
     }
 
+    public void rawexec(String sql, String... data) {
+        database.execSQL(sql,data);
+    }
 
+    public class DatabaseOperation {
+
+        String sql;
+
+        public DatabaseOperation(String sql) {
+            this.sql = sql;
+        }
+
+        private String[] toStringArray(Object... datas) {
+            String[] comp = new String[datas.length];
+            for (int i = 0; i < datas.length; i++) {
+                comp[i] = datas[i].toString();
+            }
+            return comp;
+        }
+
+        public void exec(Object... datas) {
+            rawexec(sql, toStringArray(datas));
+        }
+
+        public Cursor qurey(Object... datas) {
+            return rawqurey(sql, toStringArray(datas));
+        }
+    }
 
     public static class Row {
         public final int index;
+        public final boolean autoIncrement;
         public final String name;
         public final DataType type;
         public final String extra;
+        public final DatabaseTable table;
 
-        public Row(int index,String name, DataType type, String extra) {
+        protected Row(DatabaseTable table,int index, String name, DataType type, String extra, boolean autoIncrement) {
+            this.table = table;
             this.index = index;
             this.name = name;
             this.type = type;
-            this.extra = null;
+            this.extra = extra;
+            this.autoIncrement = autoIncrement;
         }
 
         public String toSqlEntry() {
             return String.format("%s %s", name, type.name()) + ((extra != null) ? (" " + extra) : "");
         }
+
+        public String judge(String way) {
+            return String.format("%s %s ?", name, way);
+        }
+
+        public String sameAs() {
+            return judge("=");
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
+
+
 
     public enum DataType {
         INTEGER,

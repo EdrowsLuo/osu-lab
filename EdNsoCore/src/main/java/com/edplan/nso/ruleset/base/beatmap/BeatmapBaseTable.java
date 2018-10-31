@@ -1,6 +1,7 @@
 package com.edplan.nso.ruleset.base.beatmap;
 
 import com.edplan.framework.database.v2.DatabaseTable;
+import com.edplan.framework.utils.Lazy;
 
 public class BeatmapBaseTable extends DatabaseTable {
 
@@ -122,9 +123,15 @@ public class BeatmapBaseTable extends DatabaseTable {
     public Row playedCount;
 
 
+    public final Lazy<DatabaseOperation> insertAll = new Lazy<DatabaseOperation>() {
+        @Override
+        protected DatabaseOperation initial() {
+            return new DatabaseOperation(insertSQL());
+        }
+    };
 
     @Override
     protected void onLoad() {
-        super.onLoad();
+        checkAndCreateTable();
     }
 }

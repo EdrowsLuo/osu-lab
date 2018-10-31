@@ -15,7 +15,6 @@ import com.edplan.framework.math.Mat4;
 import com.edplan.framework.media.video.tbv.TBV;
 import com.edplan.framework.media.video.tbv.TBVException;
 import com.edplan.framework.media.video.tbv.element.DataDrawBaseTexture;
-import com.edplan.framework.utils.Tag;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -143,7 +142,6 @@ public class TBVEncoder {
 
     private TBV.SettingEvent settingEvent = new TBV.SettingEvent();
 
-    @Tag("frameEvent::setting")
     public void setBlendType(boolean enable, BlendType type) throws IOException {
         flushEventHeader(TBV.FrameEvent.CHANGE_SETTING);
         settingEvent.setBlend(enable, type);
@@ -152,7 +150,6 @@ public class TBVEncoder {
 
     DataDrawBaseTexture bufferedDraw;
 
-    @Tag("frameEvent::draw")
     public void drawBaseTexture() throws IOException {
         flushEventHeader(TBV.FrameEvent.DRAW_BASE_TEXTURE);
         DataDrawBaseTexture.write(bufferedOut, bufferedDraw);

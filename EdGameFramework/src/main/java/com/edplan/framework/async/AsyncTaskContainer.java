@@ -102,7 +102,6 @@ public class AsyncTaskContainer {
             holdingThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
-
                     AsyncTaskContainer.this.run();
                 }
             });
