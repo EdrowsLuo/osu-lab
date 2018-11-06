@@ -42,6 +42,8 @@ public class BMFont {
         return fonts.get(name);
     }
 
+    private boolean useFontShader = false;
+
     private String face;
 
     private FNTInfo info;
@@ -61,6 +63,14 @@ public class BMFont {
 
     protected BMFont(MContext context) {
         this.context = context;
+    }
+
+    public boolean isUseFontShader() {
+        return useFontShader;
+    }
+
+    public void setUseFontShader(boolean useFontShader) {
+        this.useFontShader = useFontShader;
     }
 
     public void setErrCharacter(char c) {

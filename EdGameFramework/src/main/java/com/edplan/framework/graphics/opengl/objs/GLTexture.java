@@ -38,6 +38,8 @@ public class GLTexture extends AbstractTexture {
     public static GLTexture Blue;
     public static GLTexture ErrorTexture;
 
+    public static boolean poor_font_mode = false;
+
     static {
         initial();
     }
@@ -272,7 +274,7 @@ public class GLTexture extends AbstractTexture {
 
         w = bmp.getWidth();
         h = bmp.getHeight();
-        Bitmap nb = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        Bitmap nb = Bitmap.createBitmap(w, h, poor_font_mode ? Bitmap.Config.ALPHA_8 : Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(nb);
         c.drawColor(0x00000000);
         Paint p = new Paint();

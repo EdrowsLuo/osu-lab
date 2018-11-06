@@ -6,7 +6,12 @@ import java.util.ArrayList;
  * 经测试，在非常频繁（每毫秒多次，多线程同时操作）的操作时会出bug，
  * 但是在应付一般的情况（3条线程同时进行添加，每ms大概5次操作）的时候还是比较稳定的
  * 这个类可以保证添加的物件顺序和添加顺序相同
+ *
+ *
+ * ps: 我当年写的什么叽霸
  */
+
+@Deprecated
 public class SafeList<T> extends ArrayList<T> {
     private ArrayList<T> bufferList1;
 

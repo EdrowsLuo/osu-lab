@@ -7,6 +7,7 @@ import com.edplan.framework.ui.text.font.FontAwesome;
 import com.edplan.framework.ui.text.font.bmfont.BMFont;
 import com.edplan.nso.ruleset.base.Ruleset;
 import com.edplan.nso.ruleset.base.RulesetNameManager;
+import com.edplan.nso.ruleset.base.beatmap.parser.BeatmapParser;
 
 import java.io.IOException;
 
@@ -28,7 +29,7 @@ public class StdRuleset extends Ruleset{
     }
 
     @Override
-    public String getRulesetInternalName() {
+    public String getRulesetIdName() {
         return ID_NAME;
     }
 
@@ -45,5 +46,10 @@ public class StdRuleset extends Ruleset{
     @Override
     public void onLoad() {
         icon = FontAwesome.fa_osu_osu_o.getTexture();
+    }
+
+    @Override
+    public BeatmapParser getBeatmapParser() {
+        return null;
     }
 }

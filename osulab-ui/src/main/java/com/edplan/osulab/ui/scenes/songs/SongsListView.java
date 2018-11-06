@@ -306,7 +306,7 @@ public class SongsListView extends EdAbstractViewGroup implements Hideable {
         float yd;
 		/*
 		{
-			final int mmode=EdMeasureSpec.getMode(widthSpec);
+			final int mmode=EdMeasureSpec.getModeOld(widthSpec);
 			switch(mmode){
 				case EdMeasureSpec.MODE_DEFINEDED:
 					xd=EdMeasureSpec.getSize(widthSpec);

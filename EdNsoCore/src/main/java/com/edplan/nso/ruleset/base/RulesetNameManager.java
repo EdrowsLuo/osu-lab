@@ -23,7 +23,7 @@ public class RulesetNameManager {
         names.add(idName);
     }
 
-    public String parseShortName(String name) {
+    public String parseIdName(String name) {
         if (shortNameToIdName.containsKey(name)) {
             return shortNameToIdName.get(name);
         } else {

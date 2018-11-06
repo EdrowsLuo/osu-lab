@@ -1,5 +1,7 @@
 package com.edplan.osulab.ui;
 
+import android.app.Dialog;
+
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.ui.ViewConfiguration;
@@ -44,12 +46,15 @@ public class SceneOverlay extends RelativeLayout implements Hideable {
             p1.width = Param.MODE_MATCH_PARENT;
             p1.height = Param.makeUpDP(30);
             //p1.marginTop=ViewConfiguration.dp(30);
-            button.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(EdView view) {
-
-                    updateText();
-                }
+            button.setOnClickListener(view -> {
+                updateText();
+                getContext().getHoldingView().post(()->{
+                    Dialog dialog = new Dialog(getContext().getNativeContext());
+                    android.widget.TextView textView = new android.widget.TextView(getContext().getNativeContext());
+                    textView.setText("hello!");
+                    dialog.setContentView(textView);
+                    dialog.show();
+                });
             });
             addView(button, p1);
         }

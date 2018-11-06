@@ -1,5 +1,6 @@
 package com.edplan.nso;
 
+@Deprecated
 public class NsoBeatmapParsingException extends NsoException {
     public NsoBeatmapParsingException(String msg) {
         super(msg);

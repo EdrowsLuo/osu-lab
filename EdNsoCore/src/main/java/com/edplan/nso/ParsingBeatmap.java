@@ -1,5 +1,6 @@
 package com.edplan.nso;
 
+@Deprecated
 public class ParsingBeatmap {
     private String resInfo = "unknow res";
 

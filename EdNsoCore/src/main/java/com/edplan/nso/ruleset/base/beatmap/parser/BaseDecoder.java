@@ -2,6 +2,9 @@ package com.edplan.nso.ruleset.base.beatmap.parser;
 
 import com.edplan.nso.parser.IniParser;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -37,15 +40,24 @@ public abstract class BaseDecoder {
 
     }
 
-    protected abstract void onParse(IniParser parser);
+    protected abstract void onParse(IniParser parser, JSONObject config);
 
-    public void decode(InputStream inputStream) throws IOException {
+    public void decode(InputStream inputStream, JSONObject decodeConfig) throws IOException {
         clear();
         parser = new IniParser();
         parser.parse(inputStream);
         prepareForParse(parser);
-        onParse(parser);
+        onParse(parser, decodeConfig);
     }
 
+    public class OpenInfo {
 
+        public void warning(String w) {
+            warning(w);
+        }
+
+        public void error(String e) {
+            error(e);
+        }
+    }
 }

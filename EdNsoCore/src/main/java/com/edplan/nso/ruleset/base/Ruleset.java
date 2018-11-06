@@ -4,6 +4,8 @@ import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.ui.EdContainer;
 import com.edplan.nso.ruleset.base.beatmap.Beatmap;
+import com.edplan.nso.ruleset.base.beatmap.parser.BeatmapParser;
+import com.edplan.nso.ruleset.base.beatmap.parser.PartFactory;
 
 public abstract class Ruleset {
 
@@ -25,10 +27,10 @@ public abstract class Ruleset {
     /**
      * @return Ruleset的名称，用来唯一标识Ruleset的
      */
-    public abstract String getRulesetInternalName();
+    public abstract String getRulesetIdName();
 
     public void applyName(RulesetNameManager manager) {
-        manager.putNameRef(getRulesetName(),getRulesetInternalName());
+        manager.putNameRef(getRulesetName(),getRulesetIdName());
     }
 
     public abstract AbstractTexture getModeIcon();
@@ -44,6 +46,16 @@ public abstract class Ruleset {
 
     public AbstractTexture getModeIconSmall() {
         return getModeIcon();
+    }
+
+    public abstract BeatmapParser getBeatmapParser();
+
+
+    /**
+     * @return 默认的对铺面各个部分组装的工厂
+     */
+    public PartFactory getPartFactory() {
+        return PartFactory.get();
     }
 
 }

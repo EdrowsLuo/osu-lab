@@ -1,1 +1,1 @@
-include ':osulab-ui', ':EdGameFramework',':LibBASS', ':EdNsoCore'
+include ':osulab-ui', ':EdGameFramework',':LibBASS', ':EdNsoCore', ':EdJavaExt', ':EdJavaExt-apt'

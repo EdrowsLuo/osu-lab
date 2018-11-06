@@ -182,12 +182,12 @@ public class BeatmapDecoder extends BaseDecoder implements StringMakeable {
     protected void onSelectParser(PartParser parser) throws NsoException, NsoBeatmapParsingException, IOException {
         super.onSelectParser(parser);
         if (parser == hitObjectsParser) {
-            hitObjectsParser.initial(((PartGeneral) (generalParser.getPart())).getMode());
+            hitObjectsParser.initial(((PartGeneral) (generalParser.getPart())).getModeOld());
         }
     }
 
     public NsoBeatmap makeupBeatmap() {
-        switch (generalParser.getPart().getMode()) {
+        switch (generalParser.getPart().getModeOld()) {
             case ModeManager.MODE_STD:
                 StdBeatmap stdbeatmap = new StdBeatmap();
                 stdbeatmap.setVersion(getFormat());

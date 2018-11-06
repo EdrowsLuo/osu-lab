@@ -7,8 +7,16 @@ import android.graphics.Color;
 
 import com.edplan.framework.graphics.opengl.objs.Color4;
 
+import java.util.regex.Pattern;
+
 public class PartColours implements OsuFilePart {
     public static final String TAG = "Colours";
+
+    public static Pattern COLOUR_HEAD = Pattern.compile("Combo(\\d+)");
+
+    public static String SliderBorder = "SliderBorder";
+
+    public static String SliderTrackOverride = "SliderTrackOverride";
 
     private Colours colours;
 

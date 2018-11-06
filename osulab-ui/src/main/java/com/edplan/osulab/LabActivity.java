@@ -19,10 +19,17 @@ import com.edplan.framework.ui.text.font.FontAwesome;
 import com.edplan.framework.ui.text.font.bmfont.BMFont;
 import com.edplan.framework.ui.widget.AbsoluteContainer;
 import com.edplan.framework.ui.widget.AbsoluteLayout;
+import com.edplan.framework.utils.HashDataMap;
+import com.edplan.framework.utils.Setter;
+import com.edplan.framework.utils.advance.BaseDataMap;
+import com.edplan.framework.utils.dataobject.DataObject;
+import com.edplan.framework.utils.dataobject.Struct;
 import com.edplan.osulab.ui.BackQuery;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Set;
 
 import com.edplan.framework.Framework;
 import com.edplan.osulab.ui.popup.PopupToast;
@@ -54,6 +61,20 @@ public class LabActivity extends EdMainActivity {
 
         //DatabaseTable table=new DatabaseTable();
         //table.initial(TestDBLine.class);
+
+        /*HashDataMap dataMap = new HashDataMap();
+        dataMap.data.put("v1", "1.2222");
+        TestObj obj = new TestObj();
+
+        long time = System.currentTimeMillis();
+        int times = 10000000;
+
+        for (int i = 0; i < times; i++) {
+            ((Setter<Float>)obj.getStruct().getItems().get(0).setter).set(1.22f);
+        }
+
+        Log.i("test-time", String.format("run %dtimes, cost %dms", times, System.currentTimeMillis() - time));*/
+
     }
 
     public static class TestRootView extends AbsoluteLayout {
@@ -114,6 +135,24 @@ public class LabActivity extends EdMainActivity {
     }
 
 
+    public class TestObj extends DataObject {
+
+        private float v1;
+
+        public float getV1() {
+            return v1;
+        }
+
+        public void setV1(float v1) {
+            this.v1 = v1;
+        }
+
+        @Override
+        protected void onLoadStruct(Struct struct) {
+            struct.add("v1", Float.class, this::getV1, this::setV1);
+        }
+    }
+
     public class LabApplication extends MainApplication {
         @Override
         public MainRenderer createRenderer(MContext context) {
@@ -140,20 +179,12 @@ public class LabActivity extends EdMainActivity {
             super.onGLCreate();
             try {
                 {
-                    BMFont font = BMFont.loadFont(
-                            mContext,
-                            mContext.getAssetResource().subResource("font"),
-                            "osuFont.fnt");
-                    font.setErrCharacter(FontAwesome.fa_osu_heart1_break.charvalue);
-                    BMFont.addFont(font, font.getInfo().face);
-                }
-                {
                     BMFont f = BMFont.getFont(BMFont.FontAwesome);
                     f.addFont(
                             mContext.getAssetResource().subResource("font"),
                             "osuFont.fnt");
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 mContext.toast("读取字体osuFont失败：" + e.getMessage());
             }

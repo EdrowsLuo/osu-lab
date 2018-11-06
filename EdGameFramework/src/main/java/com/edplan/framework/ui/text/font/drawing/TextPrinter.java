@@ -2,19 +2,25 @@ package com.edplan.framework.ui.text.font.drawing;
 
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.GL10Canvas2D;
+import com.edplan.framework.graphics.opengl.GLCanvas2D;
 import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.batch.Texture3DBatch;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
 import com.edplan.framework.graphics.opengl.objs.advanced.Texture3DRect;
+import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.text.font.bmfont.BMFont;
 import com.edplan.framework.ui.text.font.bmfont.FNTChar;
 import com.edplan.framework.ui.text.font.bmfont.FNTKerning;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class TextPrinter {
+
+    private static Texture3DShader shader;
+
     public static final char NO_PREVIOUS_CHAR = 0;
     /**
      * @field textSize:实际绘制时的大小
@@ -48,6 +54,8 @@ public class TextPrinter {
 
     private boolean singleline = false;
 
+    private boolean useFontShader = false;
+
     public TextPrinter(BMFont font, float startX, float startY, GLPaint paint) {
         this.font = font;
         this.paint = paint;
@@ -62,6 +70,10 @@ public class TextPrinter {
 
     public TextPrinter(float startX, float startY) {
         this(BMFont.getDefaultFont(), startX, startX, new GLPaint());
+    }
+
+    public void setUseFontShader(boolean useFontShader) {
+        this.useFontShader = useFontShader;
     }
 
     public void setSingleline(boolean singleline) {
@@ -214,7 +226,26 @@ public class TextPrinter {
         currentX += xadvance;
     }
 
+    public boolean useFontShader() {
+        return useFontShader || font.isUseFontShader();
+    }
+
     public void draw(BaseCanvas canvas) {
+        if (shader == null) {
+            try {
+                shader = Texture3DShader.createT3S(
+                        ((GLCanvas2D) canvas).getContext().getAssetResource().loadText("shaders/StdTexture3DShader.vs"),
+                        ((GLCanvas2D) canvas).getContext().getAssetResource().loadText("shaders/FontTexture3DShader.fs")
+                        );
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+        }
+        if (useFontShader()) {
+            canvas.save();
+            canvas.getData().getShaders().setTexture3DShader(shader);
+        }
         for (int i = 0; i < font.getPageCount(); i++) {
             Texture3DBatch<TextureVertex3D> batch = batchs.get(i);
             AbstractTexture texture = font.getPage(i).texture;
@@ -222,6 +253,9 @@ public class TextPrinter {
                 canvas.drawTexture3DBatch(batch, texture, paint.getFinalAlpha(), paint.getMixColor());
                 //Log.v("text-test","post "+batch.getVertexCount()+" vertex to canvas");
             }
+        }
+        if (useFontShader()) {
+            canvas.restore();
         }
     }
 

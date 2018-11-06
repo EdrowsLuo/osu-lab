@@ -41,7 +41,7 @@ public class GeneralParser extends PartParser<PartGeneral> {
                         part.setLetterboxInBreaks(U.toBool(entry[1]));
                         return true;
                     case PartGeneral.Mode:
-                        part.setMode(U.toInt(entry[1]));
+                        part.setModeOld(U.toInt(entry[1]));
                         return true;
                     case PartGeneral.PreviewTime:
                         part.setPreviewTime(U.toInt(entry[1]));

@@ -195,5 +195,9 @@ public class IniParser {
                 data.add(spld);
             }
         }
+
+        public List<String[]> getData() {
+            return data;
+        }
     }
 }

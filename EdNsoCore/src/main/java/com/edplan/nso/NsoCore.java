@@ -51,6 +51,10 @@ public class NsoCore {
         this.beatmapStorage = new BeatmapStorage(this);
     }
 
+    public Ruleset getRulesetById(String id) {
+        return rulesetsMap.get(id);
+    }
+
     protected Loader load() {
 
         final Loader loader = new Loader();

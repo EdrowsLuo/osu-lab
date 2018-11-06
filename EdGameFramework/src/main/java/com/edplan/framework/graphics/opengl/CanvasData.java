@@ -18,7 +18,7 @@ public class CanvasData implements Recycleable, Copyable {
 
     private float canvasAlpha = 1;
 
-    private ShaderManager shaders = new ShaderManager();
+    private ShaderManager shaders;
 
     private Vec2 theOrigin = new Vec2();
 
@@ -28,12 +28,13 @@ public class CanvasData implements Recycleable, Copyable {
         this.height = c.height;
         this.pixelDensity = c.pixelDensity;
         this.canvasAlpha = c.canvasAlpha;
-        this.shaders.set(c.shaders);
         this.theOrigin.set(theOrigin);
+        this.shaders = new ShaderManager(c.shaders);
     }
 
     public CanvasData() {
         camera = new Camera();
+        shaders = ShaderManager.getNewDefault();
     }
 
     public Vec2 getTheOrigin() {

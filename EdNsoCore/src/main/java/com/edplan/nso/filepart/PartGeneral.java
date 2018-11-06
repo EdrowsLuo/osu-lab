@@ -1,10 +1,16 @@
 package com.edplan.nso.filepart;
 
+import com.edplan.framework.utils.dataobject.DataObject;
+import com.edplan.framework.utils.dataobject.ItemInfo;
+import com.edplan.framework.utils.dataobject.Struct;
+import com.edplan.framework.utils.dataobject.def.DefaultBoolean;
+import com.edplan.framework.utils.dataobject.def.DefaultFloat;
+import com.edplan.framework.utils.dataobject.def.DefaultInt;
 import com.edplan.nso.OsuFilePart;
 import com.edplan.nso.beatmapComponent.SampleSet;
 import com.edplan.superutils.U;
 
-public class PartGeneral implements OsuFilePart {
+public class PartGeneral extends DataObject implements OsuFilePart {
     public static final String AudioFilename = "AudioFilename";
     public static final String AudioLeadIn = "AudioLeadIn";
     public static final String PreviewTime = "PreviewTime";
@@ -22,24 +28,94 @@ public class PartGeneral implements OsuFilePart {
     public static final String CountdownOffset = "CountdownOffset";
     public static final String TAG = "General";
 
+    @ItemInfo(AudioFilename)
     private String audioFilename = "";
+
+    @ItemInfo(AudioLeadIn)
+    @DefaultInt(0)
     private int audioLeadIn = 0;
+
+    @ItemInfo(PreviewTime)
+    @DefaultInt(0)
     private int previewTime = 0;
+
+    @ItemInfo(Countdown)
+    @DefaultBoolean(false)
     private boolean countdown = false;
+
+    @ItemInfo(CountdownOffset)
+    @DefaultInt(0)
     private int countdownOffset = 0;
+
+    //单独设置
     private SampleSet sampleSet = null;
+
+
+    @ItemInfo(SampleVolume)
+    @DefaultInt(100)
     private int sampleVolume = 100;
+
+    @ItemInfo(StackLeniency)
+    @DefaultFloat(0.7f)
     private float stackLeniency = 0.7f;
-    private int mode = -1;
+
+    //更换方式
+    private int modeOld = -1;
+
+    private String ruleset;
+
+    @ItemInfo(LetterboxInBreaks)
+    @DefaultBoolean(false)
     private boolean letterboxInBreaks = false;
+
+    @ItemInfo(WidescreenStoryboard)
+    @DefaultBoolean(false)
     private boolean widescreenStoryboard = false;
+
+    @ItemInfo(SpecialStyle)
+    @DefaultBoolean(false)
     private boolean specialStyle = false;
+
+    @ItemInfo(UseSkinSprites)
+    @DefaultBoolean(false)
     private boolean useSkinSprites = false;
+
+    @ItemInfo(StoryFireInFront)
+    @DefaultBoolean(false)
     private boolean storyFireInFront = false;
+
+    @ItemInfo(EpilepsyWarning)
+    @DefaultBoolean(false)
     private boolean epilepsyWarning = false;
 
     public PartGeneral() {
         //Map<String,Object> map=U.makeMap(String.class,Object.class,);
+    }
+
+    @Override
+    protected void onLoadStruct(Struct struct) {
+        struct.add(AudioFilename, String.class, this::getAudioFilename, this::setAudioFilename)
+                .add(AudioLeadIn, Integer.class, this::getAudioLeadIn, this::setAudioLeadIn, 0)
+                .add(PreviewTime, Integer.class, this::getPreviewTime, this::setPreviewTime, 0)
+                .add(Countdown, Boolean.class, this::ifCountdown, this::setCountdown, false)
+                .add(CountdownOffset, Integer.class, this::getCountdownOffset, this::setCountdownOffset, 0)
+                .add(SampleSet, String.class, this::getSampleSet, this::setSampleSet)
+                .add(SampleVolume, Integer.class, this::getSampleVolume, this::setSampleVolume, 100)
+                .add(StackLeniency, Float.class, this::getStackLeniency, this::setStackLeniency, 0.7f)
+                .add(LetterboxInBreaks, Boolean.class, this::isLetterboxInBreaks, this::setLetterboxInBreaks, false)
+                .add(WidescreenStoryboard, Boolean.class, this::isLetterboxInBreaks, this::setLetterboxInBreaks, false)
+                .add(SpecialStyle, Boolean.class, this::isSpecialStyle, this::setSpecialStyle, false)
+                .add(UseSkinSprites, Boolean.class, this::isUseSkinSprites, this::setUseSkinSprites, false)
+                .add(StoryFireInFront, Boolean.class, this::isStoryFireInFront, this::setStoryFireInFront, false)
+                .add(EpilepsyWarning, Boolean.class, this::isEpilepsyWarning, this::setEpilepsyWarning, false);
+    }
+
+    public String getRuleset() {
+        return ruleset;
+    }
+
+    public void setRuleset(String ruleset) {
+        this.ruleset = ruleset;
     }
 
     public void setCountdownOffset(int countdownOffset) {
@@ -134,8 +210,12 @@ public class PartGeneral implements OsuFilePart {
         this.sampleSet = sampleSet;
     }
 
-    public SampleSet getSampleSet() {
-        return sampleSet;
+    public void setSampleSet(String sampleSet) {
+        this.sampleSet = com.edplan.nso.beatmapComponent.SampleSet.parse(sampleSet);
+    }
+
+    public String getSampleSet() {
+        return sampleSet.toString();
     }
 
     public void setStackLeniency(float stackLeniency) {
@@ -146,12 +226,12 @@ public class PartGeneral implements OsuFilePart {
         return stackLeniency;
     }
 
-    public void setMode(int mode) {
-        this.mode = mode;
+    public void setModeOld(int modeOld) {
+        this.modeOld = modeOld;
     }
 
-    public int getMode() {
-        return mode;
+    public int getModeOld() {
+        return modeOld;
     }
 
     public void setLetterboxInBreaks(boolean letterboxInBreaks) {
@@ -176,10 +256,10 @@ public class PartGeneral implements OsuFilePart {
         U.appendProperty(sb, PartGeneral.AudioLeadIn, getAudioLeadIn()).append(U.NEXT_LINE);
         U.appendProperty(sb, PartGeneral.PreviewTime, getPreviewTime()).append(U.NEXT_LINE);
         U.appendProperty(sb, PartGeneral.Countdown, U.toVString(ifCountdown())).append(U.NEXT_LINE);
-        U.appendProperty(sb, PartGeneral.SampleSet, getSampleSet().makeString()).append(U.NEXT_LINE);
+        U.appendProperty(sb, PartGeneral.SampleSet, getSampleSet()).append(U.NEXT_LINE);
         U.appendProperty(sb, PartGeneral.SampleVolume, getSampleVolume()).append(U.NEXT_LINE);
         U.appendProperty(sb, PartGeneral.StackLeniency, getStackLeniency()).append(U.NEXT_LINE);
-        U.appendProperty(sb, PartGeneral.Mode, getMode()).append(U.NEXT_LINE);
+        U.appendProperty(sb, PartGeneral.Mode, getModeOld()).append(U.NEXT_LINE);
         U.appendProperty(sb, PartGeneral.LetterboxInBreaks, U.toVString(isLetterboxInBreaks())).append(U.NEXT_LINE);
         if (isSpecialStyle())
             U.appendProperty(sb, PartGeneral.SpecialStyle, U.toVString(isSpecialStyle())).append(U.NEXT_LINE);

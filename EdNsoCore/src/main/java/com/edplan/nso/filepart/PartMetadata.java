@@ -1,10 +1,13 @@
 package com.edplan.nso.filepart;
 
+import com.edplan.framework.utils.dataobject.DataObject;
+import com.edplan.framework.utils.dataobject.ItemInfo;
+import com.edplan.framework.utils.dataobject.Struct;
 import com.edplan.nso.OsuFilePart;
 import com.edplan.nso.beatmapComponent.Tags;
 import com.edplan.superutils.U;
 
-public class PartMetadata implements OsuFilePart {
+public class PartMetadata extends DataObject implements OsuFilePart {
     public static final String Title = "Title";
     public static final String TitleUnicode = "TitleUnicode";
     public static final String Artist = "Artist";
@@ -18,16 +21,31 @@ public class PartMetadata implements OsuFilePart {
 
     public static final String TAG = "Metadata";
 
+    @ItemInfo
     private String title = null;
+    @ItemInfo
     private String titleUnicode = null;
+    @ItemInfo
     private String artist = null;
+    @ItemInfo
     private String artistUnicode = null;
+    @ItemInfo
     private String creator = null;
+    @ItemInfo
     private String version = null;
+    @ItemInfo
     private String source = null;
-    private Tags tags = null;
+    @ItemInfo
+    private String tags = null;
+    @ItemInfo
     private int beatmapID = -1;
+    @ItemInfo
     private int beatmapSetID = -1;
+
+    @Override
+    protected void onLoadStruct(Struct struct) {
+        loadStructAnnotation(struct);
+    }
 
     public void setTitle(String title) {
         this.title = title;
@@ -86,11 +104,11 @@ public class PartMetadata implements OsuFilePart {
     }
 
     public void setTags(Tags tags) {
-        this.tags = tags;
+        this.tags = tags.makeString();
     }
 
     public Tags getTags() {
-        return tags;
+        return com.edplan.nso.beatmapComponent.Tags.parse(tags);
     }
 
     public void setBeatmapID(int beatmapID) {

@@ -37,7 +37,7 @@ public class ShaderManager {
 
     private AResource res;
 
-    public ShaderManager() {
+    private ShaderManager() {
 
     }
 

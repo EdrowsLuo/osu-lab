@@ -1,14 +1,16 @@
 package com.edplan.nso.timing;
 
+import com.edplan.superutils.classes.strings.StringSpliter;
 import com.edplan.superutils.interfaces.StringMakeable;
 import com.edplan.superutils.U;
 import com.edplan.nso.beatmapComponent.SampleSet;
 import com.edplan.nso.ruleset.std.playing.controlpoint.ControlPoint;
 
 public class TimingPoint extends ControlPoint implements StringMakeable {
+
     /**
      * 在lazer原代码里这里是一个enum TimeSignatures,
-     * 定义了一拍里有几小节（大概是这么叫的。。。）
+     * 定义了一拍里有几小节（大概是这么叫的。。。滚去学乐理了）
      */
     private int meter;
 

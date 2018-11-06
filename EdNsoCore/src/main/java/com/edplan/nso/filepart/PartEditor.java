@@ -1,10 +1,15 @@
 package com.edplan.nso.filepart;
 
+import com.edplan.framework.utils.dataobject.DataObject;
+import com.edplan.framework.utils.dataobject.ItemInfo;
+import com.edplan.framework.utils.dataobject.Struct;
+import com.edplan.framework.utils.dataobject.def.DefaultFloat;
+import com.edplan.framework.utils.dataobject.def.DefaultInt;
 import com.edplan.nso.OsuFilePart;
 import com.edplan.nso.beatmapComponent.Bookmarks;
 import com.edplan.superutils.U;
 
-public class PartEditor implements OsuFilePart {
+public class PartEditor extends DataObject implements OsuFilePart {
     public static final String Bookmarks = "Bookmarks";
     public static final String DistanceSpacing = "DistanceSpacing";
     public static final String BeatDivisor = "BeatDivisor";
@@ -14,10 +19,30 @@ public class PartEditor implements OsuFilePart {
     public static final String TAG = "Editor";
 
     private Bookmarks bookmarks = null;
-    private float distanceSpacing = 0;
-    private int beatDivisor = 0;
-    private int gridSize = 0;
-    private float timelineZoom = 0;
+
+    @ItemInfo
+    @DefaultFloat(1)
+    private float distanceSpacing = 1;
+
+    @ItemInfo
+    @DefaultInt(8)
+    private int beatDivisor = 8;
+
+    @ItemInfo
+    @DefaultInt(4)
+    private int gridSize = 4;
+
+    @ItemInfo
+    @DefaultFloat(1)
+    private float timelineZoom = 1;
+
+    @Override
+    protected void onLoadStruct(Struct struct) {
+        struct.add(Bookmarks, String.class,
+                bookmarks::makeString,
+                s -> bookmarks = com.edplan.nso.beatmapComponent.Bookmarks.parse(s));
+        loadStructAnnotation(struct);
+    }
 
     public void setBookmarks(Bookmarks bookmarks) {
         this.bookmarks = bookmarks;

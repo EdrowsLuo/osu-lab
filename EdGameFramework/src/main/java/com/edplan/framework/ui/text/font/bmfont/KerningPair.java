@@ -11,7 +11,6 @@ public class KerningPair {
 
     @Override
     public int hashCode() {
-
         return hashCode(first, second);
     }
 

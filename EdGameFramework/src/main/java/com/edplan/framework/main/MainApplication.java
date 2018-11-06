@@ -6,6 +6,7 @@ import com.edplan.framework.Framework;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseGLSurfaceView;
 import com.edplan.framework.graphics.opengl.MainRenderer;
+import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.resource.AResource;
 import com.edplan.framework.test.TestStaticData;
 import com.edplan.framework.ui.ViewConfiguration;
@@ -102,16 +103,19 @@ public abstract class MainApplication implements MainCallBack {
         try {
             long t = Framework.absoluteTimeMillion();
             System.out.println("start load font");
-            /*{
+            {
+                GLTexture.poor_font_mode = true;
                 BMFont font = BMFont.loadFont(
                         mContext,
                         res,
                         "Noto-CJK-Basic.fnt");
                 font.addFont(res, "Noto-Basic.fnt");
                 font.setErrCharacter('⊙');
+                font.setUseFontShader(true);
                 BMFont.addFont(font, font.getInfo().face);
                 BMFont.setDefaultFont(font);
-            }*/
+                GLTexture.poor_font_mode = false;
+            }
             {
                 BMFont font = BMFont.loadFont(
                         mContext,
@@ -119,7 +123,7 @@ public abstract class MainApplication implements MainCallBack {
                         "Exo2.0-Regular.fnt");
                 font.setErrCharacter(BMFont.CHAR_NOT_FOUND);
                 BMFont.addFont(font, font.getInfo().face);
-                BMFont.setDefaultFont(font);
+                //BMFont.setDefaultFont(font);
             }
             {
                 BMFont font = BMFont.loadFont(

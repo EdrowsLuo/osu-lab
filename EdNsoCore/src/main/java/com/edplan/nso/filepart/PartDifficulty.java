@@ -1,9 +1,12 @@
 package com.edplan.nso.filepart;
 
+import com.edplan.framework.utils.dataobject.DataObject;
+import com.edplan.framework.utils.dataobject.ItemInfo;
+import com.edplan.framework.utils.dataobject.Struct;
 import com.edplan.nso.OsuFilePart;
 import com.edplan.superutils.U;
 
-public class PartDifficulty implements OsuFilePart {
+public class PartDifficulty extends DataObject implements OsuFilePart {
     public static final String HPDrainRate = "HPDrainRate";
     public static final String CircleSize = "CircleSize";
     public static final String OverallDifficulty = "OverallDifficulty";
@@ -13,12 +16,17 @@ public class PartDifficulty implements OsuFilePart {
 
     public static final String TAG = "Difficulty";
 
-    private float hPDrainRate;
-    private float circleSize;
-    private float overallDifficulty;
-    private float approachRate;
-    private double sliderMultiplier;
-    private double sliderTickRate;
+    @ItemInfo private float hPDrainRate;
+    @ItemInfo private float circleSize;
+    @ItemInfo private float overallDifficulty;
+    @ItemInfo private float approachRate;
+    @ItemInfo private double sliderMultiplier;
+    @ItemInfo private double sliderTickRate;
+
+    @Override
+    protected void onLoadStruct(Struct struct) {
+        loadStructAnnotation(struct);
+    }
 
     public void setHPDrainRate(float hPDrainRate) {
         this.hPDrainRate = hPDrainRate;

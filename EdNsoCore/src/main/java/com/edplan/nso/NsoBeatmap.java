@@ -3,6 +3,7 @@ package com.edplan.nso;
 import com.edplan.nso.storyboard.Storyboard;
 
 
+@Deprecated
 public abstract class NsoBeatmap {
     private Storyboard storyboard;
 

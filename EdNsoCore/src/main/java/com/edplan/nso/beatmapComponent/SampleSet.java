@@ -70,4 +70,9 @@ public enum SampleSet implements StringMakeable {
 
         return value;
     }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }
