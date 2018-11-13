@@ -20,12 +20,29 @@ public class TextureSpriteShader extends SpriteShader {
 
     static {
         VERTEX_SHADER = StringUtil.link(StringUtil.LINE_BREAK, new String[]{
-                "@include <TextureSpriteBase.vs>",
+                "uniform mat4 u_MVPMatrix;\n" +
+                        "uniform vec4 u_AccentColor;\n" +
+                        "uniform float u_Alpha;\n" +
+                        "\n" +
+                        "attribute vec3 a_Position;\n" +
+                        "attribute vec2 a_SpritePosition;\n" +
+                        "attribute vec4 a_Color;\n" +
+                        "attribute vec2 a_TextureCoord;\n" +
+                        "varying vec4 f_Color;\n" +
+                        "varying vec2 f_TextureCoord;\n" +
+                        "    " +
+                        "void setUpSpriteBase(){\n" +
+                        "    f_TextureCoord=a_TextureCoord;\n" +
+                        "    f_Color=a_Color*u_AccentColor*u_Alpha;\n" +
+                        "    gl_Position=u_MVPMatrix*vec4(a_Position,1.0);\n" +
+                        "}",
                 "void main(){ setUpSpriteBase(); }"
         });
         FRAGMENT_SHADER = StringUtil.link(StringUtil.LINE_BREAK, new String[]{
                 "precision mediump float;",
-                "@include <TextureSpriteBase.fs>",
+                "varying vec4 f_Color;",
+                "varying vec2 f_TextureCoord;",
+                "uniform sampler2D u_Texture;",
                 "void main(){",
                 "    gl_FragColor=f_Color*texture2D(u_Texture,f_TextureCoord);",
                 "}"

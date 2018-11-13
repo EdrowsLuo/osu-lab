@@ -31,7 +31,10 @@ public class MainBackground extends RelativeLayout {
         textureSprite = new TextureSprite(c);
 
         try {
-            testTexture = getContext().getAssetResource().subResource("osu/ui").loadTexture("menu-background-1.jpg");
+            testTexture = getContext().getAssetResource().subResource("osu/ui").loadTexture(
+                    //"menu-background-1.jpg"
+                    "logo.png"
+            );
         } catch (IOException e) {
             e.printStackTrace();
             PopupToast.toast(getContext(), "err " + e.getMessage()).show();
@@ -42,10 +45,13 @@ public class MainBackground extends RelativeLayout {
     protected void onDraw(BaseCanvas canvas) {
         super.onDraw(canvas);
         if (testTexture != null) {
+            canvas.getBlendSetting().save();
+            canvas.getBlendSetting().setEnable(false);
             textureSprite.setAlpha(0.5f);
             textureSprite.setTexture(testTexture);
             textureSprite.setAreaFillTexture(RectF.xywh(0, 0, canvas.getWidth(), canvas.getHeight()));
             textureSprite.draw(canvas);
+            canvas.getBlendSetting().restore();
         }
     }
 

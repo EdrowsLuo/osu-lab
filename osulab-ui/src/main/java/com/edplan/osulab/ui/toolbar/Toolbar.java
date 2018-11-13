@@ -366,9 +366,7 @@ public class Toolbar extends RelativeLayout implements Hideable {
 
     @Override
     protected void onDraw(BaseCanvas canvas) {
-
         super.onDraw(canvas);
-
     }
 
     public class ToolbarShadow extends EdView {
