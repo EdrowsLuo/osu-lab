@@ -6,6 +6,7 @@ import com.edplan.framework.ui.ViewConfiguration;
 import com.edplan.framework.ui.layout.Gravity;
 import com.edplan.framework.ui.layout.Param;
 import com.edplan.framework.ui.widget.RelativeLayout;
+import com.edplan.nso.ruleset.base.beatmap.parser.BeatmapDecoder;
 import com.edplan.osulab.ui.MainBackground;
 import com.edplan.osulab.ui.MessageList;
 import com.edplan.osulab.ui.OptionList;
@@ -20,6 +21,9 @@ import com.edplan.osulab.ui.scenes.SceneSelectButtonBar;
 import com.edplan.osulab.ui.scenes.Scenes;
 import com.edplan.osulab.ui.toolbar.Toolbar;
 import com.edplan.nso.NsoCore;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * 全局的管理类
@@ -160,6 +164,19 @@ public class LabGame {
 
     private void initialNsoCore(MContext c) {
         nsoCore = new NsoCore(c, null);
+        nsoCore.load().onLoadComplete(()->{
+            /*BeatmapDecoder beatmapDecoder = nsoCore.getBeatmapDecoder();
+            try {
+                for(int i = 0; i < 100;i++) {
+                    long time = System.currentTimeMillis();
+                    beatmapDecoder.decode(new FileInputStream("/storage/emulated/0/osu!droid/Songs/789544 Andromedik - Invasion/Andromedik - Invasion (Mirash) [Collab Extra].osu"), null);
+                    System.out.println((System.currentTimeMillis() - time) + "ms");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }*/
+        });
+
     }
 
     public EdView createContentView(MContext c) {

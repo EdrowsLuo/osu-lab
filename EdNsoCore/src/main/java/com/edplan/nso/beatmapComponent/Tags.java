@@ -4,7 +4,7 @@ import com.edplan.superutils.interfaces.StringMakeable;
 
 import java.util.ArrayList;
 
-import com.edplan.superutils.classes.strings.StringSpliter;
+import com.edplan.superutils.classes.strings.StringSplitter;
 
 public class Tags implements StringMakeable {
     private ArrayList<String> tags;
@@ -30,7 +30,7 @@ public class Tags implements StringMakeable {
 
     public static Tags parse(String l) {
         Tags t = new Tags();
-        StringSpliter sp = new StringSpliter(l, ",");
+        StringSplitter sp = new StringSplitter(l, ",");
         while (sp.hasNext()) {
             t.addTag(sp.next());
         }

@@ -15,7 +15,7 @@ import com.edplan.nso.ruleset.std.objects.StdPath;
 import com.edplan.nso.ruleset.std.objects.StdSlider;
 import com.edplan.nso.ruleset.std.objects.StdSpinner;
 import com.edplan.superutils.U;
-import com.edplan.superutils.classes.strings.StringSpliter;
+import com.edplan.superutils.classes.strings.StringSplitter;
 import com.edplan.superutils.math.Vct2;
 
 import java.util.ArrayList;
@@ -50,7 +50,7 @@ public class StdHitObjectParser implements HitObjectParser<StdHitObject> {
     public StdTypedParser createDefParser() {
         return new StdTypedParser() {
             @Override
-            public StdHitObject parse(StdHitObjectParser.HitObjectBaseDatas bd, StringSpliter spl) throws NsoException {
+            public StdHitObject parse(StdHitObjectParser.HitObjectBaseDatas bd, StringSplitter spl) throws NsoException {
 
                 switch (StdHitObjectType.parseType(bd.type)) {
                     case Circle:
@@ -93,7 +93,7 @@ public class StdHitObjectParser implements HitObjectParser<StdHitObject> {
     public StdHitObject parse(String res) throws NsoException {
 
         try {
-            StringSpliter spl = new StringSpliter(res, ",");
+            StringSplitter spl = new StringSplitter(res, ",");
             HitObjectBaseDatas bd = parseBaseDatas(spl);
             return defParser.parse(bd, spl);
         } catch (Exception e) {
@@ -101,10 +101,10 @@ public class StdHitObjectParser implements HitObjectParser<StdHitObject> {
         }
     }
 
-    public List<Vct2<Integer, Integer>> parseEdgeAdditions(StringSpliter spl) throws NsoException {
+    public List<Vct2<Integer, Integer>> parseEdgeAdditions(StringSplitter spl) throws NsoException {
         try {
             if (spl.hasNext()) {
-                StringSpliter spl2 = new StringSpliter(spl.next(), "\\|");
+                StringSplitter spl2 = new StringSplitter(spl.next(), "\\|");
                 List<Vct2<Integer, Integer>> es = new ArrayList<Vct2<Integer, Integer>>(spl2.length());
                 while (spl2.hasNext()) {
                     es.add(parseVct2II(spl2.next()));
@@ -121,10 +121,10 @@ public class StdHitObjectParser implements HitObjectParser<StdHitObject> {
         }
     }
 
-    public int[] parseEdgeHitsounds(StringSpliter spl) throws NsoException {
+    public int[] parseEdgeHitsounds(StringSplitter spl) throws NsoException {
         try {
             if (spl.hasNext()) {
-                StringSpliter spl2 = new StringSpliter(spl.next(), "\\|");
+                StringSplitter spl2 = new StringSplitter(spl.next(), "\\|");
                 int[] es = new int[spl2.length()];
                 for (int i = 0; i < es.length; i++) {
                     es[i] = U.toInt(spl2.next());
@@ -147,11 +147,11 @@ public class StdHitObjectParser implements HitObjectParser<StdHitObject> {
         obj.setHitSound(bd.hitSound);
     }
 
-    public StdPath parsePath(Vec2 startPoint, StringSpliter spl) throws NsoException {
+    public StdPath parsePath(Vec2 startPoint, StringSplitter spl) throws NsoException {
         try {
             StdPath p = new StdPath();
             p.addControlPoint(startPoint);
-            spl = new StringSpliter(spl.next(), "\\|");
+            spl = new StringSplitter(spl.next(), "\\|");
             p.setType(StdPath.Type.forName(spl.next()));
             while (spl.hasNext()) {
                 p.addControlPoint(parseVec2FF(spl.next()));
@@ -172,7 +172,7 @@ public class StdHitObjectParser implements HitObjectParser<StdHitObject> {
         return new Vct2<Integer, Integer>(U.toInt(sp[0]), U.toInt(sp[1]));
     }
 
-    public HitObjectBaseDatas parseBaseDatas(StringSpliter sp) throws NsoException {
+    public HitObjectBaseDatas parseBaseDatas(StringSplitter sp) throws NsoException {
         try {
             HitObjectBaseDatas bd = new HitObjectBaseDatas();
             bd.x = U.toInt(sp.next());
@@ -189,11 +189,11 @@ public class StdHitObjectParser implements HitObjectParser<StdHitObject> {
         }
     }
 
-    public static HitObjectAddition parseAddition(StringSpliter spl) throws NsoException {
+    public static HitObjectAddition parseAddition(StringSplitter spl) throws NsoException {
         HitObjectAddition adt = new HitObjectAddition();
         try {
             if (spl.hasNext()) {
-                StringSpliter spl2 = new StringSpliter(spl.next(), ":");
+                StringSplitter spl2 = new StringSplitter(spl.next(), ":");
                 adt.setSampleSet(U.toInt(spl2.next()));
                 adt.setSampleAddition(U.toInt(spl2.next()));
                 adt.setCustomIndex(U.toInt(spl2.next()));
@@ -239,7 +239,7 @@ public class StdHitObjectParser implements HitObjectParser<StdHitObject> {
     }
 
     public interface StdTypedParser {
-        public StdHitObject parse(HitObjectBaseDatas bd, StringSpliter spl) throws NsoException;
+        public StdHitObject parse(HitObjectBaseDatas bd, StringSplitter spl) throws NsoException;
     }
 
 }

@@ -14,6 +14,8 @@ public class BeatmapDecoder extends BaseDecoder{
 
     public static final Pattern OSU_FILE_FORMAT_PATTERN = Pattern.compile(" *osu file format v(\\d+) *");
 
+    public static final String OSU_FILE_FORMAT = "osu file format v";
+
     private static final String PAGE_GENERAL = "General";
 
     protected NsoCore core;
@@ -26,9 +28,12 @@ public class BeatmapDecoder extends BaseDecoder{
 
     protected Result result;
 
-
     public BeatmapDecoder(NsoCore core) {
         this.core = core;
+    }
+
+    public Result getResult() {
+        return result;
     }
 
     @Override
@@ -46,9 +51,9 @@ public class BeatmapDecoder extends BaseDecoder{
 
     protected void parseFormatLine(IniParser parser) {
         for (String line : parser.getHeader()) {
-            Matcher matcher = OSU_FILE_FORMAT_PATTERN.matcher(line);
-            if (matcher.groupCount() > 1) {
-                formatVersion = Integer.parseInt(matcher.group(1));
+            line = line.trim();
+            if (line.startsWith(OSU_FILE_FORMAT)) {
+                formatVersion = Integer.parseInt(line.substring(OSU_FILE_FORMAT.length()));
                 return;
             }
         }
@@ -57,8 +62,7 @@ public class BeatmapDecoder extends BaseDecoder{
 
     @Override
     protected void onParse(IniParser parser, JSONObject config) {
-
-        Result result = new Result();
+        result = new Result();
 
         parseFormatLine(parser);
         if (!parser.hasPage(PAGE_GENERAL)) {
@@ -90,6 +94,9 @@ public class BeatmapDecoder extends BaseDecoder{
 
         if (beatmap == null) {
             result.success = false;
+        } else {
+            result.success = true;
+            result.beatmap = beatmap;
         }
     }
 
@@ -103,6 +110,14 @@ public class BeatmapDecoder extends BaseDecoder{
 
         public boolean isSuccess() {
             return success;
+        }
+
+        public String getRulesetId() {
+            return rulesetId;
+        }
+
+        public Beatmap getBeatmap() {
+            return beatmap;
         }
     }
 

@@ -1,6 +1,10 @@
 package com.edplan.nso.ruleset.base.object;
 
-public class StdFormatHitObject extends JudgeObject {
+import com.edplan.nso.parser.ParseException;
+import com.edplan.nso.ruleset.base.beatmap.parser.BaseDecoder;
+import com.edplan.superutils.classes.strings.StringSplitter;
+
+public abstract class StdFormatHitObject extends HitObject {
 
     protected int x;
 
@@ -61,5 +65,7 @@ public class StdFormatHitObject extends JudgeObject {
     public void setRawExtras(String rawExtras) {
         this.rawExtras = rawExtras;
     }
+
+    public abstract void parseCustomDatas(StringSplitter spl) throws ParseException;
 
 }

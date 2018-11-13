@@ -4,7 +4,7 @@ import com.edplan.superutils.interfaces.StringMakeable;
 
 import java.util.ArrayList;
 
-import com.edplan.superutils.classes.strings.StringSpliter;
+import com.edplan.superutils.classes.strings.StringSplitter;
 import com.edplan.superutils.U;
 
 public class Bookmarks implements StringMakeable {
@@ -31,7 +31,7 @@ public class Bookmarks implements StringMakeable {
 
     public static Bookmarks parse(String l) {
         Bookmarks b = new Bookmarks();
-        StringSpliter sp = new StringSpliter(l, ",");
+        StringSplitter sp = new StringSplitter(l, ",");
         while (sp.hasNext()) {
             b.addBoommark(U.toInt(sp.next()));
         }

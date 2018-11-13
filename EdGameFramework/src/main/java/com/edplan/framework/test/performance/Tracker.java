@@ -1,6 +1,8 @@
 package com.edplan.framework.test.performance;
 
 import com.edplan.framework.Framework;
+import com.edplan.framework.utils.Consumer;
+import com.edplan.framework.utils.ConsumerContainer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,13 +54,22 @@ public class Tracker {
         return node;
     }
 
+    public static TrackNode createTmpNode(String name) {
+        return new TrackNode(-1, name);
+    }
+
     public static void reset() {
         for (TrackNode n : nodes) {
-            n.totalTimeMS = 0;
-            n.trackedTimes = 0;
-            n.latestRecordTime = 0;
-            n.stack = 0;
+            n.clear();
         }
+    }
+
+    public static void printlnAsTime(int ms) {
+        System.out.println(ms + "ms");
+    }
+
+    public static Consumer<Integer> printByTag(String tag) {
+        return t -> System.out.println(String.format("[%s] %dms", tag, t));
     }
 
     public static class TrackNode {
@@ -96,6 +107,24 @@ public class Tracker {
                 totalTimeMS += time - latestRecordTime;
                 latestRecordTime = time;
             }
+        }
+
+        public void clear() {
+            totalTimeMS = 0;
+            trackedTimes = 0;
+            latestRecordTime = 0;
+            stack = 0;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public ConsumerContainer<TrackNode> wrap(Runnable runnable) {
+            watch();
+            runnable.run();
+            end();
+            return new ConsumerContainer<>(this);
         }
 
         @Override

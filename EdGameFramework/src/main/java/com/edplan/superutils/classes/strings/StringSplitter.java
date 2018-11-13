@@ -2,12 +2,12 @@ package com.edplan.superutils.classes.strings;
 
 import com.edplan.superutils.U;
 
-public class StringSpliter {
+public class StringSplitter {
     private String res;
     private String[] sp;
     private int i1;
 
-    public StringSpliter(String res, String sps) {
+    public StringSplitter(String res, String sps) {
         this.res = res;
         sp = res.split(sps);
         reset();
@@ -63,5 +63,6 @@ public class StringSpliter {
             super(msg);
         }
     }
+
 
 }

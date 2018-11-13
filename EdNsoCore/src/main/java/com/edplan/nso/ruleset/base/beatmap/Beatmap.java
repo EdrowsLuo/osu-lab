@@ -1,5 +1,6 @@
 package com.edplan.nso.ruleset.base.beatmap;
 
+import com.edplan.framework.utils.dataobject.DataObject;
 import com.edplan.nso.filepart.PartColours;
 import com.edplan.nso.filepart.PartDifficulty;
 import com.edplan.nso.filepart.PartEditor;
@@ -7,7 +8,11 @@ import com.edplan.nso.filepart.PartEvents;
 import com.edplan.nso.filepart.PartGeneral;
 import com.edplan.nso.filepart.PartMetadata;
 import com.edplan.nso.filepart.PartTimingPoints;
+import com.edplan.nso.ruleset.base.object.HitObject;
 import com.edplan.nso.storyboard.Storyboard;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Beatmap {
 
@@ -21,6 +26,16 @@ public class Beatmap {
     private Storyboard storyboard;
 
     private String rulesetId;
+
+    private List<HitObject> hitObjects = new ArrayList<>();
+
+    public void addHitObject(HitObject hitObject) {
+        hitObjects.add(hitObject);
+    }
+
+    public List<HitObject> getAllHitObjects() {
+        return hitObjects;
+    }
 
     public String getRulesetId() {
         return rulesetId;
@@ -92,5 +107,13 @@ public class Beatmap {
 
     public void setStoryboard(Storyboard storyboard) {
         this.storyboard = storyboard;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.format("[%s]", PartGeneral.TAG)).append("\n");
+        stringBuilder.append(general.asStructString(DataObject.StructOutputType.INI));
+        return stringBuilder.toString();
     }
 }

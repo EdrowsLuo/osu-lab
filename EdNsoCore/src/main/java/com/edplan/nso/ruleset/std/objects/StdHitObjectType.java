@@ -1,5 +1,6 @@
 package com.edplan.nso.ruleset.std.objects;
 
+@Deprecated
 public enum StdHitObjectType {
     Circle, Slider, Spinner, ManiaHolder;
 

@@ -6,6 +6,7 @@ import com.edplan.nso.ruleset.base.object.HitObjects;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class StdHitObjects<T extends StdHitObject> extends HitObjects<T> {
     private List<T> hitObjects;
 

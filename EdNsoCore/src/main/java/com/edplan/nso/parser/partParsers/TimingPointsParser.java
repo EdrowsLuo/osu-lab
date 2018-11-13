@@ -2,7 +2,7 @@ package com.edplan.nso.parser.partParsers;
 
 import com.edplan.nso.filepart.PartTimingPoints;
 import com.edplan.nso.timing.TimingPoint;
-import com.edplan.superutils.classes.strings.StringSpliter;
+import com.edplan.superutils.classes.strings.StringSplitter;
 import com.edplan.superutils.U;
 import com.edplan.nso.beatmapComponent.SampleSet;
 
@@ -15,7 +15,7 @@ public class TimingPointsParser extends PartParser<PartTimingPoints> {
 
     public TimingPoint parseTimingPoint(String l) {
         TimingPoint t = new TimingPoint();
-        StringSpliter sp = new StringSpliter(l, ",");
+        StringSplitter sp = new StringSplitter(l, ",");
         t.setTime((int) U.toDouble(sp.next()));
         t.setBeatLength(U.toDouble(sp.next()));
         t.setMeter(U.toInt(sp.next()));

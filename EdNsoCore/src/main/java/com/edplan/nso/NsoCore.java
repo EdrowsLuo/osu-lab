@@ -7,6 +7,7 @@ import com.edplan.framework.async.IntProgressHolder;
 import com.edplan.framework.async.ProgressHolder;
 import com.edplan.nso.ruleset.base.Ruleset;
 import com.edplan.nso.ruleset.base.RulesetNameManager;
+import com.edplan.nso.ruleset.base.beatmap.Beatmap;
 import com.edplan.nso.ruleset.base.beatmap.BeatmapStorage;
 import com.edplan.framework.MContext;
 
@@ -16,6 +17,8 @@ import java.util.List;
 import android.os.Environment;
 
 import com.edplan.framework.utils.FileUtils;
+import com.edplan.nso.ruleset.base.beatmap.parser.BeatmapDecoder;
+import com.edplan.nso.ruleset.std.StdRuleset;
 
 /**
  * 将主要游戏的内核部分分离出来。
@@ -39,23 +42,33 @@ public class NsoCore {
 
     private ArrayList<Ruleset> rulesets = new ArrayList<>();
 
-    private HashMap<Class, Ruleset> class2ruleset = new HashMap<Class, Ruleset>();
-
     private BeatmapStorage beatmapStorage;
 
     private RulesetNameManager rulesetNameManager;
+
+    private BeatmapDecoder beatmapDecoder;
 
     public NsoCore(MContext context, NsoConfig conf) {
         this.config = (conf != null) ? conf : new NsoConfig();
         this.context = context;
         this.beatmapStorage = new BeatmapStorage(this);
+        beatmapDecoder = new BeatmapDecoder(this);
+    }
+
+    public BeatmapDecoder getBeatmapDecoder() {
+        return beatmapDecoder;
     }
 
     public Ruleset getRulesetById(String id) {
         return rulesetsMap.get(id);
     }
 
-    protected Loader load() {
+    private void registerRuleset(Ruleset ruleset) {
+        rulesetsMap.put(ruleset.getRulesetIdName(), ruleset);
+        rulesets.add(ruleset);
+    }
+
+    public Loader load() {
 
         final Loader loader = new Loader();
 
@@ -70,6 +83,7 @@ public class NsoCore {
                 /* BEGIN : 加载Ruleset Class */
                 mainProgress.setMessage("加载Ruleset Class");
                 mainProgress.setIntProgress(1);
+                registerRuleset(new StdRuleset(NsoCore.this));
 
                 /* END   : 加载Ruleset Class */
 
@@ -82,6 +96,9 @@ public class NsoCore {
                     r.applyName(rulesetNameManager);
                 }
                 /* END   : 初始化Ruleset Name */
+                for (Ruleset ruleset : rulesets) {
+                    ruleset.onLoad();
+                }
 
 
                 /* BEGIN : 加载铺面解析器 */
@@ -100,6 +117,11 @@ public class NsoCore {
 
                 databaseDir = new File(mainDir, "database");
                 FileUtils.checkExistDir(databaseDir);
+
+
+                if (loader.onLoadComplete != null) {
+                    loader.onLoadComplete.run();
+                }
             }
         };
         (new Thread(loadrun)).start();
@@ -133,6 +155,8 @@ public class NsoCore {
 
     public class Loader {
 
+        private Runnable onLoadComplete;
+
         ArrayList<ProgressHolder> progressHolders = new ArrayList<>();
 
         public synchronized void addProgress(ProgressHolder holder) {
@@ -147,6 +171,9 @@ public class NsoCore {
             return progressHolders;
         }
 
+        public void onLoadComplete(Runnable runnable) {
+            onLoadComplete = runnable;
+        }
     }
 }
 

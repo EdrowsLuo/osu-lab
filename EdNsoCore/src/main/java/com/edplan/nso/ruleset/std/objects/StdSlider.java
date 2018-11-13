@@ -4,6 +4,7 @@ import com.edplan.superutils.math.Vct2;
 
 import java.util.List;
 
+@Deprecated
 public class StdSlider extends StdHitObject {
     private int sliderIndex;
     private double pixelLength;

@@ -57,7 +57,7 @@ public class IniParser {
         page = new Page(tag);
         addPage(page);
         line = reader.readLine();
-        while (line != null) {
+        for (; line != null; line = reader.readLine()) {
             tmp = parseTag(line);
             if (tmp != null) {
                 tag = tmp;
@@ -75,7 +75,7 @@ public class IniParser {
         }
         pages.add(page);
         if (!pageByTag.containsKey(page.tag)) {
-            pageByTag.put(page.tag, new ArrayList<Page>());
+            pageByTag.put(page.tag, new ArrayList<>());
         }
         pageByTag.get(page.tag).add(page);
     }
@@ -109,9 +109,10 @@ public class IniParser {
     }
 
     public static String parseTag(String s) {
-        Matcher matcher = TAG_PATTERN.matcher(s);
-        if (matcher.groupCount() > 1) {
-            return matcher.group(1);
+        //Matcher matcher = TAG_PATTERN.matcher(s);
+        s = s.trim();
+        if (s.length() > 2 && s.charAt(0) == '[' && s.charAt(s.length() - 1) == ']') {
+            return s.substring(1, s.length() - 1);
         } else {
             return null;
         }

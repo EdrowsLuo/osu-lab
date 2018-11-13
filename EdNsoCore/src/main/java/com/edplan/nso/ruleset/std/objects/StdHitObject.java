@@ -2,6 +2,7 @@ package com.edplan.nso.ruleset.std.objects;
 
 import com.edplan.nso.ruleset.base.object.HitObject;
 
+@Deprecated
 public abstract class StdHitObject extends HitObject {
     private int startX;
     private int startY;

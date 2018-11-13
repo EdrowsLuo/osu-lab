@@ -872,15 +872,11 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
             currentY = event.getY();
             downTime = event.getTime();
             if (longclickable) {
-                post(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        if (isPressed()) {
-                            setPressed(false);
-                            clearPointerData();
-                            onLongClickEvent();
-                        }
+                post(() -> {
+                    if (isPressed()) {
+                        setPressed(false);
+                        clearPointerData();
+                        onLongClickEvent();
                     }
                 }, ViewConfiguration.LONGCLICK_DELAY_MS);
             }
@@ -977,22 +973,23 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
     }
 
     public OnFinishListener setVisibilityWhenFinish(final int code) {
-        return new OnFinishListener() {
-            @Override
-            public void onFinish() {
-
-                setVisiblility(code);
-            }
-        };
+        return () -> setVisiblility(code);
     }
 
     public OnProgressListener invalideDrawDuringAnimation() {
-        return new OnProgressListener() {
-            @Override
-            public void onProgress(double p) {
-
-                invalidateDraw();
-            }
-        };
+        return p->invalidateDraw();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

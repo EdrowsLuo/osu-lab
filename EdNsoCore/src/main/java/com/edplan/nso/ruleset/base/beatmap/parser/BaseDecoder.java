@@ -30,10 +30,12 @@ public abstract class BaseDecoder {
 
     protected void warning(String w) {
         warnings.add(w);
+        System.out.println("warning - " + w);
     }
 
     protected void error(String e) {
         errors.add(e);
+        System.out.println("error - " + e);
     }
 
     protected void prepareForParse(IniParser parser) {
@@ -53,11 +55,11 @@ public abstract class BaseDecoder {
     public class OpenInfo {
 
         public void warning(String w) {
-            warning(w);
+            BaseDecoder.this.warning(w);
         }
 
         public void error(String e) {
-            error(e);
+            BaseDecoder.this.error(e);
         }
     }
 }

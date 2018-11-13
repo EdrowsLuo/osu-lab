@@ -1,5 +1,6 @@
 package com.edplan.nso.ruleset.std.objects;
 
+@Deprecated
 public class StdSpinner extends StdHitObject {
     private int endTime;
 

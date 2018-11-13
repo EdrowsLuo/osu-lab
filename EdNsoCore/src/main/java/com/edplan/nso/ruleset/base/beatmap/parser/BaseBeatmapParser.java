@@ -1,14 +1,18 @@
 package com.edplan.nso.ruleset.base.beatmap.parser;
 
+import com.edplan.framework.test.performance.Tracker;
 import com.edplan.nso.NsoCore;
 import com.edplan.nso.filepart.PartColours;
 import com.edplan.nso.filepart.PartDifficulty;
 import com.edplan.nso.filepart.PartEditor;
+import com.edplan.nso.filepart.PartHitObjects;
 import com.edplan.nso.filepart.PartMetadata;
 import com.edplan.nso.filepart.PartTimingPoints;
 import com.edplan.nso.parser.IniParser;
 import com.edplan.nso.ruleset.base.Ruleset;
 import com.edplan.nso.ruleset.base.beatmap.Beatmap;
+import com.edplan.nso.ruleset.base.object.StdFormatHitObject;
+import com.edplan.superutils.classes.strings.StringSplitter;
 
 import org.json.JSONObject;
 
@@ -33,14 +37,31 @@ public class BaseBeatmapParser {
         Ruleset ruleset = core.getRulesetById(rulesetId);
         PartFactory factory = ruleset.getPartFactory();
 
-        beatmap.setRulesetId(rulesetId);
-        beatmap.setGeneral(factory.createPartGeneral(generalCache, info));
-        beatmap.setEditor(factory.createPartEditor(parserData.asOptionPage(PartEditor.TAG), info));
-        beatmap.setMetadata(factory.createPartMetadata(parserData.asOptionPage(PartMetadata.TAG), info));
-        beatmap.setDifficulty(factory.createPartDifficulty(parserData.asOptionPage(PartDifficulty.TAG), info));
-        beatmap.setColours(factory.createPartColors(parserData.asOptionPage(PartColours.TAG), info));
-        beatmap.setTimingPoints(factory.createPartTimingPoints(parserData.asCSVPage(PartTimingPoints.TAG), info));
+        //Tracker.createTmpNode("parse-parts").wrap(() -> {
+            beatmap.setRulesetId(rulesetId);
+            beatmap.setGeneral(factory.createPartGeneral(generalCache, info));
+            beatmap.setEditor(factory.createPartEditor(parserData.asOptionPage(PartEditor.TAG), info));
+            beatmap.setMetadata(factory.createPartMetadata(parserData.asOptionPage(PartMetadata.TAG), info));
+            beatmap.setDifficulty(factory.createPartDifficulty(parserData.asOptionPage(PartDifficulty.TAG), info));
+            beatmap.setColours(factory.createPartColors(parserData.asOptionPage(PartColours.TAG), info));
+            beatmap.setTimingPoints(factory.createPartTimingPoints(parserData.asCSVPage(PartTimingPoints.TAG), info));
+        //}).then(System.out::println);
 
+        return true;
+    }
+
+    public static boolean parseStdFormatHitObjects(Beatmap beatmap, IniParser parserData, BaseDecoder.OpenInfo info, StdFormatObjectParser parser) {
+        for (String line : parserData.getPageByTag(PartHitObjects.TAG).lines) {
+            if (line.isEmpty()) {
+                continue;
+            }
+            StdFormatHitObject object = parser.parse(new StringSplitter(line, ","), info);
+            if (object != null) {
+                beatmap.addHitObject(object);
+            } else {
+                return false;
+            }
+        }
         return true;
     }
 }

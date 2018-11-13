@@ -3,19 +3,20 @@ package com.edplan.nso.ruleset.base;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.ui.EdContainer;
+import com.edplan.nso.NsoCore;
 import com.edplan.nso.ruleset.base.beatmap.Beatmap;
 import com.edplan.nso.ruleset.base.beatmap.parser.BeatmapParser;
 import com.edplan.nso.ruleset.base.beatmap.parser.PartFactory;
 
 public abstract class Ruleset {
 
-    private final MContext context;
+    private final NsoCore context;
 
-    public Ruleset(MContext context) {
+    public Ruleset(NsoCore context) {
         this.context = context;
     }
 
-    public MContext getContext() {
+    public NsoCore getCore() {
         return context;
     }
 

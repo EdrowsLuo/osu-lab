@@ -39,7 +39,7 @@ public class PartEditor extends DataObject implements OsuFilePart {
     @Override
     protected void onLoadStruct(Struct struct) {
         struct.add(Bookmarks, String.class,
-                bookmarks::makeString,
+                () -> bookmarks != null ? bookmarks.makeString() : "",
                 s -> bookmarks = com.edplan.nso.beatmapComponent.Bookmarks.parse(s));
         loadStructAnnotation(struct);
     }

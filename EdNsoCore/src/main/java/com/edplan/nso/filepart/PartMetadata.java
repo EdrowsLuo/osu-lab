@@ -3,6 +3,7 @@ package com.edplan.nso.filepart;
 import com.edplan.framework.utils.dataobject.DataObject;
 import com.edplan.framework.utils.dataobject.ItemInfo;
 import com.edplan.framework.utils.dataobject.Struct;
+import com.edplan.framework.utils.dataobject.def.DefaultInt;
 import com.edplan.nso.OsuFilePart;
 import com.edplan.nso.beatmapComponent.Tags;
 import com.edplan.superutils.U;
@@ -23,23 +24,34 @@ public class PartMetadata extends DataObject implements OsuFilePart {
 
     @ItemInfo
     private String title = null;
+
     @ItemInfo
     private String titleUnicode = null;
+
     @ItemInfo
     private String artist = null;
+
     @ItemInfo
     private String artistUnicode = null;
+
     @ItemInfo
     private String creator = null;
+
     @ItemInfo
     private String version = null;
+
     @ItemInfo
     private String source = null;
+
     @ItemInfo
     private String tags = null;
+
     @ItemInfo
+    @DefaultInt(-1)
     private int beatmapID = -1;
+
     @ItemInfo
+    @DefaultInt(-1)
     private int beatmapSetID = -1;
 
     @Override
