@@ -10,7 +10,9 @@ public class ViewConfiguration {
 
     public static float START_SCROLL_OFFSET = 10;
 
-    public static float UI_UNIT = 1;
+    private static float UI_UNIT = 1;
+
+    private static float UI_SCALE = 1;
 
     public static float DEFAULT_TRANSITION_TIME = 100;
 
@@ -21,6 +23,6 @@ public class ViewConfiguration {
     }
 
     public static float dp(float dp) {
-        return UI_UNIT * dp;
+        return UI_SCALE * UI_UNIT * dp;
     }
 }

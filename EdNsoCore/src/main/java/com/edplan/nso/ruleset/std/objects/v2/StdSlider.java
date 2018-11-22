@@ -1,13 +1,11 @@
 package com.edplan.nso.ruleset.std.objects.v2;
 
 import com.edplan.framework.math.Vec2;
-import com.edplan.nso.NsoException;
 import com.edplan.nso.parser.ParseException;
 import com.edplan.nso.ruleset.std.objects.StdPath;
-import com.edplan.superutils.U;
 import com.edplan.superutils.classes.strings.StringSplitter;
 
-public class StdSlider extends StdHitObject {
+public class StdSlider extends StdGameObject {
 
     public static final int TYPE_MASK = 2;
 

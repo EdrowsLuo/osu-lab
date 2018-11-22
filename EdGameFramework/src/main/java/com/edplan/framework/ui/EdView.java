@@ -362,7 +362,6 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
 
     @Override
     public void post(Runnable r, double delayMS) {
-
         getContext().runOnUIThread(r, delayMS);
     }
 

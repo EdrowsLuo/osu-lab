@@ -1,13 +1,13 @@
 package com.edplan.nso.ruleset.std.objects;
 
-import com.edplan.nso.ruleset.base.object.HitObject;
-import com.edplan.nso.ruleset.base.object.HitObjects;
+import com.edplan.nso.ruleset.base.object.GameObject;
+import com.edplan.nso.ruleset.base.object.GameObjects;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Deprecated
-public class StdHitObjects<T extends StdHitObject> extends HitObjects<T> {
+public class StdHitObjects<T extends StdHitObject> extends GameObjects<T> {
     private List<T> hitObjects;
 
     public StdHitObjects() {
@@ -23,7 +23,7 @@ public class StdHitObjects<T extends StdHitObject> extends HitObjects<T> {
     }
 
     @Override
-    public void addHitObject(HitObject t) {
+    public void addHitObject(GameObject t) {
 
         if (t instanceof StdHitObject) {
             hitObjects.add((T) t);

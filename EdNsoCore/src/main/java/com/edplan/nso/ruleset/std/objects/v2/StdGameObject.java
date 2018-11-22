@@ -1,14 +1,12 @@
 package com.edplan.nso.ruleset.std.objects.v2;
 
 import com.edplan.framework.math.Vec2;
-import com.edplan.nso.NsoException;
 import com.edplan.nso.parser.ParseException;
-import com.edplan.nso.ruleset.base.object.StdFormatHitObject;
+import com.edplan.nso.ruleset.base.object.StdFormatGameObject;
 import com.edplan.nso.ruleset.std.objects.StdPath;
-import com.edplan.superutils.U;
 import com.edplan.superutils.classes.strings.StringSplitter;
 
-public abstract class StdHitObject extends StdFormatHitObject{
+public abstract class StdGameObject extends StdFormatGameObject {
 
 
 

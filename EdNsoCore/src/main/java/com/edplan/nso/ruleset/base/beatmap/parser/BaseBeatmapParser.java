@@ -1,6 +1,5 @@
 package com.edplan.nso.ruleset.base.beatmap.parser;
 
-import com.edplan.framework.test.performance.Tracker;
 import com.edplan.nso.NsoCore;
 import com.edplan.nso.filepart.PartColours;
 import com.edplan.nso.filepart.PartDifficulty;
@@ -11,7 +10,7 @@ import com.edplan.nso.filepart.PartTimingPoints;
 import com.edplan.nso.parser.IniParser;
 import com.edplan.nso.ruleset.base.Ruleset;
 import com.edplan.nso.ruleset.base.beatmap.Beatmap;
-import com.edplan.nso.ruleset.base.object.StdFormatHitObject;
+import com.edplan.nso.ruleset.base.object.StdFormatGameObject;
 import com.edplan.superutils.classes.strings.StringSplitter;
 
 import org.json.JSONObject;
@@ -55,7 +54,7 @@ public class BaseBeatmapParser {
             if (line.isEmpty()) {
                 continue;
             }
-            StdFormatHitObject object = parser.parse(new StringSplitter(line, ","), info);
+            StdFormatGameObject object = parser.parse(new StringSplitter(line, ","), info);
             if (object != null) {
                 beatmap.addHitObject(object);
             } else {

@@ -3,7 +3,7 @@ package com.edplan.nso.ruleset.std.objects.v2;
 import com.edplan.nso.parser.ParseException;
 import com.edplan.superutils.classes.strings.StringSplitter;
 
-public class StdSpinner extends StdHitObject {
+public class StdSpinner extends StdGameObject {
 
     public static final int TYPE_MASK = 8;
 

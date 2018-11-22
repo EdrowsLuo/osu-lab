@@ -1,10 +1,9 @@
 package com.edplan.nso.ruleset.base.object;
 
 import com.edplan.nso.parser.ParseException;
-import com.edplan.nso.ruleset.base.beatmap.parser.BaseDecoder;
 import com.edplan.superutils.classes.strings.StringSplitter;
 
-public abstract class StdFormatHitObject extends HitObject {
+public abstract class StdFormatGameObject extends GameObject {
 
     protected int x;
 

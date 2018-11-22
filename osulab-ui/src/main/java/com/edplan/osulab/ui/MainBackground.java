@@ -26,7 +26,7 @@ public class MainBackground extends RelativeLayout {
         float t = 0.1f, b = 0.1f;
         cd.setColor(Color4.gray(t), Color4.gray(t),
                 Color4.gray(b), Color4.gray(b));
-        setBackground(cd);
+        //setBackground(cd);
 
         textureSprite = new TextureSprite(c);
 

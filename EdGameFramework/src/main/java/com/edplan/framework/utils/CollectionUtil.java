@@ -31,4 +31,16 @@ public class CollectionUtil {
         }
         return false;
     }
+
+    public static <T> void forEach(Iterable<T> iterable, ForEachHandler<T> handler) {
+        Iterator<T> iterator = iterable.iterator();
+        while (iterator.hasNext()) {
+            handler.handle(iterator.next(), iterator);
+        }
+    }
+
+    @FunctionalInterface
+    public interface ForEachHandler<T>{
+        void handle(T target, Iterator<T> itr);
+    }
 }

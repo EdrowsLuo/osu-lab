@@ -1,11 +1,11 @@
 package com.edplan.nso.filepart;
 
 import com.edplan.nso.OsuFilePart;
-import com.edplan.nso.ruleset.base.object.HitObjects;
+import com.edplan.nso.ruleset.base.object.GameObject;
+import com.edplan.nso.ruleset.base.object.GameObjects;
 import com.edplan.nso.ruleset.ModeManager;
 import com.edplan.nso.NsoException;
 import com.edplan.nso.ruleset.std.objects.StdHitObjects;
-import com.edplan.nso.ruleset.base.object.HitObject;
 import com.edplan.nso.ruleset.base.parser.HitObjectReparser;
 import com.edplan.nso.ruleset.std.parser.StdHitObjectReparser;
 
@@ -16,11 +16,11 @@ import com.edplan.nso.ruleset.mania.objects.ManiaHitObjects;
 import com.edplan.nso.ruleset.std.objects.StdHitObject;
 
 public class PartHitObjects implements OsuFilePart {
-    public static final String TAG = "HitObjects";
+    public static final String TAG = "GameObjects";
 
     public int mode;
 
-    public HitObjects<?> hitObjects;
+    public GameObjects<?> hitObjects;
 
     public void initial(int mode) throws NsoException {
         this.mode = mode;
@@ -36,15 +36,15 @@ public class PartHitObjects implements OsuFilePart {
         }
     }
 
-    public void addHitObject(HitObject obj) {
+    public void addHitObject(GameObject obj) {
         hitObjects.addHitObject(obj);
     }
 
-    public HitObjects getHitObjects() {
+    public GameObjects getHitObjects() {
         return hitObjects;
     }
 
-    public <T extends HitObjects> T getHitObjects(Class<T> klass) {
+    public <T extends GameObjects> T getHitObjects(Class<T> klass) {
         return (T) getHitObjects();
     }
 
@@ -72,7 +72,7 @@ public class PartHitObjects implements OsuFilePart {
         }
         StringBuilder sb = new StringBuilder();
         try {
-            for (HitObject t : hitObjects.getHitObjectList()) {
+            for (GameObject t : hitObjects.getHitObjectList()) {
                 sb.append(rp.reparse(t)).append(U.NEXT_LINE);
             }
         } catch (NsoException e) {

@@ -1,13 +1,12 @@
 package com.edplan.nso.ruleset.mania.objects;
 
-import com.edplan.nso.ruleset.base.object.HitObject;
-import com.edplan.nso.ruleset.mania.objects.ManiaHolder;
+import com.edplan.nso.ruleset.base.object.GameObject;
 import com.edplan.nso.ruleset.std.objects.StdHitObject;
 import com.edplan.nso.ruleset.std.objects.StdHitObjects;
 
 public class ManiaHitObjects extends StdHitObjects {
     @Override
-    public void addHitObject(HitObject r) {
+    public void addHitObject(GameObject r) {
 
         if (r instanceof StdHitObject) {
             StdHitObject t = (StdHitObject) r;

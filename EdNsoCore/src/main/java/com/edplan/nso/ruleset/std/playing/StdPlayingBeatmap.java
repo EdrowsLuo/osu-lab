@@ -55,7 +55,7 @@ public class StdPlayingBeatmap extends PlayingBeatmap {
         int count = 0;
 
         if (!getHitObjects().get(0).isNewCombo()) {
-            Log.w("err-beatmap", "Beatmap's first HitObject must be a new combo");
+            Log.w("err-beatmap", "Beatmap's first GameObject must be a new combo");
             getHitObjects().get(0).setIsNewCombo(true);
         }
 
@@ -189,7 +189,7 @@ public class StdPlayingBeatmap extends PlayingBeatmap {
                         stackBaseObject.getHitObject() instanceof StdSlider && Vec2.length(stackBaseObject.getEndPoint(), objectN.getStartPoint()) < stack_distance) {
                     stackBaseIndex = n;
 
-                    // HitObjects after the specified update range haven't been reset yet
+                    // GameObjects after the specified update range haven't been reset yet
                     objectN.setStackHeight(0);
                 }
             }
@@ -238,7 +238,7 @@ public class StdPlayingBeatmap extends PlayingBeatmap {
                         //We are no longer within stacking range of the previous object.
                         break;
 
-                    // HitObjects before the specified update range haven't been reset yet
+                    // GameObjects before the specified update range haven't been reset yet
                     if (n < extendedStartIndex) {
                         objectN.setStackHeight(0);
                         extendedStartIndex = n;

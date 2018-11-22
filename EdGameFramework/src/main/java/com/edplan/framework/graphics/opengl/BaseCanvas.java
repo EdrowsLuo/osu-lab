@@ -23,6 +23,10 @@ import com.edplan.framework.math.Vec3;
 import com.edplan.framework.math.Vec4;
 import com.edplan.framework.utils.AbstractSRable;
 
+
+/**
+ * 事实证明，既然自己是辣鸡就别写Canvas这种重量级东西了x
+ */
 public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
     private float defZ = 0;
 

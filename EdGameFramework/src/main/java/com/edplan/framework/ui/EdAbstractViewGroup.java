@@ -128,33 +128,18 @@ public abstract class EdAbstractViewGroup extends EdView implements IHasAlpha{
 
     @Override
     public void onPause() {
-
         super.onPause();
-        doForAvailableChildren(new Invoker<EdView>() {
-            @Override
-            public void invoke(EdView t) {
-
-                t.onPause();
-            }
-        });
+        doForAvailableChildren(EdView::onPause);
     }
 
     @Override
     public void onResume() {
-
         super.onResume();
-        doForAvailableChildren(new Invoker<EdView>() {
-            @Override
-            public void invoke(EdView t) {
-
-                t.onResume();
-            }
-        });
+        doForAvailableChildren(EdView::onResume);
     }
 
     @Override
     public boolean onBackPressed() {
-
         final int c = getChildrenCount();
         for (int i = c - 1; i >= 0; i--) {
             final EdView view = getChildAt(i);
@@ -169,15 +154,8 @@ public abstract class EdAbstractViewGroup extends EdView implements IHasAlpha{
 
     @Override
     public void onLowMemory() {
-
         super.onLowMemory();
-        doForAvailableChildren(new Invoker<EdView>() {
-            @Override
-            public void invoke(EdView t) {
-
-                t.onLowMemory();
-            }
-        });
+        doForAvailableChildren(EdView::onLowMemory);
     }
 
     public void doForAvailableChildren(Invoker<EdView> invoker) {

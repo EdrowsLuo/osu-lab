@@ -7,6 +7,7 @@ import com.edplan.framework.utils.dataobject.def.DefaultFloat;
 import com.edplan.framework.utils.dataobject.def.DefaultInt;
 import com.edplan.framework.utils.dataobject.def.DefaultLong;
 import com.edplan.framework.utils.dataobject.def.DefaultString;
+import com.edplan.framework.utils.dataobject.def.DefaultValue;
 import com.edplan.framework.utils.reflect.ReflectHelper;
 
 import java.lang.annotation.Annotation;
@@ -14,6 +15,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 public class StructAnnotationLoader {
@@ -43,7 +45,7 @@ public class StructAnnotationLoader {
     public static <T extends DataObject> void load(T obj,Struct struct) {
         Class k = obj.getClass();
         if (!structLoaders.containsKey(k)) {
-            List<Struct.Loader> loaders = new ArrayList<>();
+            List<Struct.Loader> loaders = new LinkedList<>();
             ReflectHelper.forAllField(obj.getClass(), field -> {
                 field.setAccessible(true);
                 if (field.isAnnotationPresent(ItemInfo.class)) {
@@ -59,7 +61,14 @@ public class StructAnnotationLoader {
                         if (!Item.ALLOWED_CLASS.contains(klass)) {
                             throw new RuntimeException("error annotation: illegal type!");
                         }
-                        if (klass == Integer.class) {
+
+                        if (field.isAnnotationPresent(DefaultValue.class)) {
+                            loaders.add((o, s) -> s.add(
+                                    info, klass,
+                                    () -> (T) ReflectHelper.get(field, o),
+                                    i -> ReflectHelper.set(field, o, (T) i),
+                                    TypeData.convert(field.getType(), field.getAnnotation(DefaultValue.class).value())));
+                        } else if (klass == Integer.class) {
                             createLoader(loaders, field, info, klass, DefaultInt.class,
                                     () -> field.getAnnotation(DefaultInt.class).value());
                         } else if (klass == Long.class) {

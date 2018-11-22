@@ -8,7 +8,7 @@ import com.edplan.nso.filepart.PartEvents;
 import com.edplan.nso.filepart.PartGeneral;
 import com.edplan.nso.filepart.PartMetadata;
 import com.edplan.nso.filepart.PartTimingPoints;
-import com.edplan.nso.ruleset.base.object.HitObject;
+import com.edplan.nso.ruleset.base.object.GameObject;
 import com.edplan.nso.storyboard.Storyboard;
 
 import java.util.ArrayList;
@@ -27,14 +27,14 @@ public class Beatmap {
 
     private String rulesetId;
 
-    private List<HitObject> hitObjects = new ArrayList<>();
+    private List<GameObject> gameObjects = new ArrayList<>();
 
-    public void addHitObject(HitObject hitObject) {
-        hitObjects.add(hitObject);
+    public void addHitObject(GameObject gameObject) {
+        gameObjects.add(gameObject);
     }
 
-    public List<HitObject> getAllHitObjects() {
-        return hitObjects;
+    public List<GameObject> getAllHitObjects() {
+        return gameObjects;
     }
 
     public String getRulesetId() {

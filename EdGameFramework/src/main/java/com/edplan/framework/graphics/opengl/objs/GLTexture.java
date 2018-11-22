@@ -176,7 +176,7 @@ public class GLTexture extends AbstractTexture {
         return bmp;
     }
 
-    public void compress(File f, MContext context) throws FileNotFoundException, IOException {
+    public void compress(File f, MContext context) throws IOException {
         if (!f.exists()) f.createNewFile();
         toBitmap(context).compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(f));
     }

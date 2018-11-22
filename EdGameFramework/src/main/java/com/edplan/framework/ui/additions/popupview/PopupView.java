@@ -29,7 +29,6 @@ public class PopupView extends RelativeLayout implements Hideable {
 
     @Override
     public boolean onBackPressed() {
-
         if (isHideWhenBackpress()) {
             hide();
             return true;
@@ -47,13 +46,11 @@ public class PopupView extends RelativeLayout implements Hideable {
 
     @Override
     public final void hide() {
-
         onHide();
     }
 
     @Override
     public final void show() {
-
         getContext().getViewRoot().getPopupViewLayer().register(this);
         setVisiblility(VISIBILITY_SHOW);
         invalidateDraw();
@@ -62,7 +59,6 @@ public class PopupView extends RelativeLayout implements Hideable {
 
     @Override
     public boolean isHidden() {
-
         return getVisiblility() == VISIBILITY_GONE || getParent() == null;
     }
 }

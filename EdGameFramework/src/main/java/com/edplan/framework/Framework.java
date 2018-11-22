@@ -1,6 +1,7 @@
 package com.edplan.framework;
 
 import android.os.Environment;
+import android.os.SystemClock;
 
 import com.edplan.framework.utils.FileUtils;
 
@@ -43,5 +44,12 @@ public class Framework {
 
     public static long absoluteTimeMillion() {
         return System.currentTimeMillis();
+    }
+
+    /**
+     * @return 框架的标准时间
+     */
+    public static double frameworkTime() {
+        return SystemClock.currentThreadTimeMillis();
     }
 }
