@@ -30,7 +30,6 @@ public class GLWrapped {
     BooleanSetting depthTest = new BooleanSetting(new Setter<Boolean>() {
         @Override
         public void set(Boolean t) {
-
             if (t) {
                 if (GL_VERSION == 2) {
                     GLES20.glEnable(GLES20.GL_DEPTH_TEST);

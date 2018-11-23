@@ -47,6 +47,11 @@ public class BooleanSetting {
         }
     }
 
+    public void forceSet(boolean v) {
+        setter.set(v);
+        saves.getData().setValue(v);
+    }
+
     public int save() {
         return saves.save();
     }

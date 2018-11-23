@@ -248,16 +248,6 @@ public abstract class EdAbstractViewGroup extends EdView implements IHasAlpha{
         dispatchDraw(canvas);
         canvas.restore();
     }
-	
-	/*
-	private int holdingPointer=-1;
-	private EdView viewUsingPointer;
-	
-	protected void clearPointerInfo(){
-		holdingPointer=-1;
-		viewUsingPointer=null;
-	}
-	*/
 
     private PointerHolder holder;
 
@@ -266,12 +256,6 @@ public abstract class EdAbstractViewGroup extends EdView implements IHasAlpha{
         if (holder.ifIgnore(event)) return false;
 
         boolean useevent = false;
-		/*
-		//暂时只支持单点触控
-		if(holdingPointer!=-1&&holdingPointer!=event.getPointerId()){
-			return false;
-		}
-		*/
         final float x = event.getX(), y = event.getY();
         final EdView viewUsingPointer = holder.getHoldingView(event);
         if (viewUsingPointer != null) {

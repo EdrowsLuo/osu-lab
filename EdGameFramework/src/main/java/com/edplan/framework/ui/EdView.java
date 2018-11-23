@@ -113,12 +113,22 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
 
     private boolean masking = false;
 
+    private boolean onClickWhenDown = false;
+
     public EdView(MContext context) {
         this.context = context;
         if (!checkCurrentThread()) {
             throw new RuntimeException("you can only create a view in main thread!");
         }
         initialName();
+    }
+
+    public void setOnClickWhenDown(boolean onClickWhenDown) {
+        this.onClickWhenDown = onClickWhenDown;
+    }
+
+    public boolean isOnClickWhenDown() {
+        return onClickWhenDown;
     }
 
     public void setMasking(boolean masking) {
@@ -920,6 +930,9 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
                     }
                 }, ViewConfiguration.LONGCLICK_DELAY_MS);
             }
+            if (onClickWhenDown) {
+                onClickEvent();
+            }
         }
 
         public void move(EdMotionEvent event) {
@@ -936,7 +949,9 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
         public void up(EdMotionEvent event) {
             clearPointerData();
             setPressed(false);
-            onClickEvent();
+            if (!onClickWhenDown) {
+                onClickEvent();
+            }
         }
 
         public void cancel() {

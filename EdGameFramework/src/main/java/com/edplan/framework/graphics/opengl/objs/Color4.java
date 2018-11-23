@@ -21,6 +21,8 @@ public class Color4 {
 
     public static final Color4 Green = Color4.rgba(0, 1, 0, 1, true);
 
+    public static final Color4 Yellow = Color4.rgba(0, 1, 1, 1, true);
+
     public static final Color4 Red = Color4.rgba(1, 0, 0, 1, true);
 
     public float r, g, b, a;

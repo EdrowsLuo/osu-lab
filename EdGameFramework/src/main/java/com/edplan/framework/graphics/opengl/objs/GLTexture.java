@@ -36,6 +36,7 @@ public class GLTexture extends AbstractTexture {
     public static GLTexture Black;
     public static GLTexture Red;
     public static GLTexture Blue;
+    public static GLTexture Yellow;
     public static GLTexture ErrorTexture;
 
     public static boolean poor_font_mode = false;
@@ -339,6 +340,7 @@ public class GLTexture extends AbstractTexture {
         Black = create1pxTexture(Color4.Black);
         Red = create1pxTexture(Color4.Red);
         Blue = create1pxTexture(Color4.Blue);
+        Yellow = create1pxTexture(Color4.Yellow);
         ErrorTexture = createErrTexture();
     }
 

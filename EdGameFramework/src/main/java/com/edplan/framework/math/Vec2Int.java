@@ -126,7 +126,6 @@ public class Vec2Int {
 
     @Override
     public boolean equals(Object obj) {
-
         if (obj instanceof Vec2Int) {
             Vec2Int v = (Vec2Int) obj;
             return v.x == x && v.y == y;
