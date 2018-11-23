@@ -9,7 +9,7 @@ public final class LinkedNode<T> {
     public T value;
 
     /**
-     * 确保左侧连接的双向性
+     *
      */
     private void checkLeft() {
         if (pre != null) {
@@ -18,7 +18,7 @@ public final class LinkedNode<T> {
     }
 
     /**
-     * 确保右侧的连接的双向性
+     *
      */
     private void checkRight() {
         if (next != null) {

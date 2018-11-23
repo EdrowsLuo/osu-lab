@@ -33,7 +33,7 @@ public abstract class EdContainer extends EdAbstractViewGroup {
 
     private boolean needRefresh = true;
 
-    private Color4 clearColor = Color4.Alpha.copyNew();
+    private boolean useBuffer = false;
 
     public EdContainer(MContext c) {
         super(c);
@@ -41,6 +41,14 @@ public abstract class EdContainer extends EdAbstractViewGroup {
         layerPoster = new DefaultLayerPoster(c);
         layerCanvas = new GLCanvas2D(layer);
         postPaint = new GLPaint();
+    }
+
+    public void setUseBuffer(boolean useBuffer) {
+        this.useBuffer = useBuffer;
+    }
+
+    public boolean isUseBuffer() {
+        return useBuffer;
     }
 
     public boolean isNeedRefresh() {
@@ -122,18 +130,32 @@ public abstract class EdContainer extends EdAbstractViewGroup {
 		drawContainer(canvas);
 		*/
 
-        if (needRefresh || alwaysRefresh) {
-            needRefresh = false;
-            updateLayerSize(canvas);
-            updateCanvas(canvas);
-            layerCanvas.prepare();
-            layerCanvas.drawColor(clearColor);
-            layerCanvas.clearBuffer();
-            drawBackground(layerCanvas);
-            drawContainer(layerCanvas);
-            layerCanvas.unprepare();
+
+        if (useBuffer) {
+            if (needRefresh || alwaysRefresh) {
+                needRefresh = false;
+                updateLayerSize(canvas);
+                updateCanvas(canvas);
+                layerCanvas.prepare();
+                layerCanvas.clearBuffer();
+                drawBackground(layerCanvas);
+                drawContainer(layerCanvas);
+                layerCanvas.unprepare();
+            }
+            postLayer(canvas, layer, RectF.xywh(0, 0, getWidth(), getHeight()), postPaint);
+        } else {
+            canvas.unprepare();
+            BaseCanvas clip = canvas.requestClipCanvas(0, 0, Math.round(getWidth()), Math.round(getHeight()));
+            //clip.setCanvasAlpha(canvas.getCanvasAlpha());
+            clip.prepare();
+            //GLPaint paint = new GLPaint();
+            //clip.drawTexture(GLTexture.ErrorTexture, RectF.ltrb(0, 0, clip.getWidth(), clip.getHeight()), Color4.ONE, 0.3f);
+            drawBackground(clip);
+            drawContainer(clip);
+            clip.unprepare();
+            canvas.prepare();
         }
-        postLayer(canvas, layer, RectF.xywh(0, 0, getWidth(), getHeight()), postPaint);
+
     }
 
     protected void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, GLPaint paint) {
@@ -157,18 +179,11 @@ public abstract class EdContainer extends EdAbstractViewGroup {
 
     @Override
     protected void onDraw(BaseCanvas canvas) {
-
         dispatchDraw(canvas);
     }
 
-    @Override
-    public void setBackground(Color4 c) {
-        clearColor.set(c);
-        invalidateDraw();
-    }
-
     public interface LayerPoster {
-        public void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, GLPaint paint);
+        void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, GLPaint paint);
     }
 
     public static class DefaultLayerPoster implements LayerPoster {

@@ -53,8 +53,8 @@ public class BufferedLayer {
             this.ox = ox + layer.ox;
             this.oy = oy + layer.oy;
         } else {
-            this.ox = ox;
-            this.oy = oy;
+            this.ox = ox + layer.ox;
+            this.oy = oy + layer.oy;
         }
 
         this.permissionToTexture = false;

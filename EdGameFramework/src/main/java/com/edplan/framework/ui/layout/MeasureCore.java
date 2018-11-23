@@ -92,7 +92,7 @@ public class MeasureCore {
                         rmode = EdMeasureSpec.MODE_DEFINEDED;
                         break;
                     case Param.DP:
-                        rsize = Param.getSize(childDimension) * ViewConfiguration.UI_UNIT;
+                        rsize = Param.getSize(childDimension) * ViewConfiguration.uu();
                         rmode = EdMeasureSpec.MODE_DEFINEDED;
                         break;
                     default:
@@ -120,7 +120,7 @@ public class MeasureCore {
                         rmode = EdMeasureSpec.MODE_DEFINEDED;
                         break;
                     case Param.DP:
-                        rsize = Param.getSize(childDimension) * ViewConfiguration.UI_UNIT;
+                        rsize = Param.getSize(childDimension) * ViewConfiguration.uu();
                         rmode = EdMeasureSpec.MODE_DEFINEDED;
                         break;
                     default:
@@ -146,7 +146,7 @@ public class MeasureCore {
                         rmode = EdMeasureSpec.MODE_NONE;
                         break;
                     case Param.DP:
-                        rsize = Param.getSize(childDimension) * ViewConfiguration.UI_UNIT;
+                        rsize = Param.getSize(childDimension) * ViewConfiguration.uu();
                         rmode = EdMeasureSpec.MODE_NONE;
                         break;
                     default:

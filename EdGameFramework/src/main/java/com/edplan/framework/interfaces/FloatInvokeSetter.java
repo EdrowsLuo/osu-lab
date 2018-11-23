@@ -1,5 +1,6 @@
 package com.edplan.framework.interfaces;
 
+@FunctionalInterface
 public interface FloatInvokeSetter<T> {
-    public void invoke(T target, float v);
+    void invoke(T target, float v);
 }

@@ -55,11 +55,10 @@ public class RenderStatPopupView extends PopupView {
         setHideWhenBackpress(false);
     }
 
-    public static void setInstance(RenderStatPopupView _instance) {
-        instance = _instance;
-    }
-
-    public static RenderStatPopupView getInstance() {
+    public static RenderStatPopupView getInstance(MContext context) {
+        if (instance == null) {
+            instance = new RenderStatPopupView(context);
+        }
         return instance;
     }
 

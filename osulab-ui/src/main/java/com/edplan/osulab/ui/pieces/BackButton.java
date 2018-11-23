@@ -56,7 +56,6 @@ public class BackButton extends EdView implements Hideable {
 
     @Override
     public void onInitialLayouted() {
-
         super.onInitialLayouted();
         directHide();
     }

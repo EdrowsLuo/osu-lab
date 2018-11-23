@@ -26,13 +26,11 @@ public class GLCanvas2D extends BaseCanvas // extends AbstractSRable<CanvasData>
 
     @Override
     public void onRestore(CanvasData now, CanvasData pre) {
-
         pre.recycle();
     }
 
     @Override
     public CanvasData getDefData() {
-
         CanvasData d = new CanvasData();
         d.setCurrentProjMatrix(layer.createProjMatrix());
         d.setCurrentMaskMatrix(Mat4.createIdentity());
@@ -44,19 +42,16 @@ public class GLCanvas2D extends BaseCanvas // extends AbstractSRable<CanvasData>
 
     @Override
     public BlendSetting getBlendSetting() {
-
         return GLWrapped.blend;
     }
 
     @Override
     public int getDefHeight() {
-
         return layer.getHeight();
     }
 
     @Override
     public int getDefWidth() {
-
         return layer.getWidth();
     }
 
@@ -122,6 +117,10 @@ public class GLCanvas2D extends BaseCanvas // extends AbstractSRable<CanvasData>
         return true;
     }
 
+    /**
+     * 有bug啊
+     */
+    @Deprecated
     @Override
     protected BaseCanvas clipCanvas(int x, int y, int width, int height) {
         return new GLCanvas2D(new BufferedLayer(layer, (int) getData().getTheOrigin().x + x, (int) getData().getTheOrigin().y + y, width, height));
@@ -134,7 +133,6 @@ public class GLCanvas2D extends BaseCanvas // extends AbstractSRable<CanvasData>
 
     @Override
     protected void finalize() throws Throwable {
-
         super.finalize();
     }
 }

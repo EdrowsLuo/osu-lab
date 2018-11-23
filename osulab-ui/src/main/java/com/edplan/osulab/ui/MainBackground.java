@@ -32,8 +32,8 @@ public class MainBackground extends RelativeLayout {
 
         try {
             testTexture = getContext().getAssetResource().subResource("osu/ui").loadTexture(
-                    //"menu-background-1.jpg"
-                    "logo.png"
+                    "menu-background-1.jpg"
+                    //"logo.png"
             );
         } catch (IOException e) {
             e.printStackTrace();

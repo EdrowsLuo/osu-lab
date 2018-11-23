@@ -184,7 +184,6 @@ public abstract class EdAbstractViewGroup extends EdView implements IHasAlpha{
 
     @Override
     public void performAnimation(double deltaTime) {
-
         super.performAnimation(deltaTime);
         final int count = getChildrenCount();
         for (int i = 0; i < count; i++) {
@@ -197,7 +196,6 @@ public abstract class EdAbstractViewGroup extends EdView implements IHasAlpha{
 
     @Override
     public final void layout(float left, float top, float right, float bottom) {
-
         if (transition == null || !transition.isChangingLayout()) {
             if (transition != null) {
                 transition.layoutChange(this);

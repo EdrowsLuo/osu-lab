@@ -105,8 +105,7 @@ public class LabActivity extends EdMainActivity {
         @Override
         public void onInitialLayouted() {
             super.onInitialLayouted();
-            RenderStatPopupView.setInstance(new RenderStatPopupView(getContext()));
-            RenderStatPopupView.getInstance().show();
+            RenderStatPopupView.getInstance(getContext()).show();
             PopupToast.toast(getContext(), "create").show();
             Log.i("test", "create");
         }

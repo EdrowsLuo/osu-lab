@@ -93,7 +93,6 @@ public class GLWrapped {
     private static int px1, pw, py1, ph;
 
     public static void setViewport(int x1, int y1, int w, int h) {
-        //if(!(px1==x1&&px2==x2&&py1==y1&&py2==y2)){
         if (GL_VERSION == 2) {
             GLES20.glViewport(x1, y1, w, h);
         } else {
@@ -103,8 +102,9 @@ public class GLWrapped {
         pw = w;
         py1 = y1;
         ph = h;
-        //}
     }
+
+
 
     public static void setClearColor(float r, float g, float b, float a) {
         if (GL_VERSION == 2) {

@@ -21,18 +21,19 @@ import com.edplan.framework.ui.widget.TextView;
 import com.edplan.framework.ui.widget.ScrollContainer;
 import com.edplan.framework.ui.layout.Orientation;
 import com.edplan.osulab.ui.pieces.LabButton;
+import com.edplan.osulab.ui.pieces.TextButton;
 
 /**
  *
  */
 public class SceneOverlay extends RelativeLayout implements Hideable {
-    LabButton button;
+    TextButton button;
     TextView text;
 
 
     public SceneOverlay(MContext c) {
         super(c);
-        setClickable(true);
+        //setClickable(true);
         ColorDrawable cd = new ColorDrawable(c);
         cd.setColor(Color4.rgba(0, 0, 0, 0.6f),
                 Color4.rgba(0, 0, 0, 0.6f),
@@ -40,7 +41,8 @@ public class SceneOverlay extends RelativeLayout implements Hideable {
                 Color4.rgba(0, 0, 0, 0.4f));
         setBackground(cd);
         {
-            button = new LabButton(c);
+            button = new TextButton(c);
+            button.setText("BUTTON");
             RelativeLayout.RelativeParam p1 = new RelativeLayout.RelativeParam();
             p1.marginLeft = p1.marginRight = ViewConfiguration.dp(10);
             p1.width = Param.MODE_MATCH_PARENT;
@@ -91,27 +93,22 @@ public class SceneOverlay extends RelativeLayout implements Hideable {
 
     @Override
     public void onInitialLayouted() {
-
         super.onInitialLayouted();
         directHide();
     }
 
     @Override
     public void hide() {
-        ComplexAnimationBuilder builder = ComplexAnimationBuilder.start(new FloatQueryAnimation<SceneOverlay>(this, "alpha")
+        ComplexAnimationBuilder builder = ComplexAnimationBuilder.start(new FloatQueryAnimation<>(this::setAlpha)
                 .transform(getAlpha(), 0, Easing.None)
                 .transform(0, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.None));
-        builder.together(new FloatQueryAnimation<SceneOverlay>(this, "offsetY")
+        builder.together(new FloatQueryAnimation<>(this::setOffsetY)
                 .transform(getOffsetY(), 0, Easing.None)
                 .transform(getHeight(), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.InQuad));
         ComplexAnimation anim = builder.build();
-        anim.setOnFinishListener(new OnFinishListener() {
-            @Override
-            public void onFinish() {
-
-                setVisiblility(VISIBILITY_GONE);
-                BackQuery.get().unregist(SceneOverlay.this);
-            }
+        anim.setOnFinishListener(() -> {
+            setVisiblility(VISIBILITY_GONE);
+            BackQuery.get().unregist(SceneOverlay.this);
         });
         anim.start();
         setAnimation(anim);
@@ -140,7 +137,6 @@ public class SceneOverlay extends RelativeLayout implements Hideable {
 
     @Override
     public boolean isHidden() {
-
         return getVisiblility() == VISIBILITY_GONE;
     }
 }

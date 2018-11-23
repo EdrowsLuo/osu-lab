@@ -2,12 +2,13 @@ package com.edplan.framework.ui.additions;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.ui.EdAbstractViewGroup;
+import com.edplan.framework.ui.EdContainer;
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.layout.EdLayoutParam;
 import com.edplan.framework.ui.layout.EdMeasureSpec;
 import com.edplan.framework.ui.layout.Param;
 
-public class RootContainer extends EdAbstractViewGroup {
+public class RootContainer extends EdContainer {
     /**
      * 内容层
      */
@@ -21,7 +22,8 @@ public class RootContainer extends EdAbstractViewGroup {
     public RootContainer(MContext c) {
         super(c);
         //setPixelScale(1);
-        //setAlwaysRefresh(true);
+        setUseBuffer(true);
+        setAlwaysRefresh(true);
         {
             EdLayoutParam p = new EdLayoutParam();
             p.width = Param.MODE_MATCH_PARENT;

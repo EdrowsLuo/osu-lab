@@ -22,6 +22,10 @@ public class ViewConfiguration {
         Log.v("ViewConfiguration", "set UI_UNIT=" + UI_UNIT);
     }
 
+    public static float uu() {
+        return UI_SCALE * UI_UNIT;
+    }
+
     public static float dp(float dp) {
         return UI_SCALE * UI_UNIT * dp;
     }

@@ -23,7 +23,7 @@ public class FastTextureSpriteShader extends TextureSpriteShader{
     }
 
     static {
-        VERTEX_SHADER = StringUtil.link(StringUtil.LINE_BREAK, new String[]{
+        VERTEX_SHADER = StringUtil.link(StringUtil.LINE_BREAK,
                 "uniform mat4 u_MVPMatrix;",
                 "attribute vec3 a_Position;",
                 "attribute vec2 a_TextureCoord;",
@@ -31,17 +31,15 @@ public class FastTextureSpriteShader extends TextureSpriteShader{
                 "void main(){",
                 "    f_TextureCoord=a_TextureCoord;",
                 "    gl_Position=u_MVPMatrix*vec4(a_Position,1.0);",
-                "}"
-        });
-        FRAGMENT_SHADER = StringUtil.link(StringUtil.LINE_BREAK, new String[]{
+                "}");
+        FRAGMENT_SHADER = StringUtil.link(StringUtil.LINE_BREAK,
                 "precision mediump float;",
                 "varying vec2 f_TextureCoord;",
                 "uniform sampler2D u_Texture;",
                 "uniform float u_Alpha;",
                 "void main(){",
                 "    gl_FragColor=u_Alpha*texture2D(u_Texture,f_TextureCoord);",
-                "}"
-        });
+                "}");
     }
 
     @PointerName

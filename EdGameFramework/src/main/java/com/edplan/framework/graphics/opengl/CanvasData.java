@@ -28,7 +28,7 @@ public class CanvasData implements Recycleable, Copyable {
         this.height = c.height;
         this.pixelDensity = c.pixelDensity;
         this.canvasAlpha = c.canvasAlpha;
-        this.theOrigin.set(theOrigin);
+        this.theOrigin.set(c.theOrigin);
         this.shaders = new ShaderManager(c.shaders);
     }
 
@@ -147,8 +147,7 @@ public class CanvasData implements Recycleable, Copyable {
         if (s == 0)
             throw new IllegalArgumentException("you can't scale content using a scale rate ==0");
         float rs = 1 / s;
-        getCurrentMaskMatrix().scale(rs, rs, 1);
-        freshMatrix();
+        scale(rs, rs);
         this.pixelDensity *= s;
         return this;
     }
@@ -175,13 +174,11 @@ public class CanvasData implements Recycleable, Copyable {
 
     @Override
     public void recycle() {
-
         this.camera = null;
     }
 
     @Override
     public Copyable copy() {
-
         return new CanvasData(this);
     }
 }

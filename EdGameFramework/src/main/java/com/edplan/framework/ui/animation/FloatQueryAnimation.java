@@ -5,6 +5,7 @@ import com.edplan.framework.interfaces.FloatReflectionInvokeSetter;
 import com.edplan.framework.ui.animation.interfaces.IHasAlpha;
 import com.edplan.framework.ui.animation.interpolate.RawFloatInterpolator;
 import com.edplan.framework.ui.animation.precise.BasePreciseAnimation;
+import com.edplan.framework.utils.Setter;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -33,6 +34,10 @@ public class FloatQueryAnimation<T> extends BasePreciseAnimation {
 
     public FloatQueryAnimation(T target, FloatInvokeSetter<T> setter) {
         this(target, 0, RawFloatInterpolator.Instance, setter, true);
+    }
+
+    public FloatQueryAnimation(Setter<Float> setter) {
+        this(null, 0, RawFloatInterpolator.Instance, (v,f) -> setter.set(f), true);
     }
 
     public FloatQueryAnimation(T target, double initialOffset, RawFloatInterpolator interpolator, FloatInvokeSetter<T> setter, boolean alwaysInitial) {
