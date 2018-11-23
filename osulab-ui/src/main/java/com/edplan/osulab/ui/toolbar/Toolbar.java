@@ -89,15 +89,12 @@ public class Toolbar extends RelativeLayout implements Hideable {
                 MarginLayoutParam lparam = new MarginLayoutParam();
                 lparam.width = Param.makeupScaleOfParentOtherParam(1.6f);
                 lparam.height = Param.MODE_MATCH_PARENT;
-                msgShowButton.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(EdView view) {
-                        OptionList list = LabGame.get().getOptionList();
-                        if (list.getVisiblility() == VISIBILITY_GONE) {
-                            list.show();
-                        } else {
-                            list.hide();
-                        }
+                msgShowButton.setOnClickListener(view -> {
+                    OptionList list = LabGame.get().getOptionList();
+                    if (list.getVisiblility() == VISIBILITY_GONE) {
+                        list.show();
+                    } else {
+                        list.hide();
                     }
                 });
                 leftLayout.addView(msgShowButton, lparam);
@@ -126,24 +123,20 @@ public class Toolbar extends RelativeLayout implements Hideable {
                 ToolBarButton msgShowButton = new ToolBarButton(c);
                 msgShowButton.setGravity(Gravity.Center);
                 msgShowButton.setIcon(FontAwesome.fa_music.getTexture());
-                msgShowButton.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(EdView view) {
-
-                        SongPanel panel = SongPanel.getInstance();
-                        if (panel == null) {
-                            panel = new SongPanel(getContext());
-                            SongPanel.setInstance(panel);
+                msgShowButton.setOnClickListener(view -> {
+                    SongPanel panel = SongPanel.getInstance();
+                    if (panel == null) {
+                        panel = new SongPanel(getContext());
+                        SongPanel.setInstance(panel);
+                        panel.show();
+                        //PopupToast.toast(getContext(),"create show").show();
+                    } else {
+                        //PopupToast.toast(getContext(),""+panel.isHidden()).show();
+                        if (panel.isHidden()) {
                             panel.show();
-                            //PopupToast.toast(getContext(),"create show").show();
                         } else {
-                            //PopupToast.toast(getContext(),""+panel.isHidden()).show();
-                            if (panel.isHidden()) {
-                                panel.show();
-                            } else {
-                                panel.hide();
-                                //SongPanel.setInstance(null);
-                            }
+                            panel.hide();
+                            //SongPanel.setInstance(null);
                         }
                     }
                 });
@@ -166,14 +159,11 @@ public class Toolbar extends RelativeLayout implements Hideable {
                 ToolBarButton msgShowButton = new ToolBarButton(c);
                 msgShowButton.setGravity(Gravity.Center);
                 msgShowButton.setIcon(FontAwesome.fa_angle_double_down.getTexture());
-                msgShowButton.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(EdView view) {
-                        if (LabGame.get().getSceneOverlay().getVisiblility() != VISIBILITY_GONE) {
-                            LabGame.get().getSceneOverlay().hide();
-                        } else {
-                            LabGame.get().getSceneOverlay().show();
-                        }
+                msgShowButton.setOnClickListener(view -> {
+                    if (LabGame.get().getSceneOverlay().getVisiblility() != VISIBILITY_GONE) {
+                        LabGame.get().getSceneOverlay().hide();
+                    } else {
+                        LabGame.get().getSceneOverlay().show();
                     }
                 });
                 MarginLayoutParam lparam = new MarginLayoutParam();
@@ -199,14 +189,11 @@ public class Toolbar extends RelativeLayout implements Hideable {
                 lparam.width = Param.makeUpDP(40);
                 lparam.height = Param.MODE_MATCH_PARENT;
                 rightLayout.addView(msgShowButton, lparam);
-                msgShowButton.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(EdView view) {
-                        if (!LabGame.get().getMessageList().isHidden()) {
-                            LabGame.get().getMessageList().hide();
-                        } else {
-                            LabGame.get().getMessageList().show();
-                        }
+                msgShowButton.setOnClickListener(view -> {
+                    if (!LabGame.get().getMessageList().isHidden()) {
+                        LabGame.get().getMessageList().hide();
+                    } else {
+                        LabGame.get().getMessageList().show();
                     }
                 });
             }
@@ -248,13 +235,7 @@ public class Toolbar extends RelativeLayout implements Hideable {
                 .transform(getOffsetY(), 0, Easing.None)
                 .transform(-getHeight(), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.InQuad));
         ComplexAnimation anim = builder.build();
-        anim.setOnFinishListener(new OnFinishListener() {
-            @Override
-            public void onFinish() {
-
-                setVisiblility(VISIBILITY_GONE);
-            }
-        });
+        anim.setOnFinishListener(() -> setVisiblility(VISIBILITY_GONE));
         anim.start();
         setAnimation(anim);
     }
@@ -280,15 +261,11 @@ public class Toolbar extends RelativeLayout implements Hideable {
     }
 
     private void postHighlightOff(double offset) {
-        post(new Runnable() {
-            @Override
-            public void run() {
-
-                if (Framework.relativePreciseTimeMillion() - preTouchTime > 700) {
-                    highlightOff();
-                } else {
-                    postHighlightOff(100);
-                }
+        post(() -> {
+            if (Framework.relativePreciseTimeMillion() - preTouchTime > 700) {
+                highlightOff();
+            } else {
+                postHighlightOff(100);
             }
         }, offset);
     }
@@ -301,12 +278,7 @@ public class Toolbar extends RelativeLayout implements Hideable {
                 .transform(getShadowHeight(), 0, Easing.None)
                 .transform(highlightShadowHeight, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.OutQuad));
         ComplexAnimation anim = builder.build();
-        anim.setOnFinishListener(new OnFinishListener() {
-            @Override
-            public void onFinish() {
-                postHighlightOff(1000);
-            }
-        });
+        anim.setOnFinishListener(() -> postHighlightOff(1000));
         anim.start();
         setAnimation(anim);
         highlight = true;
@@ -320,12 +292,7 @@ public class Toolbar extends RelativeLayout implements Hideable {
                 .transform(getShadowHeight(), 0, Easing.None)
                 .transform(normalShadowHeight, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.InQuad));
         ComplexAnimation anim = builder.build();
-        anim.setOnFinishListener(new OnFinishListener() {
-            @Override
-            public void onFinish() {
-                highlight = false;
-            }
-        });
+        anim.setOnFinishListener(() -> highlight = false);
         anim.start();
         setAnimation(anim);
     }
@@ -387,7 +354,6 @@ public class Toolbar extends RelativeLayout implements Hideable {
 
         @Override
         protected void onDraw(BaseCanvas canvas) {
-
             super.onDraw(canvas);
             shadowSprite.setArea(RectF.xywh(0, canvas.getHeight(), canvas.getWidth(), ViewConfiguration.dp(shadowHeight)));
             shadowSprite.draw(canvas);

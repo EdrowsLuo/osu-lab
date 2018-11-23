@@ -1,10 +1,7 @@
 package com.edplan.nso.ruleset.base;
 
-import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
-import com.edplan.framework.ui.EdContainer;
 import com.edplan.nso.NsoCore;
-import com.edplan.nso.ruleset.base.beatmap.Beatmap;
 import com.edplan.nso.ruleset.base.beatmap.parser.BeatmapParser;
 import com.edplan.nso.ruleset.base.beatmap.parser.PartFactory;
 

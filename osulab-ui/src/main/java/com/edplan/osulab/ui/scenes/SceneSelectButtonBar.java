@@ -415,15 +415,11 @@ public class SceneSelectButtonBar extends RelativeLayout implements Hideable, Ba
     }
 
     private void delayHide(double delay) {
-        post(new Runnable() {
-            @Override
-            public void run() {
-
-                if (Framework.relativePreciseTimeMillion() - updateClock > 10000) {
-                    if (!isHidden()) hide();
-                } else {
-                    delayHide(2000);
-                }
+        post(() -> {
+            if (Framework.relativePreciseTimeMillion() - updateClock > 10000) {
+                if (!isHidden()) hide();
+            } else {
+                delayHide(2000);
             }
         }, delay);
     }
@@ -442,9 +438,8 @@ public class SceneSelectButtonBar extends RelativeLayout implements Hideable, Ba
     }
 
     @Override
-    protected void onDraw(BaseCanvas canvas) {
-
-
+    protected void onDrawBackgroundLayer(BaseCanvas canvas) {
+        super.onDrawBackgroundLayer(canvas);
         float shadowScale = 0.5f + JumpingCircle.glowProgress / 2;
 
         shadowSpriteTop.setArea(RectF.anchorOWH(Anchor.BottomLeft, 0, 0, canvas.getWidth(), ViewConfiguration.dp(shadowDp * shadowScale) * 0.5f));
@@ -452,9 +447,6 @@ public class SceneSelectButtonBar extends RelativeLayout implements Hideable, Ba
 
         shadowSpriteBottom.setArea(RectF.anchorOWH(Anchor.TopLeft, 0, canvas.getHeight(), canvas.getWidth(), ViewConfiguration.dp(shadowDp * shadowScale)));
         shadowSpriteBottom.draw(canvas);
-
-
-        super.onDraw(canvas);
     }
 
     private class ButtonGroup implements Hideable {

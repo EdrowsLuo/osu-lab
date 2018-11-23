@@ -9,18 +9,14 @@ import com.edplan.framework.ui.animation.ComplexAnimation;
 import com.edplan.framework.ui.animation.ComplexAnimationBuilder;
 import com.edplan.framework.ui.animation.Easing;
 import com.edplan.framework.ui.animation.FloatQueryAnimation;
-import com.edplan.framework.ui.animation.callback.OnFinishListener;
 import com.edplan.framework.ui.drawable.ColorDrawable;
-import com.edplan.framework.ui.widget.RelativeContainer;
 import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.layout.Param;
 import com.edplan.framework.ui.layout.Gravity;
-import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.widget.component.Hideable;
 import com.edplan.framework.ui.widget.TextView;
-import com.edplan.framework.ui.widget.ScrollContainer;
+import com.edplan.framework.ui.widget.ScrollLayout;
 import com.edplan.framework.ui.layout.Orientation;
-import com.edplan.osulab.ui.pieces.LabButton;
 import com.edplan.osulab.ui.pieces.TextButton;
 
 /**
@@ -61,7 +57,7 @@ public class SceneOverlay extends RelativeLayout implements Hideable {
             addView(button, p1);
         }
         {
-            ScrollContainer sc = new ScrollContainer(c);
+            ScrollLayout sc = new ScrollLayout(c);
             sc.setOrientation(Orientation.DIRECTION_T2B);
             RelativeLayout.RelativeParam p1 = new RelativeLayout.RelativeParam();
             p1.marginTop = ViewConfiguration.dp(30);

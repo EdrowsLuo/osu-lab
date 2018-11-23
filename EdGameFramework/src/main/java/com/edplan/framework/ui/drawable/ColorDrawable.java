@@ -28,7 +28,6 @@ public class ColorDrawable extends EdDrawable {
 
     @Override
     public void draw(BaseCanvas canvas) {
-
         sprite.setArea(RectF.xywh(0, 0, canvas.getWidth(), canvas.getHeight()));
         sprite.draw(canvas);
     }

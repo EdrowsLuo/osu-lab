@@ -18,7 +18,7 @@ import com.edplan.framework.ui.drawable.sprite.RoundedShadowSprite;
 /**
  * 单独绘制一个FBO，然后再绘制到父View上，可以附加边缘效果
  */
-public abstract class EdContainer extends EdAbstractViewGroup {
+public abstract class EdBufferedContainer extends EdAbstractViewGroup {
     private BufferedLayer layer;
 
     private BaseCanvas layerCanvas;
@@ -33,22 +33,12 @@ public abstract class EdContainer extends EdAbstractViewGroup {
 
     private boolean needRefresh = true;
 
-    private boolean useBuffer = false;
-
-    public EdContainer(MContext c) {
+    public EdBufferedContainer(MContext c) {
         super(c);
         layer = new BufferedLayer(c);
         layerPoster = new DefaultLayerPoster(c);
         layerCanvas = new GLCanvas2D(layer);
         postPaint = new GLPaint();
-    }
-
-    public void setUseBuffer(boolean useBuffer) {
-        this.useBuffer = useBuffer;
-    }
-
-    public boolean isUseBuffer() {
-        return useBuffer;
     }
 
     public boolean isNeedRefresh() {
@@ -124,38 +114,17 @@ public abstract class EdContainer extends EdAbstractViewGroup {
 
     @Override
     protected void dispatchDraw(BaseCanvas canvas) {
-
-		/*
-		drawBackground(canvas);
-		drawContainer(canvas);
-		*/
-
-
-        if (useBuffer) {
-            if (needRefresh || alwaysRefresh) {
-                needRefresh = false;
-                updateLayerSize(canvas);
-                updateCanvas(canvas);
-                layerCanvas.prepare();
-                layerCanvas.clearBuffer();
-                drawBackground(layerCanvas);
-                drawContainer(layerCanvas);
-                layerCanvas.unprepare();
-            }
-            postLayer(canvas, layer, RectF.xywh(0, 0, getWidth(), getHeight()), postPaint);
-        } else {
-            canvas.unprepare();
-            BaseCanvas clip = canvas.requestClipCanvas(0, 0, Math.round(getWidth()), Math.round(getHeight()));
-            //clip.setCanvasAlpha(canvas.getCanvasAlpha());
-            clip.prepare();
-            //GLPaint paint = new GLPaint();
-            //clip.drawTexture(GLTexture.ErrorTexture, RectF.ltrb(0, 0, clip.getWidth(), clip.getHeight()), Color4.ONE, 0.3f);
-            drawBackground(clip);
-            drawContainer(clip);
-            clip.unprepare();
-            canvas.prepare();
+        if (needRefresh || alwaysRefresh) {
+            needRefresh = false;
+            updateLayerSize(canvas);
+            updateCanvas(canvas);
+            layerCanvas.prepare();
+            layerCanvas.clearBuffer();
+            drawBackground(layerCanvas);
+            drawContainer(layerCanvas);
+            layerCanvas.unprepare();
         }
-
+        postLayer(canvas, layer, RectF.xywh(0, 0, getWidth(), getHeight()), postPaint);
     }
 
     protected void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, GLPaint paint) {

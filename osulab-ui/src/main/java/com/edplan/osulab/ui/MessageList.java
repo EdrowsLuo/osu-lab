@@ -16,14 +16,12 @@ import com.edplan.framework.ui.layout.Gravity;
 import com.edplan.framework.ui.layout.MarginLayoutParam;
 import com.edplan.framework.ui.layout.Orientation;
 import com.edplan.framework.ui.layout.Param;
-import com.edplan.framework.ui.widget.ScrollContainer;
+import com.edplan.framework.ui.widget.ScrollLayout;
 import com.edplan.framework.ui.widget.TextView;
 import com.edplan.framework.ui.widget.component.Hideable;
-import com.edplan.osulab.ui.BackQuery;
-import com.edplan.osulab.ui.MessageList;
 import com.edplan.framework.ui.Anchor;
 
-public class MessageList extends ScrollContainer implements Hideable {
+public class MessageList extends ScrollLayout implements Hideable {
     private ColorRectSprite shadowSprite;
 
     public MessageList(MContext c) {
@@ -133,9 +131,8 @@ public class MessageList extends ScrollContainer implements Hideable {
     }
 
     @Override
-    protected void onDraw(BaseCanvas canvas) {
-
-        super.onDraw(canvas);
+    protected void onDrawBackgroundLayer(BaseCanvas canvas) {
+        super.onDrawBackgroundLayer(canvas);
         shadowSprite.setArea(RectF.anchorOWH(Anchor.TopRight, 0, 0, ViewConfiguration.dp(9), canvas.getHeight()));
         shadowSprite.draw(canvas);
     }

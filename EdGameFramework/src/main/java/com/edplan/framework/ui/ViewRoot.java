@@ -229,11 +229,11 @@ public class ViewRoot implements MainCallBack {
     }
 
     private void appendGroup(EdAbstractViewGroup c, StringBuilder sb) {
-        sb.append((c instanceof EdContainer) ? "C::" : "G::").append(c.getClass().getSimpleName())
+        sb.append((c instanceof EdBufferedContainer) ? "C::" : "G::").append(c.getClass().getSimpleName())
                 .append(" ").append((int) c.getWidth()).append("x").append((int) c.getHeight())
                 .append(" (").append((int) c.getLeft()).append(",").append((int) c.getTop()).append(")");
-        if (c instanceof EdContainer) {
-            sb.append(" fresh=").append(((EdContainer) c).isNeedRefresh());
+        if (c instanceof EdBufferedContainer) {
+            sb.append(" fresh=").append(((EdBufferedContainer) c).isNeedRefresh());
         }
     }
 

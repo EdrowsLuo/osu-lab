@@ -20,12 +20,11 @@ import com.edplan.framework.ui.layout.MarginLayoutParam;
 import com.edplan.framework.ui.layout.Orientation;
 import com.edplan.framework.ui.layout.Param;
 import com.edplan.framework.ui.text.font.bmfont.BMFont;
-import com.edplan.framework.ui.widget.LinearContainer;
+import com.edplan.framework.ui.widget.LinearLayout;
 import com.edplan.framework.ui.widget.TextView;
 import com.edplan.framework.ui.widget.TextureView;
 import com.edplan.framework.ui.widget.component.Hideable;
 import com.edplan.osulab.ui.UiConfig;
-import com.edplan.framework.ui.widget.LinearLayout;
 
 public class SceneSelectButton extends LinearLayout implements Hideable {
     public static double ANIM_DURATION = ViewConfiguration.DEFAULT_TRANSITION_TIME * 0.7;

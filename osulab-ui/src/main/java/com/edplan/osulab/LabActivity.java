@@ -3,6 +3,7 @@ package com.edplan.osulab;
 import android.os.Environment;
 import android.util.Log;
 
+import com.edplan.framework.Framework;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.MainRenderer;
@@ -15,24 +16,15 @@ import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.additions.popupview.defviews.RenderStatPopupView;
 import com.edplan.framework.ui.layout.EdLayoutParam;
 import com.edplan.framework.ui.layout.Param;
-import com.edplan.framework.ui.text.font.FontAwesome;
 import com.edplan.framework.ui.text.font.bmfont.BMFont;
-import com.edplan.framework.ui.widget.AbsoluteContainer;
 import com.edplan.framework.ui.widget.AbsoluteLayout;
-import com.edplan.framework.utils.HashDataMap;
-import com.edplan.framework.utils.Setter;
-import com.edplan.framework.utils.advance.BaseDataMap;
 import com.edplan.framework.utils.dataobject.DataObject;
 import com.edplan.framework.utils.dataobject.Struct;
 import com.edplan.osulab.ui.BackQuery;
+import com.edplan.osulab.ui.popup.PopupToast;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Set;
-
-import com.edplan.framework.Framework;
-import com.edplan.osulab.ui.popup.PopupToast;
 
 public class LabActivity extends EdMainActivity {
     private MainApplication app;

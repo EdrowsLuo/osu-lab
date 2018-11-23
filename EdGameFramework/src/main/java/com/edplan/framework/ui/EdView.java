@@ -111,12 +111,22 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
 
     private boolean debug = false;
 
+    private boolean masking = false;
+
     public EdView(MContext context) {
         this.context = context;
         if (!checkCurrentThread()) {
             throw new RuntimeException("you can only create a view in main thread!");
         }
         initialName();
+    }
+
+    public void setMasking(boolean masking) {
+        this.masking = masking;
+    }
+
+    public boolean isMasking() {
+        return masking;
     }
 
     public void setDebug(boolean debug) {
@@ -356,7 +366,6 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
 
     @Override
     public void post(Runnable r) {
-
         getContext().runOnUIThread(r);
     }
 
@@ -414,11 +423,43 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
         }
     }
 
+    /**
+     * 绘制操作，不可变的逻辑
+     * @param canvas
+     */
     public final void draw(BaseCanvas canvas) {
-        onDraw(canvas);
-        if (debug) {
-            canvas.drawTexture(GLTexture.White, RectF.xywh(0, 0, canvas.getWidth(), canvas.getHeight()), Color4.White, Color4.White, 0.3f);
+        onDrawBackgroundLayer(canvas);
+        if (masking) {
+            canvas.unprepare();
+            BaseCanvas clip = canvas.requestClipCanvas(0, 0, Math.round(getWidth()), Math.round(getHeight()));
+            if (clip == null) {
+                throw new RuntimeException(String.format("%s do not support clipCanvas! masking is not supported!",canvas.getClass().getSimpleName()));
+            }
+            clip.prepare();
+            onDraw(clip);
+            clip.unprepare();
+            canvas.prepare();
+        } else {
+            onDraw(canvas);
         }
+        onDrawOverlayLayer(canvas);
+    }
+
+    /**
+     * 在绘制开始前被调用，masking此时没有起效，这里的background和setBackground设置的背景无关
+     * （词穷了不会起名x谅解一下 (qwq)）
+     * @param canvas 画板
+     */
+    protected void onDrawBackgroundLayer(BaseCanvas canvas) {
+
+    }
+
+    /**
+     * 在绘制开始后被调用，masking此时没有起效
+     * @param canvas 画板
+     */
+    protected void onDrawOverlayLayer(BaseCanvas canvas) {
+
     }
 
     protected void onDraw(BaseCanvas canvas) {

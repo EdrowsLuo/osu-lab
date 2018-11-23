@@ -2,16 +2,15 @@ package com.edplan.osulab.ui.scenes.songs;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.ui.ViewConfiguration;
 import com.edplan.framework.ui.animation.ComplexAnimation;
 import com.edplan.framework.ui.animation.ComplexAnimationBuilder;
 import com.edplan.framework.ui.animation.Easing;
 import com.edplan.framework.ui.animation.FloatQueryAnimation;
-import com.edplan.framework.ui.widget.RelativeContainer;
+import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.widget.component.Hideable;
-import com.edplan.osulab.ui.scenes.SceneSelectButton;
-import com.edplan.framework.ui.ViewConfiguration;
 
-public class BottomBar extends RelativeContainer implements Hideable {
+public class BottomBar extends RelativeLayout implements Hideable {
     public static float HEIGHT_DP = 40;
 
     public BottomBar(MContext c) {

@@ -10,7 +10,6 @@ import com.edplan.framework.math.FMath;
 import com.edplan.framework.math.Quad;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
-import com.edplan.framework.ui.EdContainer;
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.ViewConfiguration;
 import com.edplan.framework.ui.animation.AbstractAnimation;
@@ -387,7 +386,7 @@ public class JumpingCircle extends EdView {
 
 
         /*ComplexAnimationBuilder builder2 = ComplexAnimationBuilder.start(
-                new FloatQueryAnimation<EdContainer>(getContext().getViewRoot().getRootContainer(), "alpha")
+                new FloatQueryAnimation<EdBufferedContainer>(getContext().getViewRoot().getRootContainer(), "alpha")
                         .transform(0, 0, Easing.None)
                         .transform(1, 300, Easing.InQuad));
         getContext().getViewRoot().getRootContainer().setAnimation(builder2.buildAndStart());*/

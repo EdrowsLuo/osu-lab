@@ -3,7 +3,8 @@ package com.edplan.framework.ui.widget;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.interfaces.Setter;
-import com.edplan.framework.ui.EdContainer;
+import com.edplan.framework.ui.EdAbstractViewGroup;
+import com.edplan.framework.ui.EdBufferedContainer;
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.inputs.ScrollEvent;
 import com.edplan.framework.ui.layout.EdLayoutParam;
@@ -13,7 +14,7 @@ import com.edplan.framework.ui.layout.MarginLayoutParam;
 import com.edplan.framework.ui.layout.Orientation;
 import com.edplan.framework.ui.widget.component.Scroller;
 
-public class AdaptedScrollContainer extends EdContainer {
+public class ScrollLayout extends EdAbstractViewGroup {
     public static float MAIN_SCROLL = 0;
 
     protected int orientation;
@@ -28,8 +29,9 @@ public class AdaptedScrollContainer extends EdContainer {
 
     protected boolean enableGravityCenter = false;
 
-    public AdaptedScrollContainer(MContext c) {
+    public ScrollLayout(MContext c) {
         super(c);
+        setMasking(true);
         setOrientation(Orientation.DIRECTION_L2R);
     }
 
@@ -41,6 +43,7 @@ public class AdaptedScrollContainer extends EdContainer {
             //if(!t.equals(scrollRate)){
             scrollRate = t;
             invalidate();
+            invalidateDraw();
             //}
         }
     });
@@ -71,16 +74,16 @@ public class AdaptedScrollContainer extends EdContainer {
         }
         return false;
 		/*
-		 final float preScrollRate=scrollRate;
-		 scrollRate=Math.min(getScrollRateMax(),Math.max(getScrollRateMin(),scrollRate-offset));
-		 MAIN_SCROLL=(getScrollRateMax()==0)?0.5f:(scrollRate/getScrollRateMax());
-		 if(preScrollRate!=scrollRate){
-		 invalidate(FLAG_INVALIDATE_LAYOUT);
-		 return true;
-		 }else{
-		 return false;
-		 }
-		 */
+		final float preScrollRate=scrollRate;
+		scrollRate=Math.min(getScrollRateMax(),Math.max(getScrollRateMin(),scrollRate-offset));
+		MAIN_SCROLL=(getScrollRateMax()==0)?0.5f:(scrollRate/getScrollRateMax());
+		if(preScrollRate!=scrollRate){
+			invalidate(FLAG_INVALIDATE_LAYOUT);
+			return true;
+		}else{
+			return false;
+		}
+		*/
     }
 
     public void setEnableGravityCenter(boolean enableGravityCenter) {
@@ -142,8 +145,7 @@ public class AdaptedScrollContainer extends EdContainer {
     }
 
     @Override
-    protected void drawContainer(BaseCanvas canvas) {
-
+    protected void dispatchDraw(BaseCanvas canvas) {
         if (Orientation.getMainOrientation(orientation) == Orientation.DIRECTION_NONE_HORIZON) {
             final int count = getChildrenCount();
             for (int i = 0; i < count; i++) {
@@ -392,7 +394,7 @@ public class AdaptedScrollContainer extends EdContainer {
     protected void measureVertical(long widthSpec, long heightSpec) {
         final int count = getChildrenCount();
         float heightUsed = 0;
-        final long adjustedSpec = EdMeasureSpec.makeupMeasureSpec(Math.max(EdMeasureSpec.getSize(heightSpec), maxChildrenSize), EdMeasureSpec.MODE_AT_MOST);
+        final long adjustedSpec = EdMeasureSpec.makeupMeasureSpec(Math.max(EdMeasureSpec.getSize(heightSpec), maxChildrenSize), EdMeasureSpec.MODE_NONE);
         for (int i = 0; i < count; i++) {
             final EdView view = getChildAt(i);
             final EdLayoutParam param = view.getLayoutParam();
@@ -436,7 +438,7 @@ public class AdaptedScrollContainer extends EdContainer {
                     break;
             }
         }
-        //Log.v("layout","measure ScrollContainer Vertical, height used "+heightUsed+", set dimensition "+xd+";"+yd+" spec:"+EdMeasureSpec.toString(widthSpec)+":"+EdMeasureSpec.toString(heightSpec));
+        //Log.v("layout","measure ScrollLayout Vertical, height used "+heightUsed+", set dimensition "+xd+";"+yd+" spec:"+EdMeasureSpec.toString(widthSpec)+":"+EdMeasureSpec.toString(heightSpec));
         setMeasuredDimensition(xd, yd);
     }
 

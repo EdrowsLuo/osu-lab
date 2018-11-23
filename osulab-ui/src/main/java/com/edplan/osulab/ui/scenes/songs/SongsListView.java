@@ -4,28 +4,23 @@ import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.interfaces.Setter;
-import com.edplan.framework.math.FMath;
 import com.edplan.framework.ui.EdAbstractViewGroup;
-import com.edplan.framework.ui.EdContainer;
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.ViewConfiguration;
 import com.edplan.framework.ui.animation.ComplexAnimation;
 import com.edplan.framework.ui.animation.ComplexAnimationBuilder;
 import com.edplan.framework.ui.animation.Easing;
 import com.edplan.framework.ui.animation.FloatQueryAnimation;
-import com.edplan.framework.ui.animation.callback.OnFinishListener;
 import com.edplan.framework.ui.drawable.RoundedRectDrawable;
 import com.edplan.framework.ui.inputs.ScrollEvent;
 import com.edplan.framework.ui.layout.EdLayoutParam;
 import com.edplan.framework.ui.layout.EdMeasureSpec;
 import com.edplan.framework.ui.layout.MarginLayoutParam;
-import com.edplan.framework.ui.layout.MeasureCore;
 import com.edplan.framework.ui.layout.Param;
-import com.edplan.framework.ui.widget.AbsoluteContainer;
+import com.edplan.framework.ui.widget.RelativeContainer;
+import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.widget.component.Hideable;
 import com.edplan.framework.ui.widget.component.Scroller;
-import com.edplan.osulab.ui.pieces.SongPanel;
-import com.edplan.framework.ui.widget.RelativeContainer;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -61,7 +56,7 @@ public class SongsListView extends EdAbstractViewGroup implements Hideable {
 
         for (int i = 0; i < 20; i++) {
             MarginLayoutParam p = new MarginLayoutParam();
-            RelativeContainer view = new RelativeContainer(c);
+            RelativeLayout view = new RelativeLayout(c);
 
             RoundedRectDrawable bg = new RoundedRectDrawable(c);
             bg.setColor(Color4.rgba(0, 0, 0, 0.5f));
@@ -339,7 +334,7 @@ public class SongsListView extends EdAbstractViewGroup implements Hideable {
     }
 
 
-    public class EntryContainer extends AbsoluteContainer {
+    public class EntryContainer extends RelativeContainer {
 
         private Object adaptedObject;
 

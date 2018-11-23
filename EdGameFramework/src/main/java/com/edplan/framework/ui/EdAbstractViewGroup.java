@@ -506,6 +506,12 @@ public abstract class EdAbstractViewGroup extends EdView implements IHasAlpha{
         addToList(view);
     }
 
+    public void addAll(EdView... views) {
+        for (EdView view : views) {
+            addView(view);
+        }
+    }
+
     public class PointerHolder {
         public EdView[] holdingView = new EdView[EdMotionEvent.MAX_POINTER];
         public boolean[] isOutside = new boolean[EdMotionEvent.MAX_POINTER];

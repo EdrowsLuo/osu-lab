@@ -25,7 +25,6 @@ public class LabButton extends RelativeContainer {
 
     public LabButton(MContext c) {
         super(c);
-        setUseBuffer(true);
         setClickable(true);
         setBackground(accentColor);
         poster = new RoundedLayerPoster(c);
