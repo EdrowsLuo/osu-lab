@@ -107,7 +107,6 @@ public abstract class EdAbstractViewGroup extends EdView implements IHasAlpha{
     }
 
     public EdLayoutParam getDefaultParam(EdView view) {
-
         final EdLayoutParam param = view.getLayoutParam();
         if (param != null) {
             return param;
@@ -116,9 +115,12 @@ public abstract class EdAbstractViewGroup extends EdView implements IHasAlpha{
         }
     }
 
+    public EdLayoutParam createLayoutParam() {
+        return new EdLayoutParam();
+    }
+
     @Override
     public void onCreate() {
-
         final int count = getChildrenCount();
         for (int i = 0; i < count; i++) {
             final EdView view = getChildAt(i);

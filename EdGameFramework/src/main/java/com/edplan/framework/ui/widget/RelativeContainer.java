@@ -30,6 +30,11 @@ public class RelativeContainer extends EdBufferedContainer {
     }
 
     @Override
+    public EdLayoutParam createLayoutParam() {
+        return new RelativeParam();
+    }
+
+    @Override
     protected void onLayout(boolean changed, float left, float top, float right, float bottom) {
 
         final int count = getChildrenCount();

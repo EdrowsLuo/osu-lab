@@ -94,7 +94,8 @@ public class MainActivity extends EdMainActivity {
                         if (snakeView.getSnake().getDirection() != SnakeView.Snake.Direction.Left) {
                             snakeView.getSnake().setDirection(SnakeView.Snake.Direction.Right);
                         }
-                    });RelativeParam param = new RelativeParam();
+                    });
+                    RelativeParam param = new RelativeParam();
                     param.height = Param.makeUpDP(50);
                     param.width = Param.makeUpDP(50);
                     param.gravity = Gravity.CenterRight;

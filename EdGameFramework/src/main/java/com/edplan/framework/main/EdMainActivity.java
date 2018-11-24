@@ -9,8 +9,14 @@ import android.support.v4.content.ContextCompat;
 
 import com.edplan.framework.graphics.opengl.MainRenderer;
 import com.edplan.framework.ui.EdView;
+import com.edplan.framework.ui.UIClassPreparer;
 
 public abstract class EdMainActivity extends Activity {
+
+    static {
+        UIClassPreparer.prepare();
+    }
+
     private MainApplication app;
 
     /**

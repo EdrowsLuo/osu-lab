@@ -50,7 +50,6 @@ public class ScrollLayout extends EdAbstractViewGroup {
 
     @Override
     public boolean onScroll(ScrollEvent event) {
-
         final float offset = -((Orientation.getMainOrientation(orientation) == Orientation.DIRECTION_HORIZON) ? event.getScrollX() : event.getScrollY());
         switch (event.getState()) {
             case ScrollEvent.STATE_START:
@@ -191,6 +190,11 @@ public class ScrollLayout extends EdAbstractViewGroup {
         } else {
             return new MarginLayoutParam(param);
         }
+    }
+
+    @Override
+    public EdLayoutParam createLayoutParam() {
+        return new MarginLayoutParam();
     }
 
     private float latestUsedSpace;

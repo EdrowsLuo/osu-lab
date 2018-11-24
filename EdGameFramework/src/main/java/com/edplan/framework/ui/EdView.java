@@ -27,6 +27,7 @@ import com.edplan.superutils.classes.advance.IRunnableHandler;
 
 import java.lang.ref.WeakReference;
 
+
 public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
     protected static int CUSTOM_INDEX = 0;
 

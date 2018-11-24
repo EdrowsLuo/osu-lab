@@ -3,6 +3,7 @@ package com.edlplan.testgame;
 import android.graphics.Bitmap;
 
 import com.edplan.framework.MContext;
+import com.edplan.framework.graphics.line.AbstractPath;
 import com.edplan.framework.graphics.line.DrawLinePath;
 import com.edplan.framework.graphics.line.LinePath;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
@@ -44,6 +45,7 @@ public class SnakeView extends EdView {
 
     private int gameState = GAME_STATE_PAUSE;
 
+
     public SnakeView(MContext context) {
         super(context);
     }
@@ -77,6 +79,7 @@ public class SnakeView extends EdView {
                 item.onSnakeUpdate(snake, snake.getHead());
             }
         }
+        snake.setOffset((float) (time / timePerStep));
     }
 
     @Override
@@ -204,6 +207,8 @@ public class SnakeView extends EdView {
 
         private GLTexture bodyTexture;
 
+        private float offset;
+
         public Snake(MContext context, Map map, int x, int y, int initialLength) {
             super(context);
             this.map = map;
@@ -212,6 +217,10 @@ public class SnakeView extends EdView {
             }
             body.add(new Vec2Int(x, y));
             zipedSteps = initialLength - 1;
+        }
+
+        public void setOffset(float offset) {
+            this.offset = offset;
         }
 
         public boolean isBody(int x, int y) {
@@ -259,9 +268,8 @@ public class SnakeView extends EdView {
             return true;
         }
 
-        private ArrayList<LinePath> createBodySlider() {
-            ArrayList<LinePath> paths = new ArrayList<>();
-
+        private ArrayList<AbstractPath> createBodySlider() {
+            ArrayList<AbstractPath> paths = new ArrayList<>();
             LinePath path = new LinePath();
             path.setWidth(map.getTileSize() / 2 * 0.9f);
             paths.add(path);
@@ -276,6 +284,10 @@ public class SnakeView extends EdView {
                 pre = v;
             }
 
+            LinePath last = (LinePath) paths.get(paths.size() - 1);
+            Vec2 head = last.getLast();
+            last.add(head.copy().add(direction.dx * offset * map.getTileSize(), direction.dy * offset * map.getTileSize()));
+
             return paths;
         }
 
@@ -283,13 +295,13 @@ public class SnakeView extends EdView {
             if (bodyTexture == null) {
                 updateTexture();
             }
-            ArrayList<LinePath> paths = createBodySlider();
+            ArrayList<AbstractPath> paths = createBodySlider();
             Texture3DBatch<TextureVertex3D> batch = new Texture3DBatch<>();
             GLWrapped.depthTest.save();
             GLWrapped.depthTest.forceSet(true);
             canvas.getBlendSetting().save();
             canvas.getBlendSetting().setEnable(false);
-            for (LinePath path : paths) {
+            for (AbstractPath path : paths) {
                 DrawLinePath<Texture3DBatch> d = new DrawLinePath<>(path);
                 batch.clear();
                 d.addToBatch(batch);

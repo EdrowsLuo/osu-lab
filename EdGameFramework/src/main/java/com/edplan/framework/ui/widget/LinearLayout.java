@@ -61,12 +61,16 @@ public class LinearLayout extends EdAbstractViewGroup {
 
     @Override
     public EdLayoutParam adjustParam(EdView view, EdLayoutParam param) {
-
         if (param instanceof MarginLayoutParam) {
             return param;
         } else {
             return new MarginLayoutParam(param);
         }
+    }
+
+    @Override
+    public EdLayoutParam createLayoutParam() {
+        return new MarginLayoutParam();
     }
 
     private float latestUsedSpace;

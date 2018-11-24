@@ -6,6 +6,16 @@ import java.lang.reflect.Field;
 
 public class ReflectHelper {
 
+    public static void ensureClass(Class... ks) {
+        for (Class k : ks) {
+            try {
+                Class.forName(k.getCanonicalName());
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public static void forAllField(Class klass, Consumer<Field> consumer) {
         if (klass == Object.class) {
             return;
