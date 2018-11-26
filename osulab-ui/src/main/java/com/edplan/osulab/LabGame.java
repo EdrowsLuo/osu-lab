@@ -6,7 +6,7 @@ import com.edplan.framework.ui.ViewConfiguration;
 import com.edplan.framework.ui.layout.Gravity;
 import com.edplan.framework.ui.layout.Param;
 import com.edplan.framework.ui.widget.RelativeLayout;
-import com.edplan.nso.ruleset.base.beatmap.parser.BeatmapDecoder;
+import com.edplan.nso.NsoCore;
 import com.edplan.osulab.ui.MainBackground;
 import com.edplan.osulab.ui.MessageList;
 import com.edplan.osulab.ui.OptionList;
@@ -16,14 +16,9 @@ import com.edplan.osulab.ui.opening.MainCircleView;
 import com.edplan.osulab.ui.pieces.BackButton;
 import com.edplan.osulab.ui.pieces.JumpingCircle;
 import com.edplan.osulab.ui.popup.PopupButtonGroup;
-import com.edplan.osulab.ui.popup.RenderStatePopupView;
 import com.edplan.osulab.ui.scenes.SceneSelectButtonBar;
 import com.edplan.osulab.ui.scenes.Scenes;
 import com.edplan.osulab.ui.toolbar.Toolbar;
-import com.edplan.nso.NsoCore;
-
-import java.io.FileInputStream;
-import java.io.IOException;
 
 /**
  * 全局的管理类
@@ -136,20 +131,10 @@ public class LabGame {
 
     public void exit() {
         final PopupButtonGroup p = new PopupButtonGroup(context);
-        p.addButton("BACK TO GAME", new EdView.OnClickListener() {
-            @Override
-            public void onClick(EdView view) {
-
-                p.hide();
-            }
-        });
-        p.addButton("EXIT", new EdView.OnClickListener() {
-            @Override
-            public void onClick(EdView view) {
-
-                directExit();
-                p.hide();
-            }
+        p.addButton("BACK TO GAME", view -> p.hide());
+        p.addButton("EXIT", view -> {
+            directExit();
+            p.hide();
         });
         p.show();
     }
@@ -184,113 +169,120 @@ public class LabGame {
 
         initialNsoCore(c);
 
-        RelativeLayout mainLayout = new RelativeLayout(c);
-        RelativeLayout.RelativeParam mp = new RelativeLayout.RelativeParam();
-        mp.gravity = Gravity.TopLeft;
-        mp.width = Param.makeupScaleOfParentParam(1f);
-        mp.height = Param.makeupScaleOfParentParam(1f);
-        mainLayout.setLayoutParam(mp);
+        toolBar = new Toolbar(c){{
+            layoutParam(
+                    new RelativeParam(){{
+                        width = Param.MODE_MATCH_PARENT;
+                        height = Param.makeUpDP(UiConfig.TOOLBAR_HEIGHT_DP);
+                        gravity = Gravity.TopCenter;
+                    }}
+            );
 
-        jumpingCircle = new JumpingCircle(c);
-        mainBackground = new MainBackground(c);
-        scenes = new Scenes(c);
-        backButton = new BackButton(c);
-        toolBar = new Toolbar(c);
-        {
-            RelativeLayout.RelativeParam mparam = new RelativeLayout.RelativeParam();
-            mparam.width = Param.MODE_MATCH_PARENT;
-            mparam.height = Param.MODE_MATCH_PARENT;
-            mainLayout.addView(mainBackground, mparam);
-        }
-        {
-            RelativeLayout.RelativeParam mparam = new RelativeLayout.RelativeParam();
-            mparam.width = Param.MODE_MATCH_PARENT;
-            mparam.height = Param.MODE_MATCH_PARENT;
-            mainLayout.addView(scenes, mparam);
-        }
+            shadow.setLayoutParam(
+                    new RelativeParam(){{
+                        width = Param.MODE_MATCH_PARENT;
+                        height = Param.makeUpDP(UiConfig.TOOLBAR_HEIGHT_DP);
+                        gravity = Gravity.TopCenter;
+                    }}
+            );
+        }};
 
-        {
-            RelativeLayout.RelativeParam param = new RelativeLayout.RelativeParam();
-            param.width = Param.MODE_MATCH_PARENT;
-            param.height = Param.makeUpDP(UiConfig.TOOLBAR_HEIGHT_DP);
-            param.gravity = Gravity.TopCenter;
-            mainLayout.addView(toolBar.shadow, param);
-        }
 
-        {
-            sceneSelectButtonBar = new SceneSelectButtonBar(c);
-            RelativeLayout.RelativeParam param = new RelativeLayout.RelativeParam();
-            param.width = Param.MODE_MATCH_PARENT;
-            param.height = Param.makeUpDP(UiConfig.SCENE_SELECT_BUTTON_BAR_HEIGHT);
-            param.gravity = Gravity.Center;
-            mainLayout.addView(sceneSelectButtonBar, param);
-        }
+        RelativeLayout mainLayout = new RelativeLayout(c){{
+            layoutParam(
+                    new RelativeParam(){{
+                        gravity = Gravity.TopLeft;
+                        width = Param.makeupScaleOfParentParam(1f);
+                        height = Param.makeupScaleOfParentParam(1f);
+                    }}
+            );
 
-        {
-            final MainCircleView mainCircleView;
-            mainCircleView = new MainCircleView(c);
-            RelativeLayout.RelativeParam lllparam = new RelativeLayout.RelativeParam();
-            lllparam.width = Param.makeupScaleOfParentOtherParam(0.6f);
-            lllparam.height = Param.makeupScaleOfParentParam(0.6f);
-            lllparam.gravity = Gravity.Center;
-            mainLayout.addView(mainCircleView, lllparam);
-        }
-
-        {
-            RelativeLayout.RelativeParam lllparam = new RelativeLayout.RelativeParam();
-            lllparam.width = Param.makeupScaleOfParentOtherParam(0.6f);
-            lllparam.height = Param.makeupScaleOfParentParam(0.6f);
-            lllparam.gravity = Gravity.Center;
-            mainLayout.addView(jumpingCircle, lllparam);
-        }
-
-        {
-            sceneOverlay = new SceneOverlay(c);
-            RelativeLayout.RelativeParam param = new RelativeLayout.RelativeParam();
-            param.width = Param.MODE_MATCH_PARENT;
-            param.height = Param.MODE_MATCH_PARENT;
-            param.marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
-            param.gravity = Gravity.BottomCenter;
-            mainLayout.addView(sceneOverlay, param);
-        }
-
-        {
-            optionList = new OptionList(c);
-            RelativeLayout.RelativeParam param = new RelativeLayout.RelativeParam();
-            param.width = Param.makeUpDP(350);
-            param.height = Param.MODE_MATCH_PARENT;
-            param.marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
-            mainLayout.addView(optionList, param);
-        }
-
-        {
-            messageList = new MessageList(c);
-            RelativeLayout.RelativeParam param = new RelativeLayout.RelativeParam();
-            param.width = Param.makeUpDP(350);
-            param.height = Param.MODE_MATCH_PARENT;
-            param.marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
-            param.gravity = Gravity.BottomRight;
-            mainLayout.addView(messageList, param);
-        }
-
-        {
-            RelativeLayout.RelativeParam param = new RelativeLayout.RelativeParam();
-            param.width = Param.MODE_MATCH_PARENT;
-            param.height = Param.makeUpDP(UiConfig.TOOLBAR_HEIGHT_DP);
-            param.gravity = Gravity.TopCenter;
-            mainLayout.addView(toolBar, param);
-        }
-
-        {
-            RelativeLayout.RelativeParam mparam = new RelativeLayout.RelativeParam();
-            mparam.width = Param.makeUpDP(40);
-            mparam.height = Param.makeUpDP(40);
-            mparam.gravity = Gravity.BottomLeft;
-            mainLayout.addView(backButton, mparam);
-        }
-        //c.getViewRoot().getRootContainer().setAlpha(0);
-        //mainLayout.setVisiblility(EdView.VISIBILITY_GONE);
-        //(new RenderStatePopupView(c)).show();
+            children(
+                    mainBackground = new MainBackground(c) {{
+                        layoutParam(
+                                new RelativeParam() {{
+                                    width = Param.MODE_MATCH_PARENT;
+                                    height = Param.MODE_MATCH_PARENT;
+                                }}
+                        );
+                    }},
+                    scenes = new Scenes(c) {{
+                        layoutParam(
+                                new RelativeParam() {{
+                                    width = Param.MODE_MATCH_PARENT;
+                                    height = Param.MODE_MATCH_PARENT;
+                                }}
+                        );
+                    }},
+                    toolBar.shadow,
+                    sceneSelectButtonBar = new SceneSelectButtonBar(c) {{
+                        layoutParam(
+                                new RelativeParam() {{
+                                    width = Param.MODE_MATCH_PARENT;
+                                    height = Param.makeUpDP(UiConfig.SCENE_SELECT_BUTTON_BAR_HEIGHT);
+                                    gravity = Gravity.Center;
+                                }}
+                        );
+                    }},
+                    new MainCircleView(c){{
+                        layoutParam(
+                                new RelativeParam(){{
+                                    width = Param.makeupScaleOfParentOtherParam(0.6f);
+                                    height = Param.makeupScaleOfParentParam(0.6f);
+                                    gravity = Gravity.Center;
+                                }}
+                        );
+                    }},
+                    jumpingCircle = new JumpingCircle(c){{
+                        layoutParam(
+                                new RelativeParam(){{
+                                    width = Param.makeupScaleOfParentOtherParam(0.6f);
+                                    height = Param.makeupScaleOfParentParam(0.6f);
+                                    gravity = Gravity.Center;
+                                }}
+                        );
+                    }},
+                    sceneOverlay = new SceneOverlay(c){{
+                        layoutParam(
+                                new RelativeParam(){{
+                                    width = Param.MODE_MATCH_PARENT;
+                                    height = Param.MODE_MATCH_PARENT;
+                                    marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
+                                    gravity = Gravity.BottomCenter;
+                                }}
+                        );
+                    }},
+                    optionList = new OptionList(c){{
+                        layoutParam(
+                                new RelativeParam(){{
+                                    width = Param.makeUpDP(350);
+                                    height = Param.MODE_MATCH_PARENT;
+                                    marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
+                                }}
+                        );
+                    }},
+                    messageList = new MessageList(c){{
+                        layoutParam(
+                                new RelativeParam(){{
+                                    width = Param.makeUpDP(350);
+                                    height = Param.MODE_MATCH_PARENT;
+                                    marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
+                                    gravity = Gravity.BottomRight;
+                                }}
+                        );
+                    }},
+                    toolBar,
+                    backButton = new BackButton(c){{
+                        layoutParam(
+                                new RelativeParam(){{
+                                    width = Param.makeUpDP(40);
+                                    height = Param.makeUpDP(40);
+                                    gravity = Gravity.BottomLeft;
+                                }}
+                        );
+                    }}
+            );
+        }};
         return mainLayout;
     }
 

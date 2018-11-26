@@ -31,25 +31,27 @@ public class PopupButtonGroup extends PopupView {
         setOutsideTouchable(true);
         setClickable(true);
         setBackground(Color4.rgba(0, 0, 0, 0.7f));
-        {
-            RelativeLayout.RelativeParam p = new RelativeLayout.RelativeParam();
-            p.width = Param.MODE_MATCH_PARENT;
-            p.height = Param.makeUpDP(LabButton.DEFAULT_HEIGHT + 10);
-            p.gravity = Gravity.Center;
-            setLayoutParam(p);
-        }
-        {
-            buttons = new LinearLayout(c);
-            buttons.setOrientation(Orientation.DIRECTION_L2R);
-            buttons.setChildoffset(ViewConfiguration.dp(5));
-            RelativeLayout.RelativeParam p = new RelativeLayout.RelativeParam();
-            p.width = Param.MODE_MATCH_PARENT;
-            p.height = Param.MODE_MATCH_PARENT;
-            //p.marginTop=ViewConfiguration.dp(10);
-            //p.marginBottom=ViewConfiguration.dp(10);
-            p.gravity = Gravity.Center;
-            addView(buttons, p);
-        }
+
+        setLayoutParam(
+                new RelativeLayout.RelativeParam() {{
+                    width = Param.MODE_MATCH_PARENT;
+                    height = Param.makeUpDP(LabButton.DEFAULT_HEIGHT + 10);
+                    gravity = Gravity.Center;
+                }});
+
+        children(
+                buttons = new LinearLayout(c) {{
+                    setOrientation(Orientation.DIRECTION_L2R);
+                    setChildoffset(ViewConfiguration.dp(5));
+
+                    layoutParam(
+                            new RelativeLayout.RelativeParam() {{
+                                width = Param.MODE_MATCH_PARENT;
+                                height = Param.MODE_MATCH_PARENT;
+                                gravity = Gravity.Center;
+                            }});
+                }}
+        );
     }
 
     public void addButton(String text, OnClickListener l) {

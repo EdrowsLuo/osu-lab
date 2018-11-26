@@ -16,6 +16,7 @@ import com.edplan.framework.ui.layout.MeasureCore;
 import com.edplan.framework.ui.layout.Param;
 import com.edplan.framework.utils.BitUtil;
 import com.edplan.framework.utils.StringUtil;
+import com.edplan.framework.utils.reflect.ReflectHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -217,7 +218,7 @@ public class ViewRoot implements MainCallBack {
 
     private void loadView(EdView view, StringBuilder sb, int step) {
         appendStep(sb, step);
-        sb.append("V::").append(view.getClass().getSimpleName())
+        sb.append("V::").append(ReflectHelper.getRealClass(view.getClass()).getSimpleName())
                 .append(" ").append((int) view.getWidth()).append("x").append((int) view.getHeight()).append(" (").append((int) view.getTop()).append(",").append((int) view.getLeft()).append(")")
                 .append(StringUtil.LINE_BREAK);
     }
@@ -229,7 +230,7 @@ public class ViewRoot implements MainCallBack {
     }
 
     private void appendGroup(EdAbstractViewGroup c, StringBuilder sb) {
-        sb.append((c instanceof EdBufferedContainer) ? "C::" : "G::").append(c.getClass().getSimpleName())
+        sb.append((c instanceof EdBufferedContainer) ? "C::" : "G::").append(ReflectHelper.getRealClass(c.getClass()).getSimpleName())
                 .append(" ").append((int) c.getWidth()).append("x").append((int) c.getHeight())
                 .append(" (").append((int) c.getLeft()).append(",").append((int) c.getTop()).append(")");
         if (c instanceof EdBufferedContainer) {

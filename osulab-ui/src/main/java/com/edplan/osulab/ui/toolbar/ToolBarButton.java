@@ -29,7 +29,6 @@ public class ToolBarButton extends EdView {
         super(c);
         setClickable(true);
         backlight = new ColorRectSprite(c);
-        //backlight.setBlendType(BlendType.Additive);
         float gr = 1f;
         backlight.setColor(Color4.rgba(gr, gr, gr, 0.3f),
                 Color4.rgba(gr, gr, gr, 0.3f),

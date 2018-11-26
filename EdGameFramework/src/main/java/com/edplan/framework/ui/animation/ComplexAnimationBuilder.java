@@ -1,5 +1,7 @@
 package com.edplan.framework.ui.animation;
 
+import com.edplan.framework.utils.Consumer;
+
 import java.util.Stack;
 
 public class ComplexAnimationBuilder {
@@ -11,8 +13,14 @@ public class ComplexAnimationBuilder {
 
     private AbstractAnimation keyAnimation;
 
+    private Consumer<ComplexAnimation> onBuild;
+
     public ComplexAnimationBuilder() {
         target = new ComplexAnimation();
+    }
+
+    protected void onBuild(Consumer<ComplexAnimation> onBuild) {
+        this.onBuild = onBuild;
     }
 
     /**
@@ -28,11 +36,15 @@ public class ComplexAnimationBuilder {
         return this;
     }
 
+    protected void startAnim(AbstractAnimation anim) {
+        keyAnimation = anim;
+        target.addAnimation(anim, currentKeyTime);
+    }
+
     //设置第一个动画，并以此动画开始时间为关键帧
     public static ComplexAnimationBuilder start(AbstractAnimation anim) {
         ComplexAnimationBuilder builder = new ComplexAnimationBuilder();
-        builder.keyAnimation = anim;
-        builder.target.addAnimation(anim, builder.currentKeyTime);
+        builder.startAnim(anim);
         return builder;
     }
 
@@ -85,6 +97,9 @@ public class ComplexAnimationBuilder {
 
     public ComplexAnimation build() {
         target.build();
+        if (onBuild != null) {
+            onBuild.consume(target);
+        }
         return target;
     }
 

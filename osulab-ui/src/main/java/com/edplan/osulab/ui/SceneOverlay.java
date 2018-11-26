@@ -31,10 +31,10 @@ public class SceneOverlay extends RelativeLayout implements Hideable {
         super(c);
         //setClickable(true);
         ColorDrawable cd = new ColorDrawable(c);
-        cd.setColor(Color4.rgba(0, 0, 0, 0.6f),
-                Color4.rgba(0, 0, 0, 0.6f),
-                Color4.rgba(0, 0, 0, 0.4f),
-                Color4.rgba(0, 0, 0, 0.4f));
+        cd.setColor(Color4.rgba(0, 0, 0, 0.9f),
+                Color4.rgba(0, 0, 0, 0.9f),
+                Color4.rgba(0, 0, 0, 0.8f),
+                Color4.rgba(0, 0, 0, 0.8f));
         setBackground(cd);
         {
             button = new TextButton(c);

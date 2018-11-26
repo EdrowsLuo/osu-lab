@@ -1,9 +1,17 @@
 package com.edplan.framework.ui.widget.component;
 
 public interface Hideable {
-    public void hide();
+    void hide();
 
-    public void show();
+    void show();
 
-    public boolean isHidden();
+    boolean isHidden();
+
+    default void changeState() {
+        if (isHidden()) {
+            show();
+        } else {
+            hide();
+        }
+    }
 }

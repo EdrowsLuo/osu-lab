@@ -615,12 +615,12 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
      * @param height 裁剪区域高度
      * @return 返回一个新画板，画板的新原点为裁剪起点（会产生新对象）
      */
-    protected BaseCanvas clipCanvas(int x, int y, int width, int height) {
+    protected BaseCanvas clipCanvas(float x, float y, float width, float height) {
         return null;
     }
 
 
-    public final BaseCanvas requestClipCanvas(int x, int y, int width, int height) {
+    public final BaseCanvas requestClipCanvas(float x, float y, float width, float height) {
         checkPrepared("you can only clip canvas when it is not working", false);
         if (supportClip()) {
             return clipCanvas(x, y, width, height);

@@ -6,9 +6,6 @@ import com.edplan.framework.ui.widget.TextView;
 import com.edplan.framework.ui.ViewConfiguration;
 import com.edplan.framework.ui.layout.Param;
 import com.edplan.framework.ui.layout.Gravity;
-import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
-import com.edplan.framework.math.RectF;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.ui.text.font.bmfont.BMFont;
 import com.edplan.framework.ui.drawable.ColorDrawable;
@@ -24,34 +21,36 @@ public class LabTextCheckBox extends RelativeLayout {
         bg.setColor(Color4.rgba(1f, 1f, 1f, 0.1f), Color4.rgba(1f, 1f, 1f, 0.1f),
                 Color4.rgba(1f, 1f, 1f, 0.1f), Color4.rgba(1f, 1f, 1f, 0.1f));
         setBackground(bg);
-
         setPadding(ViewConfiguration.dp(2));
-        text = new TextView(c);
-        text.setTextColor(Color4.gray(0.9f));
-        text.setGravity(Gravity.CenterLeft);
-        text.setTextSize(ViewConfiguration.dp(20));
-        text.setFont(BMFont.Exo_20_Semi_Bold);
-        checkBox = new LabCheckBox(c);
         setClickable(true);
-        //setDebug(true);
-        {
-            RelativeLayout.RelativeParam p = new RelativeLayout.RelativeParam();
-            p.height = Param.MODE_WRAP_CONTENT;
-            p.width = Param.makeUpDP(200);
-            p.marginLeft = ViewConfiguration.dp(1);
-            p.gravity = Gravity.CenterLeft;
-            text.setOffsetY(ViewConfiguration.dp(-1));
-            addView(text, p);
-        }
-        {
-            RelativeLayout.RelativeParam p = new RelativeLayout.RelativeParam();
-            p.height = Param.makeUpDP(7);
-            p.width = Param.makeUpDP(50);
-            p.marginRight = ViewConfiguration.dp(5);
-            p.gravity = Gravity.CenterRight;
-            //checkBox.setOffsetY(ViewConfiguration.dp(1));
-            addView(checkBox, p);
-        }
+
+        children(
+                text = new TextView(c){{
+                    setTextColor(Color4.gray(0.9f));
+                    gravity(Gravity.CenterLeft);
+                    setTextSize(ViewConfiguration.dp(20));
+                    setFont(BMFont.Exo_20_Semi_Bold);
+                    setOffsetY(ViewConfiguration.dp(-1));
+
+                    layoutParam(
+                            new RelativeLayout.RelativeParam() {{
+                                height = Param.MODE_WRAP_CONTENT;
+                                width = Param.makeUpDP(200);
+                                marginLeft = ViewConfiguration.dp(1);
+                                gravity = Gravity.CenterLeft;
+                            }});
+                }},
+
+                checkBox = new LabCheckBox(c){{
+                    layoutParam(
+                            new RelativeLayout.RelativeParam() {{
+                                height = Param.makeUpDP(7);
+                                width = Param.makeUpDP(50);
+                                marginRight = ViewConfiguration.dp(5);
+                                gravity = Gravity.CenterRight;
+                            }});
+                }}
+        );
     }
 
     public void setChecked(boolean c) {

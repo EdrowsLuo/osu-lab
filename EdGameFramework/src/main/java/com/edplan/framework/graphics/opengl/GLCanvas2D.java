@@ -122,8 +122,12 @@ public class GLCanvas2D extends BaseCanvas // extends AbstractSRable<CanvasData>
      */
     @Deprecated
     @Override
-    protected BaseCanvas clipCanvas(int x, int y, int width, int height) {
-        return new GLCanvas2D(new BufferedLayer(layer, (int) getData().getTheOrigin().x + x, (int) getData().getTheOrigin().y + y, width, height));
+    protected BaseCanvas clipCanvas(float x, float y, float width, float height) {
+        int ix = Math.round(getData().getTheOrigin().x + x);
+        int iy = Math.round(getData().getTheOrigin().y + y);
+        int ixw = Math.round(getData().getTheOrigin().x + x + width);
+        int iyh = Math.round(getData().getTheOrigin().y + y + height);
+        return new GLCanvas2D(new BufferedLayer(layer, ix, iy, ixw - ix, iyh - iy));
     }
 
     @Override

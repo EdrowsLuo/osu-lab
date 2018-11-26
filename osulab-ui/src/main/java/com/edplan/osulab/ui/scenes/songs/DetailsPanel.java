@@ -1,6 +1,7 @@
 package com.edplan.osulab.ui.scenes.songs;
 
 import com.edplan.framework.MContext;
+import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.ViewConfiguration;
 import com.edplan.framework.ui.animation.ComplexAnimation;
@@ -16,12 +17,11 @@ public class DetailsPanel extends RelativeLayout implements Hideable {
 
     public DetailsPanel(MContext c) {
         super(c);
-        setDebug(true);
+        setBackground(Color4.rgba(0, 0, 0, 0.2f));
     }
 
     @Override
     public void hide() {
-
         ComplexAnimationBuilder b = ComplexAnimationBuilder.
                 //start(FloatQueryAnimation.fadeTo(this,0,ViewConfiguration.DEFAULT_TRANSITION_TIME,Easing.None));
                         start(new FloatQueryAnimation<EdView>(this, "offsetX")
@@ -33,7 +33,6 @@ public class DetailsPanel extends RelativeLayout implements Hideable {
 
     @Override
     public void show() {
-
         setAlpha(0);
         ComplexAnimationBuilder b = ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this, 1, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.None));
         b.together(new FloatQueryAnimation<EdView>(this, "offsetX")
@@ -46,7 +45,6 @@ public class DetailsPanel extends RelativeLayout implements Hideable {
 
     @Override
     public boolean isHidden() {
-
         return getVisiblility() == VISIBILITY_GONE;
     }
 

@@ -37,7 +37,7 @@ public class OptionList extends ScrollLayout implements Hideable {
         super(c);
         setOutsideTouchable(true);
         setChildoffset(ViewConfiguration.dp(1));
-        setBackground(Color4.rgba(0, 0, 0, 0.5f));
+        setBackground(Color4.rgba(0, 0, 0, 0.8f));
         setOrientation(Orientation.DIRECTION_T2B);
         setPaddingLeft(ViewConfiguration.dp(15));
         setPaddingRight(ViewConfiguration.dp(10));
@@ -90,12 +90,7 @@ public class OptionList extends ScrollLayout implements Hideable {
             param.width = Param.MODE_MATCH_PARENT;
             param.height = Param.MODE_WRAP_CONTENT;
             param.marginTop = ViewConfiguration.dp(5);
-            b.setOnCheckListener(new OnCheckListener() {
-                @Override
-                public void onCheck(boolean c, EdView view) {
-                    e.asBoolean().set(c);
-                }
-            });
+            b.setOnCheckListener((c1, view) -> e.asBoolean().set(c1));
             addView(b, param);
         }
     }

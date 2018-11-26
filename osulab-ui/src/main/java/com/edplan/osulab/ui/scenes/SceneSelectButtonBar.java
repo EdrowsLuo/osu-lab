@@ -2,6 +2,7 @@ package com.edplan.osulab.ui.scenes;
 
 import com.edplan.framework.Framework;
 import com.edplan.framework.MContext;
+import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.Anchor;
@@ -77,200 +78,140 @@ public class SceneSelectButtonBar extends RelativeLayout implements Hideable, Ba
                 Color4.rgba(0, 0, 0, 0));
 
         setBackground(UiConfig.Color.BLUE_DEEP_DARK.copyNew().setAlpha(0.9f));
-        {
-            leftLayout = new LinearLayout(c);
-            leftLayout.setBackwardsDraw(true);
-            leftLayout.setOrientation(Orientation.DIRECTION_R2L);
-            RelativeParam param = new RelativeParam();
-            param.width = Param.makeupScaleOfParentParam(dividePoint);
-            param.height = Param.MODE_MATCH_PARENT;
-            param.gravity = Gravity.CenterLeft;
-            addView(leftLayout, param);
-        }
 
-        {
-            rightLayout = new LinearLayout(c);
-            rightLayout.setBackwardsDraw(true);
-            rightLayout.setOrientation(Orientation.DIRECTION_R2L);
-            rightLayout.setGravity(Gravity.CenterLeft);
-            RelativeParam param = new RelativeParam();
-            param.width = Param.makeupScaleOfParentParam(1 - dividePoint - 0.1f);
-            param.height = Param.MODE_MATCH_PARENT;
-            param.gravity = Gravity.CenterRight;
-            addView(rightLayout, param);
-        }
 
-        {
-            //main
-            {
-                currentGroup.leftWrapper = leftLayout.getChildrenWrapper();
-                {
-                    SceneSelectButton button = new SceneSelectButton(c);
-                    button.setBackgroundColor(Color4.gray(0.2f));
-                    button.setLeftShadow();
-                    button.setText("Setting");
-                    button.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(EdView view) {
+        addAll(
+                leftLayout = new LinearLayout(c){{
+                    setBackwardsDraw(true);
+                    setOrientation(Orientation.DIRECTION_R2L);
 
-                            LabGame.get().getOptionList().show();
-                        }
-                    });
-                    button.setTexture(FontAwesome.fa_cogs.getTexture());
-                    MarginLayoutParam p = new MarginLayoutParam();
-                    p.height = Param.MODE_MATCH_PARENT;
-                    p.width = Param.makeUpDP(buttonSize);
-                    leftLayout.addView(button, p);
+                    layoutParam(
+                            new RelativeParam(){{
+                                width = Param.makeupScaleOfParentParam(dividePoint);
+                                height = Param.MODE_MATCH_PARENT;
+                                gravity = Gravity.CenterLeft;
+                            }}
+                    );
+                }},
+                rightLayout = new LinearLayout(c){{
+                    setBackwardsDraw(true);
+                    setOrientation(Orientation.DIRECTION_R2L);
+                    setGravity(Gravity.CenterLeft);
+
+                    layoutParam(
+                            new RelativeParam(){{
+                                width = Param.makeupScaleOfParentParam(1 - dividePoint - 0.1f);
+                                height = Param.MODE_MATCH_PARENT;
+                                gravity = Gravity.CenterRight;
+                            }}
+                    );
+                }}
+        );
+
+        loadGroup(
+                GROUP_MAIN,
+                new EdView[]{
+                        createButton(
+                                Color4.gray(0.2f),
+                                "Setting",
+                                FontAwesome.fa_cogs.getTexture(),
+                                view -> LabGame.get().getOptionList().show()
+                        ).setLeftShadow()
+                },
+                new EdView[]{
+                        createButton(
+                                UiConfig.Color.BLUE,
+                                "Play",
+                                FontAwesome.fa_osu_logo.getTexture(),
+                                view -> swapGroup(GROUP_PLAY)
+                        ),
+                        createButton(
+                                UiConfig.Color.YELLOW,
+                                "Download",
+                                FontAwesome.fa_osu_chevron_down_o.getTexture(),
+                                view -> PopupToast.toast(getContext(), "working").show()
+                        ),
+                        createButton(
+                                UiConfig.Color.PINK,
+                                "Exit",
+                                FontAwesome.fa_osu_cross_o.getTexture(),
+                                view -> {
+                                    hide();
+                                    LabGame.get().exit();
+                                }
+                        )
+                });
+
+        loadGroup(
+                GROUP_PLAY,
+                new EdView[]{
+                        createButton(
+                                Color4.gray(0.3f),
+                                "Back",
+                                FontAwesome.fa_backward.getTexture(),
+                                view -> swapGroup(GROUP_MAIN)
+                        ).setLeftShadow()
+                },
+                new EdView[]{
+                        createButton(
+                                UiConfig.Color.BLUE_DEEP_DARK,
+                                "Solo",
+                                FontAwesome.fa_osu_logo.getTexture(),
+                                soloClicker = view -> {
+                                    hide();
+                                    LabGame.get().getScenes().swapScene(ScenesName.SongSelect);
+                                }
+                        ),
+                        createButton(
+                                UiConfig.Color.BLUE_DARK,
+                                "Multiple",
+                                FontAwesome.fa_osu_multi.getTexture(),
+                                view -> PopupToast.toast(getContext(), "working").show()
+                        ),
+                        createButton(
+                                UiConfig.Color.BLUE_LIGHT,
+                                "Edit",
+                                FontAwesome.fa_osu_edit_o.getTexture(),
+                                view -> PopupToast.toast(getContext(), "working").show()
+                        )
                 }
-            }
-            {
-                currentGroup.rightWrapper = rightLayout.getChildrenWrapper();
-                {
-                    {
-                        SceneSelectButton button = new SceneSelectButton(c);
-                        button.setBackgroundColor(UiConfig.Color.BLUE);
-                        button.setTexture(FontAwesome.fa_osu_logo.getTexture());
-                        button.setText("Play");
-                        button.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(EdView view) {
+        );
 
-                                swapGroup(GROUP_PLAY);
-                            }
-                        });
-                        MarginLayoutParam p = new MarginLayoutParam();
-                        p.height = Param.MODE_MATCH_PARENT;
-                        p.width = Param.makeUpDP(buttonSize);
-                        rightLayout.addView(button, p);
-                    }
-                    {
-                        SceneSelectButton button = new SceneSelectButton(c);
-                        button.setBackgroundColor(UiConfig.Color.YELLOW);
-                        button.setTexture(FontAwesome.fa_osu_chevron_down_o.getTexture());
-                        button.setText("Download");
-                        button.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(EdView view) {
-
-                                PopupToast.toast(getContext(), "working").show();
-                            }
-                        });
-                        MarginLayoutParam p = new MarginLayoutParam();
-                        p.height = Param.MODE_MATCH_PARENT;
-                        p.width = Param.makeUpDP(buttonSize);
-                        rightLayout.addView(button, p);
-                    }
-                    {
-                        SceneSelectButton button = new SceneSelectButton(c);
-                        button.setBackgroundColor(UiConfig.Color.PINK);
-                        button.setTexture(FontAwesome.fa_osu_cross_o.getTexture());
-                        button.setText("Exit");
-                        button.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(EdView view) {
-
-                                hide();
-                                LabGame.get().exit();
-                            }
-                        });
-                        MarginLayoutParam p = new MarginLayoutParam();
-                        p.height = Param.MODE_MATCH_PARENT;
-                        p.width = Param.makeUpDP(buttonSize);
-                        rightLayout.addView(button, p);
-                    }
-                }
-            }
-            groups.put(GROUP_MAIN, currentGroup);
-        }
-        {
-            currentGroup = new ButtonGroup();
-            leftLayout.setChildrenWrapper(new ChildrenWrapper());
-            rightLayout.setChildrenWrapper(new ChildrenWrapper());
-            //play
-            {
-                currentGroup.leftWrapper = leftLayout.getChildrenWrapper();
-                {
-                    SceneSelectButton button = new SceneSelectButton(c);
-                    button.setBackgroundColor(Color4.gray(0.3f));
-                    button.setLeftShadow();
-                    button.setText("Back");
-                    button.setOnClickListener(new OnClickListener() {
-                        @Override
-                        public void onClick(EdView view) {
-
-                            swapGroup(GROUP_MAIN);
-                        }
-                    });
-                    button.setTexture(FontAwesome.fa_backward.getTexture());
-                    MarginLayoutParam p = new MarginLayoutParam();
-                    p.height = Param.MODE_MATCH_PARENT;
-                    p.width = Param.makeUpDP(buttonSize);
-                    leftLayout.addView(button, p);
-                }
-            }
-            {
-                currentGroup.rightWrapper = rightLayout.getChildrenWrapper();
-                {
-                    {
-                        SceneSelectButton button = new SceneSelectButton(c);
-                        button.setBackgroundColor(UiConfig.Color.BLUE_DEEP_DARK);
-                        button.setTexture(FontAwesome.fa_osu_logo.getTexture());
-                        button.setText("Solo");
-                        button.setOnClickListener(soloClicker = new OnClickListener() {
-                            @Override
-                            public void onClick(EdView view) {
-
-                                hide();
-                                LabGame.get().getScenes().swapScene(ScenesName.SongSelect);
-                            }
-                        });
-                        MarginLayoutParam p = new MarginLayoutParam();
-                        p.height = Param.MODE_MATCH_PARENT;
-                        p.width = Param.makeUpDP(buttonSize);
-                        rightLayout.addView(button, p);
-                    }
-                    {
-                        SceneSelectButton button = new SceneSelectButton(c);
-                        button.setBackgroundColor(UiConfig.Color.BLUE_DARK);
-                        button.setTexture(FontAwesome.fa_osu_multi.getTexture());
-                        button.setText("Multiple");
-                        button.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(EdView view) {
-
-                                PopupToast.toast(getContext(), "working").show();
-                            }
-                        });
-                        MarginLayoutParam p = new MarginLayoutParam();
-                        p.height = Param.MODE_MATCH_PARENT;
-                        p.width = Param.makeUpDP(buttonSize);
-                        rightLayout.addView(button, p);
-                    }
-                    {
-                        SceneSelectButton button = new SceneSelectButton(c);
-                        button.setBackgroundColor(UiConfig.Color.BLUE_LIGHT);
-                        button.setTexture(FontAwesome.fa_osu_edit_o.getTexture());
-                        button.setText("Edit");
-                        button.setOnClickListener(new OnClickListener() {
-                            @Override
-                            public void onClick(EdView view) {
-
-                                PopupToast.toast(getContext(), "working").show();
-                                //hide();
-                                //LabGame.get().getScenes().swapScene(ScenesName.Edit);
-                            }
-                        });
-                        MarginLayoutParam p = new MarginLayoutParam();
-                        p.height = Param.MODE_MATCH_PARENT;
-                        p.width = Param.makeUpDP(buttonSize);
-                        rightLayout.addView(button, p);
-                    }
-                }
-            }
-            groups.put(GROUP_PLAY, currentGroup);
-        }
         applyGroup(getGroup(GROUP_MAIN));
     }
+
+
+    private void loadGroup(String name, EdView[] left, EdView[] right) {
+        currentGroup = new ButtonGroup();
+        leftLayout.setChildrenWrapper(new ChildrenWrapper());
+        rightLayout.setChildrenWrapper(new ChildrenWrapper());
+
+        currentGroup.leftWrapper = leftLayout.getChildrenWrapper();
+        currentGroup.rightWrapper = rightLayout.getChildrenWrapper();
+        groups.put(name, currentGroup);
+
+        leftLayout.children(left);
+        rightLayout.children(right);
+    }
+
+
+
+    private SceneSelectButton createButton(Color4 bgColor, String text, AbstractTexture texture, OnClickListener listener) {
+        return new SceneSelectButton(getContext()) {{
+            setBackgroundColor(bgColor);
+            setText(text);
+            setOnClickListener(listener);
+            setTexture(texture);
+
+            layoutParam(
+                    new MarginLayoutParam() {{
+                        height = Param.MODE_MATCH_PARENT;
+                        width = Param.makeUpDP(buttonSize);
+                    }}
+            );
+        }};
+    }
+
 
     public OnClickListener getSoloClicker() {
         return soloClicker;

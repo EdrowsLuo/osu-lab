@@ -223,6 +223,10 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
         this.gravity = gravity;
     }
 
+    public void gravity(int gravity) {
+        setGravity(gravity);
+    }
+
     public int getGravity() {
         return gravity;
     }
@@ -336,6 +340,10 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
 
     public void setLayoutParam(EdLayoutParam layoutParam) {
         this.layoutParam = layoutParam;
+    }
+
+    public void layoutParam(EdLayoutParam layoutParam) {
+        setLayoutParam(layoutParam);
     }
 
     public EdLayoutParam getLayoutParam() {

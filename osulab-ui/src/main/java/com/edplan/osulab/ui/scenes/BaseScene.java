@@ -15,10 +15,12 @@ import com.edplan.framework.ui.layout.Param;
 public abstract class BaseScene extends RelativeLayout implements Hideable {
     public BaseScene(MContext c) {
         super(c);
-        RelativeLayout.RelativeParam p = new RelativeLayout.RelativeParam();
-        p.width = Param.MODE_MATCH_PARENT;
-        p.height = Param.MODE_MATCH_PARENT;
-        setLayoutParam(p);
+
+        setLayoutParam(
+                new RelativeParam() {{
+                    width = Param.MODE_MATCH_PARENT;
+                    height = Param.MODE_MATCH_PARENT;
+                }});
     }
 
     public abstract String getSceneName();

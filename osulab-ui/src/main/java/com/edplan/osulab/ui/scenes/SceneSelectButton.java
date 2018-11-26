@@ -55,41 +55,52 @@ public class SceneSelectButton extends LinearLayout implements Hideable {
 
     public SceneSelectButton(MContext c) {
         super(c);
-        bg = new ColorRectSprite(c);
+
         accentColor.set(UiConfig.Color.BLUE_DARK);
-        bg.setAccentColor(UiConfig.Color.BLUE_DARK);
-        bg.setColor(Color4.gray(0.9f), Color4.gray(1),
-                Color4.gray(0.9f), Color4.gray(1));
-        shadow = new ColorRectSprite(c);
+
+        bg = new ColorRectSprite(c) {{
+            setAccentColor(UiConfig.Color.BLUE_DARK);
+            setColor(
+                    Color4.gray(0.9f), Color4.gray(1),
+                    Color4.gray(0.9f), Color4.gray(1));
+        }};
+
         float gr = 0.2f;
-        shadow.setColor(Color4.rgba(gr, gr, gr, 0.4f),
+        shadow = new ColorRectSprite(c);
+        shadow.setColor(
+                Color4.rgba(gr, gr, gr, 0.4f),
                 Color4.rgba(0, 0, 0, 0f),
                 Color4.rgba(gr, gr, gr, 0.4f),
                 Color4.rgba(0, 0, 0, 0f));
+
         setOrientation(Orientation.DIRECTION_T2B);
         setGravity(Gravity.Center);
         setClickable(true);
-        {
-            textureView = new TextureView(c);
-            textureView.setBlendType(BlendType.Additive);
-            MarginLayoutParam p = new MarginLayoutParam();
-            p.width = Param.makeUpDP(22);
-            p.height = Param.makeUpDP(22);
-            p.marginTop = ViewConfiguration.dp(8);
-            p.marginBottom = ViewConfiguration.dp(4);
-            addView(textureView, p);
-        }
 
-        {
-            textView = new TextView(c);
-            textView.setFont(BMFont.Exo_20_Semi_Bold);
-            textView.setTextSize(ViewConfiguration.dp(12));
-            MarginLayoutParam p = new MarginLayoutParam();
-            p.width = Param.MODE_WRAP_CONTENT;
-            p.height = Param.MODE_WRAP_CONTENT;
-            addView(textView, p);
-        }
+        addAll(
+                textureView = new TextureView(c){{
+                    setBlendType(BlendType.Additive);
+                    layoutParam(
+                            new MarginLayoutParam(){{
+                                width = Param.makeUpDP(22);
+                                height = Param.makeUpDP(22);
+                                marginTop = ViewConfiguration.dp(8);
+                                marginBottom = ViewConfiguration.dp(4);
+                            }}
+                    );
+                }},
+                textView = new TextView(c){{
+                    setFont(BMFont.Exo_20_Semi_Bold);
+                    setTextSize(ViewConfiguration.dp(12));
 
+                    layoutParam(
+                            new MarginLayoutParam(){{
+                                width = Param.MODE_WRAP_CONTENT;
+                                height = Param.MODE_WRAP_CONTENT;
+                            }}
+                    );
+                }}
+        );
     }
 
     public void setWidthAddition(float widthAddition) {
@@ -109,13 +120,14 @@ public class SceneSelectButton extends LinearLayout implements Hideable {
         return onClickListener;
     }
 
-    public void setLeftShadow() {
+    public SceneSelectButton setLeftShadow() {
         leftShadow = true;
         float gr = 0.2f;
         shadow.setColor(Color4.rgba(0, 0, 0, 0f),
                 Color4.rgba(gr, gr, gr, 0.4f),
                 Color4.rgba(0, 0, 0, 0f),
                 Color4.rgba(gr, gr, gr, 0.4f));
+        return this;
     }
 
     public void setTexture(AbstractTexture t) {

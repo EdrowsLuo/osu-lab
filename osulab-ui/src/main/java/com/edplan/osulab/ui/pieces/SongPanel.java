@@ -21,67 +21,42 @@ import com.edplan.framework.ui.inputs.EdMotionEvent;
 public class SongPanel extends PopupView {
     private static SongPanel instance;
 
-    private TextureView background;
-
     private float hideOffset = ViewConfiguration.dp(100);
 
     public SongPanel(MContext c) {
         super(c);
-        //setOutsideTouchable(false);
-        {
-            RelativeLayout.RelativeParam p = new RelativeLayout.RelativeParam();
-            p.width = Param.makeUpDP(300);
-            p.height = Param.makeUpDP(150);
-            p.gravity = Gravity.TopRight;
-            p.marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP + 10);
-            p.marginRight = ViewConfiguration.dp(10);
-            setLayoutParam(p);
-        }
-        //setBackground(Color4.Black);
-        //setRounded(ViewConfiguration.dp(20));
+        setLayoutParam(
+                new RelativeLayout.RelativeParam() {{
+                    width = Param.makeUpDP(300);
+                    height = Param.makeUpDP(150);
+                    gravity = Gravity.TopRight;
+                    marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP + 10);
+                    marginRight = ViewConfiguration.dp(10);
+                }});
         setBackgroundRoundedRect(Color4.Black,ViewConfiguration.dp(20));
         setClickable(true);
         setOutsideTouchable(true);
-		/* .setShadow(
-			ViewConfiguration.dp(5),
-			Color4.rgba(1,1,1,0.3f),
-			Color4.rgba(0,0,0,0));*/
-        {
-            background = new TextureView(c);
-            RelativeLayout.RelativeParam p = new RelativeLayout.RelativeParam();
-            p.width = Param.MODE_MATCH_PARENT;
-            p.height = Param.MODE_MATCH_PARENT;
-        }
     }
 
     @Override
     public boolean onOutsideTouch(EdMotionEvent e) {
-
         hide();
         return true;
     }
 
     @Override
     protected void onHide() {
-
         ComplexAnimationBuilder b = ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this, 0, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.None));
         b.together(new FloatQueryAnimation<EdView>(this, "offsetX")
                 .transform(0, 0, Easing.None)
                 .transform(hideOffset, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.InQuad));
         ComplexAnimation anim = b.buildAndStart();
-        anim.setOnFinishListener(new OnFinishListener() {
-            @Override
-            public void onFinish() {
-
-                SongPanel.super.onHide();
-            }
-        });
+        anim.setOnFinishListener(() -> SongPanel.super.onHide());
         setAnimation(anim);
     }
 
     @Override
     protected void onShow() {
-
         super.onShow();
         setAlpha(0);
         ComplexAnimationBuilder b = ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this, 1, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.None));
@@ -92,11 +67,10 @@ public class SongPanel extends PopupView {
         setAnimation(anim);
     }
 
-    public static void setInstance(SongPanel instance) {
-        SongPanel.instance = instance;
-    }
-
-    public static SongPanel getInstance() {
+    public static SongPanel getInstance(MContext context) {
+        if (instance == null) {
+            instance = new SongPanel(context);
+        }
         return instance;
     }
 }

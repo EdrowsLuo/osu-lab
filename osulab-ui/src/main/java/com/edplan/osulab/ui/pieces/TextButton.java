@@ -18,14 +18,19 @@ public class TextButton extends LabButton {
         setPaddingRight(padding * 3);
         setPaddingTop(padding);
         setPaddingBottom(padding);
-        textView = new TextView(c);
-        textView.setFont(BMFont.Exo_20_Semi_Bold);
-        textView.setTextSize(ViewConfiguration.dp(16));
-        RelativeLayout.RelativeParam param = new RelativeLayout.RelativeParam();
-        param.width = Param.MODE_WRAP_CONTENT;
-        param.height = Param.MODE_WRAP_CONTENT;
-        param.gravity = Gravity.Center;
-        addView(textView, param);
+
+        children(
+                textView = new TextView(c) {{
+                    setFont(BMFont.Exo_20_Semi_Bold);
+                    setTextSize(ViewConfiguration.dp(16));
+                    layoutParam(
+                            new RelativeLayout.RelativeParam() {{
+                                width = Param.MODE_WRAP_CONTENT;
+                                height = Param.MODE_WRAP_CONTENT;
+                                gravity = Gravity.Center;
+                            }});
+                }}
+        );
     }
 
     public void setTextView(TextView textView) {

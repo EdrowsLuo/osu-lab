@@ -40,7 +40,6 @@ public class Scenes extends RelativeLayout implements Hideable, BackQuery.BackHa
 
     public Scenes(MContext c) {
         super(c);
-        //setAlwaysRefresh(true);
         initialRegister();
     }
 

@@ -92,31 +92,25 @@ public class MainCircleView extends EdView {
         p4.setAccentColor(Color4.rgb255(255, 255, 255));
 
         float radius = getBaseSize();
-        LabGame.get().getJumpingCircle().startOpeningAnimation(new OnFinishListener() {
-            @Override
-            public void onFinish() {
-                post(new Runnable() {
-                    @Override
-                    public void run() {
-                        LabGame.get().getToolBar().show();
-                    }
-                }, 500);
-            }
-        });
-        FloatQueryAnimation piecesAnim = new FloatQueryAnimation<MainCircleView>(MainCircleView.this, "pieceOriginOffset");
-        piecesAnim.transform(0, 0, Easing.None);
-        piecesAnim.transform(radius, 600, Easing.OutExpo);
-        ComplexAnimationBuilder builder = ComplexAnimationBuilder.start(piecesAnim);
-        ComplexAnimation camin = builder.build();
-        camin.setOnFinishListener(new OnFinishListener() {
-            @Override
-            public void onFinish() {
-                if (l != null) l.onFinish();
-                setVisiblility(VISIBILITY_GONE);
-            }
-        });
-        camin.start();
-        setAnimation(camin);
+
+        LabGame.get().getJumpingCircle().startOpeningAnimation(() -> post(LabGame.get().getToolBar()::show, 500));
+
+        setAnimation(new ComplexAnimationBuilder(){{
+            startAnim(
+                    new FloatQueryAnimation<MainCircleView>(MainCircleView.this::setPieceOriginOffset) {{
+                        transform(0, 0, Easing.None);
+                        transform(radius, 600, Easing.OutExpo);
+                    }}
+            );
+
+            onBuild(v -> {
+                v.setOnFinishListener(()->{
+                    if (l != null) l.onFinish();
+                    setVisiblility(VISIBILITY_GONE);
+                });
+                v.start();
+            });
+        }}.build());
     }
 
     @Override

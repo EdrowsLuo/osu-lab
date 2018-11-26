@@ -25,34 +25,43 @@ public class PopupToast extends PopupView {
     public PopupToast(MContext c) {
         super(c);
         setBackgroundRoundedRect(Color4.rgba(0, 0, 0, 0.4f),ViewConfiguration.dp(5));
-        //.setShadow(ViewConfiguration.dp(3),Color4.rgba(0.5f,0.5f,0.5f,0.3f),Color4.Alpha);
-        LinearLayout l = new LinearLayout(c);
-        l.setGravity(Gravity.Center);
-        //l.setBackground(Color4.rgba(0, 0, 0, 0.4f));
-        text = new TextView(c);
-        text.setTextSize(ViewConfiguration.dp(17));
-        RelativeLayout.RelativeParam p = new RelativeLayout.RelativeParam();
-        p.width = Param.MODE_WRAP_CONTENT;
-        p.height = Param.MODE_WRAP_CONTENT;
-        p.gravity = Gravity.BottomCenter;
-        p.marginBottom = ViewConfiguration.dp(60);
-        setLayoutParam(p);
-        {
-            RelativeLayout.RelativeParam pl = new RelativeLayout.RelativeParam();
-            pl.width = Param.MODE_WRAP_CONTENT;
-            pl.height = Param.MODE_WRAP_CONTENT;
-            pl.gravity = Gravity.BottomCenter;
-            addView(l, pl);
-        }
-        {
-            MarginLayoutParam pl = new MarginLayoutParam();
-            pl.width = Param.MODE_WRAP_CONTENT;
-            pl.height = Param.MODE_WRAP_CONTENT;
-            pl.postMargin(ViewConfiguration.dp(6));
-            pl.marginLeft = ViewConfiguration.dp(10);
-            pl.marginRight = ViewConfiguration.dp(10);
-            l.addView(text, pl);
-        }
+
+        setLayoutParam(
+                new RelativeLayout.RelativeParam() {{
+                    width = Param.MODE_WRAP_CONTENT;
+                    height = Param.MODE_WRAP_CONTENT;
+                    gravity = Gravity.BottomCenter;
+                    marginBottom = ViewConfiguration.dp(60);
+                }});
+
+        children(
+                new LinearLayout(c){{
+                    gravity(Gravity.Center);
+
+                    layoutParam(
+                            new RelativeLayout.RelativeParam() {{
+                                width = Param.MODE_WRAP_CONTENT;
+                                height = Param.MODE_WRAP_CONTENT;
+                                gravity = Gravity.BottomCenter;
+                            }});
+
+                    children(
+                            text = new TextView(c){{
+                                setTextSize(ViewConfiguration.dp(17));
+
+                                layoutParam(
+                                        new MarginLayoutParam() {{
+                                            width = Param.MODE_WRAP_CONTENT;
+                                            height = Param.MODE_WRAP_CONTENT;
+                                            postMargin(ViewConfiguration.dp(6));
+                                            marginLeft = ViewConfiguration.dp(10);
+                                            marginRight = ViewConfiguration.dp(10);
+                                        }});
+                            }}
+                    );
+
+                }}
+        );
     }
 
     @Override

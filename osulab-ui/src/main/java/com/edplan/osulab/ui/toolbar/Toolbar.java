@@ -3,6 +3,7 @@ package com.edplan.osulab.ui.toolbar;
 import com.edplan.framework.Framework;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.EdView;
@@ -11,8 +12,6 @@ import com.edplan.framework.ui.animation.ComplexAnimation;
 import com.edplan.framework.ui.animation.ComplexAnimationBuilder;
 import com.edplan.framework.ui.animation.Easing;
 import com.edplan.framework.ui.animation.FloatQueryAnimation;
-import com.edplan.framework.ui.animation.callback.OnFinishListener;
-import com.edplan.framework.ui.drawable.ColorDrawable;
 import com.edplan.framework.ui.drawable.sprite.ColorRectSprite;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
 import com.edplan.framework.ui.layout.Gravity;
@@ -20,18 +19,12 @@ import com.edplan.framework.ui.layout.MarginLayoutParam;
 import com.edplan.framework.ui.layout.Orientation;
 import com.edplan.framework.ui.layout.Param;
 import com.edplan.framework.ui.text.font.FontAwesome;
-import com.edplan.framework.ui.widget.FontAwesomeTextView;
 import com.edplan.framework.ui.widget.LinearLayout;
-import com.edplan.framework.ui.widget.RelativeContainer;
 import com.edplan.framework.ui.widget.RelativeLayout;
-import com.edplan.framework.ui.widget.RelativeLayout.RelativeParam;
-import com.edplan.framework.ui.widget.TestButton;
 import com.edplan.framework.ui.widget.component.Hideable;
 import com.edplan.osulab.LabGame;
 import com.edplan.osulab.ui.OptionList;
-import com.edplan.osulab.ui.pieces.TextButton;
 import com.edplan.osulab.ui.pieces.SongPanel;
-import com.edplan.osulab.ui.popup.PopupToast;
 
 public class Toolbar extends RelativeLayout implements Hideable {
     private float normalBaseAlpha = 0.7f;
@@ -58,7 +51,9 @@ public class Toolbar extends RelativeLayout implements Hideable {
 
     private double preTouchTime;
 
-    public final ToolbarShadow shadow;
+    public ToolbarShadow shadow;
+
+    Color4 dividerColor = Color4.rgba(1, 1, 1, 0.4f);
 
     public Toolbar(MContext c) {
         super(c);
@@ -67,138 +62,93 @@ public class Toolbar extends RelativeLayout implements Hideable {
         setBackground(Color4.rgba(0, 0, 0, 0.5f));
         shadowSprite = new ColorRectSprite(c);
         float gr = 0f;
-        Color4 dividerColor = Color4.rgba(1, 1, 1, 0.4f);
+
         shadowSprite.setColor(Color4.rgba(gr, gr, gr, 0.6f),
                 Color4.rgba(gr, gr, gr, 0.6f),
                 Color4.rgba(0, 0, 0, 0f),
                 Color4.rgba(0, 0, 0, 0f));
-        {
-            leftLayout = new LinearLayout(c);
-            leftLayout.setGravity(Gravity.CenterLeft);
-            leftLayout.setOrientation(Orientation.DIRECTION_L2R);
-            RelativeParam param = new RelativeParam();
-            param.gravity = Gravity.CenterLeft;
-            param.width = Param.MODE_WRAP_CONTENT;
-            param.height = Param.MODE_MATCH_PARENT;
-            addView(leftLayout, param);
 
-            {
-                ToolBarButton msgShowButton = new ToolBarButton(c);
-                msgShowButton.setIcon(FontAwesome.fa_navicon.getTexture());
-                msgShowButton.setGravity(Gravity.Center);
-                MarginLayoutParam lparam = new MarginLayoutParam();
-                lparam.width = Param.makeupScaleOfParentOtherParam(1.6f);
-                lparam.height = Param.MODE_MATCH_PARENT;
-                msgShowButton.setOnClickListener(view -> {
-                    OptionList list = LabGame.get().getOptionList();
-                    if (list.getVisiblility() == VISIBILITY_GONE) {
-                        list.show();
-                    } else {
-                        list.hide();
-                    }
-                });
-                leftLayout.addView(msgShowButton, lparam);
-            }
-            {
-                EdView divider = new EdView(c);
-                divider.setBackground(dividerColor);
-                MarginLayoutParam lparam = new MarginLayoutParam();
-                lparam.width = Param.makeUpDP(2f);
-                lparam.height = Param.MODE_MATCH_PARENT;
-                lparam.marginBottom = ViewConfiguration.dp(4);
-                lparam.marginTop = ViewConfiguration.dp(4);
-                leftLayout.addView(divider, lparam);
-            }
-        }
-        {
-            rightLayout = new LinearLayout(c);
-            rightLayout.setOrientation(Orientation.DIRECTION_L2R);
-            RelativeParam param = new RelativeParam();
-            param.gravity = Gravity.CenterRight;
-            param.width = Param.MODE_WRAP_CONTENT;
-            param.height = Param.MODE_MATCH_PARENT;
-            addView(rightLayout, param);
 
-            {
-                ToolBarButton msgShowButton = new ToolBarButton(c);
-                msgShowButton.setGravity(Gravity.Center);
-                msgShowButton.setIcon(FontAwesome.fa_music.getTexture());
-                msgShowButton.setOnClickListener(view -> {
-                    SongPanel panel = SongPanel.getInstance();
-                    if (panel == null) {
-                        panel = new SongPanel(getContext());
-                        SongPanel.setInstance(panel);
-                        panel.show();
-                        //PopupToast.toast(getContext(),"create show").show();
-                    } else {
-                        //PopupToast.toast(getContext(),""+panel.isHidden()).show();
-                        if (panel.isHidden()) {
-                            panel.show();
-                        } else {
-                            panel.hide();
-                            //SongPanel.setInstance(null);
-                        }
-                    }
-                });
-                MarginLayoutParam lparam = new MarginLayoutParam();
-                lparam.width = Param.makeUpDP(50);
-                lparam.height = Param.MODE_MATCH_PARENT;
-                rightLayout.addView(msgShowButton, lparam);
-            }
-            {
-                EdView divider = new EdView(c);
-                divider.setBackground(dividerColor);
-                MarginLayoutParam lparam = new MarginLayoutParam();
-                lparam.width = Param.makeUpDP(2f);
-                lparam.height = Param.MODE_MATCH_PARENT;
-                lparam.marginBottom = ViewConfiguration.dp(4);
-                lparam.marginTop = ViewConfiguration.dp(4);
-                rightLayout.addView(divider, lparam);
-            }
-            {
-                ToolBarButton msgShowButton = new ToolBarButton(c);
-                msgShowButton.setGravity(Gravity.Center);
-                msgShowButton.setIcon(FontAwesome.fa_angle_double_down.getTexture());
-                msgShowButton.setOnClickListener(view -> {
-                    if (LabGame.get().getSceneOverlay().getVisiblility() != VISIBILITY_GONE) {
-                        LabGame.get().getSceneOverlay().hide();
-                    } else {
-                        LabGame.get().getSceneOverlay().show();
-                    }
-                });
-                MarginLayoutParam lparam = new MarginLayoutParam();
-                lparam.width = Param.makeUpDP(50);
-                lparam.height = Param.MODE_MATCH_PARENT;
-                rightLayout.addView(msgShowButton, lparam);
-            }
-            {
-                EdView divider = new EdView(c);
-                divider.setBackground(dividerColor);
-                MarginLayoutParam lparam = new MarginLayoutParam();
-                lparam.width = Param.makeUpDP(2f);
-                lparam.height = Param.MODE_MATCH_PARENT;
-                lparam.marginBottom = ViewConfiguration.dp(4);
-                lparam.marginTop = ViewConfiguration.dp(4);
-                rightLayout.addView(divider, lparam);
-            }
-            {
-                ToolBarButton msgShowButton = new ToolBarButton(c);
-                msgShowButton.setGravity(Gravity.Center);
-                msgShowButton.setIcon(FontAwesome.fa_genderless.getTexture());
-                MarginLayoutParam lparam = new MarginLayoutParam();
-                lparam.width = Param.makeUpDP(40);
-                lparam.height = Param.MODE_MATCH_PARENT;
-                rightLayout.addView(msgShowButton, lparam);
-                msgShowButton.setOnClickListener(view -> {
-                    if (!LabGame.get().getMessageList().isHidden()) {
-                        LabGame.get().getMessageList().hide();
-                    } else {
-                        LabGame.get().getMessageList().show();
-                    }
-                });
-            }
-        }
+
+        addAll(
+                leftLayout = new LinearLayout(c){{
+                    setOrientation(Orientation.DIRECTION_L2R);
+
+                    layoutParam(
+                            new RelativeParam(){{
+                                gravity = Gravity.CenterLeft;
+                                width = Param.MODE_WRAP_CONTENT;
+                                height = Param.MODE_MATCH_PARENT;
+                            }}
+                    );
+
+                    children(
+                            iconButton(
+                                    FontAwesome.fa_navicon.getTexture(),
+                                    view -> LabGame.get().getOptionList().changeState()
+                            ),
+                            divider()
+                    );
+                }},
+                rightLayout = new LinearLayout(c){{
+                    setOrientation(Orientation.DIRECTION_L2R);
+
+                    layoutParam(
+                            new RelativeParam(){{
+                                gravity = Gravity.CenterRight;
+                                width = Param.MODE_WRAP_CONTENT;
+                                height = Param.MODE_MATCH_PARENT;
+                            }}
+                    );
+
+                    children(
+                            iconButton(
+                                    FontAwesome.fa_music.getTexture(),
+                                    view -> SongPanel.getInstance(getContext()).changeState()
+                            ),
+                            divider(),
+                            iconButton(
+                                    FontAwesome.fa_angle_double_down.getTexture(),
+                                    view -> LabGame.get().getSceneOverlay().changeState()
+                            ),
+                            divider(),
+                            iconButton(
+                                    FontAwesome.fa_genderless.getTexture(),
+                                    view ->  LabGame.get().getMessageList().changeState()
+                            )
+                    );
+
+                }}
+        );
         setAlpha(1);
+    }
+
+    private EdView iconButton(AbstractTexture icon, OnClickListener onClickListener) {
+        return new ToolBarButton(getContext()) {{
+            setIcon(icon);
+            setGravity(Gravity.Center);
+            layoutParam(
+                    new MarginLayoutParam() {{
+                        width = Param.makeupScaleOfParentOtherParam(1.6f);
+                        height = Param.MODE_MATCH_PARENT;
+                    }}
+            );
+            setOnClickListener(onClickListener);
+        }};
+    }
+
+    private EdView divider() {
+        return new EdView(getContext()){{
+            setBackground(dividerColor);
+            layoutParam(
+                    new MarginLayoutParam(){{
+                        width = Param.makeUpDP(2f);
+                        height = Param.MODE_MATCH_PARENT;
+                        marginBottom = ViewConfiguration.dp(4);
+                        marginTop = ViewConfiguration.dp(4);
+                    }}
+            );
+        }};
     }
 
     @Override

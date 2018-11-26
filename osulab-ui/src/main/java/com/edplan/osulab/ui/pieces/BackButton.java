@@ -78,42 +78,54 @@ public class BackButton extends EdView implements Hideable {
     }
 
     public void performOnPressAnimation() {
-        FloatQueryAnimation anim = new FloatQueryAnimation<BackButton>(this, "scale");
-        anim.transform(circle.getScaleX(), 0, Easing.None);
-        anim.transform(pressScale, ViewConfiguration.DEFAULT_TRANSITION_TIME / 2, Easing.None);
-        anim.start();
-        setAnimation(anim);
+        setAnimation(
+                new FloatQueryAnimation<BackButton>(this::setScale) {{
+                    transform(circle.getScaleX(), 0, Easing.None);
+                    transform(pressScale, ViewConfiguration.DEFAULT_TRANSITION_TIME / 2, Easing.None);
+                    start();
+                }}
+        );
     }
 
     public void performOffPressAnimation() {
-        FloatQueryAnimation anim = new FloatQueryAnimation<BackButton>(this, "scale");
-        anim.transform(circle.getScaleX(), 0, Easing.None);
-        anim.transform(1, ViewConfiguration.DEFAULT_TRANSITION_TIME / 2, Easing.OutBounce);
-        anim.start();
-        setAnimation(anim);
+        setAnimation(
+                new FloatQueryAnimation<BackButton>(this::setScale) {{
+                    transform(circle.getScaleX(), 0, Easing.None);
+                    transform(1, ViewConfiguration.DEFAULT_TRANSITION_TIME / 2, Easing.OutBounce);
+                    start();
+                }}
+        );
     }
 
     @Override
     public void hide() {
-        ComplexAnimationBuilder builder = ComplexAnimationBuilder.start(new FloatQueryAnimation<BackButton>(this, "alpha")
-                .transform(getAlpha(), 0, Easing.None)
-                .transform(0, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.None));
-        builder.together(new FloatQueryAnimation<BackButton>(this, "offsetX")
-                .transform(getOffsetX(), 0, Easing.None)
-                .transform(-getWidth(), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.InQuad));
-        builder.together(new FloatQueryAnimation<BackButton>(this, "offsetY")
-                .transform(getOffsetX(), 0, Easing.None)
-                .transform(getHeight(), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.InQuad));
-        ComplexAnimation anim = builder.build();
-        anim.setOnFinishListener(new OnFinishListener() {
-            @Override
-            public void onFinish() {
+        setAnimation(
+                new ComplexAnimationBuilder() {{
+                    startAnim(
+                            new FloatQueryAnimation<BackButton>(BackButton.this::setAlpha) {{
+                                transform(getAlpha(), 0, Easing.None);
+                                transform(0, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.None);
+                            }}
+                    );
+                    together(
+                            new FloatQueryAnimation<BackButton>(BackButton.this::setOffsetX) {{
+                                transform(getOffsetX(), 0, Easing.None);
+                                transform(-getWidth(), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.InQuad);
+                            }}
+                    );
+                    together(
+                            new FloatQueryAnimation<BackButton>(BackButton.this::setOffsetY) {{
+                                transform(getOffsetX(), 0, Easing.None);
+                                transform(getHeight(), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.InQuad);
+                            }}
+                    );
 
-                setVisiblility(VISIBILITY_GONE);
-            }
-        });
-        anim.start();
-        setAnimation(anim);
+                    onBuild(v -> {
+                        v.setOnFinishListener(() -> setVisiblility(VISIBILITY_GONE));
+                        v.start();
+                    });
+                }}.build()
+        );
     }
 
     public void directHide() {

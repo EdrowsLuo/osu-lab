@@ -26,16 +26,21 @@ public class WorkingScene extends BaseScene {
     public WorkingScene(MContext c) {
         super(c);
         setBackground(Color4.gray(0.2f).setAlpha(0.5f));
-        {
-            nameView = new TextView(c);
-            nameView.setFont(BMFont.Exo_20_Semi_Bold);
-            nameView.setTextSize(ViewConfiguration.dp(40));
-            RelativeLayout.RelativeParam p = new RelativeLayout.RelativeParam();
-            p.width = Param.MODE_WRAP_CONTENT;
-            p.height = Param.MODE_WRAP_CONTENT;
-            p.gravity = Gravity.Center;
-            addView(nameView, p);
-        }
+
+        addAll(
+                new TextView(c) {{
+                    setFont(BMFont.Exo_20_Semi_Bold);
+                    setTextSize(ViewConfiguration.dp(40));
+
+                    layoutParam(
+                            new RelativeParam() {{
+                                width = Param.MODE_WRAP_CONTENT;
+                                height = Param.MODE_WRAP_CONTENT;
+                                gravity = Gravity.Center;
+                            }}
+                    );
+                }}
+        );
     }
 
     public void setSceneName(String s) {
@@ -45,7 +50,6 @@ public class WorkingScene extends BaseScene {
 
     @Override
     public void hide() {
-
         ComplexAnimationBuilder bd = ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this, 0, Scenes.SCENE_TRANSITION_DURATION, Easing.None));
         ComplexAnimation anim = bd.buildAndStart();
         anim.setOnFinishListener(setVisibilityWhenFinish(VISIBILITY_GONE));

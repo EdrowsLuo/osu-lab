@@ -12,6 +12,7 @@ import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.ViewConfiguration;
+import com.edplan.framework.ui.additions.popupview.defviews.RenderStatPopupView;
 import com.edplan.framework.ui.animation.AbstractAnimation;
 import com.edplan.framework.ui.animation.AnimationHandler;
 import com.edplan.framework.ui.animation.ComplexAnimation;
@@ -25,7 +26,6 @@ import com.edplan.framework.ui.drawable.sprite.TextureCircleSprite;
 import com.edplan.osulab.LabGame;
 import com.edplan.osulab.ScenesName;
 import com.edplan.osulab.ui.UiConfig;
-import com.edplan.osulab.ui.popup.RenderStatePopupView;
 import com.edplan.osulab.ui.scenes.BaseScene;
 import com.edplan.osulab.ui.scenes.SceneSelectButtonBar;
 
@@ -123,7 +123,6 @@ public class JumpingCircle extends EdView {
 
     @Override
     public void performAnimation(double deltaTime) {
-
         super.performAnimation(deltaTime);
         if (boundAnim != null) {
             if (AnimationHandler.handleSingleAnima(boundAnim, deltaTime)) {
@@ -134,7 +133,6 @@ public class JumpingCircle extends EdView {
 
     @Override
     public void onInitialLayouted() {
-
         super.onInitialLayouted();
         BaseBoundOverlay b = new BaseBoundOverlay();
         initialBound = b;
@@ -167,44 +165,27 @@ public class JumpingCircle extends EdView {
         pinkCover.setAccentColor(UiConfig.Color.PINK);
         pinkCover.setAlpha(1);
 
-        FloatQueryAnimation anim = new FloatQueryAnimation<JumpingCircle>(this, "radius");
-        anim.transform(radius, 0, Easing.None);
-        anim.transform(0, 500, Easing.InQuad);
-        ComplexAnimationBuilder builder = ComplexAnimationBuilder.start(anim);
-        {
-            FloatQueryAnimation anim2 = new FloatQueryAnimation<JumpingCircle>(JumpingCircle.this, "inner");
-            anim2.transform(radius * 0.9f, 0, Easing.None);
-            anim2.transform(0, 500, Easing.InQuad);
-            builder.together(anim2, 0);
-        }
-
-
-        builder.together(new FloatQueryAnimation<JumpingCircle>(this, new FloatInvokeSetter<JumpingCircle>() {
-                    @Override
-                    public void invoke(JumpingCircle target, float v) {
-
-                        for (PartRing r : rings) {
-                            r.sprite.setScale(v);
-                        }
-                    }
-                })
-                        .transform(1, 0, Easing.None)
-                        .transform(0, 500, Easing.None)
+        setAnimation(
+                new ComplexAnimationBuilder(){{
+                    startAnim(
+                            new FloatQueryAnimation<JumpingCircle>(JumpingCircle.this::setRadius){{
+                                transform(radius, 0, Easing.None);
+                                transform(0, 500, Easing.InQuad);
+                            }}
+                    );
+                    together(
+                            new FloatQueryAnimation<JumpingCircle>(JumpingCircle.this::setInner){{
+                                transform(radius * 0.9f, 0, Easing.None);
+                                transform(0, 500, Easing.InQuad);
+                            }},
+                            0
+                    );
+                    onBuild(a -> {
+                        a.setOnFinishListener(() -> System.exit(0));
+                        a.start();
+                    });
+                }}.build()
         );
-
-        ComplexAnimation camin = builder.build();
-        camin.setOnFinishListener(new OnFinishListener() {
-            @Override
-            public void onFinish() {
-
-                System.exit(0);
-            }
-        });
-        camin.start();
-        /*ComplexAnimationBuilder builder2 = ComplexAnimationBuilder.start(
-                FloatQueryAnimation.fadeTo(getContext().getViewRoot().getRootContainer(), 0, 500, Easing.OutQuad));
-        getContext().getViewRoot().getRootContainer().setAnimation(builder2.buildAndStart());*/
-        setAnimation(camin);
         boundAnim = null;
     }
 
@@ -216,28 +197,37 @@ public class JumpingCircle extends EdView {
         tmp.setBottom(pb);
         boundOverlay = tmp;
 
-        ComplexAnimationBuilder builder = ComplexAnimationBuilder.start(new FloatQueryAnimation<BoundOverlay>(tmp, "left")
-                .transform(pl, 0, Easing.None)
-                .transform(next.getLeft(), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.OutQuad));
-        builder.together(new FloatQueryAnimation<BoundOverlay>(tmp, "top")
-                .transform(pt, 0, Easing.None)
-                .transform(next.getTop(), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.OutQuad));
-        builder.together(new FloatQueryAnimation<BoundOverlay>(tmp, "right")
-                .transform(pr, 0, Easing.None)
-                .transform(next.getRight(), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.OutQuad));
-        builder.together(new FloatQueryAnimation<BoundOverlay>(tmp, "bottom")
-                .transform(pb, 0, Easing.None)
-                .transform(next.getBottom(), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.OutQuad));
-        ComplexAnimation anim = builder.build();
-        anim.start();
-        anim.setOnFinishListener(new OnFinishListener() {
-            @Override
-            public void onFinish() {
+        boundAnim = new ComplexAnimationBuilder() {{
+            startAnim(
+                    new FloatQueryAnimation<BoundOverlay>(tmp::setLeft) {{
+                        transform(pl, 0, Easing.None);
+                        transform(next.getLeft(), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.OutQuad);
+                    }}
+            );
+            together(
+                    new FloatQueryAnimation<BoundOverlay>(tmp::setTop) {{
+                        transform(pt, 0, Easing.None);
+                        transform(next.getTop(), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.OutQuad);
+                    }}
+            );
+            together(
+                    new FloatQueryAnimation<BoundOverlay>(tmp::setRight) {{
+                        transform(pr, 0, Easing.None);
+                        transform(next.getRight(), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.OutQuad);
+                    }}
+            );
+            together(
+                    new FloatQueryAnimation<BoundOverlay>(tmp::setBottom) {{
+                        transform(pb, 0, Easing.None);
+                        transform(next.getBottom(), ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.OutQuad);
+                    }}
+            );
 
-                boundOverlay = next;
-            }
-        });
-        boundAnim = anim;
+            onBuild(a -> {
+                a.setOnFinishListener(() -> boundOverlay = next);
+                a.start();
+            });
+        }}.build();
     }
 
     public void setBoundOverlay(BoundOverlay boundOverlay) {
@@ -252,7 +242,6 @@ public class JumpingCircle extends EdView {
 
     @Override
     public float getLeft() {
-
         if (boundOverlay != null) {
             return boundOverlay.getLeft() + getOffsetX();
         }
@@ -261,7 +250,6 @@ public class JumpingCircle extends EdView {
 
     @Override
     public float getTop() {
-
         if (boundOverlay != null) {
             return boundOverlay.getTop() + getOffsetY();
         }
@@ -270,7 +258,6 @@ public class JumpingCircle extends EdView {
 
     @Override
     public float getRight() {
-
         if (boundOverlay != null) {
             return boundOverlay.getRight() + getOffsetX();
         }
@@ -292,13 +279,6 @@ public class JumpingCircle extends EdView {
         ring.setInnerRadius(w);
         shadowInner.setRadius(w);
         shadowInner.setInnerRadius(w - ViewConfiguration.dp(5));
-		
-		/*
-		float p=w/(getWidth()/2*0.9f);
-		for(PartRing r:rings){
-			r.sprite.setScale(p);
-		}
-		*/
     }
 
     public void setRadius(float r) {
@@ -333,66 +313,45 @@ public class JumpingCircle extends EdView {
 
         pinkCover.setAlpha(1);
 
-        FloatQueryAnimation anim = new FloatQueryAnimation<JumpingCircle>(this, "radius");
-        anim.transform(0, 0, Easing.None);
-        anim.transform(radius, 500, Easing.OutQuad);
-        ComplexAnimationBuilder builder = ComplexAnimationBuilder.start(anim);
-        {
-            FloatQueryAnimation anim2 = new FloatQueryAnimation<JumpingCircle>(JumpingCircle.this, "inner");
-            anim2.transform(0, 200, Easing.None);
-            anim2.transform(radius * 0.9f, 300, Easing.OutQuad);
-            builder.together(anim2, 0);
-        }
-		/*
-		builder.together(new FloatQueryAnimation<JumpingCircle>(this,new FloatInvokeSetter<JumpingCircle>(){
-								 @Override
-								 public void invoke(JumpingCircle target,float v){
+        setAnimation(
+                new ComplexAnimationBuilder(){{
+                    startAnim(
+                            new FloatQueryAnimation<JumpingCircle>(JumpingCircle.this::setRadius){{
+                                transform(0, 0, Easing.None);
+                                transform(radius, 500, Easing.OutQuad);
+                            }}
+                    );
+                    together(
+                            new FloatQueryAnimation<JumpingCircle>(JumpingCircle.this::setInner) {{
+                                transform(0, 200, Easing.None);
+                                transform(radius * 0.9f, 300, Easing.OutQuad);
+                            }}
+                    );
+                    together(
+                            new FloatQueryAnimation<JumpingCircle>(
+                                    v -> {
+                                        for (PartRing r : rings) {
+                                            r.sprite.setScale(v);
+                                        }
+                                    }
+                            ) {{
+                                transform(0, 0, Easing.None);
+                                transform(1, 500, Easing.OutQuad);
+                            }}
+                    );
 
-									 for(PartRing r:rings){
-										 r.sprite.setAlpha(v);
-									 }
-								 }
-							 })
-							 .transform(0,0,Easing.None)
-							 .transform(1,500,Easing.None)
-							 );*/
-
-        builder.together(new FloatQueryAnimation<JumpingCircle>(this, new FloatInvokeSetter<JumpingCircle>() {
-                    @Override
-                    public void invoke(JumpingCircle target, float v) {
-
-                        for (PartRing r : rings) {
-                            r.sprite.setScale(v);
-                        }
-                    }
-                })
-                        .transform(0, 0, Easing.None)
-                        .transform(1, 500, Easing.OutQuad)
+                    onBuild(a->{
+                        a.setOnFinishListener(()->{
+                            performingAnim = false;
+                            setClickable(true);
+                            if (l != null) l.onFinish();
+                        });
+                        a.start();
+                    });
+                }}.build()
         );
 
-        ComplexAnimation camin = builder.build();
-        camin.setOnFinishListener(new OnFinishListener() {
-            @Override
-            public void onFinish() {
-
-                performingAnim = false;
-                setClickable(true);
-                if (l != null) l.onFinish();
-
-            }
-        });
-        camin.start();
-        setAnimation(camin);
-
-
-        /*ComplexAnimationBuilder builder2 = ComplexAnimationBuilder.start(
-                new FloatQueryAnimation<EdBufferedContainer>(getContext().getViewRoot().getRootContainer(), "alpha")
-                        .transform(0, 0, Easing.None)
-                        .transform(1, 300, Easing.InQuad));
-        getContext().getViewRoot().getRootContainer().setAnimation(builder2.buildAndStart());*/
-        RenderStatePopupView r = new RenderStatePopupView(getContext());
-        r.show();
-        RenderStatePopupView.setInstance(r);
+        RenderStatPopupView.getInstance(getContext()).show();
     }
 
     @Override

@@ -6,16 +6,14 @@ import com.edplan.framework.ui.Anchor;
 import com.edplan.framework.ui.ViewConfiguration;
 import com.edplan.framework.ui.layout.Gravity;
 import com.edplan.framework.ui.layout.Param;
-import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.widget.component.Hideable;
 import com.edplan.osulab.LabGame;
 import com.edplan.osulab.ScenesName;
+import com.edplan.osulab.ui.UiConfig;
 import com.edplan.osulab.ui.scenes.BaseScene;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.edplan.osulab.ui.UiConfig;
 
 public class SongsScene extends BaseScene {
     private BottomBar bottomBar;
@@ -28,37 +26,42 @@ public class SongsScene extends BaseScene {
 
     public SongsScene(MContext c) {
         super(c);
-        {
-            songsListView = new SongsListView(c);
-            RelativeLayout.RelativeParam p = new RelativeLayout.RelativeParam();
-            p.width = Param.makeUpDP(SongsListView.WIDTH_DP);
-            p.height = Param.MODE_MATCH_PARENT;
-            p.gravity = Gravity.TopRight;
-            p.marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
-            p.marginBottom = ViewConfiguration.dp(BottomBar.HEIGHT_DP);
-            addView(songsListView, p);
-            hideableContent.add(songsListView);
-        }
-        {
-            detailsPanel = new DetailsPanel(c);
-            RelativeLayout.RelativeParam p = new RelativeLayout.RelativeParam();
-            p.width = Param.makeUpDP(DetailsPanel.WIDTH_DP);
-            p.height = Param.MODE_MATCH_PARENT;
-            p.marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
-            p.marginBottom = ViewConfiguration.dp(BottomBar.HEIGHT_DP);
-            p.gravity = Gravity.TopLeft;
-            addView(detailsPanel, p);
-            hideableContent.add(detailsPanel);
-        }
-        {
-            bottomBar = new BottomBar(c);
-            RelativeLayout.RelativeParam p = new RelativeLayout.RelativeParam();
-            p.width = Param.MODE_MATCH_PARENT;
-            p.height = Param.makeUpDP(BottomBar.HEIGHT_DP);
-            p.gravity = Gravity.BottomCenter;
-            addView(bottomBar, p);
-            hideableContent.add(bottomBar);
-        }
+
+
+        addAll(
+                songsListView = new SongsListView(c){{
+                    layoutParam(
+                            new RelativeParam() {{
+                                width = Param.makeUpDP(SongsListView.WIDTH_DP);
+                                height = Param.MODE_MATCH_PARENT;
+                                gravity = Gravity.TopRight;
+                                marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
+                                marginBottom = ViewConfiguration.dp(BottomBar.HEIGHT_DP);
+                            }});
+                }},
+                detailsPanel = new DetailsPanel(c){{
+                    layoutParam(
+                            new RelativeParam() {{
+                                width = Param.makeUpDP(DetailsPanel.WIDTH_DP);
+                                height = Param.MODE_MATCH_PARENT;
+                                marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
+                                marginBottom = ViewConfiguration.dp(BottomBar.HEIGHT_DP);
+                                gravity = Gravity.TopLeft;
+                            }});
+                }},
+                bottomBar = new BottomBar(c){{
+                    layoutParam(
+                            new RelativeParam() {{
+                                width = Param.MODE_MATCH_PARENT;
+                                height = Param.makeUpDP(BottomBar.HEIGHT_DP);
+                                gravity = Gravity.BottomCenter;
+                            }});
+                }}
+        );
+
+        hideableContent.add(songsListView);
+        hideableContent.add(detailsPanel);
+        hideableContent.add(bottomBar);
     }
 
     public void setBottomBar(BottomBar bottomBar) {

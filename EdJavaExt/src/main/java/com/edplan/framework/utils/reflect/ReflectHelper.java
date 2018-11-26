@@ -6,6 +6,14 @@ import java.lang.reflect.Field;
 
 public class ReflectHelper {
 
+    public static Class getRealClass(Class klass) {
+        if (klass.getName().contains("$")) {
+            return getRealClass(klass.getSuperclass());
+        } else {
+            return klass;
+        }
+    }
+
     public static void ensureClass(Class... ks) {
         for (Class k : ks) {
             try {

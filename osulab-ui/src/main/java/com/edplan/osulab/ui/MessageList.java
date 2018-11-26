@@ -28,7 +28,7 @@ public class MessageList extends ScrollLayout implements Hideable {
         super(c);
         setOutsideTouchable(true);
         setChildoffset(ViewConfiguration.dp(1));
-        setBackground(Color4.rgba(0, 0, 0, 0.5f));
+        setBackground(Color4.rgba(0, 0, 0, 0.8f));
         setOrientation(Orientation.DIRECTION_T2B);
         setPaddingLeft(ViewConfiguration.dp(2));
         setPaddingRight(ViewConfiguration.dp(2));
