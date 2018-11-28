@@ -17,7 +17,7 @@ public class CanvasUtil {
                 i++;
                 float ty = Float.parseFloat(spl[i]);
                 canvas.translate(tx, ty);
-            } else if (Scale.equalsIgnoreCase(Scale)) {
+            } else if (Scale.equalsIgnoreCase(key)) {
                 i++;
                 float s = Float.parseFloat(spl[i]);
                 canvas.scaleContent(s);

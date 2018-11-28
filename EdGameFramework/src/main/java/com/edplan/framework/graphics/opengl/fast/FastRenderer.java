@@ -143,7 +143,7 @@ public class FastRenderer {
 
     public void start(BaseCanvas canvas) {
         if (isRendering)
-            throw new RuntimeException("A LegacyRenderer can't call start when rendering");
+            throw new RuntimeException("A FastRenderer can't call start when rendering");
         isRendering = true;
         frameCanvas = canvas;
         blendType = frameCanvas.getBlendSetting().getBlendType();
@@ -188,7 +188,7 @@ public class FastRenderer {
 
     public void end() {
         if (!isRendering)
-            throw new RuntimeException("A LegacyRenderer can't call start when rendering");
+            throw new RuntimeException("A FastRenderer can't call start when rendering");
         flush();
         isRendering = false;
     }
@@ -241,7 +241,6 @@ public class FastRenderer {
 
             @Override
             public void set(float xv, float yv, float zv) {
-
                 positionArray[x] = xv;
                 positionArray[y] = yv;
                 positionArray[z] = zv;
@@ -249,7 +248,6 @@ public class FastRenderer {
 
             @Override
             public void set(Vec2 v) {
-
                 set(v.x, v.y);
             }
 
@@ -261,37 +259,31 @@ public class FastRenderer {
 
             @Override
             public float getX() {
-
                 return positionArray[x];
             }
 
             @Override
             public float getY() {
-
                 return positionArray[y];
             }
 
             @Override
             public void setX(float v) {
-
                 positionArray[x] = v;
             }
 
             @Override
             public void setY(float v) {
-
                 positionArray[y] = v;
             }
 
             @Override
             public float getZ() {
-
                 return positionArray[z];
             }
 
             @Override
             public void setZ(float v) {
-
                 positionArray[z] = v;
             }
         }
@@ -300,7 +292,6 @@ public class FastRenderer {
 
             @Override
             public void set(Vec2 v) {
-
                 set(v.x, v.y);
             }
 
@@ -312,25 +303,21 @@ public class FastRenderer {
 
             @Override
             public float getX() {
-
                 return textureCoordArray[u];
             }
 
             @Override
             public float getY() {
-
                 return textureCoordArray[v];
             }
 
             @Override
             public void setX(float v) {
-
                 textureCoordArray[u] = v;
             }
 
             @Override
             public void setY(float vl) {
-
                 textureCoordArray[v] = vl;
             }
         }
@@ -338,31 +325,26 @@ public class FastRenderer {
         public class ColorPointer implements IColor4 {
             @Override
             public float getRed() {
-
                 return colorArray[r];
             }
 
             @Override
             public float getGreen() {
-
                 return colorArray[g];
             }
 
             @Override
             public float getBlue() {
-
                 return colorArray[b];
             }
 
             @Override
             public float getAlpha() {
-
                 return colorArray[a];
             }
 
             @Override
             public void set(float rv, float gv, float bv, float av) {
-
                 colorArray[r] = rv;
                 colorArray[g] = gv;
                 colorArray[b] = bv;

@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface GLType {
-    public enum Type {SAMPLE2D, FLOAT, VEC2, VEC3, VEC4, MAT2, MAT3, MAT4}
+    enum Type {SAMPLE2D, FLOAT, VEC2, VEC3, VEC4, MAT2, MAT3, MAT4}
 
     Type value() default Type.FLOAT;
 }
