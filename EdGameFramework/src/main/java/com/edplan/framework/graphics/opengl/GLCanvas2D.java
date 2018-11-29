@@ -118,16 +118,19 @@ public class GLCanvas2D extends BaseCanvas // extends AbstractSRable<CanvasData>
     }
 
     /**
-     * 有bug啊
+     * 裁剪Canvas
      */
-    @Deprecated
     @Override
     protected BaseCanvas clipCanvas(float x, float y, float width, float height) {
-        int ix = Math.round(getData().getTheOrigin().x + x);
-        int iy = Math.round(getData().getTheOrigin().y + y);
-        int ixw = Math.round(getData().getTheOrigin().x + x + width);
-        int iyh = Math.round(getData().getTheOrigin().y + y + height);
-        return new GLCanvas2D(new BufferedLayer(layer, ix, iy, ixw - ix, iyh - iy));
+        int ix = Math.round((getData().getTheOrigin().x + x) / getData().getPixelDensity());
+        int iy = Math.round((getData().getTheOrigin().y + y) / getData().getPixelDensity());
+        int ixw = Math.round((getData().getTheOrigin().x + x + width) / getData().getPixelDensity());
+        int iyh = Math.round((getData().getTheOrigin().y + y + height) / getData().getPixelDensity());
+        GLCanvas2D canvas2D = new GLCanvas2D(new BufferedLayer(layer, ix, iy, ixw - ix, iyh - iy));
+        if (getData().getPixelDensity() != 1) {
+            canvas2D.scaleContent(getData().getPixelDensity());
+        }
+        return canvas2D;
     }
 
     @Override

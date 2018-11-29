@@ -56,11 +56,7 @@ public class CanvasData implements Recycleable, Copyable {
     public float getCanvasAlpha() {
         return canvasAlpha;
     }
-
-    public void setPixelDensity(float pixelDensity) {
-        this.pixelDensity = pixelDensity;
-    }
-
+    
     /**
      * 定义了canvas上每单位有多少像素
      */
