@@ -1,10 +1,9 @@
 package com.edplan.framework.graphics.opengl.objs;
 
-import com.edplan.framework.interfaces.Setable;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.math.Vec3;
 
-public class Vertex3D<T> implements Setable<Vertex3D> {
+public class Vertex3D {
     public static final Color4 DEF_COLOR = Color4.rgba(1.0f, 1.0f, 1.0f, 1.0f);
 
     public static final Vec3 DEF_POSITION = new Vec3(0, 0, 0);
@@ -32,9 +31,7 @@ public class Vertex3D<T> implements Setable<Vertex3D> {
         this(new Vec3(x, y, z));
     }
 
-    @Override
     public void set(Vertex3D t) {
-
         setColor(t.getColor());
         setPosition(t.getPosition());
     }

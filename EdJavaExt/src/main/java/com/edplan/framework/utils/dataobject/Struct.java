@@ -1,7 +1,7 @@
 package com.edplan.framework.utils.dataobject;
 
-import com.edplan.framework.utils.Getter;
-import com.edplan.framework.utils.Setter;
+import com.edplan.framework.utils.interfaces.Getter;
+import com.edplan.framework.utils.interfaces.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +26,6 @@ public final class Struct {
 
     @FunctionalInterface
     public interface Loader{
-        void apply(DataObject object, Struct struct);
+        void apply(DataMapObject object, Struct struct);
     }
 }

@@ -1,6 +1,6 @@
 package com.edplan.nso.filepart;
 
-import com.edplan.framework.utils.dataobject.DataObject;
+import com.edplan.framework.utils.dataobject.DataMapObject;
 import com.edplan.framework.utils.dataobject.ItemInfo;
 import com.edplan.framework.utils.dataobject.Struct;
 import com.edplan.framework.utils.dataobject.def.DefaultBoolean;
@@ -10,7 +10,7 @@ import com.edplan.nso.OsuFilePart;
 import com.edplan.nso.beatmapComponent.SampleSet;
 import com.edplan.superutils.U;
 
-public class PartGeneral extends DataObject implements OsuFilePart {
+public class PartGeneral extends DataMapObject implements OsuFilePart {
     public static final String AudioFilename = "AudioFilename";
     public static final String AudioLeadIn = "AudioLeadIn";
     public static final String PreviewTime = "PreviewTime";

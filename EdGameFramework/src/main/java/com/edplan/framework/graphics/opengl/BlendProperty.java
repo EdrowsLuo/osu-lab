@@ -2,7 +2,7 @@ package com.edplan.framework.graphics.opengl;
 
 import android.opengl.GLES20;
 
-import com.edplan.framework.interfaces.Copyable;
+import com.edplan.framework.utils.interfaces.Copyable;
 
 public class BlendProperty implements Copyable {
 

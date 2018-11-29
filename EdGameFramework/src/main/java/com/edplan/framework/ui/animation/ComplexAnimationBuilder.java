@@ -1,6 +1,6 @@
 package com.edplan.framework.ui.animation;
 
-import com.edplan.framework.utils.Consumer;
+import com.edplan.framework.utils.interfaces.Consumer;
 
 import java.util.Stack;
 

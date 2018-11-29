@@ -1,6 +1,6 @@
 package com.edplan.framework.config;
 
-import com.edplan.framework.utils.structobj.StructObject;
+import com.edplan.framework.utils.JsonBasedObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class ConfigList implements StructObject {
+public class ConfigList implements JsonBasedObject {
     private HashMap<String, ConfigEntry> data = new HashMap<String, ConfigEntry>();
 
     private ArrayList<ConfigEntry> dataList = new ArrayList<ConfigEntry>();

@@ -1,12 +1,12 @@
 package com.edplan.framework.config.property;
 
-import com.edplan.framework.utils.structobj.StructObject;
+import com.edplan.framework.utils.JsonBasedObject;
 
 import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public abstract class ConfigProperty implements StructObject {
+public abstract class ConfigProperty implements JsonBasedObject {
     public static final String TYPE_NULL = "null";
 
     public abstract String propertyType();

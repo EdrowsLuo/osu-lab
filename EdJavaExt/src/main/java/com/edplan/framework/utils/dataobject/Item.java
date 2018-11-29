@@ -1,11 +1,10 @@
 package com.edplan.framework.utils.dataobject;
 
-import com.edplan.framework.utils.Getter;
-import com.edplan.framework.utils.Setter;
+import com.edplan.framework.utils.interfaces.Getter;
+import com.edplan.framework.utils.interfaces.Setter;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 public class Item<T> {
@@ -18,7 +17,7 @@ public class Item<T> {
         ALLOWED_CLASS.add(Boolean.class);
         ALLOWED_CLASS.add(Double.class);
         ALLOWED_CLASS.add(Float.class);
-        ALLOWED_CLASS.add(DataObject.class);
+        ALLOWED_CLASS.add(DataMapObject.class);
 
         SAFE_TRANSFORM.put(int.class, Integer.class);
         SAFE_TRANSFORM.put(long.class, Long.class);

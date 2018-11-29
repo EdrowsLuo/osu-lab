@@ -4,7 +4,7 @@ import com.edplan.framework.config.property.ConfigBoolean;
 import com.edplan.framework.config.property.ConfigInteger;
 import com.edplan.framework.config.property.ConfigProperty;
 import com.edplan.framework.config.property.ConfigString;
-import com.edplan.framework.utils.structobj.StructObject;
+import com.edplan.framework.utils.JsonBasedObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ConfigEntry implements StructObject {
+public class ConfigEntry implements JsonBasedObject {
     private ConfigProperty property;
 
     private String name;

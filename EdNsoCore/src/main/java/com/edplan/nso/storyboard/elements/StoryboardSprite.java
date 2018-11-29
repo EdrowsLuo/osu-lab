@@ -1,8 +1,8 @@
 package com.edplan.nso.storyboard.elements;
 
 import com.edplan.framework.graphics.opengl.BlendType;
-import com.edplan.framework.interfaces.FloatInvokeSetter;
-import com.edplan.framework.interfaces.InvokeSetter;
+import com.edplan.framework.utils.interfaces.FloatInvokeSetter;
+import com.edplan.framework.utils.interfaces.InvokeSetter;
 import com.edplan.framework.math.FMath;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.ui.Anchor;

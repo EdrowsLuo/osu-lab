@@ -1,10 +1,8 @@
 package com.edplan.framework.utils;
 
-import com.edplan.framework.utils.advance.LinkedNode;
+import com.edplan.framework.utils.interfaces.Consumer;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 public class Behavior {
 

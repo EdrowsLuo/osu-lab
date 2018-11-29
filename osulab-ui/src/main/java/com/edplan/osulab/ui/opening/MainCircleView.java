@@ -7,16 +7,10 @@ import com.edplan.framework.ui.drawable.sprite.CircleSprite;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.animation.FloatQueryAnimation;
 import com.edplan.framework.ui.animation.Easing;
-import com.edplan.framework.interfaces.FloatInvokeSetter;
 import com.edplan.framework.ui.animation.ComplexAnimationBuilder;
-import com.edplan.framework.ui.animation.ComplexAnimation;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.math.FMath;
 import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.ui.drawable.sprite.TextureCircleSprite;
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
-
-import java.io.IOException;
 
 import com.edplan.framework.ui.animation.callback.OnFinishListener;
 import com.edplan.osulab.LabGame;

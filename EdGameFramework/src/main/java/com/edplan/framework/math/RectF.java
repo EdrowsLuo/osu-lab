@@ -1,6 +1,6 @@
 package com.edplan.framework.math;
 
-import com.edplan.framework.interfaces.Copyable;
+import com.edplan.framework.utils.interfaces.Copyable;
 import com.edplan.framework.ui.Anchor;
 
 public class RectF implements Copyable, Area2D, IQuad {

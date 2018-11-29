@@ -1,20 +1,20 @@
 package com.edplan.nso.ruleset.base.game.paint;
 
 import com.edplan.framework.utils.Lazy;
-import com.edplan.framework.utils.Operation;
+import com.edplan.framework.utils.interfaces.Consumer;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public abstract class DrawObject {
 
-    private final Lazy<List<Operation<DrawObject>>> operations = Lazy.create(LinkedList::new);
+    private final Lazy<List<Consumer<DrawObject>>> operations = Lazy.create(LinkedList::new);
 
     public void handleOperations() {
         synchronized (operations) {
             if (!operations.isEmpty()) {
-                for (Operation<DrawObject> operation : operations.get()) {
-                    operation.operate(this);
+                for (Consumer<DrawObject> operation : operations.get()) {
+                    operation.consume(this);
                 }
                 operations.get().clear();
             }
@@ -27,7 +27,7 @@ public abstract class DrawObject {
      */
     public abstract void draw(WorldCanvas canvas);
 
-    public void postOperation(Operation<DrawObject> operation) {
+    public void postOperation(Consumer<DrawObject> operation) {
         synchronized (operations) {
             operations.get().add(operation);
         }

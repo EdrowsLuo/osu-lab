@@ -2,9 +2,7 @@ package com.edplan.framework.ui.widget;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.interfaces.Setter;
 import com.edplan.framework.ui.EdAbstractViewGroup;
-import com.edplan.framework.ui.EdBufferedContainer;
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.inputs.ScrollEvent;
 import com.edplan.framework.ui.layout.EdLayoutParam;
@@ -13,6 +11,7 @@ import com.edplan.framework.ui.layout.Gravity;
 import com.edplan.framework.ui.layout.MarginLayoutParam;
 import com.edplan.framework.ui.layout.Orientation;
 import com.edplan.framework.ui.widget.component.Scroller;
+import com.edplan.framework.utils.interfaces.Setter;
 
 public class ScrollLayout extends EdAbstractViewGroup {
     public static float MAIN_SCROLL = 0;

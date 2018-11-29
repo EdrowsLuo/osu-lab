@@ -11,9 +11,9 @@ import com.edplan.framework.graphics.opengl.GLWrapped;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
-import com.edplan.framework.interfaces.Function;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.looper.ExpensiveTask;
+import com.edplan.framework.utils.interfaces.Consumer;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -222,7 +222,7 @@ public class AutoPackTexturePool extends TexturePool {
         return getPackByIndex(idx % c);
     }
 
-    public void writeToDir(File dir, String s, Function<OutputNode> out) {
+    public void writeToDir(File dir, String s, Consumer<OutputNode> out) {
         int i = -1;
         for (PackNode t : packs) {
             i++;
@@ -230,7 +230,7 @@ public class AutoPackTexturePool extends TexturePool {
                 File f = new File(dir, s + i + ".png");
                 f.createNewFile();
                 t.layer.getTexture().getTexture().toBitmap(context).compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(f));
-                if (out != null) out.invoke(new OutputNode(f, t.layer.getTexture().getTexture()));
+                if (out != null) out.consume(new OutputNode(f, t.layer.getTexture().getTexture()));
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("err compress " + i);

@@ -1,6 +1,6 @@
 package com.edplan.nso.filepart;
 
-import com.edplan.framework.utils.dataobject.DataObject;
+import com.edplan.framework.utils.dataobject.DataMapObject;
 import com.edplan.framework.utils.dataobject.ItemInfo;
 import com.edplan.framework.utils.dataobject.Struct;
 import com.edplan.framework.utils.dataobject.def.DefaultFloat;
@@ -9,7 +9,7 @@ import com.edplan.nso.OsuFilePart;
 import com.edplan.nso.beatmapComponent.Bookmarks;
 import com.edplan.superutils.U;
 
-public class PartEditor extends DataObject implements OsuFilePart {
+public class PartEditor extends DataMapObject implements OsuFilePart {
     public static final String Bookmarks = "Bookmarks";
     public static final String DistanceSpacing = "DistanceSpacing";
     public static final String BeatDivisor = "BeatDivisor";

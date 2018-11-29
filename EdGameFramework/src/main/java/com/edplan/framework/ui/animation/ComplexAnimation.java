@@ -1,6 +1,6 @@
 package com.edplan.framework.ui.animation;
 
-import com.edplan.framework.interfaces.InvokeGetter;
+import com.edplan.framework.utils.interfaces.InvokeGetter;
 import com.edplan.framework.utils.CollectionUtil;
 
 import java.util.ArrayList;

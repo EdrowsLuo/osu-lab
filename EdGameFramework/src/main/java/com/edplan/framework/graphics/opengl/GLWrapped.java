@@ -7,7 +7,7 @@ import android.util.Log;
 import com.edplan.framework.graphics.opengl.bufferObjects.FBOPool;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
-import com.edplan.framework.interfaces.Setter;
+import com.edplan.framework.utils.interfaces.Setter;
 import com.edplan.framework.utils.advance.BooleanSetting;
 
 import java.nio.Buffer;

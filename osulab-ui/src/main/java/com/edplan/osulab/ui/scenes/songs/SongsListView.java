@@ -3,7 +3,7 @@ package com.edplan.osulab.ui.scenes.songs;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.interfaces.Setter;
+import com.edplan.framework.utils.interfaces.Setter;
 import com.edplan.framework.ui.EdAbstractViewGroup;
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.ViewConfiguration;

@@ -1,6 +1,6 @@
 package com.edplan.nso.ruleset.base.beatmap;
 
-import com.edplan.framework.utils.dataobject.DataObject;
+import com.edplan.framework.utils.dataobject.DataMapObject;
 import com.edplan.nso.filepart.PartColours;
 import com.edplan.nso.filepart.PartDifficulty;
 import com.edplan.nso.filepart.PartEditor;
@@ -113,7 +113,7 @@ public class Beatmap {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(String.format("[%s]", PartGeneral.TAG)).append("\n");
-        stringBuilder.append(general.asStructString(DataObject.StructOutputType.INI));
+        stringBuilder.append(general.asStructString(DataMapObject.StructOutputType.INI));
         return stringBuilder.toString();
     }
 }

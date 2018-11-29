@@ -1,6 +1,6 @@
 package com.edplan.framework.ui.animation.adapter;
 
-import com.edplan.framework.interfaces.InvokeSetter;
+import com.edplan.framework.utils.interfaces.InvokeSetter;
 import com.edplan.framework.ui.animation.Easing;
 import com.edplan.framework.ui.animation.IAnimationAdapter;
 import com.edplan.framework.ui.animation.interpolate.ValueInterpolator;

@@ -1,7 +1,7 @@
 package com.edplan.framework.utils.advance;
 
 import com.edplan.framework.utils.DataMap;
-import com.edplan.framework.utils.dataobject.DataObject;
+import com.edplan.framework.utils.dataobject.DataMapObject;
 import com.edplan.framework.utils.dataobject.Item;
 import com.edplan.framework.utils.dataobject.Struct;
 
@@ -104,7 +104,7 @@ public abstract class BaseDataMap implements DataMap {
         }
     }
 
-    public void load(DataObject object) {
+    public void load(DataMapObject object) {
         loadStruct(object.getStruct());
     }
 

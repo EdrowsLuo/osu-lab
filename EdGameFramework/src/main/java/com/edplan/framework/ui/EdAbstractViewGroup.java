@@ -2,11 +2,11 @@ package com.edplan.framework.ui;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.interfaces.Invoker;
 import com.edplan.framework.ui.animation.interfaces.IHasAlpha;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
 import com.edplan.framework.ui.layout.EdLayoutParam;
 import com.edplan.framework.ui.layout.MeasureCore;
+import com.edplan.framework.utils.interfaces.Consumer;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -160,12 +160,12 @@ public abstract class EdAbstractViewGroup extends EdView implements IHasAlpha{
         doForAvailableChildren(EdView::onLowMemory);
     }
 
-    public void doForAvailableChildren(Invoker<EdView> invoker) {
+    public void doForAvailableChildren(Consumer<EdView> invoker) {
         final int c = getChildrenCount();
         for (int i = 0; i < c; i++) {
             final EdView view = getChildAt(i);
             if (view.getVisiblility() != VISIBILITY_GONE) {
-                invoker.invoke(view);
+                invoker.consume(view);
             }
         }
     }

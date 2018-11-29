@@ -1,12 +1,12 @@
 package com.edplan.nso.filepart;
 
-import com.edplan.framework.utils.dataobject.DataObject;
+import com.edplan.framework.utils.dataobject.DataMapObject;
 import com.edplan.framework.utils.dataobject.ItemInfo;
 import com.edplan.framework.utils.dataobject.Struct;
 import com.edplan.nso.OsuFilePart;
 import com.edplan.superutils.U;
 
-public class PartDifficulty extends DataObject implements OsuFilePart {
+public class PartDifficulty extends DataMapObject implements OsuFilePart {
     public static final String HPDrainRate = "HPDrainRate";
     public static final String CircleSize = "CircleSize";
     public static final String OverallDifficulty = "OverallDifficulty";

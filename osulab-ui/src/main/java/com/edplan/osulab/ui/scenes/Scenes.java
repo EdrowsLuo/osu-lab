@@ -1,7 +1,6 @@
 package com.edplan.osulab.ui.scenes;
 
 import com.edplan.framework.MContext;
-import com.edplan.framework.interfaces.Invoker;
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.ViewConfiguration;
 import com.edplan.framework.ui.animation.ComplexAnimation;
@@ -10,18 +9,17 @@ import com.edplan.framework.ui.animation.Easing;
 import com.edplan.framework.ui.animation.FloatQueryAnimation;
 import com.edplan.framework.ui.layout.EdMeasureSpec;
 import com.edplan.framework.ui.layout.MeasureCore;
-import com.edplan.framework.ui.widget.RelativeContainer;
 import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.widget.component.Hideable;
+import com.edplan.framework.utils.interfaces.Consumer;
+import com.edplan.osulab.LabGame;
 import com.edplan.osulab.ScenesName;
 import com.edplan.osulab.ui.BackQuery;
+import com.edplan.osulab.ui.scenes.songs.SongsScene;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.edplan.osulab.LabGame;
-import com.edplan.osulab.ui.scenes.songs.SongsScene;
 
 public class Scenes extends RelativeLayout implements Hideable, BackQuery.BackHandler {
     public static final String STATIC_GET_SCENE_NAME = "getSceneNameStatic";
@@ -32,7 +30,7 @@ public class Scenes extends RelativeLayout implements Hideable, BackQuery.BackHa
 
     private HashMap<String, SceneNode> scenes = new HashMap<String, SceneNode>();
 
-    private static ArrayList<Invoker<Scenes>> registerNodes = new ArrayList<Invoker<Scenes>>();
+    private static ArrayList<Consumer<Scenes>> registerNodes = new ArrayList<>();
 
     private ArrayList<BaseScene> scenesStack = new ArrayList<BaseScene>();
 

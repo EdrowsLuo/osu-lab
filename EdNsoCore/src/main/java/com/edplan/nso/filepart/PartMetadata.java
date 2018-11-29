@@ -1,6 +1,6 @@
 package com.edplan.nso.filepart;
 
-import com.edplan.framework.utils.dataobject.DataObject;
+import com.edplan.framework.utils.dataobject.DataMapObject;
 import com.edplan.framework.utils.dataobject.ItemInfo;
 import com.edplan.framework.utils.dataobject.Struct;
 import com.edplan.framework.utils.dataobject.def.DefaultInt;
@@ -8,7 +8,7 @@ import com.edplan.nso.OsuFilePart;
 import com.edplan.nso.beatmapComponent.Tags;
 import com.edplan.superutils.U;
 
-public class PartMetadata extends DataObject implements OsuFilePart {
+public class PartMetadata extends DataMapObject implements OsuFilePart {
     public static final String Title = "Title";
     public static final String TitleUnicode = "TitleUnicode";
     public static final String Artist = "Artist";

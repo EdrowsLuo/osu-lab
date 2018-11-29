@@ -1,6 +1,6 @@
 package com.edplan.framework.utils.reflect;
 
-import com.edplan.framework.utils.Consumer;
+import com.edplan.framework.utils.interfaces.Consumer;
 
 import java.lang.reflect.Field;
 

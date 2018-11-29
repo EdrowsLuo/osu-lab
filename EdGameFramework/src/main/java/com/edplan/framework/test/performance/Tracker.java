@@ -1,8 +1,8 @@
 package com.edplan.framework.test.performance;
 
 import com.edplan.framework.Framework;
-import com.edplan.framework.utils.Consumer;
-import com.edplan.framework.utils.ConsumerContainer;
+import com.edplan.framework.utils.interfaces.Consumer;
+import com.edplan.framework.utils.advance.ConsumerContainer;
 
 import java.util.ArrayList;
 import java.util.HashMap;

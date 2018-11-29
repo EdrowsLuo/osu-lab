@@ -1,6 +1,6 @@
 package com.edplan.framework.utils.dataobject;
 
-import com.edplan.framework.utils.Getter;
+import com.edplan.framework.utils.interfaces.Getter;
 import com.edplan.framework.utils.dataobject.def.DefaultBoolean;
 import com.edplan.framework.utils.dataobject.def.DefaultDouble;
 import com.edplan.framework.utils.dataobject.def.DefaultFloat;
@@ -13,7 +13,6 @@ import com.edplan.framework.utils.reflect.ReflectHelper;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,7 +41,7 @@ public class StructAnnotationLoader {
         }
     }
 
-    public static <T extends DataObject> void load(T obj,Struct struct) {
+    public static <T extends DataMapObject> void load(T obj, Struct struct) {
         Class k = obj.getClass();
         if (!structLoaders.containsKey(k)) {
             List<Struct.Loader> loaders = new LinkedList<>();

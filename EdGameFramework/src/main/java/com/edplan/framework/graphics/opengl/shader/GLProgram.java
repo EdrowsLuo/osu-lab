@@ -6,7 +6,7 @@ import android.util.Log;
 import com.edplan.framework.graphics.opengl.GLException;
 import com.edplan.framework.graphics.opengl.GLWrapped;
 import com.edplan.framework.graphics.opengl.shader.compile.Preprocessor;
-import com.edplan.framework.interfaces.Recycleable;
+import com.edplan.framework.utils.interfaces.Recycleable;
 
 public class GLProgram implements Recycleable {
     private GLShader vertexShader;

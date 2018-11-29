@@ -18,7 +18,7 @@ import com.edplan.framework.ui.layout.EdLayoutParam;
 import com.edplan.framework.ui.layout.Param;
 import com.edplan.framework.ui.text.font.bmfont.BMFont;
 import com.edplan.framework.ui.widget.AbsoluteLayout;
-import com.edplan.framework.utils.dataobject.DataObject;
+import com.edplan.framework.utils.dataobject.DataMapObject;
 import com.edplan.framework.utils.dataobject.Struct;
 import com.edplan.osulab.ui.BackQuery;
 import com.edplan.osulab.ui.popup.PopupToast;
@@ -126,7 +126,7 @@ public class LabActivity extends EdMainActivity {
     }
 
 
-    public class TestObj extends DataObject {
+    public class TestObj extends DataMapObject {
 
         private float v1;
 

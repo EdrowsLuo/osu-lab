@@ -1,8 +1,8 @@
 package com.edplan.framework.graphics.opengl;
 
 import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
-import com.edplan.framework.interfaces.Copyable;
-import com.edplan.framework.interfaces.Recycleable;
+import com.edplan.framework.utils.interfaces.Copyable;
+import com.edplan.framework.utils.interfaces.Recycleable;
 import com.edplan.framework.math.Mat4;
 import com.edplan.framework.math.Vec2;
 

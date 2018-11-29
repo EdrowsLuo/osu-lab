@@ -6,19 +6,14 @@ import com.edplan.framework.graphics.opengl.GL10Canvas2D;
 import com.edplan.framework.graphics.opengl.GLWrapped;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.interfaces.FloatInvokeSetter;
-import com.edplan.framework.interfaces.InvokeSetter;
+import com.edplan.framework.utils.interfaces.FloatInvokeSetter;
+import com.edplan.framework.utils.interfaces.InvokeSetter;
 import com.edplan.framework.math.Quad;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.ui.Anchor;
-import com.edplan.framework.ui.animation.QueryAnimation;
 import com.edplan.nso.storyboard.PlayingStoryboard;
 import com.edplan.nso.storyboard.elements.StoryboardSprite;
-import com.edplan.nso.storyboard.elements.drawable.BaseDrawableSprite;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import com.edplan.framework.ui.animation.precise.BasePreciseAnimation;
 import com.edplan.framework.graphics.opengl.fast.FastRenderer;
@@ -26,7 +21,6 @@ import com.edplan.framework.graphics.opengl.fast.FastQuad;
 
 import java.util.Arrays;
 
-import com.edplan.framework.math.FMath;
 import com.edplan.nso.storyboard.renderer.OsbRenderer;
 
 public class BaseDrawableSprite extends ADrawableStoryboardElement {

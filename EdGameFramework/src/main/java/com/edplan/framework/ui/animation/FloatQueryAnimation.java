@@ -1,11 +1,11 @@
 package com.edplan.framework.ui.animation;
 
-import com.edplan.framework.interfaces.FloatInvokeSetter;
-import com.edplan.framework.interfaces.FloatReflectionInvokeSetter;
+import com.edplan.framework.utils.interfaces.FloatInvokeSetter;
+import com.edplan.framework.utils.interfaces.FloatReflectionInvokeSetter;
 import com.edplan.framework.ui.animation.interfaces.IHasAlpha;
 import com.edplan.framework.ui.animation.interpolate.RawFloatInterpolator;
 import com.edplan.framework.ui.animation.precise.BasePreciseAnimation;
-import com.edplan.framework.utils.Setter;
+import com.edplan.framework.utils.interfaces.Setter;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

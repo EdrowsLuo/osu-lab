@@ -3,11 +3,10 @@ package com.edplan.framework.database.v2;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.edplan.framework.utils.AdvancedStringBuilder;
+import com.edplan.framework.utils.advance.AdvancedStringBuilder;
 import com.edplan.framework.utils.CollectionUtil;
-import com.edplan.framework.utils.Function;
+import com.edplan.framework.utils.interfaces.Function;
 import com.edplan.framework.utils.JudgeStatement;
-import com.edplan.framework.utils.Lazy;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

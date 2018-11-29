@@ -2,7 +2,7 @@ package com.edplan.framework.math;
 
 import android.opengl.Matrix;
 
-import com.edplan.framework.interfaces.Recycleable;
+import com.edplan.framework.utils.interfaces.Recycleable;
 
 public class Mat4 implements Recycleable {
     public static final int WIDTH = 4;

@@ -3,7 +3,7 @@ package com.edplan.nso.ruleset.base.game.judge;
 import com.edplan.framework.timing.Schedule;
 import com.edplan.framework.ui.inputs.EdKeyEvent;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
-import com.edplan.framework.utils.ClassifiedList;
+import com.edplan.framework.utils.advance.ClassifiedList;
 import com.edplan.nso.ruleset.base.game.World;
 
 import java.util.ArrayList;
