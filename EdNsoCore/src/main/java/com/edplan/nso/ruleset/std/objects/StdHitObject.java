@@ -1,6 +1,6 @@
 package com.edplan.nso.ruleset.std.objects;
 
-import com.edplan.nso.ruleset.base.object.GameObject;
+import com.edplan.nso.ruleset.base.game.GameObject;
 
 @Deprecated
 public abstract class StdHitObject extends GameObject {

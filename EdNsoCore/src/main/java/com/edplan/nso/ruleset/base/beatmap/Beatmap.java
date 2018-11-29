@@ -8,7 +8,7 @@ import com.edplan.nso.filepart.PartEvents;
 import com.edplan.nso.filepart.PartGeneral;
 import com.edplan.nso.filepart.PartMetadata;
 import com.edplan.nso.filepart.PartTimingPoints;
-import com.edplan.nso.ruleset.base.object.GameObject;
+import com.edplan.nso.ruleset.base.game.GameObject;
 import com.edplan.nso.storyboard.Storyboard;
 
 import java.util.ArrayList;

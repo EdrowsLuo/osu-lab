@@ -1,7 +1,7 @@
 package com.edplan.nso.ruleset.std.objects;
 
-import com.edplan.nso.ruleset.base.object.GameObject;
-import com.edplan.nso.ruleset.base.object.GameObjects;
+import com.edplan.nso.ruleset.base.game.GameObject;
+import com.edplan.nso.ruleset.base.game.GameObjects;
 
 import java.util.ArrayList;
 import java.util.List;

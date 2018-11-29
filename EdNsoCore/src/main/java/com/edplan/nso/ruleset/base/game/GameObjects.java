@@ -1,4 +1,6 @@
-package com.edplan.nso.ruleset.base.object;
+package com.edplan.nso.ruleset.base.game;
+
+import com.edplan.nso.ruleset.base.game.GameObject;
 
 import java.util.List;
 

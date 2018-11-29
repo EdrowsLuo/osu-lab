@@ -1,8 +1,8 @@
 package com.edplan.nso.filepart;
 
 import com.edplan.nso.OsuFilePart;
-import com.edplan.nso.ruleset.base.object.GameObject;
-import com.edplan.nso.ruleset.base.object.GameObjects;
+import com.edplan.nso.ruleset.base.game.GameObject;
+import com.edplan.nso.ruleset.base.game.GameObjects;
 import com.edplan.nso.ruleset.ModeManager;
 import com.edplan.nso.NsoException;
 import com.edplan.nso.ruleset.std.objects.StdHitObjects;

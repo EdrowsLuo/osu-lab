@@ -1,6 +1,6 @@
 package com.edplan.nso.ruleset.base.beatmap.parser;
 
-import com.edplan.nso.ruleset.base.object.StdFormatGameObject;
+import com.edplan.nso.ruleset.base.game.StdFormatGameObject;
 import com.edplan.superutils.classes.strings.StringSplitter;
 
 import java.util.LinkedList;

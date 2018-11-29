@@ -1,4 +1,4 @@
-package com.edplan.nso.ruleset.base.object;
+package com.edplan.nso.ruleset.base.game.judge;
 
 import com.edplan.nso.ruleset.base.game.World;
 import com.edplan.nso.ruleset.base.game.judge.JudgeData;

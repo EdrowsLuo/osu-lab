@@ -1,6 +1,6 @@
 package com.edplan.nso.ruleset.mania.objects;
 
-import com.edplan.nso.ruleset.base.object.GameObject;
+import com.edplan.nso.ruleset.base.game.GameObject;
 import com.edplan.nso.ruleset.std.objects.StdHitObject;
 import com.edplan.nso.ruleset.std.objects.StdHitObjects;
 

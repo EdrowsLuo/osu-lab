@@ -1,8 +1,7 @@
-package com.edplan.nso.ruleset.base.object;
+package com.edplan.nso.ruleset.base.game.paint;
 
 import com.edplan.framework.utils.Lazy;
 import com.edplan.framework.utils.Operation;
-import com.edplan.nso.ruleset.base.game.paint.WorldCanvas;
 
 import java.util.LinkedList;
 import java.util.List;

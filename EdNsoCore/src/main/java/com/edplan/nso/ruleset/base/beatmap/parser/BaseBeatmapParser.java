@@ -10,7 +10,7 @@ import com.edplan.nso.filepart.PartTimingPoints;
 import com.edplan.nso.parser.IniParser;
 import com.edplan.nso.ruleset.base.Ruleset;
 import com.edplan.nso.ruleset.base.beatmap.Beatmap;
-import com.edplan.nso.ruleset.base.object.StdFormatGameObject;
+import com.edplan.nso.ruleset.base.game.StdFormatGameObject;
 import com.edplan.superutils.classes.strings.StringSplitter;
 
 import org.json.JSONObject;

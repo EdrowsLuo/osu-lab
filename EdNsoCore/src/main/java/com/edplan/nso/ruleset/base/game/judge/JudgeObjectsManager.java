@@ -1,34 +1,32 @@
-package com.edplan.nso.ruleset.base.object;
+package com.edplan.nso.ruleset.base.game.judge;
 
+import com.edplan.framework.timing.Schedule;
 import com.edplan.framework.ui.inputs.EdKeyEvent;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
+import com.edplan.framework.utils.ClassifiedList;
 import com.edplan.nso.ruleset.base.game.World;
-import com.edplan.nso.ruleset.base.game.judge.JudgeData;
-import com.edplan.nso.ruleset.base.game.judge.JudgeDataUpdater;
-import com.edplan.nso.ruleset.base.game.judge.RawInputHandler;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 public class JudgeObjectsManager implements RawInputHandler {
 
+    private static final int ACTIVE_OBJECT = 1;
+
     private ArrayList<JudgeObject> judgeObjects = new ArrayList<>();
-
-    private LinkedList<JudgeObjectNode> judgeObjectLinkedList = new LinkedList<>();
-
-    private LinkedList<JudgeObjectNode> waitingObjects = new LinkedList<>();
-
-    private LinkedList<JudgeObjectNode> usingObjects = new LinkedList<>();
 
     private List<JudgeNode> judgeNodes = new ArrayList<>();
 
     private Class<? extends JudgeData>[] judgeTypes;
 
     private HashMap<Class<? extends JudgeData>, JudgeNode> judgeNodeHashMap = new HashMap<>();
+
+    private Schedule activeSchedule = new Schedule();
+
+    private Schedule timeoutSchedule = new Schedule();
+
+    private ClassifiedList<JudgeObjectNode> classifiedList = new ClassifiedList<>();
 
     public void preloadJudgeDataType(Class<? extends JudgeData>[] types) {
         judgeTypes = types;
@@ -52,52 +50,42 @@ public class JudgeObjectsManager implements RawInputHandler {
      */
     public void update(World world) {
         final double judgeFrameTime = world.getJudgeFrameTime();
-        addNewObjects(judgeFrameTime);
-        removeFailedObjects(judgeFrameTime);
+        activeSchedule.update(judgeFrameTime);
+        timeoutSchedule.update(judgeFrameTime);
         dispatchJudgeDatas(world);
-        removeReleasedObjects();
+        removeReleasedObjects(judgeFrameTime);
     }
 
     /**
      * 载入、重载物件
      */
     private void reloadObjects() {
-        waitingObjects.clear();
-        usingObjects.clear();
-        judgeObjectLinkedList.clear();
-        Collections.sort(judgeObjects, (a, b) -> (int) Math.signum(a.getStartJudgeTime() - b.getStartJudgeTime()));
+
+        classifiedList.clear();
         for (JudgeObject object : judgeObjects) {
-            judgeObjectLinkedList.add(new JudgeObjectNode(object));
+            ClassifiedList<JudgeObjectNode>.Node node = classifiedList.add(new JudgeObjectNode(object));
+            node.getObject().node = node;
         }
-        waitingObjects.addAll(judgeObjectLinkedList);
-    }
 
-    /**
-     * 处理将要新加入的判定物件
-     * @param time 时间戳
-     */
-    private void addNewObjects(double time) {
-        for (JudgeObjectNode object : waitingObjects) {
-            if (object.object.getStartJudgeTime() <= time) {
-                usingObjects.addLast(object);
-            } else {
-                break;
-            }
-        }
-    }
+        activeSchedule.clear();
+        timeoutSchedule.clear();
+        for (JudgeObjectNode judgeObject : classifiedList) {
+            activeSchedule.addEvent(
+                    judgeObject.object.getStartJudgeTime(),
+                    judgeObject::active
+            );
 
-    /**
-     * 处理超时判定物件
-     * @param time 时间戳
-     */
-    private void removeFailedObjects(double time) {
-        Iterator<JudgeObjectNode> iterator = usingObjects.iterator();
-        while (iterator.hasNext()) {
-            final JudgeObject object = iterator.next().object;
-            if (object.getJudgeFailedTime() <= time) {
-                object.releaseObject();
-                iterator.remove();
-            }
+            timeoutSchedule.addEvent(
+                    judgeObject.object.getJudgeFailedTime(),
+                    () -> {
+                        if (judgeObject.isActive()) {
+                            if (!judgeObject.object.isRelease()) {
+                                judgeObject.object.releaseObject();
+                            }
+                            judgeObject.remove();
+                        }
+                    }
+            );
         }
     }
 
@@ -106,7 +94,7 @@ public class JudgeObjectsManager implements RawInputHandler {
      * @param world
      */
     private void dispatchJudgeDatas(World world) {
-        for (JudgeObjectNode objectNode : usingObjects) {
+        for (JudgeObjectNode objectNode : classifiedList.getAll(ACTIVE_OBJECT)) {
             final JudgeObject object = objectNode.object;
             if (objectNode.datas.length == 0) {
                 object.handle(null, world);
@@ -124,19 +112,13 @@ public class JudgeObjectsManager implements RawInputHandler {
         }
     }
 
-    /**
-     * 将已经release了的判定物件移除
-     */
-    public void removeReleasedObjects() {
-        Iterator<JudgeObjectNode> iterator = usingObjects.iterator();
-        while (iterator.hasNext()) {
-            final JudgeObject object = iterator.next().object;
-            if (object.isRelease()) {
-                iterator.remove();
+    private void removeReleasedObjects(double time) {
+        for (JudgeObjectNode objectNode : classifiedList.getAll(ACTIVE_OBJECT)) {
+            if (objectNode.object.isRelease()) {
+                objectNode.remove();
             }
         }
     }
-
 
     @Override
     public boolean onMotionEvent(EdMotionEvent event) {
@@ -176,6 +158,8 @@ public class JudgeObjectsManager implements RawInputHandler {
 
         public final JudgeNode[] datas;
 
+        private ClassifiedList<JudgeObjectNode>.Node node;
+
         public JudgeObjectNode(JudgeObject object) {
             this.object = object;
             Class<? extends JudgeData>[] listeningDatas = object.getListeningDatas();
@@ -183,6 +167,18 @@ public class JudgeObjectsManager implements RawInputHandler {
             for (int i = 0; i < datas.length; i++) {
                 datas[i] = judgeNodeHashMap.get(listeningDatas[i]);
             }
+        }
+
+        public boolean isActive() {
+            return node.getType() == ACTIVE_OBJECT;
+        }
+
+        public void active() {
+            node.changeType(ACTIVE_OBJECT);
+        }
+
+        public void remove() {
+            node.changeType(-1);
         }
 
     }

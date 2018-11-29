@@ -2,7 +2,7 @@ package com.edplan.nso.ruleset.std.objects.v2;
 
 import com.edplan.framework.math.Vec2;
 import com.edplan.nso.parser.ParseException;
-import com.edplan.nso.ruleset.base.object.StdFormatGameObject;
+import com.edplan.nso.ruleset.base.game.StdFormatGameObject;
 import com.edplan.nso.ruleset.std.objects.StdPath;
 import com.edplan.superutils.classes.strings.StringSplitter;
 
