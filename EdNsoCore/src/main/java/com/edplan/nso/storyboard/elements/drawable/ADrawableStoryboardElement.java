@@ -1,13 +1,12 @@
 package com.edplan.nso.storyboard.elements.drawable;
 
-import com.edplan.framework.fallback.GLES10Drawable;
+import com.edplan.framework.graphics.opengl.fast.FastRenderer;
 import com.edplan.framework.timing.PreciseTimeline;
 import com.edplan.framework.ui.drawable.EdDrawable;
 import com.edplan.nso.storyboard.PlayingStoryboard;
-import com.edplan.framework.graphics.opengl.fast.FastRenderer;
 import com.edplan.nso.storyboard.renderer.OsbRenderer;
 
-public abstract class ADrawableStoryboardElement extends EdDrawable implements GLES10Drawable {
+public abstract class ADrawableStoryboardElement extends EdDrawable {
     private PlayingStoryboard storyboard;
 
     public ADrawableStoryboardElement(PlayingStoryboard storyboard) {

@@ -6,7 +6,7 @@ import com.edplan.framework.utils.dataobject.Struct;
 import com.edplan.framework.utils.dataobject.def.DefaultInt;
 import com.edplan.nso.OsuFilePart;
 import com.edplan.nso.beatmapComponent.Tags;
-import com.edplan.superutils.U;
+import com.edplan.framework.utils.U;
 
 public class PartMetadata extends DataMapObject implements OsuFilePart {
     public static final String Title = "Title";
@@ -116,7 +116,7 @@ public class PartMetadata extends DataMapObject implements OsuFilePart {
     }
 
     public void setTags(Tags tags) {
-        this.tags = tags.makeString();
+        this.tags = tags.toString();
     }
 
     public Tags getTags() {
@@ -146,7 +146,7 @@ public class PartMetadata extends DataMapObject implements OsuFilePart {
     }
 
     @Override
-    public String makeString() {
+    public String toString() {
 
         StringBuilder sb = new StringBuilder();
         U.appendProperty(sb, PartMetadata.Title, getTitle()).append(U.NEXT_LINE);
@@ -155,7 +155,7 @@ public class PartMetadata extends DataMapObject implements OsuFilePart {
         U.appendProperty(sb, PartMetadata.Creator, getCreator()).append(U.NEXT_LINE);
         U.appendProperty(sb, PartMetadata.Version, getVersion()).append(U.NEXT_LINE);
         U.appendProperty(sb, PartMetadata.Source, getSource()).append(U.NEXT_LINE);
-        U.appendProperty(sb, PartMetadata.Tags, getTags().makeString()).append(U.NEXT_LINE);
+        U.appendProperty(sb, PartMetadata.Tags, getTags().toString()).append(U.NEXT_LINE);
         U.appendProperty(sb, PartMetadata.BeatmapID, getBeatmapID()).append(U.NEXT_LINE);
         U.appendProperty(sb, PartMetadata.BeatmapSetID, getBeatmapSetID()).append(U.NEXT_LINE);
         return sb.toString();

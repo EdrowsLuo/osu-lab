@@ -1,7 +1,7 @@
 package com.edplan.framework.graphics.line.approximator;
 
 import com.edplan.framework.math.Vec2;
-import com.edplan.superutils.useful.ArrayUtils;
+import com.edplan.framework.utils.ArrayUtils;
 
 import java.util.ArrayList;
 import java.util.List;

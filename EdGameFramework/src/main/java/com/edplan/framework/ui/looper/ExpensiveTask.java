@@ -65,16 +65,12 @@ public class ExpensiveTask<T> {
         if (context.checkThread()) {
             return res.loadTexture(path);
         } else {
-            ExpensiveTask<AbstractTexture> task = new ExpensiveTask<AbstractTexture>(context, new Task<AbstractTexture>() {
-                @Override
-                public void run(ExpensiveTask<AbstractTexture> task) {
-
-                    try {
-                        task.setData(res.loadTexture(path));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        throw new RuntimeException("err sync load texture", e);
-                    }
+            ExpensiveTask<AbstractTexture> task = new ExpensiveTask<AbstractTexture>(context, task1 -> {
+                try {
+                    task1.setData(res.loadTexture(path));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    throw new RuntimeException("err sync load texture", e);
                 }
             });
             try {

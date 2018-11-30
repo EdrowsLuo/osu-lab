@@ -19,7 +19,7 @@ public abstract class Lazy<T> {
     }
 
     public boolean isEmpty() {
-        return data != null;
+        return data == null;
     }
 
     public static <T> Lazy<T> create(Getter<T> getter) {

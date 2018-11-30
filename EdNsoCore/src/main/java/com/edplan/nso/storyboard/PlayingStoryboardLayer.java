@@ -1,24 +1,19 @@
 package com.edplan.nso.storyboard;
 
-import com.edplan.framework.fallback.GLES10Drawable;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.graphics.opengl.GL10Canvas2D;
-import com.edplan.framework.graphics.opengl.GLWrapped;
 import com.edplan.framework.graphics.opengl.fast.FastRenderer;
 import com.edplan.framework.test.performance.Tracker;
 import com.edplan.framework.ui.drawable.EdDrawable;
 import com.edplan.nso.storyboard.elements.IStoryboardElements;
 import com.edplan.nso.storyboard.elements.drawable.ADrawableStoryboardElement;
-import com.edplan.nso.storyboard.renderer.OsbRenderer;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class PlayingStoryboardLayer extends EdDrawable implements GLES10Drawable {
+public class PlayingStoryboardLayer extends EdDrawable {
     public static Tracker.TrackNode PrepareTime;
     public static Tracker.TrackNode RenderOsb;
 
@@ -258,24 +253,6 @@ public class PlayingStoryboardLayer extends EdDrawable implements GLES10Drawable
 
         canvas.disablePost();
         canvas.getBlendSetting().restoreToCount(c);
-    }
-
-
-    @Override
-    public void drawGL10(GL10Canvas2D canvas) {
-
-		/*
-		newApply=0;
-		refreshObjects();
-		int c=GLWrapped.blend.save();
-		//canvas.setEnablePost(true);
-		for(ElementNode ele:spriteInField){
-			ele.element.drawGL10(canvas);
-		}
-		canvas.postDraw();
-		//canvas.setEnablePost(false);
-		GLWrapped.blend.restoreToCount(c);
-		*/
     }
 
     public class ElementNode {

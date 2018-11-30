@@ -1,6 +1,8 @@
 package com.edplan.nso.ruleset.base.game;
 
 import com.edplan.framework.math.RectF;
+import com.edplan.nso.ruleset.base.game.judge.JudgeWorld;
+import com.edplan.nso.ruleset.base.game.paint.PaintWorld;
 
 /**
  * 世界相关的数据和操作

@@ -72,7 +72,7 @@ public class BufferedLayer {
         this.context = context;
         this.width = 1;
         this.height = 1;
-        this.hasDepthBuffer = true;
+        this.hasDepthBuffer = false;
         bufferedPool = DEF_FBOPOOL;
     }
 
@@ -237,7 +237,6 @@ public class BufferedLayer {
 
     @Override
     protected void finalize() throws Throwable {
-
         super.finalize();
         recycle();
     }

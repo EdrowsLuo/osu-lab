@@ -169,9 +169,9 @@ public class LabGame {
 
         initialNsoCore(c);
 
-        toolBar = new Toolbar(c){{
+        toolBar = new Toolbar(c) {{
             layoutParam(
-                    new RelativeParam(){{
+                    new RelativeParam() {{
                         width = Param.MODE_MATCH_PARENT;
                         height = Param.makeUpDP(UiConfig.TOOLBAR_HEIGHT_DP);
                         gravity = Gravity.TopCenter;
@@ -179,7 +179,7 @@ public class LabGame {
             );
 
             shadow.setLayoutParam(
-                    new RelativeParam(){{
+                    new RelativeParam() {{
                         width = Param.MODE_MATCH_PARENT;
                         height = Param.makeUpDP(UiConfig.TOOLBAR_HEIGHT_DP);
                         gravity = Gravity.TopCenter;
@@ -188,9 +188,9 @@ public class LabGame {
         }};
 
 
-        RelativeLayout mainLayout = new RelativeLayout(c){{
+        RelativeLayout mainLayout = new RelativeLayout(c) {{
             layoutParam(
-                    new RelativeParam(){{
+                    new RelativeParam() {{
                         gravity = Gravity.TopLeft;
                         width = Param.makeupScaleOfParentParam(1f);
                         height = Param.makeupScaleOfParentParam(1f);
@@ -224,27 +224,27 @@ public class LabGame {
                                 }}
                         );
                     }},
-                    new MainCircleView(c){{
+                    new MainCircleView(c) {{
                         layoutParam(
-                                new RelativeParam(){{
+                                new RelativeParam() {{
                                     width = Param.makeupScaleOfParentOtherParam(0.6f);
                                     height = Param.makeupScaleOfParentParam(0.6f);
                                     gravity = Gravity.Center;
                                 }}
                         );
                     }},
-                    jumpingCircle = new JumpingCircle(c){{
+                    jumpingCircle = new JumpingCircle(c) {{
                         layoutParam(
-                                new RelativeParam(){{
+                                new RelativeParam() {{
                                     width = Param.makeupScaleOfParentOtherParam(0.6f);
                                     height = Param.makeupScaleOfParentParam(0.6f);
                                     gravity = Gravity.Center;
                                 }}
                         );
                     }},
-                    sceneOverlay = new SceneOverlay(c){{
+                    sceneOverlay = new SceneOverlay(c) {{
                         layoutParam(
-                                new RelativeParam(){{
+                                new RelativeParam() {{
                                     width = Param.MODE_MATCH_PARENT;
                                     height = Param.MODE_MATCH_PARENT;
                                     marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
@@ -252,18 +252,18 @@ public class LabGame {
                                 }}
                         );
                     }},
-                    optionList = new OptionList(c){{
+                    optionList = new OptionList(c) {{
                         layoutParam(
-                                new RelativeParam(){{
+                                new RelativeParam() {{
                                     width = Param.makeUpDP(350);
                                     height = Param.MODE_MATCH_PARENT;
                                     marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
                                 }}
                         );
                     }},
-                    messageList = new MessageList(c){{
+                    messageList = new MessageList(c) {{
                         layoutParam(
-                                new RelativeParam(){{
+                                new RelativeParam() {{
                                     width = Param.makeUpDP(350);
                                     height = Param.MODE_MATCH_PARENT;
                                     marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
@@ -272,9 +272,9 @@ public class LabGame {
                         );
                     }},
                     toolBar,
-                    backButton = new BackButton(c){{
+                    backButton = new BackButton(c) {{
                         layoutParam(
-                                new RelativeParam(){{
+                                new RelativeParam() {{
                                     width = Param.makeUpDP(40);
                                     height = Param.makeUpDP(40);
                                     gravity = Gravity.BottomLeft;

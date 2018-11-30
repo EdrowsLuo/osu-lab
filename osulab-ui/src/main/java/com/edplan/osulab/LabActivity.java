@@ -20,9 +20,12 @@ import com.edplan.framework.ui.text.font.bmfont.BMFont;
 import com.edplan.framework.ui.widget.AbsoluteLayout;
 import com.edplan.framework.utils.dataobject.DataMapObject;
 import com.edplan.framework.utils.dataobject.Struct;
+import com.edplan.framework.utils.io.MemoryFile;
 import com.edplan.osulab.ui.BackQuery;
 import com.edplan.osulab.ui.popup.PopupToast;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -31,6 +34,20 @@ public class LabActivity extends EdMainActivity {
 
     @Override
     protected void createGame() {
+
+
+        MemoryFile memoryFile = new MemoryFile(5);
+
+        DataOutputStream outputStream = new DataOutputStream(memoryFile.getOutputStream());
+        DataInputStream inputStream = new DataInputStream(memoryFile.getInputStream());
+
+        try {
+            outputStream.writeUTF("asdfghjklqwertyisksajkbdsaj");
+            System.out.println("test:" + inputStream.readUTF());
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
 
         try {
             File f = new File(Environment.getExternalStorageDirectory(), "osu!lab/logs/log.txt");

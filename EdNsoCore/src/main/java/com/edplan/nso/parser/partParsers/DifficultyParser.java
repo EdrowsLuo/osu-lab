@@ -1,7 +1,7 @@
 package com.edplan.nso.parser.partParsers;
 
 import com.edplan.nso.filepart.PartDifficulty;
-import com.edplan.superutils.U;
+import com.edplan.framework.utils.U;
 
 public class DifficultyParser extends PartParser<PartDifficulty> {
     private PartDifficulty part;

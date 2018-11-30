@@ -25,16 +25,15 @@ import com.edplan.nso.parser.partParsers.StoryboardPartParser;
 import com.edplan.nso.parser.partParsers.TimingPointsParser;
 import com.edplan.nso.ruleset.ModeManager;
 import com.edplan.nso.ruleset.std.StdBeatmap;
-import com.edplan.superutils.AdvancedBufferedReader;
-import com.edplan.superutils.U;
-import com.edplan.superutils.interfaces.StringMakeable;
+import com.edplan.framework.utils.io.AdvancedBufferedReader;
+import com.edplan.framework.utils.U;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class BeatmapDecoder extends BaseDecoder implements StringMakeable {
+public class BeatmapDecoder extends BaseDecoder {
 
     private int format;
 
@@ -212,7 +211,7 @@ public class BeatmapDecoder extends BaseDecoder implements StringMakeable {
     }
 
     @Override
-    public String makeString() {
+    public String toString() {
 
         StringBuilder sb = new StringBuilder();
         sb.append(reparseFormatLine(getFormat())).append(U.NEXT_LINE).append(U.NEXT_LINE);
@@ -229,6 +228,6 @@ public class BeatmapDecoder extends BaseDecoder implements StringMakeable {
 
     public static void appendPart(StringBuilder sb, OsuFilePart part) {
         sb.append(reparseTag(part.getTag())).append(U.NEXT_LINE);
-        sb.append(part.makeString()).append(U.NEXT_LINE).append(U.NEXT_LINE);
+        sb.append(part.toString()).append(U.NEXT_LINE).append(U.NEXT_LINE);
     }
 }

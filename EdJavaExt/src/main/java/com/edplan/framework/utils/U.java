@@ -1,4 +1,4 @@
-package com.edplan.superutils;
+package com.edplan.framework.utils;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -28,14 +28,6 @@ public class U {
     public static String[] divide(String res, int index) {
         if (index < 0 || index >= res.length()) return null;
         return new String[]{res.substring(0, index).trim(), res.substring(index + 1, res.length()).trim()};
-    }
-
-    public static <K, V> Map<K, V> makeMap(Class K, Class V, Object[]... objs) {
-        TreeMap<K, V> map = new TreeMap<K, V>();
-        for (Object[] o : objs) {
-            map.put((K) o[0], (V) o[1]);
-        }
-        return map;
     }
 
     public static String toVString(boolean b) {

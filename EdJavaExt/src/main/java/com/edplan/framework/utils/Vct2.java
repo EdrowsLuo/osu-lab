@@ -1,4 +1,4 @@
-package com.edplan.superutils.math;
+package com.edplan.framework.utils;
 
 public class Vct2<X, Y> {
     public X x;

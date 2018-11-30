@@ -9,8 +9,8 @@ import com.edplan.framework.resource.advance.ApplicationAssetResource;
 import com.edplan.framework.ui.ViewRoot;
 import com.edplan.framework.ui.looper.UILooper;
 import com.edplan.framework.ui.looper.UIStep;
-import com.edplan.superutils.MTimer;
-import com.edplan.superutils.classes.advance.IRunnableHandler;
+import com.edplan.framework.timing.MTimer;
+import com.edplan.framework.timing.IRunnableHandler;
 
 import java.util.HashMap;
 

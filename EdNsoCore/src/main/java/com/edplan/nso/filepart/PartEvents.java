@@ -13,7 +13,7 @@ public class PartEvents implements OsuFilePart {
     }
 
     @Override
-    public String makeString() {
+    public String toString() {
 
         return "{@Events}";
     }

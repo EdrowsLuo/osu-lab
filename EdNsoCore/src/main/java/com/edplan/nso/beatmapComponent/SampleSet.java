@@ -1,8 +1,6 @@
 package com.edplan.nso.beatmapComponent;
 
-import com.edplan.superutils.interfaces.StringMakeable;
-
-public enum SampleSet implements StringMakeable {
+public enum SampleSet {
     None("None"), Soft("Soft"), Normal("Normal"), Drum("Drum");
     private final String value;
 
@@ -64,12 +62,6 @@ public enum SampleSet implements StringMakeable {
 	public Type getType(){
 		return type;
 	}*/
-
-    @Override
-    public String makeString() {
-
-        return value;
-    }
 
     @Override
     public String toString() {

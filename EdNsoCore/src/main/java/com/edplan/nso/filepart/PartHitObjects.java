@@ -11,7 +11,7 @@ import com.edplan.nso.ruleset.std.parser.StdHitObjectReparser;
 
 import android.util.Log;
 
-import com.edplan.superutils.U;
+import com.edplan.framework.utils.U;
 import com.edplan.nso.ruleset.mania.objects.ManiaHitObjects;
 import com.edplan.nso.ruleset.std.objects.StdHitObject;
 
@@ -59,7 +59,7 @@ public class PartHitObjects implements OsuFilePart {
     }
 
     @Override
-    public String makeString() {
+    public String toString() {
 
         HitObjectReparser rp;
         switch (mode) {

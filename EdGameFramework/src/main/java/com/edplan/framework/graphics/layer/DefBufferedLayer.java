@@ -17,7 +17,6 @@ public class DefBufferedLayer extends BufferedLayer {
 
     @Override
     public void reCreateBuffer() {
-
         //you can't recreate SystemBuffer
         return;
     }
@@ -62,13 +61,11 @@ public class DefBufferedLayer extends BufferedLayer {
 
     @Override
     public void recycle() {
-
         //recycle a SystemBuffer will happen no thing
     }
 
     @Override
     protected void finalize() throws Throwable {
-
         super.finalize();
     }
 }

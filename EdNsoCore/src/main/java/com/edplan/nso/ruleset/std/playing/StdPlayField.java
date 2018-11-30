@@ -58,7 +58,7 @@ public class StdPlayField extends PlayField {
     @Override
     public void applyBeatmap(PlayingBeatmap res) {
 
-        Log.v("beatmap-data", res.getDifficulty().makeString());
+        Log.v("beatmap-data", res.getDifficulty().toString());
         if (res instanceof StdPlayingBeatmap) {
             StdPlayingBeatmap beatmap = (StdPlayingBeatmap) res;
             drawableHitObjects.setObjects(beatmap.getDrawableHitObjects());

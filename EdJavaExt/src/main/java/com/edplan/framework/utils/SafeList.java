@@ -1,4 +1,4 @@
-package com.edplan.superutils.classes;
+package com.edplan.framework.utils;
 
 import java.util.ArrayList;
 

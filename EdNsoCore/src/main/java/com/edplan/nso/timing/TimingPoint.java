@@ -1,11 +1,10 @@
 package com.edplan.nso.timing;
 
-import com.edplan.superutils.interfaces.StringMakeable;
-import com.edplan.superutils.U;
+import com.edplan.framework.utils.U;
 import com.edplan.nso.beatmapComponent.SampleSet;
 import com.edplan.nso.ruleset.std.playing.controlpoint.ControlPoint;
 
-public class TimingPoint extends ControlPoint implements StringMakeable {
+public class TimingPoint extends ControlPoint {
 
     /**
      * 在lazer原代码里这里是一个enum TimeSignatures,
@@ -105,7 +104,7 @@ public class TimingPoint extends ControlPoint implements StringMakeable {
     }
 
     @Override
-    public String makeString() {
+    public String toString() {
 
         StringBuilder sb = new StringBuilder();
         sb.append(getTime()).append(",");

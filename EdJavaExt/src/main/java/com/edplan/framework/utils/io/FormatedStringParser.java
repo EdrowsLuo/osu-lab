@@ -1,6 +1,6 @@
-package com.edplan.framework.io;
+package com.edplan.framework.utils.io;
 
-import com.edplan.superutils.U;
+import com.edplan.framework.utils.U;
 
 /**
  * 对于 键值+分割符1+数据 为单元，中间用统一的分割符2进行单元之间的分割

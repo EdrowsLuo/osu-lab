@@ -1,6 +1,6 @@
 package com.edplan.framework.ui.text.font.bmfont;
 
-import com.edplan.superutils.U;
+import com.edplan.framework.utils.U;
 
 import java.util.ArrayList;
 import java.util.List;

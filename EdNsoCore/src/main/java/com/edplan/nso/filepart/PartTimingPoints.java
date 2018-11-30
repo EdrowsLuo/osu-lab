@@ -32,8 +32,8 @@ public class PartTimingPoints implements OsuFilePart {
     }
 
     @Override
-    public String makeString() {
-        return (timingPoints != null) ? timingPoints.makeString() : "{@TimingPoints}";
+    public String toString() {
+        return (timingPoints != null) ? timingPoints.toString() : "{@TimingPoints}";
     }
 
 }

@@ -1,8 +1,7 @@
 package com.edplan.nso.ruleset.base.game;
 
 import com.edplan.nso.parser.ParseException;
-import com.edplan.nso.ruleset.base.game.GameObject;
-import com.edplan.superutils.classes.strings.StringSplitter;
+import com.edplan.framework.utils.advance.StringSplitter;
 
 public abstract class StdFormatGameObject extends GameObject {
 

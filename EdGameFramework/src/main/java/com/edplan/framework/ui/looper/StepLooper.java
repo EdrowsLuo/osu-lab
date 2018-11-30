@@ -1,7 +1,7 @@
 package com.edplan.framework.ui.looper;
 
-import com.edplan.superutils.interfaces.AbstractLooper;
-import com.edplan.superutils.interfaces.Loopable;
+import com.edplan.framework.timing.ILooper;
+import com.edplan.framework.timing.Loopable;
 
 public class StepLooper extends BaseLooper<StepedLoopable> {
     private int step;
@@ -62,13 +62,13 @@ public class StepLooper extends BaseLooper<StepedLoopable> {
         }
 
         @Override
-        public AbstractLooper getLooper() {
+        public ILooper getLooper() {
 
             return loopable.getLooper();
         }
 
         @Override
-        public void setLooper(AbstractLooper lp) {
+        public void setLooper(ILooper lp) {
 
             loopable.setLooper(lp);
         }

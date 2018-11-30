@@ -7,7 +7,7 @@ import com.edplan.framework.utils.dataobject.def.DefaultFloat;
 import com.edplan.framework.utils.dataobject.def.DefaultInt;
 import com.edplan.nso.OsuFilePart;
 import com.edplan.nso.beatmapComponent.Bookmarks;
-import com.edplan.superutils.U;
+import com.edplan.framework.utils.U;
 
 public class PartEditor extends DataMapObject implements OsuFilePart {
     public static final String Bookmarks = "Bookmarks";
@@ -39,7 +39,7 @@ public class PartEditor extends DataMapObject implements OsuFilePart {
     @Override
     protected void onLoadStruct(Struct struct) {
         struct.add(Bookmarks, String.class,
-                () -> bookmarks != null ? bookmarks.makeString() : "",
+                () -> bookmarks != null ? bookmarks.toString() : "",
                 s -> bookmarks = com.edplan.nso.beatmapComponent.Bookmarks.parse(s));
         loadStructAnnotation(struct);
     }
@@ -53,7 +53,7 @@ public class PartEditor extends DataMapObject implements OsuFilePart {
     }
 
     public String getBookmarksString() {
-        return (getBookmarks() != null) ? getBookmarks().makeString() : "{@Bookmarks}";
+        return (getBookmarks() != null) ? getBookmarks().toString() : "{@Bookmarks}";
     }
 
     public void setDistanceSpacing(float distanceSpacing) {
@@ -95,7 +95,7 @@ public class PartEditor extends DataMapObject implements OsuFilePart {
     }
 
     @Override
-    public String makeString() {
+    public String toString() {
 
         StringBuilder sb = new StringBuilder();
         U.appendProperty(sb, PartEditor.Bookmarks, getBookmarksString()).append(U.NEXT_LINE);

@@ -1,6 +1,6 @@
 package com.edplan.framework.ui.text.font.bmfont;
 
-import com.edplan.framework.io.FormatedStringParser;
+import com.edplan.framework.utils.io.FormatedStringParser;
 
 public class FNTInfo {
     public static final String FACE = "face";

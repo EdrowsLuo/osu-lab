@@ -7,7 +7,7 @@ import com.edplan.nso.ruleset.std.objects.StdHitCircle;
 import com.edplan.nso.ruleset.std.objects.StdSlider;
 import com.edplan.nso.ruleset.std.objects.StdSpinner;
 import com.edplan.nso.ruleset.std.objects.StdPath;
-import com.edplan.superutils.math.Vct2;
+import com.edplan.framework.utils.Vct2;
 import com.edplan.nso.ruleset.mania.objects.ManiaHolder;
 import com.edplan.framework.math.Vec2;
 

@@ -6,7 +6,7 @@ import com.edplan.nso.NsoBeatmapParsingException;
 import com.edplan.nso.NsoException;
 import com.edplan.nso.ParsingBeatmap;
 import com.edplan.nso.parser.partParsers.PartParser;
-import com.edplan.superutils.AdvancedBufferedReader;
+import com.edplan.framework.utils.io.AdvancedBufferedReader;
 
 import java.io.File;
 import java.io.FileNotFoundException;

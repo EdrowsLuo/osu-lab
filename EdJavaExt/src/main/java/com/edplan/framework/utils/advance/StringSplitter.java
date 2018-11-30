@@ -1,6 +1,6 @@
-package com.edplan.superutils.classes.strings;
+package com.edplan.framework.utils.advance;
 
-import com.edplan.superutils.U;
+import com.edplan.framework.utils.U;
 
 public class StringSplitter {
     private String res;

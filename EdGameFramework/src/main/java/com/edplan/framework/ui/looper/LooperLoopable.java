@@ -1,6 +1,6 @@
 package com.edplan.framework.ui.looper;
 
-import com.edplan.superutils.interfaces.Loopable;
+import com.edplan.framework.timing.Loopable;
 
 public class LooperLoopable<T extends Loopable> extends Loopable {
     private BaseLooper<T> looper = new BaseLooper<T>();

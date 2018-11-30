@@ -1,12 +1,10 @@
 package com.edplan.nso.timing;
 
-import com.edplan.superutils.interfaces.StringMakeable;
-
 import java.util.ArrayList;
 
-import com.edplan.superutils.U;
+import com.edplan.framework.utils.U;
 
-public class TimingPoints implements StringMakeable {
+public class TimingPoints {
     private ArrayList<TimingPoint> timings;
 
     public TimingPoints() {
@@ -22,11 +20,11 @@ public class TimingPoints implements StringMakeable {
     }
 
     @Override
-    public String makeString() {
+    public String toString() {
 
         StringBuilder sb = new StringBuilder();
         for (TimingPoint t : timings) {
-            sb.append(t.makeString()).append(U.NEXT_LINE);
+            sb.append(t.toString()).append(U.NEXT_LINE);
         }
         return sb.toString();
     }

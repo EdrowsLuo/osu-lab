@@ -2,8 +2,7 @@ package com.edplan.framework.timing;
 
 import com.edplan.framework.ui.animation.precise.AbstractPreciseAnimation;
 import com.edplan.framework.utils.MLog;
-import com.edplan.superutils.classes.SafeList;
-import com.edplan.superutils.interfaces.Loopable;
+import com.edplan.framework.utils.SafeList;
 
 import java.util.Iterator;
 

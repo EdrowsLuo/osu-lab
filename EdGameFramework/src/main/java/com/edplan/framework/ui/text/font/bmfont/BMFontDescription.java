@@ -1,6 +1,6 @@
 package com.edplan.framework.ui.text.font.bmfont;
 
-import com.edplan.superutils.AdvancedBufferedReader;
+import com.edplan.framework.utils.io.AdvancedBufferedReader;
 
 import java.io.IOException;
 import java.io.InputStream;

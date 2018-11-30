@@ -1,4 +1,4 @@
-package com.edplan.superutils.useful;
+package com.edplan.framework.utils;
 
 public class ArrayUtils {
     public static void copy(Object[] t, int ts, Object[] res, int rs, int count) {

@@ -1,12 +1,10 @@
 package com.edplan.nso.beatmapComponent;
 
-import com.edplan.superutils.interfaces.StringMakeable;
-
 import java.util.ArrayList;
 
-import com.edplan.superutils.classes.strings.StringSplitter;
+import com.edplan.framework.utils.advance.StringSplitter;
 
-public class Tags implements StringMakeable {
+public class Tags {
     private ArrayList<String> tags;
 
     public Tags() {
@@ -18,7 +16,7 @@ public class Tags implements StringMakeable {
     }
 
     @Override
-    public String makeString() {
+    public String toString() {
 
         StringBuilder sb = new StringBuilder();
         for (String i : tags) {

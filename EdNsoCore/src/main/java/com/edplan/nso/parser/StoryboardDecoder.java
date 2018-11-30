@@ -1,7 +1,7 @@
 package com.edplan.nso.parser;
 
 import com.edplan.nso.ParsingBeatmap;
-import com.edplan.superutils.AdvancedBufferedReader;
+import com.edplan.framework.utils.io.AdvancedBufferedReader;
 
 import java.io.File;
 import java.io.FileNotFoundException;

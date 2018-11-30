@@ -1,13 +1,11 @@
 package com.edplan.nso.beatmapComponent;
 
-import com.edplan.superutils.interfaces.StringMakeable;
-
 import java.util.ArrayList;
 
-import com.edplan.superutils.classes.strings.StringSplitter;
-import com.edplan.superutils.U;
+import com.edplan.framework.utils.advance.StringSplitter;
+import com.edplan.framework.utils.U;
 
-public class Bookmarks implements StringMakeable {
+public class Bookmarks {
     private ArrayList<Integer> bookmarks;
 
     public Bookmarks() {
@@ -19,7 +17,7 @@ public class Bookmarks implements StringMakeable {
     }
 
     @Override
-    public String makeString() {
+    public String toString() {
 
         StringBuilder sb = new StringBuilder();
         for (Integer i : bookmarks) {

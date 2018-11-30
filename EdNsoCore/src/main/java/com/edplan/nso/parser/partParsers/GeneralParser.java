@@ -1,7 +1,7 @@
 package com.edplan.nso.parser.partParsers;
 
 import com.edplan.nso.filepart.PartGeneral;
-import com.edplan.superutils.U;
+import com.edplan.framework.utils.U;
 import com.edplan.nso.beatmapComponent.SampleSet;
 
 public class GeneralParser extends PartParser<PartGeneral> {

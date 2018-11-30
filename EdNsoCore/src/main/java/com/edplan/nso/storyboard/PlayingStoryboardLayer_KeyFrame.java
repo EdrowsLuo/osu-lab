@@ -1,14 +1,9 @@
 package com.edplan.nso.storyboard;
 
-import com.edplan.framework.fallback.GLES10Drawable;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.graphics.opengl.GL10Canvas2D;
-import com.edplan.framework.graphics.opengl.GLWrapped;
-import com.edplan.framework.graphics.opengl.fast.FastRenderer;
 import com.edplan.framework.test.performance.Tracker;
 import com.edplan.framework.ui.drawable.EdDrawable;
 import com.edplan.nso.storyboard.elements.IStoryboardElements;
-import com.edplan.nso.storyboard.elements.drawable.ADrawableStoryboardElement;
 import com.edplan.nso.storyboard.renderer.OsbRenderer;
 
 import java.util.ArrayList;

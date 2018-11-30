@@ -20,7 +20,7 @@ import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.ViewRoot;
 import com.edplan.framework.ui.looper.UILooper;
 import com.edplan.framework.utils.MLog;
-import com.edplan.superutils.MTimer;
+import com.edplan.framework.timing.MTimer;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;

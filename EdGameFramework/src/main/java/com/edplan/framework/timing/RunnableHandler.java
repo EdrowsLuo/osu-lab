@@ -1,13 +1,11 @@
-package com.edplan.superutils.classes.advance;
+package com.edplan.framework.timing;
 
-import com.edplan.superutils.classes.SafeList;
-import com.edplan.superutils.interfaces.AbstractLooper;
-import com.edplan.superutils.interfaces.Loopable;
+import com.edplan.framework.utils.SafeList;
 
 import java.util.Iterator;
 
 public class RunnableHandler extends Loopable implements IRunnableHandler {
-    private AbstractLooper looper;
+    private ILooper looper;
 
     private SafeList<DelayedRunnable> bufferedRunnables;
 
@@ -36,7 +34,7 @@ public class RunnableHandler extends Loopable implements IRunnableHandler {
     }
 
     @Override
-    public void setLooper(AbstractLooper lp) {
+    public void setLooper(ILooper lp) {
 
         this.looper = lp;
     }

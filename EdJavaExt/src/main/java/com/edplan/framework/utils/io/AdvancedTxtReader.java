@@ -1,4 +1,4 @@
-package com.edplan.framework.io;
+package com.edplan.framework.utils.io;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -14,9 +14,9 @@ import com.edplan.nso.ruleset.std.objects.StdHitObjectType;
 import com.edplan.nso.ruleset.std.objects.StdPath;
 import com.edplan.nso.ruleset.std.objects.StdSlider;
 import com.edplan.nso.ruleset.std.objects.StdSpinner;
-import com.edplan.superutils.U;
-import com.edplan.superutils.classes.strings.StringSplitter;
-import com.edplan.superutils.math.Vct2;
+import com.edplan.framework.utils.U;
+import com.edplan.framework.utils.advance.StringSplitter;
+import com.edplan.framework.utils.Vct2;
 
 import java.util.ArrayList;
 import java.util.List;

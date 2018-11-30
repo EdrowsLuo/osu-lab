@@ -1,17 +1,15 @@
 package com.edplan.nso.beatmapComponent;
 
-import com.edplan.superutils.interfaces.StringMakeable;
-
 import android.graphics.Color;
 
-import com.edplan.superutils.U;
+import com.edplan.framework.utils.U;
 
 import java.util.TreeMap;
 import java.util.Map;
 
 import com.edplan.framework.graphics.opengl.objs.Color4;
 
-public class Colours implements StringMakeable {
+public class Colours {
     /**
      * SliderBorder : 255,255,255
      * SliderTrackOverride : 0,0,0
@@ -48,7 +46,7 @@ public class Colours implements StringMakeable {
     }
 
     @Override
-    public String makeString() {
+    public String toString() {
 
         StringBuilder sb = new StringBuilder();
         int i;

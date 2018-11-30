@@ -1,8 +1,8 @@
 package com.edplan.framework.ui.animation;
 
 import com.edplan.framework.utils.MLog;
-import com.edplan.superutils.classes.SafeList;
-import com.edplan.superutils.interfaces.Loopable;
+import com.edplan.framework.utils.SafeList;
+import com.edplan.framework.timing.Loopable;
 
 import java.util.Iterator;
 

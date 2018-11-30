@@ -42,14 +42,12 @@ public class PartColours implements OsuFilePart {
 
     @Override
     public String getTag() {
-
         return TAG;
     }
 
     @Override
-    public String makeString() {
-
-        return (colours != null) ? colours.makeString() : "{@Colours}";
+    public String toString() {
+        return (colours != null) ? colours.toString() : "{@Colours}";
     }
 
 }

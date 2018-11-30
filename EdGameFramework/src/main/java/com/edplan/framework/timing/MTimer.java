@@ -1,4 +1,4 @@
-package com.edplan.superutils;
+package com.edplan.framework.timing;
 
 import com.edplan.framework.Framework;
 

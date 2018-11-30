@@ -1,42 +1,24 @@
 package com.edplan.nso.storyboard;
 
 import com.edplan.framework.MContext;
-import com.edplan.framework.graphics.opengl.GLCanvas2D;
+import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.graphics.opengl.GLWrapped;
+import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
+import com.edplan.framework.graphics.opengl.objs.texture.AutoPackTexturePool;
+import com.edplan.framework.graphics.opengl.objs.texture.TexturePool;
+import com.edplan.framework.resource.AResource;
+import com.edplan.framework.resource.BufferedListResource;
 import com.edplan.framework.timing.PreciseTimeline;
 import com.edplan.framework.ui.drawable.EdDrawable;
-import com.edplan.nso.storyboard.StoryboardLayer;
+import com.edplan.framework.ui.looper.ExpensiveTask;
+import com.edplan.nso.resource.OsuSkin;
+import com.edplan.nso.storyboard.elements.IStoryboardElements;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.edplan.framework.resource.AResource;
-import com.edplan.framework.graphics.opengl.objs.texture.TexturePool;
-import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
-
-import java.io.IOException;
-
-import com.edplan.framework.resource.BufferedListResource;
-import com.edplan.framework.graphics.opengl.objs.texture.AutoPackTexturePool;
-import com.edplan.nso.storyboard.elements.IStoryboardElements;
-
-import java.io.File;
-
-import com.edplan.framework.graphics.opengl.shader.advance.ColorShader;
-import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
-import com.edplan.nso.storyboard.elements.StoryboardSprite;
-import com.edplan.framework.fallback.GLES10Drawable;
-import com.edplan.framework.graphics.opengl.GL10Canvas2D;
-import com.edplan.framework.graphics.opengl.GLWrapped;
-import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.test.Test;
-import com.edplan.nso.resource.OsuSkin;
-
-import java.util.List;
-import java.util.ArrayList;
-
-import com.edplan.framework.ui.looper.ExpensiveTask;
-
-public class PlayingStoryboard extends EdDrawable implements GLES10Drawable {
+public class PlayingStoryboard extends EdDrawable {
     private HashMap<String, PlayingStoryboardLayer> layers = new HashMap<String, PlayingStoryboardLayer>();
 
     private PreciseTimeline timeline;
@@ -287,19 +269,6 @@ public class PlayingStoryboard extends EdDrawable implements GLES10Drawable {
         //canvas.getData().getShaders().setTexture3DShader(Texture3DShader.Invalid);
         for (Map.Entry<String, PlayingStoryboardLayer> e : layers.entrySet()) {
             e.getValue().draw(canvas);
-        }
-        canvas.restoreToCount(i);
-    }
-
-
-    @Override
-    public void drawGL10(GL10Canvas2D canvas) {
-
-        int i = canvas.save();
-        //canvas.getData().getShaders().setColorShader(ColorShader.Invalid);
-        //canvas.getData().getShaders().setTexture3DShader(Texture3DShader.Invalid);
-        for (Map.Entry<String, PlayingStoryboardLayer> e : layers.entrySet()) {
-            //e.getValue().drawGL10(canvas);
         }
         canvas.restoreToCount(i);
     }

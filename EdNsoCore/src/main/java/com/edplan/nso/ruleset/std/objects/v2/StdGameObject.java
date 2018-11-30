@@ -4,7 +4,7 @@ import com.edplan.framework.math.Vec2;
 import com.edplan.nso.parser.ParseException;
 import com.edplan.nso.ruleset.base.game.StdFormatGameObject;
 import com.edplan.nso.ruleset.std.objects.StdPath;
-import com.edplan.superutils.classes.strings.StringSplitter;
+import com.edplan.framework.utils.advance.StringSplitter;
 
 public abstract class StdGameObject extends StdFormatGameObject {
 

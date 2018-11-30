@@ -3,7 +3,6 @@ package com.edplan.framework.ui;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.main.MainCallBack;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.additions.FrameListener;
@@ -23,7 +22,7 @@ import com.edplan.framework.ui.layout.Gravity;
 import com.edplan.framework.ui.layout.LayoutException;
 import com.edplan.framework.ui.layout.MarginLayoutParam;
 import com.edplan.framework.utils.BitUtil;
-import com.edplan.superutils.classes.advance.IRunnableHandler;
+import com.edplan.framework.timing.IRunnableHandler;
 
 import java.lang.ref.WeakReference;
 

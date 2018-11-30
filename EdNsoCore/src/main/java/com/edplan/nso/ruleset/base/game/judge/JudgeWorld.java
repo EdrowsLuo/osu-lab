@@ -5,12 +5,22 @@ import com.edplan.framework.ui.inputs.EdKeyEvent;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
 import com.edplan.framework.utils.advance.ClassifiedList;
 import com.edplan.nso.ruleset.base.game.World;
+import com.edplan.nso.ruleset.base.game.judge.JudgeData;
+import com.edplan.nso.ruleset.base.game.judge.JudgeDataUpdater;
+import com.edplan.nso.ruleset.base.game.judge.JudgeObject;
+import com.edplan.nso.ruleset.base.game.judge.RawInputHandler;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.PipedInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class JudgeObjectsManager implements RawInputHandler {
+/**
+ * 管理判定的类，主要工作在判定线程里
+ */
+public class JudgeWorld implements RawInputHandler {
 
     private static final int ACTIVE_OBJECT = 1;
 
@@ -27,6 +37,14 @@ public class JudgeObjectsManager implements RawInputHandler {
     private Schedule timeoutSchedule = new Schedule();
 
     private ClassifiedList<JudgeObjectNode> classifiedList = new ClassifiedList<>();
+
+    private DataInputStream input;
+
+    private DataOutputStream output;
+
+    public JudgeWorld() {
+        PipedInputStream inputStream = new PipedInputStream();
+    }
 
     public void preloadJudgeDataType(Class<? extends JudgeData>[] types) {
         judgeTypes = types;
@@ -120,6 +138,10 @@ public class JudgeObjectsManager implements RawInputHandler {
         }
     }
 
+    private void updateInputs() {
+
+    }
+
     @Override
     public boolean onMotionEvent(EdMotionEvent event) {
         for (JudgeNode node : judgeNodes) {
@@ -134,22 +156,6 @@ public class JudgeObjectsManager implements RawInputHandler {
             node.updater.onKeyEvent(event);
         }
         return false;
-    }
-
-
-    public class JudgeNode {
-
-        public final JudgeDataUpdater updater;
-
-        public final JudgeData data;
-
-        public boolean interrupted = false;
-
-        public JudgeNode(JudgeData data) {
-            this.data = data;
-            this.updater = data.getDataUpdater();
-        }
-
     }
 
     public class JudgeObjectNode {
@@ -182,4 +188,5 @@ public class JudgeObjectsManager implements RawInputHandler {
         }
 
     }
+
 }

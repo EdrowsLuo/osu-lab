@@ -24,7 +24,7 @@ public class PartVariables implements OsuFilePart {
     }
 
     @Override
-    public String makeString() {
+    public String toString() {
 
         return "{@Variables}";
     }

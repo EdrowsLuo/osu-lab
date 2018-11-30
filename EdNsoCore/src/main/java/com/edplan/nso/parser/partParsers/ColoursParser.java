@@ -1,7 +1,7 @@
 package com.edplan.nso.parser.partParsers;
 
 import com.edplan.nso.filepart.PartColours;
-import com.edplan.superutils.U;
+import com.edplan.framework.utils.U;
 
 public class ColoursParser extends PartParser<PartColours> {
     public static String COLOUR_HEAD = "Combo";

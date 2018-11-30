@@ -2,8 +2,8 @@ package com.edplan.nso.parser.partParsers;
 
 import com.edplan.nso.filepart.PartTimingPoints;
 import com.edplan.nso.timing.TimingPoint;
-import com.edplan.superutils.classes.strings.StringSplitter;
-import com.edplan.superutils.U;
+import com.edplan.framework.utils.advance.StringSplitter;
+import com.edplan.framework.utils.U;
 import com.edplan.nso.beatmapComponent.SampleSet;
 
 public class TimingPointsParser extends PartParser<PartTimingPoints> {

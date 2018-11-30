@@ -1,13 +1,13 @@
 package com.edplan.framework.ui.looper;
 
-import com.edplan.superutils.MTimer;
-import com.edplan.superutils.classes.SafeList;
-import com.edplan.superutils.interfaces.AbstractLooper;
-import com.edplan.superutils.interfaces.Loopable;
+import com.edplan.framework.timing.MTimer;
+import com.edplan.framework.utils.SafeList;
+import com.edplan.framework.timing.ILooper;
+import com.edplan.framework.timing.Loopable;
 
 import java.util.Iterator;
 
-public class BaseLooper<T extends Loopable> implements AbstractLooper<T> {
+public class BaseLooper<T extends Loopable> implements ILooper<T> {
     private SafeList<T> loopables;
 
     private MTimer timer;

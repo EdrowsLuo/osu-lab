@@ -1,4 +1,4 @@
-package com.edplan.superutils.interfaces;
+package com.edplan.framework.timing;
 
 public abstract class Loopable {
 
@@ -16,13 +16,13 @@ public abstract class Loopable {
 
     private Flag flag = Flag.Run;
 
-    private AbstractLooper looper;
+    private ILooper looper;
 
-    public void setLooper(AbstractLooper lp) {
+    public void setLooper(ILooper lp) {
         this.looper = lp;
     }
 
-    public AbstractLooper getLooper() {
+    public ILooper getLooper() {
         return looper;
     }
 

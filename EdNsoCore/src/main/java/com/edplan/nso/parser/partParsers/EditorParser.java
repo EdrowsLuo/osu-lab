@@ -1,6 +1,6 @@
 package com.edplan.nso.parser.partParsers;
 
-import com.edplan.superutils.U;
+import com.edplan.framework.utils.U;
 import com.edplan.nso.filepart.PartEditor;
 import com.edplan.nso.beatmapComponent.Bookmarks;
 
