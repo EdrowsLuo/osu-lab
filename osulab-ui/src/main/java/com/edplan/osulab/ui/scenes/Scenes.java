@@ -15,6 +15,7 @@ import com.edplan.framework.utils.interfaces.Consumer;
 import com.edplan.osulab.LabGame;
 import com.edplan.osulab.ScenesName;
 import com.edplan.osulab.ui.BackQuery;
+import com.edplan.osulab.ui.scenes.game.GameScene;
 import com.edplan.osulab.ui.scenes.songs.SongsScene;
 
 import java.lang.reflect.Method;
@@ -44,6 +45,7 @@ public class Scenes extends RelativeLayout implements Hideable, BackQuery.BackHa
     public void initialRegister() {
         register(WorkingScene.class, ScenesName.Edit, true);
         register(SongsScene.class);
+        register(GameScene.class);
     }
 
     public void register(Class<? extends BaseScene> klass) {
@@ -79,7 +81,6 @@ public class Scenes extends RelativeLayout implements Hideable, BackQuery.BackHa
 
     @Override
     public void onInitialLayouted() {
-
         super.onInitialLayouted();
         setVisiblility(VISIBILITY_GONE);
         setAlpha(0);
@@ -87,13 +88,11 @@ public class Scenes extends RelativeLayout implements Hideable, BackQuery.BackHa
 
     @Override
     public int getChildrenCount() {
-
         return currentScene == null ? 0 : 1;
     }
 
     @Override
     public EdView getChildAt(int i) {
-
         return i == 0 ? currentScene : null;
     }
 
@@ -117,16 +116,12 @@ public class Scenes extends RelativeLayout implements Hideable, BackQuery.BackHa
             s.show();
         } else {
             currentScene.hide();
-            post(new Runnable() {
-                @Override
-                public void run() {
-
-                    scenesStack.remove(currentScene);
-                    scenesStack.add(s);
-                    currentScene = s;
-                    s.show();
-                }
-            }, currentScene.getHideDuration() + 20);
+            post(() -> {
+                //scenesStack.remove(currentScene);
+                scenesStack.add(s);
+                currentScene = s;
+                s.show();
+            }, currentScene.getHideDuration() + 10);
         }
     }
 
@@ -141,7 +136,6 @@ public class Scenes extends RelativeLayout implements Hideable, BackQuery.BackHa
 
     @Override
     public void hide() {
-
         BackQuery.get().unregist(this);
         ComplexAnimationBuilder b = ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this, 0, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.None));
         ComplexAnimation anim = b.buildAndStart();
@@ -152,7 +146,6 @@ public class Scenes extends RelativeLayout implements Hideable, BackQuery.BackHa
 
     @Override
     public void show() {
-
         BackQuery.get().regist(this);
         setVisiblility(VISIBILITY_SHOW);
         ComplexAnimationBuilder b = ComplexAnimationBuilder.start(FloatQueryAnimation.fadeTo(this, 1, ViewConfiguration.DEFAULT_TRANSITION_TIME, Easing.None));
@@ -162,61 +155,53 @@ public class Scenes extends RelativeLayout implements Hideable, BackQuery.BackHa
 
     @Override
     public boolean isHidden() {
-
         return getVisiblility() == VISIBILITY_GONE;
     }
 
     @Override
     public boolean onBack() {
-
-        if (currentScene.onBackPressed()) return true;
-
         if (scenesStack.size() > 0) {
             currentScene.hide();
-            post(new Runnable() {
-                @Override
-                public void run() {
-
-                    scenesStack.remove(currentScene);
-                    currentScene = scenesStack.size() > 0 ? scenesStack.get(scenesStack.size() - 1) : null;
-                    if (currentScene == null) {
-                        hide();
-                    } else {
-                        currentScene.show();
-                    }
+            post(() -> {
+                scenesStack.remove(currentScene);
+                currentScene = scenesStack.size() > 0 ? scenesStack.get(scenesStack.size() - 1) : null;
+                if (currentScene == null) {
+                    hide();
+                } else {
+                    currentScene.show();
                 }
-            }, currentScene.getHideDuration() + 20);
+            }, currentScene.getHideDuration() + 10);
             return true;
         }
         return false;
     }
 
-    public SceneNode createNode(Class<? extends BaseScene> klass, String name, boolean singleInstance) {
+    private SceneNode createNode(Class<? extends BaseScene> klass, String name, boolean singleInstance) {
         return new SceneNode(klass, name, singleInstance);
     }
 
     public class SceneNode {
-        public Class<? extends BaseScene> klass;
+        Class<? extends BaseScene> klass;
 
-        public boolean singleInstance;
+        boolean singleInstance;
 
         public String name;
 
         private BaseScene savedScene;
 
-        public SceneNode(Class<? extends BaseScene> klass, String name, boolean singleInstance) {
+        SceneNode(Class<? extends BaseScene> klass, String name, boolean singleInstance) {
             this.klass = klass;
             this.name = name;
             this.singleInstance = singleInstance;
         }
 
 
-        public BaseScene createInstance() {
+        BaseScene createInstance() {
             try {
                 BaseScene s = klass.getConstructor(new Class[]{MContext.class}).newInstance(new Object[]{getContext()});
                 if (s.getSceneName() == null) {
-                    Method m = klass.getMethod("setSceneName", new Class[]{String.class});
-                    m.invoke(s, new Object[]{name});
+                    Method m = klass.getMethod("setSceneName", String.class);
+                    m.invoke(s, name);
                 }
                 long wm =
                         EdMeasureSpec.makeupMeasureSpec(
@@ -237,7 +222,7 @@ public class Scenes extends RelativeLayout implements Hideable, BackQuery.BackHa
             }
         }
 
-        public BaseScene getInstance() {
+        BaseScene getInstance() {
             if (savedScene == null) {
                 savedScene = createInstance();
             }

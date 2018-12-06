@@ -15,7 +15,7 @@ public class RectDrawable extends EdDrawable {
     }
 
     public void setColor(Color4 c) {
-        paint.setMixColor(c);
+        paint.setAccentColor(c);
     }
 
     @Override

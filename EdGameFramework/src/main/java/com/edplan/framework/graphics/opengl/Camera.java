@@ -22,6 +22,13 @@ public class Camera {
         hasChange = true;
     }
 
+    public void set(Camera c) {
+        maskMatrix.set(c.maskMatrix);
+        projectionMatrix.set(c.projectionMatrix);
+        finalMatrix.set(c.finalMatrix);
+        hasChange = c.hasChange;
+    }
+
     public Vec2 toProjPostion(float x, float y) {
         return maskMatrix.mapToProj(x, y);
     }

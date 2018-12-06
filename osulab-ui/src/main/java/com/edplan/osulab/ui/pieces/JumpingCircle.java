@@ -21,6 +21,7 @@ import com.edplan.framework.ui.animation.callback.OnFinishListener;
 import com.edplan.framework.ui.drawable.sprite.CircleSprite;
 import com.edplan.framework.ui.drawable.sprite.ShadowCircleSprite;
 import com.edplan.framework.ui.drawable.sprite.TextureCircleSprite;
+import com.edplan.framework.ui.widget.component.Hideable;
 import com.edplan.osulab.LabGame;
 import com.edplan.osulab.ScenesName;
 import com.edplan.osulab.ui.UiConfig;
@@ -30,7 +31,7 @@ import com.edplan.osulab.ui.scenes.SceneSelectButtonBar;
 import java.io.IOException;
 import java.util.Random;
 
-public class JumpingCircle extends EdView {
+public class JumpingCircle extends EdView implements Hideable{
     private float maxShadowWidth = 12;
 
     private float shadowWidth = maxShadowWidth;
@@ -450,6 +451,21 @@ public class JumpingCircle extends EdView {
     public boolean inViewBound(float x, float y) {
 
         return Vec2.length(x - (getLeft() + getRight()) / 2, y - (getTop() + getBottom()) / 2) < Math.min(getWidth(), getHeight()) / 2;
+    }
+
+    @Override
+    public void hide() {
+        setVisiblility(VISIBILITY_GONE);
+    }
+
+    @Override
+    public void show() {
+        setVisiblility(VISIBILITY_SHOW);
+    }
+
+    @Override
+    public boolean isHidden() {
+        return getVisiblility() != VISIBILITY_SHOW;
     }
 
 

@@ -47,13 +47,13 @@ public class MContext {
 
     public void toast(final String msg) {
         if (holdingView != null) {
-            holdingView.post(new Runnable() {
-                @Override
-                public void run() {
+            holdingView.post(() -> Toast.makeText(androidContext, msg, Toast.LENGTH_SHORT).show());
+        }
+    }
 
-                    Toast.makeText(androidContext, msg, Toast.LENGTH_SHORT).show();
-                }
-            });
+    public void postToNativeView(Runnable runnable) {
+        if (holdingView != null) {
+            holdingView.post(runnable);
         }
     }
 

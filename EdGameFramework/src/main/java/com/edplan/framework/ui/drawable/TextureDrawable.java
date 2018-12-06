@@ -123,7 +123,7 @@ public class TextureDrawable extends EdDrawable implements IFadeable, IScaleable
                 //basePaint.getColorMixRate(),
                 basePaint.getVaryingColor(),
                 basePaint.getFinalAlpha() * texture.getAlpha(),
-                basePaint.getMixColor());
+                basePaint.getAccentColor());
     }
 
     @Override

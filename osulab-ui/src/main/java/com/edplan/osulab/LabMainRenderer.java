@@ -8,6 +8,7 @@ import com.edplan.framework.ui.EdView;
 public class LabMainRenderer extends MainRenderer {
     public LabMainRenderer(MContext c, MainApplication app) {
         super(c, app);
+        setFrameLimit(60);
     }
 
     @Override

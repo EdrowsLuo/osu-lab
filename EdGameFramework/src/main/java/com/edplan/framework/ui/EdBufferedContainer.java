@@ -78,15 +78,6 @@ public abstract class EdBufferedContainer extends EdAbstractViewGroup {
         return postPaint.getFinalAlpha();
     }
 
-    public void setAccentColor(Color4 c) {
-        postPaint.setMixColor(c);
-        invalidateDraw();
-    }
-
-    public Color4 getAccentColor() {
-        return postPaint.getMixColor();
-    }
-
     public Vec2 getBufferSize() {
         return new Vec2(layer.getWidth(), layer.getHeight());
     }
@@ -182,7 +173,7 @@ public abstract class EdBufferedContainer extends EdAbstractViewGroup {
             sprite.setArea(area);
             sprite.setTexture(layer.getTexture());
             sprite.setAlpha(paint.getFinalAlpha());
-            sprite.setAccentColor(paint.getMixColor());
+            sprite.setAccentColor(paint.getAccentColor());
             sprite.draw(canvas);
             if (!enableBlending) {
                 canvas.getBlendSetting().restore();
@@ -270,7 +261,7 @@ public abstract class EdBufferedContainer extends EdAbstractViewGroup {
             Vec2 org = new Vec2(area.getLeft() + area.getWidth() * anchor.x(), area.getTop() + area.getHeight() * anchor.y());
             if (shadow != null) {
                 shadow.setTexture(GLTexture.White);
-                shadow.setAccentColor(paint.getMixColor());
+                shadow.setAccentColor(paint.getAccentColor());
                 shadow.setAlpha(paint.getFinalAlpha());
                 shadow.setArea(RectF.anchorOWH(anchor, org.x, org.y, (area.getWidth() + shadow.getShadowWidth() * 2) * scaleX, (area.getHeight() + shadow.getShadowWidth() * 2) * scaleY));
                 shadow.setRect(area);
@@ -278,7 +269,7 @@ public abstract class EdBufferedContainer extends EdAbstractViewGroup {
             }
 
             sprite.setTexture(layer.getTexture());
-            sprite.setAccentColor(paint.getMixColor());
+            sprite.setAccentColor(paint.getAccentColor());
             sprite.setAlpha(paint.getFinalAlpha());
             RectF a = RectF.anchorOWH(anchor, org.x, org.y, area.getWidth() * scaleX, area.getHeight() * scaleY);
             sprite.setArea(a);

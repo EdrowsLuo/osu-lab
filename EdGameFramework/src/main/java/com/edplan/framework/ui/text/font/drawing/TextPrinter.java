@@ -1,7 +1,6 @@
 package com.edplan.framework.ui.text.font.drawing;
 
 import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.graphics.opengl.GL10Canvas2D;
 import com.edplan.framework.graphics.opengl.GLCanvas2D;
 import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.batch.Texture3DBatch;
@@ -250,23 +249,12 @@ public class TextPrinter {
             Texture3DBatch<TextureVertex3D> batch = batchs.get(i);
             AbstractTexture texture = font.getPage(i).texture;
             if (batch.getVertexCount() > 0) {
-                canvas.drawTexture3DBatch(batch, texture, paint.getFinalAlpha(), paint.getMixColor());
+                canvas.drawTexture3DBatch(batch, texture, paint.getFinalAlpha(), paint.getAccentColor());
                 //Log.v("text-test","post "+batch.getVertexCount()+" vertex to canvas");
             }
         }
         if (useFontShader()) {
             canvas.restore();
-        }
-    }
-
-    public void drawGL10(GL10Canvas2D canvas) {
-        for (int i = 0; i < font.getPageCount(); i++) {
-            Texture3DBatch<TextureVertex3D> batch = batchs.get(i);
-            AbstractTexture texture = font.getPage(i).texture;
-            if (batch.getVertexCount() > 0) {
-                canvas.drawTexture3DBatch(batch, texture, paint.getFinalAlpha(), paint.getMixColor());
-                //Log.v("text-test","post "+batch.getVertexCount()+" vertex to canvas");
-            }
         }
     }
 

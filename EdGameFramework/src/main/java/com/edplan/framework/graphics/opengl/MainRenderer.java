@@ -38,6 +38,8 @@ public abstract class MainRenderer implements GLSurfaceView.Renderer,OnTouchList
 	private ViewRoot viewRoot;
 	
 	private int glVersion;
+
+	private int frameLimit = -1;
 	
 	/**
 	 *如果使用自定义的Renderer并通过initialWithRenderer模式初始化，
@@ -49,7 +51,11 @@ public abstract class MainRenderer implements GLSurfaceView.Renderer,OnTouchList
 		viewRoot=new ViewRoot(context);
 		context.setViewRoot(viewRoot);
 	}
-	
+
+	public void setFrameLimit(int frameLimit) {
+		this.frameLimit = frameLimit;
+	}
+
 	protected void onCreate(){
 		
 	}
@@ -109,9 +115,6 @@ public abstract class MainRenderer implements GLSurfaceView.Renderer,OnTouchList
 	boolean hasCreate=false;
 	@Override
 	public void onSurfaceChanged(GL10 p1,int width,int heigth) {
-
-		//context.toast("SurfaceChange ["+width+","+heigth+"] "+id);
-		//System.out.println("SurfaceChange ["+width+","+heigth+"] "+id);
 		context.setDisplaySize(width,heigth);
 		viewRoot.onChange(width,heigth);
 		
@@ -153,6 +156,18 @@ public abstract class MainRenderer implements GLSurfaceView.Renderer,OnTouchList
 		viewRoot.onNewFrame(canvas,tmer.getDeltaTime());
 		canvas.unprepare();
 		Tracker.TotalFrameTime.end();
+
+		if (frameLimit != -1) {
+			double frame = 1000d / frameLimit;
+			if (Tracker.TotalFrameTime.totalTimeMS < frame - 3) {
+				try {
+					Thread.sleep((int)(frame - 3f - Tracker.TotalFrameTime.totalTimeMS));
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 		/*
 		if(Tracker.TotalFrameTime.totalTimeMS<14.5){
 			try
@@ -165,21 +180,5 @@ public abstract class MainRenderer implements GLSurfaceView.Renderer,OnTouchList
 		}
 		*/
 		FrameRenderMonitor.update(context);
-	}
-	
-	
-	public class LogClock{
-		double keyTime;
-		int idx;
-		
-		public void start(){
-			idx=0;
-			keyTime=Framework.relativePreciseTimeMillion();
-		}
-		
-		public void log(){
-			System.out.println(idx++ +":"+(Framework.relativePreciseTimeMillion()-keyTime));
-			keyTime=Framework.relativePreciseTimeMillion();
-		}
 	}
 }

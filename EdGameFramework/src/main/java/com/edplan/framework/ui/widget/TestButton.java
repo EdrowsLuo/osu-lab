@@ -58,14 +58,14 @@ public class TestButton extends EdView {
 
         GLPaint paint = new GLPaint();
         if (isPressed()) {
-            paint.setMixColor(Color4.gray(0.8f));
+            paint.setAccentColor(Color4.gray(0.8f));
             canvas.drawTextureAnchorCenter(
                     GLTexture.White,
                     new Vec2(canvas.getWidth() / 2, canvas.getHeight() / 2),
                     new Vec2(canvas.getWidth() * 0.4f, canvas.getHeight() * 0.4f),
                     paint);
         } else {
-            paint.setMixColor(Color4.White);
+            paint.setAccentColor(Color4.White);
             canvas.drawTextureAnchorCenter(
                     GLTexture.White,
                     new Vec2(canvas.getWidth() / 2, canvas.getHeight() / 2),

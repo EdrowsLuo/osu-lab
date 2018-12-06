@@ -45,6 +45,10 @@ public abstract class DrawObject {
         }
     }
 
+    public boolean isAttached() {
+        return node != null;
+    }
+
     private static Lazy<DrawObject> invalideObject = Lazy.create(() -> new DrawObject() {
         @Override
         public void draw(BaseCanvas canvas, World world) {

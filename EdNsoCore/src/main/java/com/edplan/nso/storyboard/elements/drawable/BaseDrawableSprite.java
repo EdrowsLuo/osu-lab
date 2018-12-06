@@ -2,8 +2,6 @@ package com.edplan.nso.storyboard.elements.drawable;
 
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.BlendType;
-import com.edplan.framework.graphics.opengl.GL10Canvas2D;
-import com.edplan.framework.graphics.opengl.GLWrapped;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.utils.interfaces.FloatInvokeSetter;
@@ -381,31 +379,6 @@ public class BaseDrawableSprite extends ADrawableStoryboardElement {
 			canvas.drawTexture(texture,quad,varyingColor,alpha);
 		}
 		*/
-    }
-
-    @Override
-    public void drawGL10(GL10Canvas2D canvas) {
-
-        double time = getTimeline().frameTime();
-        refreshAnimation(alphaAnimation, time);
-        if (alpha < 0.002) return;
-        for (BasePreciseAnimation anim : animations) {
-            refreshAnimation(anim, time);
-        }
-        Quad quad =
-                RectF.anchorOWH(
-                        anchor,
-                        currentPosition.x,
-                        currentPosition.y,
-                        texture.getWidth(),
-                        texture.getHeight()
-                ).scale(anchor, scale.x, scale.y)
-                        .toQuad();
-        //quad.rotate(anchor,rotation);
-        quad.flip(flipH, flipV);
-        //默认只按次流程绘制且只绘制StoryboardSprite，这里省去save/restore节省时间
-        GLWrapped.blend.setBlendType(blendType);
-        canvas.drawTexture(texture, quad, varyingColor, alpha);
     }
 
 }

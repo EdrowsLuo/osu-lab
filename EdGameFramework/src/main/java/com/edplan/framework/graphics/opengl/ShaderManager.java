@@ -2,7 +2,6 @@ package com.edplan.framework.graphics.opengl;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.shader.advance.ColorShader;
-import com.edplan.framework.graphics.opengl.shader.advance.GLES10Texture3DShader;
 import com.edplan.framework.graphics.opengl.shader.advance.RectTextureShader;
 import com.edplan.framework.graphics.opengl.shader.advance.RoundedRectTextureShader;
 import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
@@ -22,8 +21,6 @@ public class ShaderManager {
     }
 
     private static ShaderManager shaderManager;
-
-    private static ShaderManager gl10ShaderFaker;
 
     private static Texture3DShader rawTextureShader;
 
@@ -147,8 +144,7 @@ public class ShaderManager {
                 e.printStackTrace();
             }
         } else {
-            gl10ShaderFaker = new ShaderManager();
-            gl10ShaderFaker.setTexture3DShader(new GLES10Texture3DShader());
+
         }
     }
 
@@ -156,11 +152,7 @@ public class ShaderManager {
         if (GLWrapped.GL_VERSION >= 2) {
             return new ShaderManager(shaderManager);
         } else {
-            return new ShaderManager(getGL10FakerShader());
+            return null;
         }
-    }
-
-    public static ShaderManager getGL10FakerShader() {
-        return gl10ShaderFaker;
     }
 }

@@ -15,13 +15,11 @@ public class RelativeLayout extends EdAbstractViewGroup {
 
     @Override
     public EdLayoutParam getDefaultParam(EdView view) {
-
         return new RelativeParam();
     }
 
     @Override
     public EdLayoutParam adjustParam(EdView view, EdLayoutParam param) {
-
         if (param instanceof RelativeParam) {
             return param;
         } else {

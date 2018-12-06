@@ -28,7 +28,12 @@ public class BackQuery {
     }
 
     public void onChange() {
-        if (forceHideBackButton) return;
+        if (forceHideBackButton) {
+            if (!LabGame.get().getBackButton().isHidden()) {
+                LabGame.get().getBackButton().hide();
+            }
+            return;
+        }
         if (remind() == 0) {
             if (!LabGame.get().getBackButton().isHidden()) {
                 LabGame.get().getBackButton().hide();
@@ -95,6 +100,6 @@ public class BackQuery {
     }
 
     public interface BackHandler {
-        public boolean onBack();
+        boolean onBack();
     }
 }

@@ -5,8 +5,8 @@ import com.edplan.nso.ruleset.base.game.World;
 
 public class GroupDrawObject extends DrawObject {
 
-    private DrawNode preStartNode = new DrawNode(DrawObject.invalid());
-    private DrawNode afterEndNode = preStartNode.attachFront(DrawObject.invalid());
+    protected DrawNode preStartNode = new DrawNode(DrawObject.invalid());
+    protected DrawNode afterEndNode = preStartNode.attachFront(DrawObject.invalid());
 
     private boolean drawForward = true;
 

@@ -115,12 +115,6 @@ public class Texture3DShader extends ColorShader {
         }
 
         @Override
-        public void loadMixColor(Color4 c) {
-
-            //super.loadMixColor(c);
-        }
-
-        @Override
         public void loadAlpha(float a) {
 
             //super.loadAlpha(a);

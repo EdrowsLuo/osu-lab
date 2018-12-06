@@ -6,7 +6,7 @@ import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.math.Mat4;
 
-public class GLCanvas2D extends BaseCanvas // extends AbstractSRable<CanvasData>
+public class GLCanvas2D extends BaseCanvas
 {
     private BufferedLayer layer;
 

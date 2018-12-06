@@ -7,7 +7,7 @@ varying vec3 f_MaskPosition;
 varying vec2 f_RectPosition;
 
 uniform float u_FinalAlpha;
-uniform vec4 u_MixColor;
+uniform vec4 u_AccentColor;
 uniform sampler2D u_Texture;
 uniform vec4 u_DrawingRect;
 uniform vec4 u_InnerRect;
@@ -43,7 +43,7 @@ void main(){
 	vec4 t=texture2D(u_Texture,f_TexturePosition);
 	float edgeFactor=1.0-pow(0.2,dis);
 	
-	vec4 c=u_MixColor*t;
+	vec4 c=u_AccentColor*t;
 	
 	if(dis>0.0){
 		c=mix(c,u_GlowColor,u_GlowColor.a*edgeFactor);

@@ -1,7 +1,6 @@
 package com.edplan.nso.ruleset.std.playing.drawable.piece;
 
 import com.edplan.framework.MContext;
-import com.edplan.framework.graphics.opengl.GLCanvas2D;
 import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
@@ -11,7 +10,6 @@ import com.edplan.framework.ui.drawable.EdDrawable;
 import com.edplan.framework.ui.drawable.interfaces.IFadeable;
 import com.edplan.framework.ui.drawable.interfaces.IScaleable2D;
 import com.edplan.nso.resource.OsuSkin;
-import com.edplan.framework.utils.MLog;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 
 public abstract class BasePiece extends EdDrawable implements IScaleable2D, IFadeable {
@@ -117,7 +115,7 @@ public abstract class BasePiece extends EdDrawable implements IScaleable2D, IFad
     protected void simpleDrawWithAccentColor(GLTexture t, BaseCanvas c) {
         if (tmpPaint == null) tmpPaint = new GLPaint();
         tmpPaint.set(paint);
-        tmpPaint.setMixColor(tmpPaint.getMixColor().copyNew().multiple(getAccentColor()));
+        tmpPaint.setAccentColor(tmpPaint.getAccentColor().copyNew().multiple(getAccentColor()));
         c.drawTextureAnchorCenter(t, getOrigin(), (new Vec2(getBaseSize(), getBaseSize())).multiple(getScale()), tmpPaint);
     }
 }

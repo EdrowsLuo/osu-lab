@@ -7,7 +7,7 @@ import java.util.LinkedList;
  * 管理一批事件，被动更新时间，在特定时间触发特定事件
  */
 
-public class Schedule {
+public class Schedule implements TimeUpdateable {
 
     private LinkedList<Task> tasks = new LinkedList<>();
 
@@ -39,6 +39,7 @@ public class Schedule {
         }
     }
 
+    @Override
     public void update(double time) {
         Task task;
         while (!tasks.isEmpty() && (task = tasks.getFirst()).time <= time) {

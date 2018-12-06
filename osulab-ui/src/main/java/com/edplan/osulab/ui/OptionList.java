@@ -16,6 +16,7 @@ import com.edplan.framework.ui.layout.Gravity;
 import com.edplan.framework.ui.layout.MarginLayoutParam;
 import com.edplan.framework.ui.layout.Orientation;
 import com.edplan.framework.ui.layout.Param;
+import com.edplan.framework.ui.widget.EditText;
 import com.edplan.framework.ui.widget.ScrollLayout;
 import com.edplan.framework.ui.widget.component.Hideable;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
@@ -51,7 +52,17 @@ public class OptionList extends ScrollLayout implements Hideable {
 
         loadConfig(DebugConfig.get());
 
-
+        addAll(
+                new EditText(c) {{
+                    layoutParam(
+                            new MarginLayoutParam() {{
+                                width = Param.MODE_WRAP_CONTENT;
+                                height = Param.MODE_WRAP_CONTENT;
+                            }}
+                    );
+                    getTextView().setTextSize(ViewConfiguration.dp(20));
+                }}
+        );
     }
 
     public void loadConfig(ConfigList list) {

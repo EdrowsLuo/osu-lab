@@ -149,7 +149,7 @@ public class LabGame {
 
     private void initialNsoCore(MContext c) {
         nsoCore = new NsoCore(c, null);
-        nsoCore.load().onLoadComplete(()->{
+        nsoCore.load(null).onLoadComplete(()->{
             /*BeatmapDecoder beatmapDecoder = nsoCore.getBeatmapDecoder();
             try {
                 for(int i = 0; i < 100;i++) {

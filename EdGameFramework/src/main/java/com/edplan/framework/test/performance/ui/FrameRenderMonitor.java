@@ -80,14 +80,14 @@ public class FrameRenderMonitor extends EdView {
         GLPaint ntp = new GLPaint();
         ntp.setStrokeWidth(1.2f);
         //ntp.setColorMixRate(1);
-        ntp.setMixColor(Color4.White);
+        ntp.setAccentColor(Color4.White);
         canvas.save();
         float lengthScale = 5;
-        ntp.setMixColor(Color4.rgba(0, 1, 0, 1));
+        ntp.setAccentColor(Color4.rgba(0, 1, 0, 1));
         canvas.drawLine(10, 50, 10 + 18 * 6, 50, ntp);
-        ntp.setMixColor(Color4.rgba(1, 1, 0, 1));
+        ntp.setAccentColor(Color4.rgba(1, 1, 0, 1));
         canvas.drawLine(10, 55, 10 + deltaTime * lengthScale, 55, ntp);
-        ntp.setMixColor(Color4.White);
+        ntp.setAccentColor(Color4.White);
         for (int i = timelist.length - 1; i > 0; i--) {
             timelist[i] = timelist[i - 1];
         }
@@ -116,16 +116,16 @@ public class FrameRenderMonitor extends EdView {
         avg_nogc /= count_nogc;
         avg /= timelist.length;
         ntp.setStrokeWidth(3);
-        ntp.setMixColor(Color4.rgba(1, 0, 0, 1));
+        ntp.setAccentColor(Color4.rgba(1, 0, 0, 1));
         canvas.drawLine(10 + avg * lengthScale, 40, 10 + avg * lengthScale, 60 + 6 * timelist.length, ntp);
         //ntp.setStrokeWidth(2);
-        //ntp.setMixColor(Color4.rgba(0,1,0,1));
+        //ntp.setAccentColor(Color4.rgba(0,1,0,1));
         //canvas.drawLine(10+max*lengthScale,40,10+max*lengthScale,60+6*timelist.length,ntp);
         ntp.setStrokeWidth(2);
-        ntp.setMixColor(Color4.rgba(0, 0, 1, 1));
+        ntp.setAccentColor(Color4.rgba(0, 0, 1, 1));
         canvas.drawLine(10 + min * lengthScale, 40, 10 + min * lengthScale, 60 + 6 * timelist.length, ntp);
         ntp.setStrokeWidth(3);
-        ntp.setMixColor(Color4.rgba(0.5f, 0.5f, 1, 1));
+        ntp.setAccentColor(Color4.rgba(0.5f, 0.5f, 1, 1));
         canvas.drawLine(10 + avg_nogc * lengthScale, 40, 10 + avg_nogc * lengthScale, 60 + 6 * timelist.length, ntp);
         canvas.restore();
     }

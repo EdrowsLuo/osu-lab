@@ -54,7 +54,6 @@ public abstract class RectSprite<S extends SpriteShader> extends ObjectSprite<S>
 
     @Override
     protected void postDraw(BaseCanvas canvas) {
-
         GLWrapped.drawElements(GLWrapped.GL_TRIANGLES, 6, GLWrapped.GL_UNSIGNED_SHORT, BufferUtil.STD_RECT_INDICES_BUFFER);
     }
 }

@@ -52,15 +52,22 @@ public class ViewRoot implements MainCallBack {
 
     private Focus focus = new Focus();
 
+    private float baseScale = 1;
+
     public ViewRoot(MContext c) {
         this.context = c;
         nativeInputQuery = new NativeInputQuery(c);
         inputManager = new InputManager();
     }
 
+    public void setBaseScale(float baseScale) {
+        this.baseScale = baseScale;
+    }
+
     public RootContainer getRootContainer() {
         if (rootContainer == null) {
             rootContainer = new RootContainer(context);
+            rootContainer.setPixelScale(baseScale);
         }
         return rootContainer;
     }
@@ -90,10 +97,7 @@ public class ViewRoot implements MainCallBack {
             param.height = Param.MODE_MATCH_PARENT;
             contentView.setLayoutParam(param);
         }
-        if (rootContainer == null) {
-            rootContainer = new RootContainer(context);
-        }
-        rootContainer.setContent(contentView);
+        getRootContainer().setContent(contentView);
     }
 
     public void onCreate() {

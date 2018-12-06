@@ -68,63 +68,55 @@ public class NsoCore {
         rulesets.add(ruleset);
     }
 
-    public Loader load() {
+    public Loader load(Runnable onLoadComplete) {
 
         final Loader loader = new Loader();
+        loader.onLoadComplete(onLoadComplete);
+        (new Thread(() -> {
 
-        Runnable loadrun = new Runnable() {
-            @Override
-            public void run() {
+            IntProgressHolder mainProgress = new IntProgressHolder();
+            mainProgress.setMax(20);
+            loader.addProgress(mainProgress);
 
-                IntProgressHolder mainProgress = new IntProgressHolder();
-                mainProgress.setMax(20);
-                loader.addProgress(mainProgress);
+            /* BEGIN : 加载Ruleset Class */
+            mainProgress.setMessage("加载Ruleset Class");
+            mainProgress.setIntProgress(1);
+            registerRuleset(new StdRuleset(NsoCore.this));
 
-                /* BEGIN : 加载Ruleset Class */
-                mainProgress.setMessage("加载Ruleset Class");
-                mainProgress.setIntProgress(1);
-                registerRuleset(new StdRuleset(NsoCore.this));
+            /* END   : 加载Ruleset Class */
 
-                /* END   : 加载Ruleset Class */
+            /* BEGIN : 初始化Ruleset Name */
+            mainProgress.setMessage("初始化Ruleset Name");
+            mainProgress.setIntProgress(2);
 
-                /* BEGIN : 初始化Ruleset Name */
-                mainProgress.setMessage("初始化Ruleset Name");
-                mainProgress.setIntProgress(2);
-
-                rulesetNameManager = new RulesetNameManager();
-                for (Ruleset r : rulesets) {
-                    r.applyName(rulesetNameManager);
-                }
-                /* END   : 初始化Ruleset Name */
-                for (Ruleset ruleset : rulesets) {
-                    ruleset.onLoad();
-                }
-
-
-                /* BEGIN : 加载铺面解析器 */
-                mainProgress.setMessage("加载铺面解析器");
-                mainProgress.setIntProgress(3);
-
-
-                /* END   : 加载铺面解析器 */
-
-
-
-
-
-                mainDir = new File(Environment.getExternalStorageDirectory(), "osu!lab");
-                FileUtils.checkExistDir(mainDir);
-
-                databaseDir = new File(mainDir, "database");
-                FileUtils.checkExistDir(databaseDir);
-
-
-                if (loader.onLoadComplete != null) {
-                    loader.onLoadComplete.run();
-                }
+            rulesetNameManager = new RulesetNameManager();
+            for (Ruleset r : rulesets) {
+                r.applyName(rulesetNameManager);
             }
-        };
-        (new Thread(loadrun)).start();
+            /* END   : 初始化Ruleset Name */
+            for (Ruleset ruleset : rulesets) {
+                ruleset.onLoad();
+            }
+
+
+            /* BEGIN : 加载铺面解析器 */
+            mainProgress.setMessage("加载铺面解析器");
+            mainProgress.setIntProgress(3);
+
+
+            /* END   : 加载铺面解析器 */
+
+            mainDir = new File(Environment.getExternalStorageDirectory(), "osu!lab");
+            FileUtils.checkExistDir(mainDir);
+
+            databaseDir = new File(mainDir, "database");
+            FileUtils.checkExistDir(databaseDir);
+
+
+            if (loader.onLoadComplete != null) {
+                loader.onLoadComplete.run();
+            }
+        })).start();
         return loader;
     }
 
@@ -151,6 +143,7 @@ public class NsoCore {
     public MContext getContext() {
         return context;
     }
+
 
 
     public class Loader {

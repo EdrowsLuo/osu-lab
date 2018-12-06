@@ -5,7 +5,7 @@ import com.edplan.framework.math.Vec4;
 
 public class GLPaint {
     //#Base Data，每一种绘制都会使用的
-    public Color4 mixColor = Color4.rgba(1, 1, 1, 1);
+    public Color4 accentColor = Color4.rgba(1, 1, 1, 1);
 
     public Color4 varyingColor = Color4.rgba(1, 1, 1, 1);
 
@@ -35,7 +35,7 @@ public class GLPaint {
     }
 
     public void set(GLPaint p) {
-        setMixColor(p.getMixColor());
+        setAccentColor(p.getAccentColor());
         setVaryingColor(p.getVaryingColor());
         //setColorMixRate(p.getColorMixRate());
         setFinalAlpha(p.getFinalAlpha());
@@ -90,12 +90,12 @@ public class GLPaint {
         return padding;
     }
 
-    public void setMixColor(Color4 mixColor) {
-        this.mixColor.set(mixColor);
+    public void setAccentColor(Color4 accentColor) {
+        this.accentColor.set(accentColor);
     }
 
-    public Color4 getMixColor() {
-        return mixColor;
+    public Color4 getAccentColor() {
+        return accentColor;
     }
 
     public void setVaryingColor(Color4 varyingColor) {

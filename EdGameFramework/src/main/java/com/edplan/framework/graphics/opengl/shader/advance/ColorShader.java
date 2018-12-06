@@ -14,11 +14,45 @@ import com.edplan.framework.graphics.opengl.shader.uniforms.UniformColor4;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformFloat;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformMat4;
 import com.edplan.framework.math.Mat4;
+import com.edplan.framework.utils.Lazy;
 
 import java.nio.FloatBuffer;
 
 public class ColorShader extends BaseShader {
     public static ColorShader Invalid = new InvalidColorShader();
+
+    public static final Lazy<ColorShader> DEFAULT;
+
+    static {
+        DEFAULT = Lazy.create(() -> new ColorShader(
+                GLProgram.createProgram(
+                        "" +
+                                "uniform mat4 u_MVPMatrix;\n" +
+                                "uniform mat4 u_MaskMatrix;\n" +
+                                "uniform float u_FinalAlpha;\n" +
+                                "uniform vec4 u_AccentColor;\n" +
+                                "\n" +
+                                "attribute vec3 a_Position;\n" +
+                                "attribute vec4 a_VaryingColor;\n" +
+                                "\n" +
+                                "varying vec4 f_VaryingColor;\n" +
+                                "\n" +
+                                "void main(){\n" +
+                                "    f_VaryingColor=a_VaryingColor*u_FinalAlpha;\n" +
+                                "    gl_Position=u_MVPMatrix*vec4(a_Position,1.0);\n" +
+                                "}",
+                        "" +
+                                "precision mediump float;\n" +
+                                "\n" +
+                                "varying vec4 f_VaryingColor;\n" +
+                                "\n" +
+                                "void main(){\n" +
+                                "    gl_FragColor=f_VaryingColor;\n" +
+                                "}"
+                )
+        ));
+    }
+
 
     @PointerName
     public UniformMat4 uMVPMatrix;
@@ -30,7 +64,7 @@ public class ColorShader extends BaseShader {
     public UniformFloat uFinalAlpha;
 
     @PointerName
-    public UniformColor4 uMixColor;
+    public UniformColor4 uAccentColor;
 
     @PointerName
     @AttribType(VertexAttrib.Type.VEC3)
@@ -38,7 +72,7 @@ public class ColorShader extends BaseShader {
 
     @PointerName(Attr.Color)
     @AttribType(VertexAttrib.Type.VEC4)
-    public VertexAttrib vColor;
+    public VertexAttrib aColor;
 
     protected ColorShader(GLProgram program) {
         super(program, true);
@@ -49,7 +83,7 @@ public class ColorShader extends BaseShader {
     }
 
     public void loadPaint(GLPaint paint, float alphaAdjust) {
-        loadMixColor(paint.getMixColor());
+        loadAccentColor(paint.getAccentColor());
         loadAlpha(paint.getFinalAlpha() * alphaAdjust);
     }
 
@@ -68,8 +102,8 @@ public class ColorShader extends BaseShader {
         loadMaskMatrix(c.getMaskMatrix());
     }
 
-    public void loadMixColor(Color4 c) {
-        uMixColor.loadData(c);
+    public void loadAccentColor(Color4 c) {
+        uAccentColor.loadData(c);
     }
 
     protected void loadMVPMatrix(Mat4 mvp) {
@@ -85,7 +119,7 @@ public class ColorShader extends BaseShader {
     }
 
     public void loadColor(FloatBuffer buffer) {
-        vColor.loadData(buffer);
+        aColor.loadData(buffer);
     }
 
     public void loadAlpha(float a) {
@@ -146,12 +180,6 @@ public class ColorShader extends BaseShader {
         public void loadPosition(FloatBuffer buffer) {
 
             //super.loadPosition(buffer);
-        }
-
-        @Override
-        public void loadMixColor(Color4 c) {
-
-            //super.loadMixColor(c);
         }
 
         @Override

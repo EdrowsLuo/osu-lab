@@ -1,5 +1,6 @@
 package com.edplan.nso.ruleset.base.game;
 
+import com.edplan.framework.MContext;
 import com.edplan.framework.math.RectF;
 import com.edplan.nso.ruleset.base.game.judge.JudgeWorld;
 import com.edplan.nso.ruleset.base.game.paint.PaintWorld;
@@ -17,6 +18,12 @@ public abstract class World {
 
     /** 绘制世界 **/
     private PaintWorld paintWorld;
+
+    private MContext context;
+
+    public MContext getContext() {
+        return context;
+    }
 
     /**
      * @return 世界的实时时间（不是帧时间）

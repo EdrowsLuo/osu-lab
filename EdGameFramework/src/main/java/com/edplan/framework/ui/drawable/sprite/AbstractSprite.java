@@ -36,7 +36,6 @@ public abstract class AbstractSprite extends EdDrawable {
 
     @Override
     public final void draw(BaseCanvas canvas) {
-
         if (!visible) return;
         startDraw(canvas);
         prepareShader(canvas);

@@ -40,7 +40,7 @@ public class TextView extends EdView {
     }
 
     public void setTextColor(Color4 textColor) {
-        this.paint.setMixColor(textColor);
+        this.paint.setAccentColor(textColor);
         invalidateDraw();
     }
 
@@ -257,6 +257,7 @@ public class TextView extends EdView {
                 mheight = EdMeasureSpec.getSize(heightSpec) - getPaddingVertical();
                 break;
         }
+        mheight = Math.max(textSize, mheight);
         setMeasuredDimensition(mwidth, mheight);
     }
 
@@ -267,7 +268,7 @@ public class TextView extends EdView {
         if (printer != null) printer.draw(canvas);
 		/*
 		GLPaint p=new GLPaint();
-		p.setMixColor(Color4.rgb(1,0,0));
+		p.setAccentColor(Color4.rgb(1,0,0));
 		p.setStrokeWidth(3);
 		canvas.drawLine(10,10,10,50,p);
 		canvas.drawLine(40,10,40,10+font.getCommon().lineHeight,p);

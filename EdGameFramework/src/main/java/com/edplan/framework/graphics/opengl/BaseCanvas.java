@@ -59,34 +59,39 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
         tmpColorBatch = createColorBatch();
     }
 
+    @Deprecated
     public void setMaxBatchSize(int maxBatchSize) {
         this.maxBatchSize = maxBatchSize;
     }
 
+    @Deprecated
     public int getMaxBatchSize() {
         return maxBatchSize;
     }
 
+    @Deprecated
     protected ITexture3DBatch<TextureVertex3D> createTexture3DBatch() {
         return new Texture3DBatch<TextureVertex3D>();
         //return new DataDrawBaseTexture(6);
     }
 
+    @Deprecated
     protected RectVertexBatch<RectVertex> createRectVertexBatch() {
-        return new RectVertexBatch<RectVertex>();
+        return new RectVertexBatch<>();
     }
 
+    @Deprecated
     protected BaseColorBatch<Vertex3D> createColorBatch() {
-        return new BaseColorBatch<Vertex3D>();
+        return new BaseColorBatch<>();
     }
 
     public int getDrawCalls() {
         return drawCalls;
     }
 
+    @Deprecated
     public boolean isEnablePost() {
         return enablePost;
-        //return false;
     }
 
     public BaseCanvas translate(float tx, float ty) {
@@ -185,7 +190,6 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
 
     @Override
     public void onRestore(CanvasData now, CanvasData pre) {
-
         pre.recycle();
     }
 
@@ -193,37 +197,37 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
         recycle();
     }
 
-	/*
-	public Mat4 getFinalMatrix(){
-		return getData().getFinalMatrix();
-	}
-	*/
 
+    @Deprecated
     private void injectData(BaseBatch batch, AbstractTexture texture, float alpha, Color4 mixColor, Texture3DShader shader) {
         shader.useThis();
-        shader.loadMixColor(mixColor);
+        shader.loadAccentColor(mixColor);
         shader.loadAlpha(alpha * getCanvasAlpha());
         shader.loadMatrix(getCamera());
         shader.loadTexture(texture.getTexture());
         shader.loadBatch(batch);
     }
 
+    @Deprecated
     public void injectRectData(RectF drawingRect, Vec4 padding, RectTextureShader shader) {
         shader.useThis();
         shader.loadRectData(drawingRect, padding);
     }
 
+    @Deprecated
     public void injectRoundedRectData(RectF drawingRect, Vec4 padding, float radius, Color4 glowColor, float glowFactor, RoundedRectTextureShader shader) {
         shader.useThis();
         shader.loadRectData(drawingRect, padding, radius, glowColor, glowFactor);
     }
 
+    @Deprecated
     public void drawTexture3DBatch(BaseBatch batch, AbstractTexture texture, float alpha, Color4 mixColor) {
         checkCanDraw();
         injectData(batch, texture.getTexture(), alpha, mixColor, getData().getTexture3DShader());
         getData().getTexture3DShader().applyToGL(GLWrapped.GL_TRIANGLES, 0, batch.getVertexCount());
     }
 
+    @Deprecated
     public void drawTexture3DBatch(BaseBatch batch, AbstractTexture t) {
         drawTexture3DBatch(batch, t, 1, Color4.ONE);
     }
@@ -254,6 +258,7 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
 	}
 	*/
 
+	@Deprecated
     public static TextureVertex3D[] createBaseVertexs(IQuad textureQuad, IQuad dst, Color4 color, float z) {
         //  3          2
         //   ┌────┐
@@ -279,6 +284,7 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
     }
 
 
+    @Deprecated
     public static RectVertex[] createRectVertexs(AbstractTexture texture, IQuad res, IQuad dst, Color4 color, float z) {
         //  3          2
         //   ┌────┐
@@ -303,6 +309,7 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
         return new RectVertex[]{v0, v1, v2, v3};
     }
 
+    @Deprecated
     public TextureVertex3D[] makeupVertex(AbstractTexture texture, Vec2[] resV, Vec2[] dstV, Color4 varyColors) {
         TextureVertex3D[] ary = new TextureVertex3D[resV.length];
         Vec2 curRes;
@@ -316,6 +323,7 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
         }
         return ary;
     }
+
 
     /**
      * @param res:此处为Texture范围，使用实际像素坐标（原点左上）
@@ -336,11 +344,6 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
 
     public void postDraw() {
         if (!isEnablePost()) return;
-		/*
-		 GLPaint paint=new GLPaint();
-		 drawColorBatch(paint,tmpColorBatch);
-		 tmpColorBatch.clear();
-		 */
         if (preTexture == null && preBlend == null) return;
         onPostTextureChange(preTexture);
         drawTexture3DBatch(tmpBatch, preTexture, 1, Color4.ONE);
@@ -425,7 +428,7 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
     }
 
     public void drawTexture(AbstractTexture texture, IQuad res, IQuad dst, GLPaint paint) {
-        drawTexture(texture, res, dst, paint.getMixColor(), paint.getVaryingColor(), defZ, paint.getFinalAlpha());
+        drawTexture(texture, res, dst, paint.getAccentColor(), paint.getVaryingColor(), defZ, paint.getFinalAlpha());
     }
 
     public void drawTexture(AbstractTexture texture, IQuad dst, Color4 varyingColor, float alpha) {
@@ -455,7 +458,7 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
     }
 
     public void drawTexture(AbstractTexture texture, IQuad dst, GLPaint paint) {
-        drawTexture(texture, dst, paint.getMixColor(), paint.getVaryingColor(), defZ, paint.getFinalAlpha());
+        drawTexture(texture, dst, paint.getAccentColor(), paint.getVaryingColor(), defZ, paint.getFinalAlpha());
     }
 
     public void drawTexture(AbstractTexture texture, IQuad dst, Color4 mixColor, Color4 color, float alpha) {
@@ -465,7 +468,7 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
     public void drawRectBatch(RectVertexBatch batch, AbstractTexture texture, RectF dst, GLPaint paint) {
         checkCanDraw();
         RectTextureShader shader = getData().getShaders().getRectShader();
-        injectData(batch, texture, paint.getFinalAlpha(), paint.getMixColor(), shader);
+        injectData(batch, texture, paint.getFinalAlpha(), paint.getAccentColor(), shader);
         injectRectData(dst, paint.getPadding(), shader);
         shader.applyToGL(GLWrapped.GL_TRIANGLES, 0, batch.getVertexCount());
     }
@@ -473,7 +476,7 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
     public void drawRoundedRectBatch(RectVertexBatch batch, AbstractTexture texture, RectF dst, GLPaint paint) {
         checkCanDraw();
         RoundedRectTextureShader shader = getData().getShaders().getRoundedRectShader();
-        injectData(batch, texture, paint.getFinalAlpha(), paint.getMixColor(), shader);
+        injectData(batch, texture, paint.getFinalAlpha(), paint.getAccentColor(), shader);
         injectRoundedRectData(dst, paint.getPadding(), paint.getRoundedRadius(), paint.getGlowColor(), paint.getGlowFactor(), shader);
         shader.applyToGL(GLWrapped.GL_TRIANGLES, 0, batch.getVertexCount());
     }
@@ -521,7 +524,7 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
     public void addToColorBatch(Vertex3D[] vs, GLPaint paint) {
 		/*if(enablePost){
 		 for(Vertex3D v:vs){
-		 v.color.multiple(paint.getMixColor()).multiple(paint.getFinalAlpha());
+		 v.color.multiple(paint.getAccentColor()).multiple(paint.getFinalAlpha());
 		 }
 		 postToColorBatch(vs);
 		 }else{*/

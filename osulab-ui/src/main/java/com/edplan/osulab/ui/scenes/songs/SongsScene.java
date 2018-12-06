@@ -26,8 +26,6 @@ public class SongsScene extends BaseScene {
 
     public SongsScene(MContext c) {
         super(c);
-
-
         addAll(
                 songsListView = new SongsListView(c){{
                     layoutParam(
@@ -88,13 +86,11 @@ public class SongsScene extends BaseScene {
 
     @Override
     public void hide() {
-
         for (Hideable h : hideableContent) h.hide();
     }
 
     @Override
     public void show() {
-
         for (Hideable h : hideableContent) h.show();
         BaseBoundOverlay bound = new BaseBoundOverlay();
         RectF area = RectF.anchorOWH(Anchor.Center,
@@ -106,13 +102,11 @@ public class SongsScene extends BaseScene {
         bound.setTop(area.getTop());
         bound.setRight(area.getRight());
         bound.setBottom(area.getBottom());
-
         LabGame.get().getJumpingCircle().setBoundOverlay(bound);
     }
 
     @Override
     public String getSceneName() {
-
         return ScenesName.SongSelect;
     }
 
