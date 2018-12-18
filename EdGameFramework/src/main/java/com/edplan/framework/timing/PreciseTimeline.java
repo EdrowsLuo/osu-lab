@@ -17,8 +17,6 @@ public class PreciseTimeline extends Loopable {
 
     private boolean hasRestart = true;
 
-    private boolean askRestart = false;
-
     private SafeList<AbstractPreciseAnimation> animations = new SafeList<AbstractPreciseAnimation>();
 
     public PreciseTimeline() {
@@ -143,7 +141,6 @@ public class PreciseTimeline extends Loopable {
      */
     public void pause() {
         askPause = true;
-        askRestart = false;
     }
 
     /**

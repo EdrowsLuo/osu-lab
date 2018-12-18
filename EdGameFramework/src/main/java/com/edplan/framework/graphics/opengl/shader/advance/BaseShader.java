@@ -2,6 +2,7 @@ package com.edplan.framework.graphics.opengl.shader.advance;
 
 import com.edplan.framework.graphics.opengl.GLException;
 import com.edplan.framework.graphics.opengl.shader.GLProgram;
+import com.edplan.framework.graphics.opengl.shader.ShaderGlobals;
 import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformColor4;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformFloat;
@@ -76,26 +77,30 @@ public abstract class BaseShader extends GLProgram {
         }
     }
 
-    @Documented
-    @Target(ElementType.FIELD)
-    @Retention(RetentionPolicy.RUNTIME)
-    public static @interface PointerName {
-        public String value() default "";
+    public void loadShaderGlobals(ShaderGlobals globals) {
+
     }
 
     @Documented
     @Target(ElementType.FIELD)
     @Retention(RetentionPolicy.RUNTIME)
-    public static @interface AttribType {
-        public VertexAttrib.Type value();
+    public @interface PointerName {
+        String value() default "";
     }
 
     @Documented
     @Target(ElementType.FIELD)
     @Retention(RetentionPolicy.RUNTIME)
-    public static @interface AttribVAOData {
-        public int step();
+    public @interface AttribType {
+        VertexAttrib.Type value();
+    }
 
-        public int offset();
+    @Documented
+    @Target(ElementType.FIELD)
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface AttribVAOData {
+        int step();
+
+        int offset();
     }
 }

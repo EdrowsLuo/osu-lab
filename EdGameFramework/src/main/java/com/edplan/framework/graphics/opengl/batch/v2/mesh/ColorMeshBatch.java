@@ -10,6 +10,15 @@ import java.nio.FloatBuffer;
 
 public class ColorMeshBatch extends AbstractBatch<ColorMesh> {
 
+    private static ColorMeshBatch defaultBatch;
+
+    public static ColorMeshBatch getDefaultBatch() {
+        if (defaultBatch == null) {
+            defaultBatch = new ColorMeshBatch(1024 * 3);
+        }
+        return defaultBatch;
+    }
+
     private ColorShader shader = ColorShader.DEFAULT.get();
 
     private FloatBuffer colorBuffer;
@@ -41,6 +50,11 @@ public class ColorMeshBatch extends AbstractBatch<ColorMesh> {
         if (colorMesh.size() > maxBatch) {
             throw new IllegalArgumentException("such a big mesh (qwq)");
         }
+
+        if (!isBind()) {
+            bind();
+        }
+
         if (currentSize + colorMesh.size() > maxBatch) {
             flush();
         }
@@ -64,10 +78,9 @@ public class ColorMeshBatch extends AbstractBatch<ColorMesh> {
         if (currentSize == 0) {
             return;
         }
-        shader.useThis();
 
-        shader.loadAlpha(BatchEngine.getShaderGlobals().alpha);
-        shader.loadMatrix(BatchEngine.getShaderGlobals().camera);
+        shader.useThis();
+        shader.loadShaderGlobals(BatchEngine.getShaderGlobals());
 
         colorBuffer.position(0);
         colorBuffer.limit(currentSize * 4);

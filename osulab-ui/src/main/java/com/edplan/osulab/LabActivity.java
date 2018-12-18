@@ -35,20 +35,6 @@ public class LabActivity extends EdMainActivity {
     @Override
     protected void createGame() {
 
-
-        MemoryFile memoryFile = new MemoryFile(5);
-
-        DataOutputStream outputStream = new DataOutputStream(memoryFile.getOutputStream());
-        DataInputStream inputStream = new DataInputStream(memoryFile.getInputStream());
-
-        try {
-            outputStream.writeUTF("asdfghjklqwertyisksajkbdsaj");
-            System.out.println("test:" + inputStream.readUTF());
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(0);
-        }
-
         try {
             File f = new File(Environment.getExternalStorageDirectory(), "osu!lab/logs/log.txt");
             if (f.exists()) {
@@ -59,7 +45,7 @@ public class LabActivity extends EdMainActivity {
             Runtime.getRuntime().exec("logcat -f " + f.getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e("log out!", "err out put log!", e);
+            Log.e("log", "err out put log!", e);
         }
 
 

@@ -35,7 +35,6 @@ public class GameScene extends BaseScene{
                         );
                     }
                 }}
-
         );
     }
 

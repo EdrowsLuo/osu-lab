@@ -23,9 +23,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Scenes extends RelativeLayout implements Hideable, BackQuery.BackHandler {
-    public static final String STATIC_GET_SCENE_NAME = "getSceneNameStatic";
-
-    public static final String STATIC_IS_SINGLE_INSTANCE = "isSingleInstanceStatic";
 
     public static final double SCENE_TRANSITION_DURATION = 300;
 
@@ -44,31 +41,8 @@ public class Scenes extends RelativeLayout implements Hideable, BackQuery.BackHa
 
     public void initialRegister() {
         register(WorkingScene.class, ScenesName.Edit, true);
-        register(SongsScene.class);
-        register(GameScene.class);
-    }
-
-    public void register(Class<? extends BaseScene> klass) {
-        String name;
-        boolean singleInstance;
-        try {
-            Method getSceneName = klass.getMethod(STATIC_GET_SCENE_NAME, new Class[0]);
-            Method isSingleInstance = klass.getMethod(STATIC_IS_SINGLE_INSTANCE, new Class[0]);
-            try {
-                name = (String) getSceneName.invoke(null, new Object[0]);
-                singleInstance = (boolean) isSingleInstance.invoke(null, new Object[0]);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return;
-            }
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-            return;
-        } catch (SecurityException e) {
-            e.printStackTrace();
-            return;
-        }
-        register(klass, name, singleInstance);
+        register(SongsScene.class, ScenesName.SongSelect, true);
+        register(GameScene.class, ScenesName.GameScene, false);
     }
 
     public void register(final Class<? extends BaseScene> klass, final String name, final boolean singleInstance) {
@@ -100,7 +74,7 @@ public class Scenes extends RelativeLayout implements Hideable, BackQuery.BackHa
         return currentScene;
     }
 
-    public void swapScene(SceneNode n) {
+    private void swapScene(SceneNode n) {
         if (isHidden()) show();
         final BaseScene s;
         if (n.singleInstance) {

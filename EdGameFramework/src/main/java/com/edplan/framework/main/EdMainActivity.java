@@ -78,34 +78,30 @@ public abstract class EdMainActivity extends Activity {
 
     @Override
     protected void onPause() {
-
         super.onPause();
         app.onPause();
     }
 
     @Override
     protected void onResume() {
-
         super.onResume();
         app.onResume();
     }
 
     @Override
     public void onLowMemory() {
-
         super.onLowMemory();
         app.onLowMemory();
     }
 
     @Override
     public void onBackPressed() {
+        app.getMContext().getUiLooper().post(app::onBackPressed);
+    }
 
-        app.getMContext().getUiLooper().post(new Runnable() {
-            @Override
-            public void run() {
-
-                app.onBackPressed();
-            }
-        });
+    @Override
+    protected void onStop() {
+        super.onStop();
+        System.exit(0);
     }
 }

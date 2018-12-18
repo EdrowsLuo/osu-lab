@@ -70,14 +70,6 @@ public class SongsScene extends BaseScene {
         return bottomBar;
     }
 
-    public static String getSceneNameStatic() {
-        return ScenesName.SongSelect;
-    }
-
-    public static boolean isSingleInstanceStatic() {
-        return true;
-    }
-
     @Override
     public double getHideDuration() {
 

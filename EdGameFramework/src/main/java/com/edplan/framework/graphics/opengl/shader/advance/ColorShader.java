@@ -9,6 +9,7 @@ import com.edplan.framework.graphics.opengl.batch.base.IHasPosition;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.shader.Attr;
 import com.edplan.framework.graphics.opengl.shader.GLProgram;
+import com.edplan.framework.graphics.opengl.shader.ShaderGlobals;
 import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformColor4;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformFloat;
@@ -128,6 +129,13 @@ public class ColorShader extends BaseShader {
 
     public void applyToGL(int mode, int offset, int count) {
         GLWrapped.drawArrays(mode, offset, count);
+    }
+
+    @Override
+    public void loadShaderGlobals(ShaderGlobals globals) {
+        uFinalAlpha.loadData(globals.alpha);
+        uAccentColor.loadData(globals.accentColor);
+        loadMatrix(globals.camera);
     }
 
     public static final ColorShader createCS(String vs, String fs) {

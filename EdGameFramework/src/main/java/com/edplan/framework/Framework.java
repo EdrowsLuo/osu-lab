@@ -50,6 +50,6 @@ public class Framework {
      * @return 框架的标准时间
      */
     public static double frameworkTime() {
-        return SystemClock.currentThreadTimeMillis();
+        return SystemClock.uptimeMillis();
     }
 }

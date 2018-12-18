@@ -80,6 +80,6 @@ public abstract class AResource {
 
     public abstract boolean contain(String file);
 
-    //当path的res不存在的时候应该返回null
+    //当path的res不存在的时候返回null
     public abstract InputStream openInput(String path) throws IOException;
 }
