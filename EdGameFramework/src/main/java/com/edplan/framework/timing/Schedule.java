@@ -42,7 +42,7 @@ public class Schedule implements TimeUpdateable {
     @Override
     public void update(double time) {
         Task task;
-        while (!tasks.isEmpty() && (task = tasks.getFirst()).time <= time) {
+        while ((!tasks.isEmpty()) && (task = tasks.getFirst()).time <= time) {
             task.runnable.run();
             tasks.removeFirst();
         }

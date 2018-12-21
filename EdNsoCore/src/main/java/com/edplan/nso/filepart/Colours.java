@@ -1,4 +1,4 @@
-package com.edplan.nso.beatmapComponent;
+package com.edplan.nso.filepart;
 
 import android.graphics.Color;
 

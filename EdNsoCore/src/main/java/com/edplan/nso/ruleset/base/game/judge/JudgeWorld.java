@@ -4,6 +4,8 @@ import com.edplan.framework.timing.Schedule;
 import com.edplan.framework.ui.inputs.EdKeyEvent;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
 import com.edplan.framework.utils.advance.ClassifiedList;
+import com.edplan.framework.utils.io.MemoryFile;
+import com.edplan.nso.ruleset.base.game.BaseReplay;
 import com.edplan.nso.ruleset.base.game.World;
 import com.edplan.nso.ruleset.base.game.judge.JudgeData;
 import com.edplan.nso.ruleset.base.game.judge.JudgeDataUpdater;
@@ -38,15 +40,18 @@ public class JudgeWorld implements RawInputHandler {
 
     private ClassifiedList<JudgeObjectNode> classifiedList = new ClassifiedList<>();
 
-    private DataInputStream input;
-
-    private DataOutputStream output;
+    private BaseReplay replay;
 
     public JudgeWorld() {
-        PipedInputStream inputStream = new PipedInputStream();
+
     }
 
-    public void preloadJudgeDataType(Class<? extends JudgeData>[] types) {
+    public void addJudgeObject(JudgeObject judgeObject) {
+        judgeObjects.add(judgeObject);
+    }
+
+    @SafeVarargs
+    public final void preloadJudgeDataType(Class<? extends JudgeData>... types) {
         judgeTypes = types;
         judgeNodes.clear();
         judgeNodeHashMap.clear();
@@ -59,8 +64,8 @@ public class JudgeWorld implements RawInputHandler {
                 throw new RuntimeException(e);
             }
         }
+        replay = new BaseReplay(judgeNodes);
     }
-
 
     /**
      * 处理一帧判定
@@ -68,17 +73,24 @@ public class JudgeWorld implements RawInputHandler {
      */
     public void update(World world) {
         final double judgeFrameTime = world.getJudgeFrameTime();
-        activeSchedule.update(judgeFrameTime);
-        timeoutSchedule.update(judgeFrameTime);
+        activeSchedule.update(judgeFrameTime); //添加新的物件
+        timeoutSchedule.update(judgeFrameTime); //删除过时物件
+
+        //更新用户输入
+        replay.writeJudgeEvents(world.getJudgeFrameTime(), world);
+        replay.updateJudgeData(world.getJudgeFrameTime());
+
+        //分发处理判定事件
         dispatchJudgeDatas(world);
+
+        //移除被释放了的物件
         removeReleasedObjects(judgeFrameTime);
     }
 
     /**
-     * 载入、重载物件
+     * 载入物件
      */
-    private void reloadObjects() {
-
+    public void loadObjects() {
         classifiedList.clear();
         for (JudgeObject object : judgeObjects) {
             ClassifiedList<JudgeObjectNode>.Node node = classifiedList.add(new JudgeObjectNode(object));
@@ -138,16 +150,12 @@ public class JudgeWorld implements RawInputHandler {
         }
     }
 
-    private void updateInputs() {
-
-    }
-
     @Override
-    public boolean onMotionEvent(EdMotionEvent event) {
+    public boolean onMotionEvent(EdMotionEvent... event) {
         for (JudgeNode node : judgeNodes) {
             node.updater.onMotionEvent(event);
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -155,7 +163,7 @@ public class JudgeWorld implements RawInputHandler {
         for (JudgeNode node : judgeNodes) {
             node.updater.onKeyEvent(event);
         }
-        return false;
+        return true;
     }
 
     public class JudgeObjectNode {

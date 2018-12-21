@@ -6,7 +6,6 @@ import com.edplan.framework.utils.dataobject.Struct;
 import com.edplan.framework.utils.dataobject.def.DefaultFloat;
 import com.edplan.framework.utils.dataobject.def.DefaultInt;
 import com.edplan.nso.OsuFilePart;
-import com.edplan.nso.beatmapComponent.Bookmarks;
 import com.edplan.framework.utils.U;
 
 public class PartEditor extends DataMapObject implements OsuFilePart {
@@ -40,7 +39,7 @@ public class PartEditor extends DataMapObject implements OsuFilePart {
     protected void onLoadStruct(Struct struct) {
         struct.add(Bookmarks, String.class,
                 () -> bookmarks != null ? bookmarks.toString() : "",
-                s -> bookmarks = com.edplan.nso.beatmapComponent.Bookmarks.parse(s));
+                s -> bookmarks = com.edplan.nso.filepart.Bookmarks.parse(s));
         loadStructAnnotation(struct);
     }
 

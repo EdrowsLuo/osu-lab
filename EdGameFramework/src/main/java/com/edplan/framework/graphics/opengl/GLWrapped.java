@@ -2,6 +2,7 @@ package com.edplan.framework.graphics.opengl;
 
 import android.opengl.GLES10;
 import android.opengl.GLES20;
+import android.opengl.GLES30;
 import android.util.Log;
 
 import com.edplan.framework.graphics.opengl.bufferObjects.FBOPool;

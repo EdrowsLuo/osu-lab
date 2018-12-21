@@ -2,7 +2,9 @@ package com.edplan.nso.ruleset.base.game.paint;
 
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.timing.IntervalSchedule;
+import com.edplan.framework.timing.TimeUpdateable;
 import com.edplan.framework.utils.Lazy;
+import com.edplan.framework.utils.annotation.NotThreadSafe;
 import com.edplan.nso.ruleset.base.game.World;
 
 public abstract class AdvancedDrawObject extends DrawObject {
@@ -13,6 +15,11 @@ public abstract class AdvancedDrawObject extends DrawObject {
 
     public IntervalSchedule getIntervalSchedule() {
         return intervalScheduleLazy.get();
+    }
+
+    @NotThreadSafe
+    public void addIntervalTask(double start, double end, TimeUpdateable updateable) {
+        getIntervalSchedule().addTask(start, end, updateable);
     }
 
     @Override

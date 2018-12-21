@@ -1,19 +1,17 @@
 package com.edplan.nso.ruleset.std;
 
-import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.ui.text.font.FontAwesome;
-import com.edplan.framework.ui.text.font.bmfont.BMFont;
 import com.edplan.nso.NsoCore;
 import com.edplan.nso.ruleset.base.Ruleset;
 import com.edplan.nso.ruleset.base.RulesetNameManager;
+import com.edplan.nso.ruleset.base.beatmap.Beatmap;
 import com.edplan.nso.ruleset.base.beatmap.parser.BeatmapParser;
-import com.edplan.nso.ruleset.base.beatmap.parser.StdFormatObjectParser;
+import com.edplan.nso.ruleset.base.game.GameObject;
+import com.edplan.nso.ruleset.base.game.World;
+import com.edplan.nso.ruleset.base.game.judge.CursorData;
+import com.edplan.nso.ruleset.std.beatmap.StdBeatmap;
 import com.edplan.nso.ruleset.std.beatmap.StdBeatmapParser;
-import com.edplan.nso.ruleset.std.objects.v2.StdObjectCreator;
-
-import java.io.IOException;
 
 public class StdRuleset extends Ruleset{
 
@@ -56,5 +54,21 @@ public class StdRuleset extends Ruleset{
     @Override
     public BeatmapParser getBeatmapParser() {
         return StdBeatmapParser.get();
+    }
+
+    @Override
+    public World loadWorld(Beatmap beatmap) {
+        if (beatmap instanceof StdBeatmap) {
+            StdBeatmap stdBeatmap = (StdBeatmap) beatmap;
+            World world = new World(getCore().getContext());
+            world.onLoadConfig(new World.WorldConfig() {{
+                judgeTypes.add(CursorData.class);
+            }});
+            for (GameObject object : stdBeatmap.getAllHitObjects()) {
+                object.applyJudgeAndDrawObjects(world);
+            }
+            return world;
+        }
+        return null;
     }
 }

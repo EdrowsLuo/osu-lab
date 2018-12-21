@@ -4,7 +4,7 @@ import com.edplan.nso.filepart.PartTimingPoints;
 import com.edplan.nso.timing.TimingPoint;
 import com.edplan.framework.utils.advance.StringSplitter;
 import com.edplan.framework.utils.U;
-import com.edplan.nso.beatmapComponent.SampleSet;
+import com.edplan.nso.filepart.SampleSet;
 
 public class TimingPointsParser extends PartParser<PartTimingPoints> {
     private PartTimingPoints part;

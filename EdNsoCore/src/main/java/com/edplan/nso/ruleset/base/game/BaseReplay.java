@@ -8,6 +8,7 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * 数据存储格式说明：
@@ -31,16 +32,21 @@ public class BaseReplay {
 
     private boolean frameIsHandled = true;
 
-    public BaseReplay(JudgeNode[] judgeNodes) {
-        this.judgeNodes = Arrays.copyOf(judgeNodes, judgeNodes.length);
+    public BaseReplay(List<JudgeNode> judgeNodes) {
+        this.judgeNodes = new JudgeNode[judgeNodes.size()];
+        int idx = 0;
+        for (JudgeNode n : judgeNodes) {
+            this.judgeNodes[idx++] = n;
+        }
     }
 
     /**
      * 检查原始输入事件，如果需要更新，将新的一帧数据写进output里
      * 播放replay的时候无需调用这个方法
+     *
      * @param frameTime 当前判定帧的时间
      */
-    public void writeJudgeEvents(double frameTime) {
+    public void writeJudgeEvents(double frameTime, World world) {
         boolean needUpdate = false;
         for (JudgeNode node : judgeNodes) {
             if (node.updater.needUpdate()) {
@@ -56,7 +62,9 @@ public class BaseReplay {
                 for (JudgeNode node : judgeNodes) {
                     if (node.updater.needUpdate()) {
                         dataOutputStream.writeInt(JudgeData.USING_KEYFRAME_DATA);
-                        node.updater.update(dataOutputStream);
+                        if (!node.updater.update(dataOutputStream)) {
+                            throw new RuntimeException("bad judgeNode");
+                        }
                     } else {
                         dataOutputStream.writeInt(JudgeData.AUTO_CHANGE);
                     }

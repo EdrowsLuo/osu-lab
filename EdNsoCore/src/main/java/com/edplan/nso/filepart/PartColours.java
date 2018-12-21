@@ -1,7 +1,6 @@
 package com.edplan.nso.filepart;
 
 import com.edplan.nso.OsuFilePart;
-import com.edplan.nso.beatmapComponent.Colours;
 
 import android.graphics.Color;
 

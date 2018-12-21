@@ -1,7 +1,7 @@
 package com.edplan.nso.timing;
 
 import com.edplan.framework.utils.U;
-import com.edplan.nso.beatmapComponent.SampleSet;
+import com.edplan.nso.filepart.SampleSet;
 import com.edplan.nso.ruleset.std.playing.controlpoint.ControlPoint;
 
 public class TimingPoint extends ControlPoint {

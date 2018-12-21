@@ -5,7 +5,6 @@ import com.edplan.framework.utils.dataobject.ItemInfo;
 import com.edplan.framework.utils.dataobject.Struct;
 import com.edplan.framework.utils.dataobject.def.DefaultInt;
 import com.edplan.nso.OsuFilePart;
-import com.edplan.nso.beatmapComponent.Tags;
 import com.edplan.framework.utils.U;
 
 public class PartMetadata extends DataMapObject implements OsuFilePart {
@@ -120,7 +119,7 @@ public class PartMetadata extends DataMapObject implements OsuFilePart {
     }
 
     public Tags getTags() {
-        return com.edplan.nso.beatmapComponent.Tags.parse(tags);
+        return com.edplan.nso.filepart.Tags.parse(tags);
     }
 
     public void setBeatmapID(int beatmapID) {

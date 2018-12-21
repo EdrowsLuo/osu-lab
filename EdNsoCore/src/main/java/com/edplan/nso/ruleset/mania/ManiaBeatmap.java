@@ -1,9 +1,9 @@
 package com.edplan.nso.ruleset.mania;
 
-import com.edplan.nso.ruleset.std.StdBeatmap;
+import com.edplan.nso.ruleset.std.LegacyStdBeatmap;
 
-public class ManiaBeatmap extends StdBeatmap {
-    public ManiaBeatmap(StdBeatmap res) {
+public class ManiaBeatmap extends LegacyStdBeatmap {
+    public ManiaBeatmap(LegacyStdBeatmap res) {
         setVersion(res.getVersion());
         setGeneral(res.getGeneral());
         setEditor(res.getEditor());

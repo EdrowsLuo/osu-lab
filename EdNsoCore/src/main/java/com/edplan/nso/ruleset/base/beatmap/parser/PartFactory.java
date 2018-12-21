@@ -1,6 +1,6 @@
 package com.edplan.nso.ruleset.base.beatmap.parser;
 
-import com.edplan.nso.beatmapComponent.SampleSet;
+import com.edplan.nso.filepart.SampleSet;
 import com.edplan.nso.filepart.PartColours;
 import com.edplan.nso.filepart.PartDifficulty;
 import com.edplan.nso.filepart.PartEditor;

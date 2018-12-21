@@ -2,8 +2,10 @@ package com.edplan.nso.ruleset.base;
 
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.nso.NsoCore;
+import com.edplan.nso.ruleset.base.beatmap.Beatmap;
 import com.edplan.nso.ruleset.base.beatmap.parser.BeatmapParser;
 import com.edplan.nso.ruleset.base.beatmap.parser.PartFactory;
+import com.edplan.nso.ruleset.base.game.World;
 
 public abstract class Ruleset {
 
@@ -55,5 +57,12 @@ public abstract class Ruleset {
     public PartFactory getPartFactory() {
         return PartFactory.get();
     }
+
+    /**
+     * 通过beatmap加载一个世界，返回的世界应该是已经onLoad了且已经初始化了物件了的
+     * @param beatmap
+     * @return
+     */
+    public abstract World loadWorld(Beatmap beatmap);
 
 }

@@ -134,6 +134,7 @@ public class ClassifiedList<T> implements Iterable<T> {
                 return;
             }
             unlink();
+            this.type = type;
             if (type != -1) {
                 Node node = getFirst(type);
                 if (node == null) {
@@ -164,7 +165,7 @@ public class ClassifiedList<T> implements Iterable<T> {
             }
             if (pre != null) {
                 pre.next = next;
-            } else {
+            } else if (type != -1) {
                 classifiedLinkNodesFirst.set(type, next);
             }
             pre = null;

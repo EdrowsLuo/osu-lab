@@ -1,34 +1,82 @@
 package com.edplan.framework.timing;
 
+import com.edplan.framework.Framework;
+
 /**
  * 记载处理帧时间的类
  */
-public abstract class FrameClock {
+public class FrameClock {
+
+    private double startTime = -1;
+
+    private double frameTime;
+
+    private double deltaTime;
+
+    private boolean running = false;
+
+    public void start() {
+        if (startTime == -1) {
+            startTime = Framework.frameworkTime();
+            running = true;
+        }
+    }
 
     /**
      * 缓存的帧时间
+     *
      * @return
      */
-    public abstract double getFrameTime();
+    public double getFrameTime() {
+        return frameTime;
+    }
 
     /**
      * 当前的Clock是否是有效更新的
+     *
      * @return
      */
-    public abstract boolean isRunninng();
+    public boolean isRunninng() {
+        return running;
+    }
+
+    public double toClockTime(double frameworkTime) {
+        if (running) {
+            return frameworkTime - startTime;
+        } else {
+            return frameTime;
+        }
+    }
 
     /**
      * 更新Clock的缓存时间
      */
-    public abstract void update();
+    public void update() {
+        if (running) {
+            double t = Framework.frameworkTime() - startTime;
+            deltaTime = t - frameTime;
+            frameTime = t;
+        }
+    }
 
     /**
      * 让暂停的Clock运行
      */
-    public abstract void run();
+    public void run() {
+        if (!running) {
+            running = true;
+            double dt = Framework.frameworkTime() - frameTime;
+            startTime += dt;
+        }
+    }
 
     /**
      * 暂停Clock，暂停之后调用update时不再更新时间
      */
-    public abstract void pause();
+    public void pause() {
+        if (running) {
+            running = false;
+            frameTime = Framework.frameworkTime();
+        }
+    }
 }

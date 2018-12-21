@@ -8,6 +8,7 @@ import com.edplan.framework.main.MainCallBack;
 import com.edplan.framework.test.performance.Tracker;
 import com.edplan.framework.ui.additions.PopupViewLayer;
 import com.edplan.framework.ui.additions.RootContainer;
+import com.edplan.framework.ui.inputs.DirectMotionHandler;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
 import com.edplan.framework.ui.inputs.NativeInputQuery;
 import com.edplan.framework.ui.layout.EdLayoutParam;
@@ -54,6 +55,8 @@ public class ViewRoot implements MainCallBack {
 
     private float baseScale = 1;
 
+    private DirectMotionHandler directMotionHandler;
+
     public ViewRoot(MContext c) {
         this.context = c;
         nativeInputQuery = new NativeInputQuery(c);
@@ -72,6 +75,16 @@ public class ViewRoot implements MainCallBack {
         return rootContainer;
     }
 
+    public void registerDirectMotionHandler(DirectMotionHandler directMotionHandler) {
+        this.directMotionHandler = directMotionHandler;
+    }
+
+    public void unregisterDirectMotionHandler(DirectMotionHandler directMotionHandler) {
+        if (this.directMotionHandler == directMotionHandler) {
+            this.directMotionHandler = null;
+        }
+    }
+
     public Focus getFocus() {
         return focus;
     }
@@ -81,7 +94,7 @@ public class ViewRoot implements MainCallBack {
     }
 
     public void postNativeEvent(MotionEvent event) {
-        nativeInputQuery.postEvent(event);
+        nativeInputQuery.postEvent(event, directMotionHandler);
     }
 
     protected void handlerInputs() {

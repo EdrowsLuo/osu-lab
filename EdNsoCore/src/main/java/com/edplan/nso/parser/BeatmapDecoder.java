@@ -24,7 +24,7 @@ import com.edplan.nso.parser.partParsers.PartParser;
 import com.edplan.nso.parser.partParsers.StoryboardPartParser;
 import com.edplan.nso.parser.partParsers.TimingPointsParser;
 import com.edplan.nso.ruleset.ModeManager;
-import com.edplan.nso.ruleset.std.StdBeatmap;
+import com.edplan.nso.ruleset.std.LegacyStdBeatmap;
 import com.edplan.framework.utils.io.AdvancedBufferedReader;
 import com.edplan.framework.utils.U;
 
@@ -188,7 +188,7 @@ public class BeatmapDecoder extends BaseDecoder {
     public NsoBeatmap makeupBeatmap() {
         switch (generalParser.getPart().getModeOld()) {
             case ModeManager.MODE_STD:
-                StdBeatmap stdbeatmap = new StdBeatmap();
+                LegacyStdBeatmap stdbeatmap = new LegacyStdBeatmap();
                 stdbeatmap.setVersion(getFormat());
                 stdbeatmap.setGeneral(generalParser.getPart());
                 stdbeatmap.setMetadata(metadataParser.getPart());

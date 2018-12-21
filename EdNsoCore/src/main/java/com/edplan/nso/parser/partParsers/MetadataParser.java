@@ -2,7 +2,7 @@ package com.edplan.nso.parser.partParsers;
 
 import com.edplan.nso.filepart.PartMetadata;
 import com.edplan.framework.utils.U;
-import com.edplan.nso.beatmapComponent.Tags;
+import com.edplan.nso.filepart.Tags;
 
 public class MetadataParser extends PartParser<PartMetadata> {
     private PartMetadata part;

@@ -12,13 +12,13 @@ public abstract class DrawObject {
 
     DrawNode node;
 
-    private final Lazy<LinkedList<Consumer<DrawObject>>> operations = Lazy.create(LinkedList::new);
+    private final Lazy<LinkedList<Runnable>> operations = Lazy.create(LinkedList::new);
 
     protected void handleOperations() {
         synchronized (operations) {
             if (!operations.isEmpty()) {
-                for (Consumer<DrawObject> operation : operations.get()) {
-                    operation.consume(this);
+                for (Runnable operation : operations.get()) {
+                    operation.run();
                 }
                 operations.get().clear();
             }
@@ -33,8 +33,12 @@ public abstract class DrawObject {
     public abstract void draw(BaseCanvas canvas, World world);
 
     public void postOperation(Consumer<DrawObject> operation) {
+        postOperation(() -> operation.consume(this));
+    }
+
+    public void postOperation(Runnable runnable) {
         synchronized (operations) {
-            operations.get().add(operation);
+            operations.get().add(runnable);
         }
     }
 

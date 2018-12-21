@@ -18,6 +18,8 @@ public class RenderStatPopupView extends PopupView {
 
     TextView text;
 
+    boolean lowDetailMode = false;
+
     public RenderStatPopupView(MContext c) {
         super(c);
         //setRounded(ViewConfiguration.dp(5));
@@ -55,6 +57,15 @@ public class RenderStatPopupView extends PopupView {
         setHideWhenBackpress(false);
     }
 
+    public boolean isLowDetailMode() {
+        return lowDetailMode;
+    }
+
+    public void setLowDetailMode(boolean lowDetailMode) {
+        this.lowDetailMode = lowDetailMode;
+        invalidate();
+    }
+
     public static RenderStatPopupView getInstance(MContext context) {
         if (instance == null) {
             instance = new RenderStatPopupView(context);
@@ -66,18 +77,20 @@ public class RenderStatPopupView extends PopupView {
     public void onFrameStart() {
         super.onFrameStart();
         text.setText(
-                FrameRenderMonitor.getFPS() + "/60fps\n"
-                        + "FBO:" + FrameRenderMonitor.fboCreate + "\n"
-                        + "DrawCalls:" + FrameRenderMonitor.drawCalls + "\n"
-                        + "Total:" + (int) FrameRenderMonitor.frameRenderTime.avg + "ms\n"
-                        + "UI:" + (int) FrameRenderMonitor.drawUI.avg + "ms\n"
-                        + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000 / 1000 + "/" + Runtime.getRuntime().maxMemory() / 1000 / 1000 + "MB"
+                FrameRenderMonitor.getFPS() + "/60fps" +
+                        (lowDetailMode ? "" : (
+                                "\nFBO:" + FrameRenderMonitor.fboCreate + "\n"
+                                        + "DrawCalls:" + FrameRenderMonitor.drawCalls + "\n"
+                                        + "Total:" + (int) FrameRenderMonitor.frameRenderTime.avg + "ms\n"
+                                        + "UI:" + (int) FrameRenderMonitor.drawUI.avg + "ms\n"
+                                        + (Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory()) / 1000 / 1000 + "/" + Runtime.getRuntime().maxMemory() / 1000 / 1000 + "MB"
+                        ))
         );
+
     }
 
     @Override
     protected void onDraw(BaseCanvas canvas) {
-
         super.onDraw(canvas);
         //double frameTime=getContext().getFrameDeltaTime();
     }

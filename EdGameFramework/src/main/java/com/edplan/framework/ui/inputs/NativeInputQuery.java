@@ -17,9 +17,13 @@ public class NativeInputQuery {
         context = c;
     }
 
-    public void postEvent(MotionEvent raw) {
+    public void postEvent(MotionEvent raw, DirectMotionHandler directMotionHandler) {
+        List<EdMotionEvent> events = load(raw);
+        if (directMotionHandler != null) {
+            directMotionHandler.onDirectMotionEvent(events.toArray(new EdMotionEvent[events.size()]));
+        }
         synchronized (this) {
-            eventQuery1.addAll(load(raw));
+            eventQuery1.addAll(events);
         }
     }
 
@@ -54,7 +58,7 @@ public class NativeInputQuery {
                 event.eventPosition.set(raw.getX(idx), raw.getY(idx));
                 event.rawType = RawType.TouchScreen;
                 event.pointCount = raw.getPointerCount();
-                event.time = context.getUiLooper().calTimeOverThread(raw.getEventTime());
+                event.time = raw.getEventTime();
                 events.add(event);
             }
         } else {
@@ -66,7 +70,7 @@ public class NativeInputQuery {
             event.eventPosition.set(raw.getX(idx), raw.getY(idx));
             event.rawType = RawType.TouchScreen;
             event.pointCount = raw.getPointerCount();
-            event.time = context.getUiLooper().calTimeOverThread(raw.getEventTime());
+            event.time = raw.getEventTime();
             events.add(event);
         }
 

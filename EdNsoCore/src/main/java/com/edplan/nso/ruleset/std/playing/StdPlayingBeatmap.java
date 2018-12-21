@@ -8,7 +8,7 @@ import com.edplan.framework.timing.PreciseTimeline;
 import com.edplan.nso.filepart.PartDifficulty;
 import com.edplan.nso.resource.OsuSkin;
 import com.edplan.nso.ruleset.base.playing.PlayingBeatmap;
-import com.edplan.nso.ruleset.std.StdBeatmap;
+import com.edplan.nso.ruleset.std.LegacyStdBeatmap;
 import com.edplan.nso.ruleset.std.objects.StdHitCircle;
 import com.edplan.nso.ruleset.std.objects.StdHitObject;
 import com.edplan.nso.ruleset.std.objects.StdSlider;
@@ -25,7 +25,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class StdPlayingBeatmap extends PlayingBeatmap {
-    private StdBeatmap beatmap;
+    private LegacyStdBeatmap beatmap;
 
     private MContext context;
 
@@ -35,7 +35,7 @@ public class StdPlayingBeatmap extends PlayingBeatmap {
 
     private ControlPoints controlPoints;
 
-    public StdPlayingBeatmap(MContext context, StdBeatmap beatmap, PreciseTimeline timeline, OsuSkin skin) {
+    public StdPlayingBeatmap(MContext context, LegacyStdBeatmap beatmap, PreciseTimeline timeline, OsuSkin skin) {
         super(skin, timeline);
         this.context = context;
         this.beatmap = beatmap;
@@ -109,7 +109,7 @@ public class StdPlayingBeatmap extends PlayingBeatmap {
         }
     }
 
-    public StdBeatmap getBeatmap() {
+    public LegacyStdBeatmap getBeatmap() {
         return beatmap;
     }
 
@@ -160,7 +160,7 @@ public class StdPlayingBeatmap extends PlayingBeatmap {
 
     static final int stack_distance = 3;
 
-    public static List<DrawableStdHitObject> applyStack(List<DrawableStdHitObject> hitObjects, StdBeatmap beatmap) {
+    public static List<DrawableStdHitObject> applyStack(List<DrawableStdHitObject> hitObjects, LegacyStdBeatmap beatmap) {
         // Reset stacking
         for (int i = 0; i <= hitObjects.size() - 1; i++) {
             hitObjects.get(i).setStackHeight(0);

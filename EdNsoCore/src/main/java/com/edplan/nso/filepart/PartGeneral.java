@@ -7,7 +7,6 @@ import com.edplan.framework.utils.dataobject.def.DefaultBoolean;
 import com.edplan.framework.utils.dataobject.def.DefaultFloat;
 import com.edplan.framework.utils.dataobject.def.DefaultInt;
 import com.edplan.nso.OsuFilePart;
-import com.edplan.nso.beatmapComponent.SampleSet;
 import com.edplan.framework.utils.U;
 
 public class PartGeneral extends DataMapObject implements OsuFilePart {
@@ -211,7 +210,7 @@ public class PartGeneral extends DataMapObject implements OsuFilePart {
     }
 
     public void setSampleSet(String sampleSet) {
-        this.sampleSet = com.edplan.nso.beatmapComponent.SampleSet.parse(sampleSet);
+        this.sampleSet = com.edplan.nso.filepart.SampleSet.parse(sampleSet);
     }
 
     public String getSampleSet() {

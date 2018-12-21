@@ -1,4 +1,4 @@
-package com.edplan.nso.beatmapComponent;
+package com.edplan.nso.filepart;
 
 public enum SampleSet {
     None("None"), Soft("Soft"), Normal("Normal"), Drum("Drum");

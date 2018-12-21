@@ -4,45 +4,101 @@ import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.math.RectF;
-import com.edplan.framework.ui.EdView;
+import com.edplan.framework.math.Vec2;
+import com.edplan.framework.ui.Anchor;
 import com.edplan.framework.ui.additions.popupview.defviews.RenderStatPopupView;
-import com.edplan.framework.ui.widget.component.Hideable;
-import com.edplan.nso.ruleset.base.game.paint.GroupDrawObject;
-import com.edplan.nso.ruleset.base.game.paint.PaintWorld;
+import com.edplan.framework.ui.inputs.DirectMotionHandler;
+import com.edplan.framework.ui.inputs.EdMotionEvent;
+import com.edplan.framework.utils.Ref;
+import com.edplan.nso.ruleset.base.game.World;
+import com.edplan.nso.ruleset.base.game.judge.CursorData;
+import com.edplan.nso.ruleset.base.game.judge.JudgeData;
+import com.edplan.nso.ruleset.base.game.judge.JudgeObject;
 import com.edplan.nso.ruleset.base.game.paint.TextureRect;
 import com.edplan.osulab.LabGame;
 import com.edplan.osulab.ScenesName;
 import com.edplan.osulab.ui.BackQuery;
 import com.edplan.osulab.ui.scenes.BaseScene;
-import com.edplan.osulab.ui.toolbar.Toolbar;
 
-public class GameScene extends BaseScene{
+import java.io.IOException;
 
-    private PaintWorld paintWorld;
+public class GameScene extends BaseScene implements DirectMotionHandler{
+
+    private World world;
 
     public GameScene(MContext c) {
         super(c);
-        paintWorld = new PaintWorld();
-        paintWorld.addDrawObject(
-                new GroupDrawObject() {{
-                    for (int i = 0 ;i<100;i++) {
-                        final int ii = i * 4;
-                        attachFront(
-                                new TextureRect(getContext()) {{
-                                    setTexture(GLTexture.Yellow);
-                                    setQuad(RectF.xywh(200 + ii, 200 + ii, 400, 400));
-                                }}
-                        );
-                    }
-                }}
-        );
+        world = new World(c);
+        world.onLoadConfig(new World.WorldConfig() {{
+            judgeTypes.add(CursorData.class);
+        }});
+
+        Vec2 pos = new Vec2();
+        TextureRect cus = new TextureRect(c) {
+            @Override
+            protected void onDraw(BaseCanvas canvas, World world) {
+                setQuad(
+                        RectF.anchorOWH(
+                                Anchor.Center,
+                                pos.x,
+                                pos.y,
+                                500,
+                                500));
+                super.onDraw(canvas, world);
+            }
+        };
+        try {
+            cus.setTexture(c.getAssetResource().loadTexture("osu/skins/default/cursor.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        JudgeObject cst = new JudgeObject() {
+            @Override
+            public double getStartJudgeTime() {
+                return 3000;
+            }
+
+            @Override
+            public double getJudgeFailedTime() {
+                return 30000;
+            }
+
+            @Override
+            protected void onRelease() {
+                super.onRelease();
+                cus.postOperation(()->{
+                    cus.detach();
+                    //System.out.println("detach");
+                });
+            }
+
+            @Override
+            public boolean handle(JudgeData data, World world) {
+                CursorData cursorData = (CursorData) data;
+                CursorData.CursorHolder holder = cursorData.getCursors()[0];
+                final float x = holder.x;
+                final float y = holder.y;
+                pos.x = x;
+                pos.y = y;
+                return false;
+            }
+
+            @Override
+            public Class<? extends JudgeData>[] getListeningDatas() {
+                return new Class[]{CursorData.class};
+            }
+        };
+
+        world.getJudgeWorld().addJudgeObject(cst);
+        world.getPaintWorld().addDrawObject(cus);
+        world.load();
+        world.start();
     }
 
-    public static String getSceneNameStatic() {
-        return ScenesName.GameScene;
-    }
-
-    public static boolean isSingleInstanceStatic() {
+    @Override
+    public boolean onDirectMotionEvent(EdMotionEvent... events) {
+        world.onMotionEvent(events);
         return true;
     }
 
@@ -54,7 +110,7 @@ public class GameScene extends BaseScene{
     @Override
     protected void onDraw(BaseCanvas canvas) {
         super.onDraw(canvas);
-        paintWorld.draw(canvas);
+        world.onDraw(canvas);
     }
 
     @Override
@@ -64,7 +120,8 @@ public class GameScene extends BaseScene{
         LabGame.get().getJumpingCircle().show();
         BackQuery.get().setForceHideBackButton(false);
         //TODO : 隐藏显示FPS计数器的方法应该统一管理
-        RenderStatPopupView.getInstance(getContext()).show();
+        RenderStatPopupView.getInstance(getContext()).setLowDetailMode(false);
+        getViewRoot().unregisterDirectMotionHandler(this);
     }
 
     @Override
@@ -74,7 +131,8 @@ public class GameScene extends BaseScene{
         LabGame.get().getJumpingCircle().hide();
         BackQuery.get().setForceHideBackButton(true);
         //TODO : 隐藏显示FPS计数器的方法应该统一管理
-        RenderStatPopupView.getInstance(getContext()).hide();
+        RenderStatPopupView.getInstance(getContext()).setLowDetailMode(true);
+        getViewRoot().registerDirectMotionHandler(this);
     }
 
     @Override

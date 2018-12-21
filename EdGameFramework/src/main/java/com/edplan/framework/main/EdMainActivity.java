@@ -102,6 +102,11 @@ public abstract class EdMainActivity extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         System.exit(0);
     }
 }

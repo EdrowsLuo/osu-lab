@@ -15,7 +15,7 @@ import com.edplan.nso.ruleset.std.objects.StdSpinner;
 import com.edplan.nso.ruleset.std.objects.StdHitCircle;
 import com.edplan.nso.ruleset.std.objects.StdSlider;
 
-public class StdBeatmap extends NsoBeatmap {
+public class LegacyStdBeatmap extends NsoBeatmap {
     public static int SUPPORT_VERSION = 14;
 
     private int version;
@@ -28,7 +28,7 @@ public class StdBeatmap extends NsoBeatmap {
     private PartColours colours;
     private StdHitObjects<StdHitObject> hitObjects;
 
-    public StdBeatmap() {
+    public LegacyStdBeatmap() {
 
     }
 

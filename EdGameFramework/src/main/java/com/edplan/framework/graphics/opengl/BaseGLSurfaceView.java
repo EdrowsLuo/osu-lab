@@ -51,7 +51,6 @@ public class BaseGLSurfaceView extends GLSurfaceView {
     public class MSAAConfig implements EGLConfigChooser {
         @Override
         public EGLConfig chooseConfig(EGL10 egl, EGLDisplay display) {
-
             EGLConfig cof;
             if ((cof = chooseMSAA(egl, display)) == null) {
                 Log.w("egl-choose", "msaa config not found");

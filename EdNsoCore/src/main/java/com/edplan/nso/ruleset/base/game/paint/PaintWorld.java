@@ -12,6 +12,10 @@ public class PaintWorld {
 
     private GroupDrawObject rootGroup = new GroupDrawObject();
 
+    public PaintWorld(World world) {
+        this.world = world;
+    }
+
     public void addDrawObject(DrawObject object) {
         rootGroup.attachFront(object);
     }
