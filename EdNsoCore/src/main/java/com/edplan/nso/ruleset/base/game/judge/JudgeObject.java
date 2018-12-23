@@ -47,10 +47,14 @@ public abstract class JudgeObject {
      * @param world 上下文世界
      * @return 是否阻塞处理，阻塞处理的话对应事件不会下发到其他物件
      */
-    public abstract boolean handle(JudgeData data, World world);
+    public abstract boolean handle(JudgeData data, int subType, World world);
 
     /**
      * @return 申请的JudgeData类型，用于注册监听器（不许有重复的类）
      */
-    public abstract Class<? extends JudgeData>[] getListeningDatas();
+    public abstract Class<? extends JudgeData>[] getListeningData();
+
+    public int[] getListeningDataSubTypes() {
+        return null;
+    }
 }

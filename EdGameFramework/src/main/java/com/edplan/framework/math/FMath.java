@@ -109,4 +109,8 @@ public class FMath {
             return v3;
         }
     }
+
+    public static float squareDistance(float x, float y) {
+        return x * x + y * y;
+    }
 }

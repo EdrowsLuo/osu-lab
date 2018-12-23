@@ -16,15 +16,14 @@ public class IntervalSchedule implements TimeUpdateable {
             if (task.start > time) {
                 return;
             }
-            if (task.end < time) {
+            if (task.end <= time) {
                 taskIterator.remove();
                 if (task.start == task.end) {
-                    //对于长度为0的区间，至少执行一次
                     task.body.update(time);
                 }
-                continue;
+            } else {
+                task.body.update(time);
             }
-            task.body.update(time);
         }
     }
 

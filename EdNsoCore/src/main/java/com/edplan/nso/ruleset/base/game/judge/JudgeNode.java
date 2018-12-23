@@ -6,9 +6,12 @@ public class JudgeNode {
 
     public final JudgeData data;
 
+    public final int subType;
+
     public boolean interrupted = false;
 
-    public JudgeNode(JudgeData data) {
+    public JudgeNode(JudgeData data, int subType) {
+        this.subType = subType;
         this.data = data;
         this.updater = data.getDataUpdater();
     }

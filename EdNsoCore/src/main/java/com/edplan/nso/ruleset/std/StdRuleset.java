@@ -6,9 +6,11 @@ import com.edplan.nso.NsoCore;
 import com.edplan.nso.ruleset.base.Ruleset;
 import com.edplan.nso.ruleset.base.RulesetNameManager;
 import com.edplan.nso.ruleset.base.beatmap.Beatmap;
+import com.edplan.nso.ruleset.base.beatmap.BeatmapDescription;
 import com.edplan.nso.ruleset.base.beatmap.parser.BeatmapParser;
 import com.edplan.nso.ruleset.base.game.GameObject;
 import com.edplan.nso.ruleset.base.game.World;
+import com.edplan.nso.ruleset.base.game.WorldLoader;
 import com.edplan.nso.ruleset.base.game.judge.CursorData;
 import com.edplan.nso.ruleset.std.beatmap.StdBeatmap;
 import com.edplan.nso.ruleset.std.beatmap.StdBeatmapParser;
@@ -57,18 +59,7 @@ public class StdRuleset extends Ruleset{
     }
 
     @Override
-    public World loadWorld(Beatmap beatmap) {
-        if (beatmap instanceof StdBeatmap) {
-            StdBeatmap stdBeatmap = (StdBeatmap) beatmap;
-            World world = new World(getCore().getContext());
-            world.onLoadConfig(new World.WorldConfig() {{
-                judgeTypes.add(CursorData.class);
-            }});
-            for (GameObject object : stdBeatmap.getAllHitObjects()) {
-                object.applyJudgeAndDrawObjects(world);
-            }
-            return world;
-        }
+    public WorldLoader getWorldLoader() {
         return null;
     }
 }

@@ -4,17 +4,9 @@ import com.edplan.framework.timing.Schedule;
 import com.edplan.framework.ui.inputs.EdKeyEvent;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
 import com.edplan.framework.utils.advance.ClassifiedList;
-import com.edplan.framework.utils.io.MemoryFile;
 import com.edplan.nso.ruleset.base.game.BaseReplay;
 import com.edplan.nso.ruleset.base.game.World;
-import com.edplan.nso.ruleset.base.game.judge.JudgeData;
-import com.edplan.nso.ruleset.base.game.judge.JudgeDataUpdater;
-import com.edplan.nso.ruleset.base.game.judge.JudgeObject;
-import com.edplan.nso.ruleset.base.game.judge.RawInputHandler;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.PipedInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,11 +20,11 @@ public class JudgeWorld implements RawInputHandler {
 
     private ArrayList<JudgeObject> judgeObjects = new ArrayList<>();
 
-    private List<JudgeNode> judgeNodes = new ArrayList<>();
+    private List<JudgeNode> judgeNodesUpdate = new ArrayList<>();
 
     private Class<? extends JudgeData>[] judgeTypes;
 
-    private HashMap<Class<? extends JudgeData>, JudgeNode> judgeNodeHashMap = new HashMap<>();
+    private HashMap<Class<? extends JudgeData>, JudgeNode[]> judgeNodeHashMap = new HashMap<>();
 
     private Schedule activeSchedule = new Schedule();
 
@@ -53,18 +45,22 @@ public class JudgeWorld implements RawInputHandler {
     @SafeVarargs
     public final void preloadJudgeDataType(Class<? extends JudgeData>... types) {
         judgeTypes = types;
-        judgeNodes.clear();
+        judgeNodesUpdate.clear();
         judgeNodeHashMap.clear();
         for (Class<? extends JudgeData> k : types) {
             try {
-                JudgeNode node = new JudgeNode(k.newInstance());
-                judgeNodes.add(node);
-                judgeNodeHashMap.put(k, node);
+                JudgeData data = k.newInstance();
+                JudgeNode[] nodes = new JudgeNode[data.subTypesCount()];
+                for (int i = 0; i < nodes.length; i++) {
+                    nodes[i] = new JudgeNode(data, i);
+                }
+                judgeNodesUpdate.add(nodes[0]);
+                judgeNodeHashMap.put(k, nodes);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
-        replay = new BaseReplay(judgeNodes);
+        replay = new BaseReplay(judgeNodesUpdate);
     }
 
     /**
@@ -127,13 +123,13 @@ public class JudgeWorld implements RawInputHandler {
         for (JudgeObjectNode objectNode : classifiedList.getAll(ACTIVE_OBJECT)) {
             final JudgeObject object = objectNode.object;
             if (objectNode.datas.length == 0) {
-                object.handle(null, world);
+                object.handle(null, 0, world);
             } else {
                 for (JudgeNode node : objectNode.datas) {
                     if (node.interrupted) {
                         continue;
                     } else {
-                        if (object.handle(node.data, world)) {
+                        if (object.handle(node.data, node.subType, world)) {
                             node.interrupted = true;
                         }
                     }
@@ -152,7 +148,7 @@ public class JudgeWorld implements RawInputHandler {
 
     @Override
     public boolean onMotionEvent(EdMotionEvent... event) {
-        for (JudgeNode node : judgeNodes) {
+        for (JudgeNode node : judgeNodesUpdate) {
             node.updater.onMotionEvent(event);
         }
         return true;
@@ -160,7 +156,7 @@ public class JudgeWorld implements RawInputHandler {
 
     @Override
     public boolean onKeyEvent(EdKeyEvent event) {
-        for (JudgeNode node : judgeNodes) {
+        for (JudgeNode node : judgeNodesUpdate) {
             node.updater.onKeyEvent(event);
         }
         return true;
@@ -176,10 +172,11 @@ public class JudgeWorld implements RawInputHandler {
 
         public JudgeObjectNode(JudgeObject object) {
             this.object = object;
-            Class<? extends JudgeData>[] listeningDatas = object.getListeningDatas();
+            Class<? extends JudgeData>[] listeningDatas = object.getListeningData();
+            int[] subTypes = object.getListeningDataSubTypes();
             datas = new JudgeNode[listeningDatas.length];
             for (int i = 0; i < datas.length; i++) {
-                datas[i] = judgeNodeHashMap.get(listeningDatas[i]);
+                datas[i] = judgeNodeHashMap.get(listeningDatas[i])[subTypes == null ? 0 : subTypes[i]];
             }
         }
 

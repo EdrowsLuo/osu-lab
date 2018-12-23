@@ -85,7 +85,7 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
             }
 
             @Override
-            public Class<? extends JudgeData>[] getListeningDatas() {
+            public Class<? extends JudgeData>[] getListeningData() {
                 return new Class[]{CursorData.class};
             }
         };

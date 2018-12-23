@@ -23,4 +23,7 @@ public abstract class JudgeData {
 
     public abstract JudgeDataUpdater getDataUpdater();
 
+    public int subTypesCount() {
+        return 1;
+    }
 }

@@ -26,6 +26,10 @@ import java.util.LinkedList;
  */
 public class CursorData extends JudgeData {
 
+    public static final int SUB_STATE = 0;
+
+    public static final int SUB_ACTION = 1;
+
     public static final short TAG = 1234; //用于数据校验
 
     public static final byte TYPE_MASK = 3 << 5;
@@ -44,10 +48,16 @@ public class CursorData extends JudgeData {
 
     private CursorHolder[] cursors = new CursorHolder[MAX_CURSOR_COUNT];
 
+    private int actions = 0;
+
     public CursorData() {
         for (int i=0;i<cursors.length;i++) {
             cursors[i] = new CursorHolder(i);
         }
+    }
+
+    public boolean hasMoreAction() {
+        return actions != 0;
     }
 
     public CursorHolder[] getCursors() {
@@ -59,6 +69,7 @@ public class CursorData extends JudgeData {
             holder.down.reset();
             holder.up.reset();
         }
+        actions = 0;
     }
 
     private void usingKeyFrameData(DataInput inputStream) {
@@ -79,14 +90,16 @@ public class CursorData extends JudgeData {
                 double time = inputStream.readDouble();
                 switch (htype) {
                     case TYPE_DOWN:
-                        holder.down.add(time);
+                        holder.down.add();
+                        holder.down.time = time;
                         holder.isDown = true;
                         break;
                     case TYPE_MOVE:
                         holder.isDown = true;
                         break;
                     case TYPE_UP:
-                        holder.up.add(time);
+                        holder.up.add();
+                        holder.up.time = time;
                         holder.isDown = false;
                 }
             }
@@ -112,7 +125,12 @@ public class CursorData extends JudgeData {
         return updater;
     }
 
-    public static class CursorHolder {
+    @Override
+    public int subTypesCount() {
+        return 2;
+    }
+
+    public class CursorHolder {
 
         public boolean isDown = false;
 
@@ -129,11 +147,11 @@ public class CursorData extends JudgeData {
         }
     }
 
-    public static class CursorSpEvent {
-
-        private double[] buffer = new double[10];
+    public class CursorSpEvent {
 
         int idx = -1;
+
+        public double time;
 
         public void reset() {
             idx = -1;
@@ -143,16 +161,14 @@ public class CursorData extends JudgeData {
             return idx == -1;
         }
 
-        public void add(double time) {
-            buffer[++idx] = time;
-        }
-
-        public double time() {
-            return buffer[idx];
+        public void add() {
+            actions++;
+            idx++;
         }
 
         public void consume() {
             if (idx != -1) {
+                actions--;
                 idx--;
             }
         }
