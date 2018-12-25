@@ -18,7 +18,7 @@ public class BatchEngine {
      * @param alpha
      */
     public static void setGlobalAlpha(float alpha) {
-        if (Math.abs(shaderGlobals.alpha - alpha) > 0.003f) {
+        if (Math.abs(shaderGlobals.alpha - alpha) > 0.002f) {
             flush();
             shaderGlobals.alpha = alpha;
         }

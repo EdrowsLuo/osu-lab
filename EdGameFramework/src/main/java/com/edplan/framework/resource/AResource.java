@@ -3,7 +3,10 @@ package com.edplan.framework.resource;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.edplan.framework.MContext;
+import com.edplan.framework.async.AsyncTaskContainer;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
+import com.edplan.framework.utils.Ref;
 import com.edplan.framework.utils.StringUtil;
 
 import java.io.BufferedReader;
@@ -26,6 +29,23 @@ public abstract class AResource {
 
     public GLTexture loadTexture(String path) throws IOException {
         return GLTexture.decodeResource(this, path);
+    }
+
+    public GLTexture loadTextureAsync(String path, AsyncTaskContainer taskContainer) {
+        Ref<GLTexture> ref = new Ref<>();
+        try {
+            taskContainer.doSomeingInUiThread(() -> {
+                try {
+                    ref.set(loadTexture(path));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            return ref.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public Bitmap loadBitmap(String path) throws IOException {

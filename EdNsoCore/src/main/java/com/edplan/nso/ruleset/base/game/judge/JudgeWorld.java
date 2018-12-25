@@ -4,6 +4,7 @@ import com.edplan.framework.timing.Schedule;
 import com.edplan.framework.ui.inputs.EdKeyEvent;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
 import com.edplan.framework.utils.advance.ClassifiedList;
+import com.edplan.framework.utils.reflect.ReflectHelper;
 import com.edplan.nso.ruleset.base.game.BaseReplay;
 import com.edplan.nso.ruleset.base.game.World;
 
@@ -120,8 +121,15 @@ public class JudgeWorld implements RawInputHandler {
      * @param world
      */
     private void dispatchJudgeDatas(World world) {
+        for (JudgeNode[] nodes : judgeNodeHashMap.values()) {
+            for (JudgeNode node : nodes) {
+                node.interrupted = false;
+            }
+        }
+        //System.out.println("start");
         for (JudgeObjectNode objectNode : classifiedList.getAll(ACTIVE_OBJECT)) {
             final JudgeObject object = objectNode.object;
+            //System.out.println("check " + object);
             if (objectNode.datas.length == 0) {
                 object.handle(null, 0, world);
             } else {
@@ -136,6 +144,7 @@ public class JudgeWorld implements RawInputHandler {
                 }
             }
         }
+        //System.out.println("end");
     }
 
     private void removeReleasedObjects(double time) {

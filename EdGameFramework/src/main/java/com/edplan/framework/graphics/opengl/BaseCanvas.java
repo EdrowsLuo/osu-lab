@@ -12,8 +12,6 @@ import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
 import com.edplan.framework.graphics.opengl.objs.Vertex3D;
 import com.edplan.framework.graphics.opengl.objs.vertex.RectVertex;
 import com.edplan.framework.graphics.opengl.shader.advance.ColorShader;
-import com.edplan.framework.graphics.opengl.shader.advance.RectTextureShader;
-import com.edplan.framework.graphics.opengl.shader.advance.RoundedRectTextureShader;
 import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
 import com.edplan.framework.math.IQuad;
 import com.edplan.framework.math.Mat4;
@@ -206,18 +204,6 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
         shader.loadMatrix(getCamera());
         shader.loadTexture(texture.getTexture());
         shader.loadBatch(batch);
-    }
-
-    @Deprecated
-    public void injectRectData(RectF drawingRect, Vec4 padding, RectTextureShader shader) {
-        shader.useThis();
-        shader.loadRectData(drawingRect, padding);
-    }
-
-    @Deprecated
-    public void injectRoundedRectData(RectF drawingRect, Vec4 padding, float radius, Color4 glowColor, float glowFactor, RoundedRectTextureShader shader) {
-        shader.useThis();
-        shader.loadRectData(drawingRect, padding, radius, glowColor, glowFactor);
     }
 
     @Deprecated
@@ -439,46 +425,12 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
         drawTexture(texture, res, dst, mixColor, color, defZ, alpha);
     }
 
-    public void drawRectTexture(AbstractTexture texture, IQuad res, RectF dst, GLPaint paint) {
-        checkCanDraw();
-        tmpRectBatch.clear();
-        //tmpRectBatch.setColorMixRate(paint.getColorMixRate());
-        RectVertex[] v = createRectVertexs(texture, res, dst, paint.getVaryingColor(), defZ);
-        tmpRectBatch.add(v[0], v[1], v[2], v[0], v[2], v[3]);
-        drawRectBatch(tmpRectBatch, texture, dst, paint);
-    }
-
-    public void drawRoundedRectTexture(AbstractTexture texture, IQuad res, RectF dst, GLPaint paint) {
-        checkCanDraw();
-        tmpRectBatch.clear();
-        //tmpRectBatch.setColorMixRate(paint.getColorMixRate());
-        RectVertex[] v = createRectVertexs(texture, res, dst, paint.getVaryingColor(), defZ);
-        tmpRectBatch.add(v[0], v[1], v[2], v[0], v[2], v[3]);
-        drawRoundedRectBatch(tmpRectBatch, texture, dst, paint);
-    }
-
     public void drawTexture(AbstractTexture texture, IQuad dst, GLPaint paint) {
         drawTexture(texture, dst, paint.getAccentColor(), paint.getVaryingColor(), defZ, paint.getFinalAlpha());
     }
 
     public void drawTexture(AbstractTexture texture, IQuad dst, Color4 mixColor, Color4 color, float alpha) {
         drawTexture(texture, dst, mixColor, color, defZ, alpha);
-    }
-
-    public void drawRectBatch(RectVertexBatch batch, AbstractTexture texture, RectF dst, GLPaint paint) {
-        checkCanDraw();
-        RectTextureShader shader = getData().getShaders().getRectShader();
-        injectData(batch, texture, paint.getFinalAlpha(), paint.getAccentColor(), shader);
-        injectRectData(dst, paint.getPadding(), shader);
-        shader.applyToGL(GLWrapped.GL_TRIANGLES, 0, batch.getVertexCount());
-    }
-
-    public void drawRoundedRectBatch(RectVertexBatch batch, AbstractTexture texture, RectF dst, GLPaint paint) {
-        checkCanDraw();
-        RoundedRectTextureShader shader = getData().getShaders().getRoundedRectShader();
-        injectData(batch, texture, paint.getFinalAlpha(), paint.getAccentColor(), shader);
-        injectRoundedRectData(dst, paint.getPadding(), paint.getRoundedRadius(), paint.getGlowColor(), paint.getGlowFactor(), shader);
-        shader.applyToGL(GLWrapped.GL_TRIANGLES, 0, batch.getVertexCount());
     }
 
     public Vertex3D[] createLineRectVertex(Vec2 start, Vec2 end, float w, Color4 color) {

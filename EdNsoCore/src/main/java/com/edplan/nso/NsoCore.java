@@ -164,8 +164,9 @@ public class NsoCore {
             return progressHolders;
         }
 
-        public void onLoadComplete(Runnable runnable) {
+        public Loader onLoadComplete(Runnable runnable) {
             onLoadComplete = runnable;
+            return this;
         }
     }
 }

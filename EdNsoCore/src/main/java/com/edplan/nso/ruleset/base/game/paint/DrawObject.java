@@ -42,6 +42,10 @@ public abstract class DrawObject {
         }
     }
 
+    public void postDetach() {
+        postOperation(this::detach);
+    }
+
     public void detach() {
         if (node != null) {
             node.detachSelf();

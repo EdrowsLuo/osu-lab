@@ -5,25 +5,60 @@ import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.batch.BaseBatch;
 import com.edplan.framework.graphics.opengl.batch.base.IHasTexturePosition;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
-import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.graphics.opengl.shader.Attr;
 import com.edplan.framework.graphics.opengl.shader.GLProgram;
-import com.edplan.framework.graphics.opengl.shader.Unif;
 import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformSample2D;
 import com.edplan.framework.math.Mat4;
+import com.edplan.framework.utils.Lazy;
 
 import java.nio.FloatBuffer;
 
 public class Texture3DShader extends ColorShader {
     public static Texture3DShader Invalid = new InvalidTexture3DShader();
 
-    @PointerName(Unif.Texture)
+    public static final Lazy<Texture3DShader> DEFAULT;
+
+    static {
+        DEFAULT = Lazy.create(() -> new Texture3DShader(
+                GLProgram.createProgram(
+                        "" +
+                                "uniform mat4 u_MVPMatrix;\n" +
+                                "uniform mat4 u_MaskMatrix;\n" +
+                                "uniform float u_FinalAlpha;\n" +
+                                "uniform vec4 u_AccentColor;\n" +
+                                "\n" +
+                                "attribute vec3 a_TextureCoord;\n" +
+                                "attribute vec3 a_Position;\n" +
+                                "attribute vec4 a_VaryingColor;\n" +
+                                "\n" +
+                                "varying vec4 f_VaryingColor;\n" +
+                                "varying vec2 f_TextureCoord;\n" +
+                                "\n" +
+                                "void main(){\n" +
+                                "    f_TextureCoord = a_TextureCoord;\n" +
+                                "    f_VaryingColor = a_VaryingColor * u_FinalAlpha;\n" +
+                                "    gl_Position = u_MVPMatrix * vec4(a_Position, 1.0);\n" +
+                                "}",
+                        "" +
+                                "precision mediump float;\n" +
+                                "\n" +
+                                "uniform sampler2D u_Texture;\n" +
+                                "varying lowp vec4 f_VaryingColor;\n" +
+                                "varying vec2 f_TextureCoord;\n" +
+                                "\n" +
+                                "void main(){\n" +
+                                "    gl_FragColor = f_VaryingColor * texture2D(u_Texture, f_TextureCoord);\n" +
+                                "}"
+                )
+        ));
+    }
+
+    @PointerName
     public UniformSample2D uTexture;
 
-    @PointerName(Attr.Texturesition)
+    @PointerName
     @AttribType(VertexAttrib.Type.VEC2)
-    public VertexAttrib vTexturePosition;
+    public VertexAttrib aTextureCoord;
 
     protected Texture3DShader(GLProgram program) {
         super(program, true);
@@ -35,10 +70,9 @@ public class Texture3DShader extends ColorShader {
 
     @Override
     public boolean loadBatch(BaseBatch batch) {
-
         if (super.loadBatch(batch)) {
             if (batch instanceof IHasTexturePosition) {
-                loadTexturePosition(((IHasTexturePosition) batch).makeTexturePositionBuffer());
+                loadTextureCoord(((IHasTexturePosition) batch).makeTexturePositionBuffer());
                 return true;
             } else {
                 return false;
@@ -52,8 +86,8 @@ public class Texture3DShader extends ColorShader {
         uTexture.loadData(texture.getTexture());
     }
 
-    public void loadTexturePosition(FloatBuffer buffer) {
-        vTexturePosition.loadData(buffer);
+    public void loadTextureCoord(FloatBuffer buffer) {
+        aTextureCoord.loadData(buffer);
     }
 
     public static final Texture3DShader createT3S(String vs, String fs) {
@@ -103,9 +137,9 @@ public class Texture3DShader extends ColorShader {
         }
 
         @Override
-        public void loadTexturePosition(FloatBuffer buffer) {
+        public void loadTextureCoord(FloatBuffer buffer) {
 
-            //super.loadTexturePosition(buffer);
+            //super.loadTextureCoord(buffer);
         }
 
         @Override

@@ -45,7 +45,7 @@ public class ColorShader extends BaseShader {
                         "" +
                                 "precision mediump float;\n" +
                                 "\n" +
-                                "varying vec4 f_VaryingColor;\n" +
+                                "varying lowp vec4 f_VaryingColor;\n" +
                                 "\n" +
                                 "void main(){\n" +
                                 "    gl_FragColor=f_VaryingColor;\n" +

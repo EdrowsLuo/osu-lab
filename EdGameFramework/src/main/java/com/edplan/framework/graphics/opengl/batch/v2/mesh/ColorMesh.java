@@ -5,87 +5,28 @@ import com.edplan.framework.math.Vec3;
 
 import java.util.Arrays;
 
-public class ColorMesh {
+public class ColorMesh implements Mesh{
 
     MeshPart colors;
 
     MeshPart positions;
 
-    int size;
+    private int size;
 
     public ColorMesh(int size, float[] color, float[] pos) {
+        this.size = size;
         colors = new MeshPart();
         colors.data = color;
         positions = new MeshPart();
         positions.data = pos;
-        this.size = size;
+
+    }
+
+    public ColorMesh(int size) {
+        this(size, new float[size * 4], new float[size * 3]);
     }
 
     public int size() {
         return size;
-    }
-
-    public static class Builder {
-
-        float[] color;
-
-        float[] position;
-
-        int max;
-
-        int size;
-
-        public Builder(int basesize) {
-            max = basesize;
-            color = new float[max * 4];
-            position = new float[max * 3];
-        }
-
-        public Builder add(Color4 color, Vec3 pos) {
-            if (color.premultiple) {
-                add(
-                        color.r, color.g, color.b, color.a,
-                        pos.x, pos.y, pos.z
-                );
-            } else {
-                add(
-                        color.r * color.a, color.g * color.a, color.b * color.a, color.a,
-                        pos.x, pos.y, pos.z
-                );
-            }
-            return this;
-        }
-
-        public Builder add(float r, float g, float b, float a, float x, float y, float z) {
-
-            if (size >= max) {
-                max = max * 3 / 2;
-                color = Arrays.copyOf(color, max * 4);
-                position = Arrays.copyOf(position, max * 3);
-            }
-
-            int cof = size * 4;
-            int pof = size * 3;
-
-            color[cof++] = r;
-            color[cof++] = g;
-            color[cof++] = b;
-            color[cof] = a;
-
-            position[pof++] = x;
-            position[pof++] = y;
-            position[pof] = z;
-
-            size++;
-            return this;
-        }
-
-        public ColorMesh make() {
-            return new ColorMesh(size, color, position);
-        }
-
-        public ColorMesh makeMin() {
-            return new ColorMesh(size, Arrays.copyOf(color, size * 4), Arrays.copyOf(position, size * 3));
-        }
     }
 }

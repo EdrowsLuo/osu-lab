@@ -2,8 +2,6 @@ package com.edplan.framework.graphics.opengl;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.shader.advance.ColorShader;
-import com.edplan.framework.graphics.opengl.shader.advance.RectTextureShader;
-import com.edplan.framework.graphics.opengl.shader.advance.RoundedRectTextureShader;
 import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
 import com.edplan.framework.graphics.opengl.shader.compile.CompileRawStringStore;
 import com.edplan.framework.resource.AResource;
@@ -22,13 +20,7 @@ public class ShaderManager {
 
     private static ShaderManager shaderManager;
 
-    private static Texture3DShader rawTextureShader;
-
     private Texture3DShader texture3DShader;
-
-    private RectTextureShader rectShader;
-
-    private RoundedRectTextureShader roundedRectShader;
 
     private ColorShader colorShader;
 
@@ -53,8 +45,6 @@ public class ShaderManager {
 
     public void set(ShaderManager s) {
         texture3DShader = s.texture3DShader;
-        rectShader = s.rectShader;
-        roundedRectShader = s.roundedRectShader;
         colorShader = s.colorShader;
         res = s.res;
     }
@@ -67,16 +57,6 @@ public class ShaderManager {
                                 res.loadText(PATH.PATH_Texture3DShader + ".vs"),
                                 res.loadText(PATH.PATH_Texture3DShader + ".fs")
                         );
-                rectShader =
-                        RectTextureShader.createRTS(
-                                res.loadText(PATH.PATH_RectShader_VS),
-                                res.loadText(PATH.PATH_RectShader_FS)
-                        );
-                roundedRectShader =
-                        RoundedRectTextureShader.createRRTS(
-                                res.loadText(PATH.PATH_RectShader_VS),
-                                res.loadText(PATH.PATH_RoundedRectShader_FS)
-                        );
                 colorShader =
                         ColorShader.createCS(
                                 res.loadText(PATH.PATH_ColorShader + ".vs"),
@@ -88,28 +68,8 @@ public class ShaderManager {
             }
     }
 
-    public void setColorShader(ColorShader colorShader) {
-        this.colorShader = colorShader;
-    }
-
     public ColorShader getColorShader() {
         return colorShader;
-    }
-
-    public void setRectShader(RectTextureShader rectShader) {
-        this.rectShader = rectShader;
-    }
-
-    public RectTextureShader getRectShader() {
-        return rectShader;
-    }
-
-    public void setRoundedRectShader(RoundedRectTextureShader roundedRectShader) {
-        this.roundedRectShader = roundedRectShader;
-    }
-
-    public RoundedRectTextureShader getRoundedRectShader() {
-        return roundedRectShader;
     }
 
     public void setTexture3DShader(Texture3DShader texture3DShader) {
@@ -136,13 +96,6 @@ public class ShaderManager {
             }
 
             shaderManager = new ShaderManager(shaderDir);
-            try {
-                rawTextureShader = Texture3DShader.createT3S(
-                        shaderManager.res.loadText(PATH.PATH_Texture3DShader + ".vs"),
-                        shaderManager.res.loadText(PATH.PATH_RawTextureShader));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         } else {
 
         }

@@ -90,8 +90,12 @@ public class AsyncTaskContainer {
 
     public void doSomeingInUiThread(Runnable r) throws InterruptedException {
         if (hasContext()) {
-            ExpensiveTask task = new ExpensiveTask(getContext(), r);
-            task.startAndWait();
+            if (context.checkThread()) {
+                r.run();
+            } else {
+                ExpensiveTask task = new ExpensiveTask(getContext(), r);
+                task.startAndWait();
+            }
         } else {
             throw new IllegalStateException("you hadn't set a context to this task");
         }
@@ -99,12 +103,7 @@ public class AsyncTaskContainer {
 
     public final void start() {
         if (holdingThread == null) {
-            holdingThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    AsyncTaskContainer.this.run();
-                }
-            });
+            holdingThread = new Thread(() -> AsyncTaskContainer.this.run());
             holdingThread.start();
         }
     }

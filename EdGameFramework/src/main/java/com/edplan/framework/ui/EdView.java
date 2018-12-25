@@ -574,6 +574,10 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
 
     }
 
+    private void onSizeChange(float preWidth, float preHeight, float width, float height) {
+
+    }
+
     protected final boolean setFrame(float left, float top, float right, float bottom) {
         boolean hasChanged = false;
         if (leftToParent != left || topToParent != top || rightToParent != right || bottomToParent != bottom) {

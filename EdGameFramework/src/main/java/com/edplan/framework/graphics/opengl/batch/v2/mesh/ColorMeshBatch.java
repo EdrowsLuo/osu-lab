@@ -8,13 +8,13 @@ import com.edplan.framework.graphics.opengl.shader.advance.ColorShader;
 
 import java.nio.FloatBuffer;
 
-public class ColorMeshBatch extends AbstractBatch<ColorMesh> {
+public class ColorMeshBatch extends AbstractMeshBatch<ColorMesh> {
 
     private static ColorMeshBatch defaultBatch;
 
     public static ColorMeshBatch getDefaultBatch() {
         if (defaultBatch == null) {
-            defaultBatch = new ColorMeshBatch(1024 * 3);
+            defaultBatch = new ColorMeshBatch(1024);
         }
         return defaultBatch;
     }
@@ -25,60 +25,28 @@ public class ColorMeshBatch extends AbstractBatch<ColorMesh> {
 
     private FloatBuffer positionBuffer;
 
-    private int maxBatch;
-
-    private int currentSize;
-
     public ColorMeshBatch(int bufferVertexCount) {
-        maxBatch = bufferVertexCount;
+        super(bufferVertexCount);
         colorBuffer = BufferUtil.createFloatBuffer(4 * bufferVertexCount);
         positionBuffer = BufferUtil.createFloatBuffer(3 * bufferVertexCount);
     }
 
     @Override
-    protected void onBind() {
-
+    protected void appendData(ColorMesh colorMesh, int offset, int size) {
+        colorBuffer.put(colorMesh.colors.data, colorMesh.colors.offset + offset * 4, size * 4);
+        positionBuffer.put(colorMesh.positions.data, colorMesh.positions.offset + offset * 3, size * 3);
     }
 
     @Override
-    protected void onUnbind() {
-
-    }
-
-    @Override
-    public void add(ColorMesh colorMesh) {
-        if (colorMesh.size() > maxBatch) {
-            throw new IllegalArgumentException("such a big mesh (qwq)");
-        }
-
-        if (!isBind()) {
-            bind();
-        }
-
-        if (currentSize + colorMesh.size() > maxBatch) {
-            flush();
-        }
-        final int size = colorMesh.size();
-        colorBuffer.put(colorMesh.colors.data, colorMesh.colors.offset, size * 4);
-        positionBuffer.put(colorMesh.positions.data, colorMesh.positions.offset, size * 3);
-        currentSize += size;
-    }
-
-    @Override
-    protected void clearData() {
-        currentSize = 0;
+    protected void clearBuffer() {
         colorBuffer.position(0);
         colorBuffer.limit(maxBatch * 4);
         positionBuffer.position(0);
-        colorBuffer.limit(maxBatch * 3);
+        positionBuffer.limit(maxBatch * 3);
     }
 
     @Override
-    protected void applyToGL() {
-        if (currentSize == 0) {
-            return;
-        }
-
+    protected void onApplyToGL() {
         shader.useThis();
         shader.loadShaderGlobals(BatchEngine.getShaderGlobals());
 
@@ -91,5 +59,4 @@ public class ColorMeshBatch extends AbstractBatch<ColorMesh> {
         shader.loadPosition(positionBuffer);
         GLWrapped.drawArrays(GLWrapped.GL_TRIANGLES, 0, currentSize);
     }
-
 }

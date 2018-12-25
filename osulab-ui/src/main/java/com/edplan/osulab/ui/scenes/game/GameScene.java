@@ -2,18 +2,20 @@ package com.edplan.osulab.ui.scenes.game;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.graphics.opengl.objs.GLTexture;
+import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.ui.Anchor;
 import com.edplan.framework.ui.additions.popupview.defviews.RenderStatPopupView;
 import com.edplan.framework.ui.inputs.DirectMotionHandler;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
-import com.edplan.framework.utils.Ref;
 import com.edplan.nso.ruleset.base.game.World;
 import com.edplan.nso.ruleset.base.game.judge.CursorData;
+import com.edplan.nso.ruleset.base.game.judge.HitArea;
+import com.edplan.nso.ruleset.base.game.judge.HitWindow;
 import com.edplan.nso.ruleset.base.game.judge.JudgeData;
 import com.edplan.nso.ruleset.base.game.judge.JudgeObject;
+import com.edplan.nso.ruleset.base.game.judge.PositionHitObject;
 import com.edplan.nso.ruleset.base.game.paint.TextureRect;
 import com.edplan.osulab.LabGame;
 import com.edplan.osulab.ScenesName;
@@ -32,6 +34,38 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
         world.onLoadConfig(new World.WorldConfig() {{
             judgeTypes.add(CursorData.class);
         }});
+
+        AbstractTexture cust = null;
+        try {
+            cust = c.getAssetResource().loadTexture("osu/skins/default/cursor.png");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < 10; i++) {
+            final int ii = i;
+
+            TextureRect textureRect = new TextureRect(c);
+            textureRect.setTexture(cust);
+            textureRect.setQuad(RectF.anchorOWH(Anchor.Center, 200, 200, 200, 200));
+            textureRect.addAnimTask(3000 + 2000 * ii + 200,300,time -> {
+                textureRect.getSprite().setScale((float) (3 - time * 2));
+            });
+
+            PositionHitObject noteHit = new PositionHitObject() {{
+                hitWindow = HitWindow.interval(3000 + 2000 * ii + 500, 500);
+                positionChecker = HitArea.circle(200, 200, 1000);
+                onHit = (time, x, y) -> {
+                    System.out.println("hit offset " + (3000 + 2000 * ii + 500 - time));
+                    textureRect.postDetach();
+                };
+                onTimeOut = textureRect::postDetach;
+            }};
+
+            world.getPaintWorld().addDrawObject(textureRect);
+            world.getJudgeWorld().addJudgeObject(noteHit);
+        }
+
+
 
         Vec2 pos = new Vec2();
         TextureRect cus = new TextureRect(c) {
@@ -56,12 +90,12 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
         JudgeObject cst = new JudgeObject() {
             @Override
             public double getStartJudgeTime() {
-                return 3000;
+                return 2000;
             }
 
             @Override
             public double getJudgeFailedTime() {
-                return 30000;
+                return 300000;
             }
 
             @Override
@@ -74,7 +108,7 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
             }
 
             @Override
-            public boolean handle(JudgeData data, World world) {
+            public boolean handle(JudgeData data, int type, World world) {
                 CursorData cursorData = (CursorData) data;
                 CursorData.CursorHolder holder = cursorData.getCursors()[0];
                 final float x = holder.x;
@@ -90,8 +124,8 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
             }
         };
 
-        world.getJudgeWorld().addJudgeObject(cst);
-        world.getPaintWorld().addDrawObject(cus);
+        //world.getJudgeWorld().addJudgeObject(cst);
+        //world.getPaintWorld().addDrawObject(cus);
         world.load();
         world.start();
     }

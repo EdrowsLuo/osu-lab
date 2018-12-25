@@ -23,4 +23,5 @@ public class PaintWorld {
     public void draw(BaseCanvas canvas) {
         rootGroup.draw(canvas, world);
     }
+
 }

@@ -2,7 +2,7 @@ package com.edplan.nso.ruleset.base.game.judge;
 
 import com.edplan.nso.ruleset.base.game.World;
 
-public abstract class PositionHitObject extends JudgeObject {
+public class PositionHitObject extends JudgeObject {
 
     //是否是分离判定，即判定时其他点的点击是否可以被记为点击
     private boolean separateJudge = false;
@@ -13,7 +13,7 @@ public abstract class PositionHitObject extends JudgeObject {
         this.separateJudge = separateJudge;
     }
 
-    public TimeChecker timeChecker;
+    public HitWindow hitWindow;
 
     public PositionChecker positionChecker;
 
@@ -25,9 +25,6 @@ public abstract class PositionHitObject extends JudgeObject {
     public interface OnHit{
         void onHit(double time, float x, float y);
     }
-
-
-
 
     @Override
     protected void onRelease() {
@@ -46,7 +43,7 @@ public abstract class PositionHitObject extends JudgeObject {
                 if (holder.down.empty()) {
                     continue;
                 }
-                if (timeHolder == null && timeChecker.checkTime(holder.down.time)) {
+                if (timeHolder == null && hitWindow.checkTime(holder.down.time)) {
                     timeHolder = holder;
                 }
                 if (posHolder == null) {
@@ -63,11 +60,13 @@ public abstract class PositionHitObject extends JudgeObject {
                 return !cursorData.hasMoreAction();
             }
         } else {
+            //System.out.println("check");
             for (CursorData.CursorHolder holder : cursorData.getCursors()) {
                 if (holder.down.empty()) {
                     continue;
                 }
-                if (timeChecker.checkTime(holder.down.time) && positionChecker.checkPosition(holder.x, holder.y)) {
+                //System.out.println("check " + holder.down.time + " " + holder.x + " " + holder.y);
+                if (hitWindow.checkTime(holder.down.time) && positionChecker.checkPosition(holder.x, holder.y)) {
                     hit = true;
                     onHit.onHit(holder.down.time, holder.x, holder.y);
                     releaseObject();
@@ -77,6 +76,16 @@ public abstract class PositionHitObject extends JudgeObject {
             }
         }
         return false;
+    }
+
+    @Override
+    public double getJudgeFailedTime() {
+        return hitWindow.getEnd();
+    }
+
+    @Override
+    public double getStartJudgeTime() {
+        return hitWindow.getStart();
     }
 
     @Override

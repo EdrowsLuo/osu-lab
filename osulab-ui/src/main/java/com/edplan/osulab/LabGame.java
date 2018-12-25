@@ -16,6 +16,7 @@ import com.edplan.osulab.ui.opening.MainCircleView;
 import com.edplan.osulab.ui.pieces.BackButton;
 import com.edplan.osulab.ui.pieces.JumpingCircle;
 import com.edplan.osulab.ui.popup.PopupButtonGroup;
+import com.edplan.osulab.ui.popup.PopupToast;
 import com.edplan.osulab.ui.scenes.SceneSelectButtonBar;
 import com.edplan.osulab.ui.scenes.Scenes;
 import com.edplan.osulab.ui.toolbar.Toolbar;
@@ -149,18 +150,8 @@ public class LabGame {
 
     private void initialNsoCore(MContext c) {
         nsoCore = new NsoCore(c, null);
-        nsoCore.load(null).onLoadComplete(()->{
-            /*BeatmapDecoder beatmapDecoder = nsoCore.getBeatmapDecoder();
-            try {
-                for(int i = 0; i < 100;i++) {
-                    long time = System.currentTimeMillis();
-                    beatmapDecoder.decode(new FileInputStream("/storage/emulated/0/osu!droid/Songs/789544 Andromedik - Invasion/Andromedik - Invasion (Mirash) [Collab Extra].osu"), null);
-                    System.out.println((System.currentTimeMillis() - time) + "ms");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }*/
-        });
+        nsoCore.load(null).onLoadComplete(()->
+                c.runOnUIThread(() -> PopupToast.toast(c, "ruleset loaded").show()));
 
     }
 

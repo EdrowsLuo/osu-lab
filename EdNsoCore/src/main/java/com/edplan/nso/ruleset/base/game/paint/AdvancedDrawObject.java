@@ -22,6 +22,11 @@ public abstract class AdvancedDrawObject extends DrawObject {
         getIntervalSchedule().addTask(start, end, updateable);
     }
 
+    @NotThreadSafe
+    public void addAnimTask(double start, double duration, TimeUpdateable anim) {
+        addIntervalTask(start, start + duration, time -> anim.update((time - start) / duration));
+    }
+
     @Override
     public void draw(BaseCanvas canvas, World world) {
         handleOperations();

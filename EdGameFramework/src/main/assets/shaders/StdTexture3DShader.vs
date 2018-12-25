@@ -4,7 +4,7 @@ uniform float u_FinalAlpha;
 uniform vec4 u_AccentColor;
 
 attribute vec3 a_Position;
-attribute highp vec2 a_TexturePosition;
+attribute highp vec2 a_TextureCoord;
 attribute vec4 a_VaryingColor;
 
 varying vec3 f_Position;
@@ -15,7 +15,7 @@ varying vec3 f_MaskPosition;
 void main(){
 	f_Position=a_Position;
 	f_MaskPosition=(u_MaskMatrix*vec4(a_Position,1.0)).xyz;
-	f_TexturePosition=a_TexturePosition;
+	f_TexturePosition=a_TextureCoord;
 	f_VaryingColor=a_VaryingColor*u_FinalAlpha*u_AccentColor;
 	gl_Position=u_MVPMatrix*vec4(a_Position,1.0);
 }

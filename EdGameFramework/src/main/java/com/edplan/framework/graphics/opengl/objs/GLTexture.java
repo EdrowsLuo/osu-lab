@@ -218,6 +218,7 @@ public class GLTexture extends AbstractTexture {
     }
 
     public static GLTexture createNotChecked(Bitmap bmp, int w, int h) {
+
         GLTexture tex = new GLTexture();
         tex.textureId = createTexture();
         //Log.v("texture","create Texture: "+tex.textureId);
@@ -267,7 +268,7 @@ public class GLTexture extends AbstractTexture {
     }
 
     public static GLTexture create(Bitmap bmp) {
-        GLTexture tex;
+
         int w = 1;
         int h = 1;
         while (w < bmp.getWidth()) w *= 2;
@@ -277,6 +278,7 @@ public class GLTexture extends AbstractTexture {
         h = bmp.getHeight();
         Bitmap nb = Bitmap.createBitmap(w, h, poor_font_mode ? Bitmap.Config.ALPHA_8 : Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(nb);
+        GLTexture tex;
         c.drawColor(0x00000000);
         Paint p = new Paint();
         p.setAntiAlias(false);
