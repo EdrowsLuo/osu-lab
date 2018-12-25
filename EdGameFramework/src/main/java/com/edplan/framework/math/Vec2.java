@@ -32,199 +32,12 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
         this(v, v);
     }
 
-    public void put2buffer(FloatBuffer b) {
-        b.put(x).put(y);
-    }
-
-    public void put2bufferAsVec3(FloatBuffer b) {
-        b.put(x).put(y).put(0);
-    }
-
-
-    public void set(float x, float y) {
-        this.x = x;
-        this.y = y;
-    }
-
-
-    @Override
-    public float getX() {
-
-        return x;
-    }
-
-    @Override
-    public float getY() {
-
-        return y;
-    }
-
-    @Override
-    public void setX(float v) {
-
-        x = v;
-    }
-
-    @Override
-    public void setY(float v) {
-
-        y = v;
-    }
-
-    public void set(Vec2 v) {
-        set(v.x, v.y);
-    }
-
-    public Vec2 add(float a) {
-        return add(a, a);
-    }
-
-    public Vec2 add(Vec2 v) {
-        return add(v.x, v.y);
-    }
-
-    public Vec2 add(float ax, float ay) {
-        this.x += ax;
-        this.y += ay;
-        return this;
-    }
-
-    public Vec2 minus(Vec2 v) {
-        return minus(v.x, v.y);
-    }
-
-    public Vec2 minus(float dx, float dy) {
-        this.x -= dx;
-        this.y -= dy;
-        return this;
-    }
-
-    public Vec2 move(float offsetX, float offsetY) {
-        x += offsetX;
-        y += offsetY;
-
-        return this;
-    }
-
-    public Vec2 divide(float dx, float dy) {
-        this.x /= dx;
-        this.y /= dy;
-        return this;
-    }
-
-    public Vec2 multiple(Vec2 v) {
-        x *= v.x;
-        y *= v.y;
-        return this;
-    }
-
-    public Vec2 divide(float d) {
-        return divide(d, d);
-    }
-
-    public Vec2 zoom(float zt) {
-        return zoom(0, 0, zt, zt);
-    }
-
-    public Vec2 zoom(float ox, float oy, float zoomTimesX, float zoomTimesY) {
-        this.x = zoomTimesX * (x - ox) + ox;
-        this.y = zoomTimesY * (y - oy) + oy;
-        return this;
-    }
-
-    public Vec2 zoom(Vec2 o, float zoomTimesX, float zoomTimesY) {
-        return zoom(o.x, o.y, zoomTimesX, zoomTimesY);
-    }
-
-    public Vec2 rotate(float r) {
-        float c = FMath.cos(r);
-        float s = FMath.sin(r);
-        float tmpX = x;
-        x = x * c - y * s;
-        y = y * c + tmpX * s;
-        return this;
-    }
-
-    //顺时针，弧度
-    public Vec2 rotate(Vec2 o, float r) {
-        return rotate(o.x, o.y, r);
-    }
-
-    public Vec2 rotate(float ox, float oy, float s, float c) {
-        final float xr = x - ox;
-        final float yr = y - oy;
-        x = ox + xr * c - yr * s;
-        y = oy + yr * c + xr * s;
-        return this;
-    }
-
-    public Vec2 rotate(float ox, float oy, float r) {
-        final float c = FMath.cos(r);
-        final float s = FMath.sin(r);
-        final float xr = x - ox;
-        final float yr = y - oy;
-        x = ox + xr * c - yr * s;
-        y = oy + yr * c + xr * s;
-        return this;
-    }
-
-
-    public Vec2 postMatrix(Mat2 m) {
-        final float tmpX = x;
-        x = x * m.get(0, 0) + y * m.get(1, 0);
-        y = tmpX * m.get(1, 0) + y * m.get(1, 1);
-        return this;
-    }
-
-    public Vec2 toNormal() {
-        return divide(length());
-    }
-
-    public Vec2 toOrthogonalDirectionNormal() {
-        return toNormal().rotate(FMath.PiHalf);
-    }
-
-    public float dot(Vec2 v) {
-        return this.x * v.x + this.y * v.y;
-    }
-
-    public float length() {
-        return length(x, y);
-    }
-
-    public float lengthSquared() {
-        return lengthSquared(x, y);
-    }
-
-    public float theta() {
-        return FMath.atan2(y, x);
-    }
-
-    //public float thetaX(){
-    //	return -theta();
-    //}
-
-    public Vec2 copy() {
-        return new Vec2(this);
-    }
-
-    @Override
-    public ValueInterpolator<Vec2> getInterpolator() {
-
-        return Vec2Interpolator.Instance;
-    }
-
-    public Vec3 toVec3(float z) {
-        return new Vec3(this, z);
-    }
-
     public static void rotate(final IVec2 v, final float ox, final float oy, final float s, final float c) {
         final float x = v.getX() - ox;
         final float y = v.getY() - oy;
         v.setX(x * c - y * s + ox);
         v.setY(y * c + x * s + oy);
     }
-
 
     public static void rotate(IVec2 v, float ox, float oy, float r) {
         float c = FMath.cos(r);
@@ -287,6 +100,194 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
 
     public static float calTheta(Vec2 start, Vec2 end) {
         return FMath.atan2(end.y - start.y, end.x - start.x);
+    }
+
+    public void put2buffer(FloatBuffer b) {
+        b.put(x).put(y);
+    }
+
+    public void put2bufferAsVec3(FloatBuffer b) {
+        b.put(x).put(y).put(0);
+    }
+
+    @Override
+    public float getX() {
+
+        return x;
+    }
+
+    @Override
+    public void setX(float v) {
+
+        x = v;
+    }
+
+    @Override
+    public float getY() {
+
+        return y;
+    }
+
+    @Override
+    public void setY(float v) {
+
+        y = v;
+    }
+
+    public void set(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void set(Vec2 v) {
+        set(v.x, v.y);
+    }
+
+    public Vec2 add(float a) {
+        return add(a, a);
+    }
+
+    public Vec2 add(Vec2 v) {
+        return add(v.x, v.y);
+    }
+
+    public Vec2 add(float ax, float ay) {
+        this.x += ax;
+        this.y += ay;
+        return this;
+    }
+
+    public Vec2 minus(Vec2 v) {
+        return minus(v.x, v.y);
+    }
+
+    public Vec2 minus(float dx, float dy) {
+        this.x -= dx;
+        this.y -= dy;
+        return this;
+    }
+
+    public Vec2 move(float offsetX, float offsetY) {
+        x += offsetX;
+        y += offsetY;
+
+        return this;
+    }
+
+    public Vec2 divide(float dx, float dy) {
+        this.x /= dx;
+        this.y /= dy;
+        return this;
+    }
+
+    public Vec2 multiple(Vec2 v) {
+        x *= v.x;
+        y *= v.y;
+        return this;
+    }
+
+    //public float thetaX(){
+    //	return -theta();
+    //}
+
+    public Vec2 divide(float d) {
+        return divide(d, d);
+    }
+
+    public Vec2 zoom(float zt) {
+        return zoom(0, 0, zt, zt);
+    }
+
+    public Vec2 zoom(float ox, float oy, float zoomTimesX, float zoomTimesY) {
+        this.x = zoomTimesX * (x - ox) + ox;
+        this.y = zoomTimesY * (y - oy) + oy;
+        return this;
+    }
+
+    public Vec2 zoom(Vec2 o, float zoomTimesX, float zoomTimesY) {
+        return zoom(o.x, o.y, zoomTimesX, zoomTimesY);
+    }
+
+    public Vec2 rotate(float r) {
+        float c = FMath.cos(r);
+        float s = FMath.sin(r);
+        float tmpX = x;
+        x = x * c - y * s;
+        y = y * c + tmpX * s;
+        return this;
+    }
+
+    //顺时针，弧度
+    public Vec2 rotate(Vec2 o, float r) {
+        return rotate(o.x, o.y, r);
+    }
+
+    public Vec2 rotate(float ox, float oy, float s, float c) {
+        final float xr = x - ox;
+        final float yr = y - oy;
+        x = ox + xr * c - yr * s;
+        y = oy + yr * c + xr * s;
+        return this;
+    }
+
+    public Vec2 rotate(float ox, float oy, float r) {
+        final float c = FMath.cos(r);
+        final float s = FMath.sin(r);
+        final float xr = x - ox;
+        final float yr = y - oy;
+        x = ox + xr * c - yr * s;
+        y = oy + yr * c + xr * s;
+        return this;
+    }
+
+    public Vec2 postMatrix(Mat2 m) {
+        final float tmpX = x;
+        x = x * m.get(0, 0) + y * m.get(1, 0);
+        y = tmpX * m.get(1, 0) + y * m.get(1, 1);
+        return this;
+    }
+
+    public Vec2 toNormal() {
+        return divide(length());
+    }
+
+    public Vec2 toOrthogonalDirectionNormal() {
+        return toNormal().rotate(FMath.PiHalf);
+    }
+
+    public float dot(Vec2 v) {
+        return this.x * v.x + this.y * v.y;
+    }
+
+    public float length() {
+        return length(x, y);
+    }
+
+    public float lengthSquared() {
+        return lengthSquared(x, y);
+    }
+
+    public float theta() {
+        return FMath.atan2(y, x);
+    }
+
+    public Vec2 copy() {
+        return new Vec2(this);
+    }
+
+    @Override
+    public ValueInterpolator<Vec2> getInterpolator() {
+
+        return Vec2Interpolator.Instance;
+    }
+
+    public Vec3 toVec3(float z) {
+        return new Vec3(this, z);
+    }
+
+    @Override
+    public int hashCode() {
+        return Float.floatToIntBits(x) + Float.floatToIntBits(y);
     }
 
     @Override
