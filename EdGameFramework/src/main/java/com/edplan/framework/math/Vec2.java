@@ -32,27 +32,6 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
         this(v, v);
     }
 
-    public static void rotate(final IVec2 v, final float ox, final float oy, final float s, final float c) {
-        final float x = v.getX() - ox;
-        final float y = v.getY() - oy;
-        v.setX(x * c - y * s + ox);
-        v.setY(y * c + x * s + oy);
-    }
-
-    public static void rotate(IVec2 v, float ox, float oy, float r) {
-        float c = FMath.cos(r);
-        float s = FMath.sin(r);
-        float x = v.getX() - ox;
-        float y = v.getY() - oy;
-        v.setX(x * c - y * s + ox);
-        v.setY(y * c + x * s + oy);
-    }
-
-    public static void zoom(IVec2 v, float ox, float oy, float zoomTimesX, float zoomTimesY) {
-        v.setX(zoomTimesX * (v.getX() - ox) + ox);
-        v.setY(zoomTimesY * (v.getY() - oy) + oy);
-    }
-
     public static float sizeOfTriangle(Vec2 v1, Vec2 v2, Vec2 v3) {
         return (v1.x * v2.y + v2.x * v3.y + v3.x * v1.y - v1.x * v3.y - v2.x * v1.y - v3.x * v2.y) / 2;
     }
@@ -84,14 +63,6 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
 
     public static float lengthSquared(Vec2 v1, Vec2 v2) {
         return lengthSquared(v1.x - v2.x, v1.y - v2.y);
-    }
-
-    public static float length(float x, float y) {
-        return (float) Math.sqrt(lengthSquared(x, y));
-    }
-
-    public static float length(Vec2 p1, Vec2 p2) {
-        return length(p1.x - p2.x, p1.y - p2.y);
     }
 
     public static Vec2 atCircle(float ang) {
@@ -180,18 +151,14 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
         return this;
     }
 
+    public Vec2 divide(float d) {
+        return divide(d, d);
+    }
+
     public Vec2 multiple(Vec2 v) {
         x *= v.x;
         y *= v.y;
         return this;
-    }
-
-    //public float thetaX(){
-    //	return -theta();
-    //}
-
-    public Vec2 divide(float d) {
-        return divide(d, d);
     }
 
     public Vec2 zoom(float zt) {
@@ -206,6 +173,11 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
 
     public Vec2 zoom(Vec2 o, float zoomTimesX, float zoomTimesY) {
         return zoom(o.x, o.y, zoomTimesX, zoomTimesY);
+    }
+
+    public static void zoom(IVec2 v, float ox, float oy, float zoomTimesX, float zoomTimesY) {
+        v.setX(zoomTimesX * (v.getX() - ox) + ox);
+        v.setY(zoomTimesY * (v.getY() - oy) + oy);
     }
 
     public Vec2 rotate(float r) {
@@ -240,6 +212,22 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
         return this;
     }
 
+    public static void rotate(final IVec2 v, final float ox, final float oy, final float s, final float c) {
+        final float x = v.getX() - ox;
+        final float y = v.getY() - oy;
+        v.setX(x * c - y * s + ox);
+        v.setY(y * c + x * s + oy);
+    }
+
+    public static void rotate(IVec2 v, float ox, float oy, float r) {
+        float c = FMath.cos(r);
+        float s = FMath.sin(r);
+        float x = v.getX() - ox;
+        float y = v.getY() - oy;
+        v.setX(x * c - y * s + ox);
+        v.setY(y * c + x * s + oy);
+    }
+
     public Vec2 postMatrix(Mat2 m) {
         final float tmpX = x;
         x = x * m.get(0, 0) + y * m.get(1, 0);
@@ -261,6 +249,14 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
 
     public float length() {
         return length(x, y);
+    }
+
+    public static float length(float x, float y) {
+        return (float) Math.sqrt(lengthSquared(x, y));
+    }
+
+    public static float length(Vec2 p1, Vec2 p2) {
+        return length(p1.x - p2.x, p1.y - p2.y);
     }
 
     public float lengthSquared() {
