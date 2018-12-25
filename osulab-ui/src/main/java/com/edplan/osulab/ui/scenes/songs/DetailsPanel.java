@@ -10,20 +10,18 @@ import com.edplan.framework.ui.animation.Easing;
 import com.edplan.framework.ui.animation.FloatQueryAnimation;
 import com.edplan.framework.ui.layout.Gravity;
 import com.edplan.framework.ui.layout.Param;
-import com.edplan.framework.ui.widget.RelativeContainer;
 import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.widget.component.Hideable;
 import com.edplan.osulab.LabGame;
 import com.edplan.osulab.ScenesName;
 import com.edplan.osulab.ui.pieces.TextButton;
-import com.edplan.osulab.ui.scenes.Scenes;
 
 public class DetailsPanel extends RelativeLayout implements Hideable {
     public static float WIDTH_DP = 350;
 
     public DetailsPanel(MContext c) {
         super(c);
-        setBackground(Color4.rgba(0, 0, 0, 0.2f));
+        setBackgroundColor(Color4.rgba(0, 0, 0, 0.2f));
 
 
         addAll(

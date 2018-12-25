@@ -23,7 +23,6 @@ import com.edplan.framework.ui.widget.LinearLayout;
 import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.widget.component.Hideable;
 import com.edplan.osulab.LabGame;
-import com.edplan.osulab.ui.OptionList;
 import com.edplan.osulab.ui.pieces.SongPanel;
 
 public class Toolbar extends RelativeLayout implements Hideable {
@@ -59,7 +58,7 @@ public class Toolbar extends RelativeLayout implements Hideable {
         super(c);
         shadow = new ToolbarShadow(c);
         setClickable(true);
-        setBackground(Color4.rgba(0, 0, 0, 0.5f));
+        setBackgroundColor(Color4.rgba(0, 0, 0, 0.5f));
         shadowSprite = new ColorRectSprite(c);
         float gr = 0f;
 
@@ -139,7 +138,7 @@ public class Toolbar extends RelativeLayout implements Hideable {
 
     private EdView divider() {
         return new EdView(getContext()){{
-            setBackground(dividerColor);
+            setBackgroundColor(dividerColor);
             layoutParam(
                     new MarginLayoutParam(){{
                         width = Param.makeUpDP(2f);

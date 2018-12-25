@@ -361,21 +361,21 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
         return parent != null ? parent.get() : null;
     }
 
-    public void setBackground(Color4 c) {
+    public void setBackgroundColor(Color4 c) {
         ColorDrawable cd = new ColorDrawable(getContext());
         cd.setColor(c);
-        setBackground(cd);
+        setBackgroundColor(cd);
+    }
+
+    public void setBackgroundColor(EdDrawable background) {
+        this.background = background;
     }
 
     public void setBackgroundRoundedRect(Color4 c, float radius) {
         RoundedRectDrawable rd = new RoundedRectDrawable(getContext());
         rd.setColor(c);
         rd.setRadius(radius);
-        setBackground(rd);
-    }
-
-    public void setBackground(EdDrawable background) {
-        this.background = background;
+        setBackgroundColor(rd);
     }
 
     public EdDrawable getBackground() {
@@ -545,6 +545,8 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
             case EdMeasureSpec.MODE_AT_MOST:
                 r = EdMeasureSpec.getSize(spec);
                 break;
+            default:
+                throw new IllegalArgumentException();
         }
         return r;
     }
@@ -621,6 +623,7 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
                 case Cancel:
                     clickChecker.cancel();
                     return EVENT_FLAG_CANCELED;
+                default:break;
             }
             return EVENT_FLAG_PASS;
         } else {

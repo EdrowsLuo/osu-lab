@@ -61,7 +61,7 @@ public class SongsListView extends EdAbstractViewGroup implements Hideable {
             RoundedRectDrawable bg = new RoundedRectDrawable(c);
             bg.setColor(Color4.rgba(0, 0, 0, 0.5f));
             bg.setRadius(ViewConfiguration.dp(10));
-            view.setBackground(bg);
+            view.setBackgroundColor(bg);
 
             p.width = Param.makeUpDP(WIDTH_DP);
             p.height = Param.makeUpDP(WIDTH_DP * 0.15f);

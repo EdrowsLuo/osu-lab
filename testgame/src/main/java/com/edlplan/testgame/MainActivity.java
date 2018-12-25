@@ -1,7 +1,6 @@
 package com.edlplan.testgame;
 
 import android.annotation.SuppressLint;
-import android.os.SystemClock;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
@@ -27,7 +26,7 @@ public class MainActivity extends EdMainActivity {
 
         public TestView(MContext context) {
             super(context);
-            setBackground(Color4.gray(0.1f));
+            setBackgroundColor(Color4.gray(0.1f));
             {
                 snakeView = new SnakeView(context);
                 RelativeParam param = new RelativeParam();

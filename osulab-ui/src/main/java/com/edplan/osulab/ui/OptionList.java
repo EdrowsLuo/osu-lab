@@ -4,7 +4,6 @@ import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.math.RectF;
-import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.ViewConfiguration;
 import com.edplan.framework.ui.animation.ComplexAnimation;
 import com.edplan.framework.ui.animation.ComplexAnimationBuilder;
@@ -38,7 +37,7 @@ public class OptionList extends ScrollLayout implements Hideable {
         super(c);
         setOutsideTouchable(true);
         setChildoffset(ViewConfiguration.dp(1));
-        setBackground(Color4.rgba(0, 0, 0, 0.8f));
+        setBackgroundColor(Color4.rgba(0, 0, 0, 0.8f));
         setOrientation(Orientation.DIRECTION_T2B);
         setPaddingLeft(ViewConfiguration.dp(15));
         setPaddingRight(ViewConfiguration.dp(10));

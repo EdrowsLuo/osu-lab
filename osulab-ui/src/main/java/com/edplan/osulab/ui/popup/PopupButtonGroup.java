@@ -30,7 +30,7 @@ public class PopupButtonGroup extends PopupView {
         super(c);
         setOutsideTouchable(true);
         setClickable(true);
-        setBackground(Color4.rgba(0, 0, 0, 0.7f));
+        setBackgroundColor(Color4.rgba(0, 0, 0, 0.7f));
 
         setLayoutParam(
                 new RelativeLayout.RelativeParam() {{

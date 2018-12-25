@@ -26,7 +26,7 @@ public class RoundedButton extends RelativeContainer{
     public RoundedButton(MContext c) {
         super(c);
         setClickable(true);
-        setBackground(accentColor);
+        setBackgroundColor(accentColor);
         poster = new EdBufferedContainer.RoundedLayerPoster(c);
         poster.setAnchor(Anchor.Center);
         poster.setRoundedRadius(ViewConfiguration.dp(4));

@@ -15,7 +15,7 @@ public class BottomBar extends RelativeLayout implements Hideable {
 
     public BottomBar(MContext c) {
         super(c);
-        setBackground(Color4.rgba(0, 0, 0, 0.6f));
+        setBackgroundColor(Color4.rgba(0, 0, 0, 0.6f));
     }
 
 

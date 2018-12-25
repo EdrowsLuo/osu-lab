@@ -20,9 +20,7 @@ import com.edplan.framework.ui.layout.MarginLayoutParam;
 import com.edplan.framework.ui.layout.Orientation;
 import com.edplan.framework.ui.layout.Param;
 import com.edplan.framework.ui.widget.LinearLayout;
-import com.edplan.framework.ui.widget.RelativeContainer;
 import com.edplan.framework.ui.widget.RelativeLayout;
-import com.edplan.framework.ui.widget.RelativeLayout.RelativeParam;
 import com.edplan.framework.ui.widget.component.Hideable;
 import com.edplan.osulab.LabGame;
 import com.edplan.osulab.ui.UiConfig;
@@ -77,7 +75,7 @@ public class SceneSelectButtonBar extends RelativeLayout implements Hideable, Ba
                 Color4.rgba(0, 0, 0, 0),
                 Color4.rgba(0, 0, 0, 0));
 
-        setBackground(UiConfig.Color.BLUE_DEEP_DARK.copyNew().setAlpha(0.9f));
+        setBackgroundColor(UiConfig.Color.BLUE_DEEP_DARK.copyNew().setAlpha(0.9f));
 
 
         addAll(

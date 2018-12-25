@@ -8,11 +8,9 @@ import com.edplan.framework.ui.animation.ComplexAnimation;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.ui.widget.TextView;
 import com.edplan.framework.ui.ViewConfiguration;
-import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.layout.Param;
 import com.edplan.framework.ui.layout.Gravity;
 import com.edplan.framework.ui.text.font.bmfont.BMFont;
-import com.edplan.osulab.ScenesName;
 import com.edplan.osulab.LabGame;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.Anchor;
@@ -25,7 +23,7 @@ public class WorkingScene extends BaseScene {
 
     public WorkingScene(MContext c) {
         super(c);
-        setBackground(Color4.gray(0.2f).setAlpha(0.5f));
+        setBackgroundColor(Color4.gray(0.2f).setAlpha(0.5f));
 
         addAll(
                 new TextView(c) {{

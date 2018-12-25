@@ -20,7 +20,7 @@ public class LabTextCheckBox extends RelativeLayout {
         ColorDrawable bg = new ColorDrawable(c);
         bg.setColor(Color4.rgba(1f, 1f, 1f, 0.1f), Color4.rgba(1f, 1f, 1f, 0.1f),
                 Color4.rgba(1f, 1f, 1f, 0.1f), Color4.rgba(1f, 1f, 1f, 0.1f));
-        setBackground(bg);
+        setBackgroundColor(bg);
         setPadding(ViewConfiguration.dp(2));
         setClickable(true);
 
