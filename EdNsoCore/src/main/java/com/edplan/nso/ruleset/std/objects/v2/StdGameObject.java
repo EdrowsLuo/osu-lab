@@ -41,8 +41,6 @@ public abstract class StdGameObject extends StdFormatGameObject {
         return DifficultyUtil.stdHitObjectTimeFadein(beatmap.getDifficulty().getApproachRate());
     }
 
-
-
     protected static StdPath parsePath(Vec2 startPoint, StringSplitter spl) throws ParseException {
         try {
             StdPath p = new StdPath();
