@@ -47,7 +47,7 @@ public class MainBackground extends RelativeLayout {
         if (testTexture != null) {
             canvas.getBlendSetting().save();
             canvas.getBlendSetting().setEnable(false);
-            textureSprite.setAlpha(0.5f);
+            textureSprite.setAlpha(0.4f);
             textureSprite.setTexture(testTexture);
             textureSprite.setAreaFillTexture(RectF.xywh(0, 0, canvas.getWidth(), canvas.getHeight()));
             textureSprite.draw(canvas);

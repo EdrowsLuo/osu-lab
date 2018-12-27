@@ -129,14 +129,18 @@ public class World implements RawInputHandler {
     public void pause() {
         paintClock.pause();
         judgeClock.pause();
-        channel.pause();
+        if (channel != null) {
+            channel.pause();
+        }
         gameState = State.PAUSE;
     }
 
     public void resume() {
         paintClock.run();
         judgeClock.run();
-        channel.play();
+        if (channel != null) {
+            channel.play();
+        }
         gameState = State.PLAYING;
     }
 
@@ -148,14 +152,18 @@ public class World implements RawInputHandler {
         judgeThread.start();
         paintClock.start();
         judgeClock.start();
-        channel.play();
+        if (channel != null) {
+            channel.play();
+        }
         gameState = State.PLAYING;
     }
 
     public void stop() {
         paintClock.pause();
         judgeClock.pause();
-        channel.stop();
+        if (channel != null) {
+            channel.stop();
+        }
         gameState = State.STOP;
     }
 
@@ -226,6 +234,13 @@ public class World implements RawInputHandler {
         private void runJudge() {
             if (judgeClock.isRunninng()) {
                 judgeClock.update();
+                if (channel != null) {
+                    double t = channel.currentPlayTimeMS();
+                    if (Math.abs(judgeClock.getFrameTime() - t) > 5) {
+                        judgeClock.offset(t - judgeClock.getFrameTime());
+                    }
+                }
+
                 judgeWorld.update(World.this);
             }
         }

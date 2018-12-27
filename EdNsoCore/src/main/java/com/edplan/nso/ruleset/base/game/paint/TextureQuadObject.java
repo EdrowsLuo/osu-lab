@@ -14,7 +14,7 @@ public class TextureQuadObject extends AdvancedDrawObject{
 
     public TextureQuad sprite;
 
-    public TextureQuadObject(MContext context) {
+    public TextureQuadObject() {
         sprite = new TextureQuad();
     }
 

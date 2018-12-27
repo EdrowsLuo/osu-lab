@@ -16,6 +16,13 @@ public abstract class StdGameObject extends StdFormatGameObject {
 
     public static final float APPROACH_CIRCLE_END_SCALE = 1.1f;
 
+    public static final float BASE_OBJECT_SIZE = 128;
+
+    public enum HitLevel {
+        H300,
+        MISS
+    }
+
     public boolean isNewCombo() {
         return (getType() & NEW_COMBO_MASK) > 0;
     }

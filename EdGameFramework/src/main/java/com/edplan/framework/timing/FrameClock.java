@@ -15,6 +15,10 @@ public class FrameClock {
 
     private boolean running = false;
 
+    public void offset(double o) {
+        frameTime += o;
+    }
+
     public void start() {
         if (startTime == -1) {
             startTime = Framework.frameworkTime();

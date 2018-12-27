@@ -38,7 +38,7 @@ public class StdWorldLoader extends WorldLoader {
         if (description.cachedBeatmap == null || !(description.cachedBeatmap instanceof StdBeatmap)) {
             try {
                 BeatmapDecoder decoder = getCore().getBeatmapDecoder();
-                decoder.decode(new FileInputStream(description.filePath), null);
+                decoder.decode(description.openBeatmapStream(), null);
                 BeatmapDecoder.Result result = decoder.getResult();
                 if (result.isSuccess()) {
                     if (result.getBeatmap() instanceof StdBeatmap) {
@@ -57,7 +57,7 @@ public class StdWorldLoader extends WorldLoader {
             beatmap = (StdBeatmap) description.cachedBeatmap;
         }
 
-        return (new StdGameField(getCore())).load(beatmap, new DirResource(new File(description.filePath).getParentFile()), config);
+        return (new StdGameField(getCore())).load(beatmap, description.openDirRes(), config);
     }
 
 }

@@ -35,15 +35,16 @@ public class CirclePiece extends BasePiece {
 
     @Override
     public void expire(double time) {
+        super.expire(time);
         scale.set(1);
         alpha.value = 1;
 
-        addAnimTask(time, 400, time1 -> scale.set(
+        addAnimTask(time, 200, time1 -> scale.set(
                 FMath.linear(
                         (float) EasingManager.apply(Easing.OutQuad, time1),
                         1, 1.5f)));
-        addAnimTask(time, 800, time1 -> alpha.value = (float) (1 - time1));
-        addTask(time + 800, this::detach);
+        addAnimTask(time, 400, time1 -> alpha.value = (float) (1 - time1));
+        addTask(time + 400, this::detach);
     }
 
     public void initialFadeInAnim(double start, double duration) {

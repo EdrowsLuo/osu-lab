@@ -1,6 +1,7 @@
 package com.edplan.nso.ruleset.std.game;
 
 import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.math.FMath;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.media.bass.BassChannel;
 import com.edplan.framework.resource.AResource;
@@ -11,6 +12,12 @@ import com.edplan.nso.difficulty.DifficultyUtil;
 import com.edplan.nso.ruleset.base.game.GameObject;
 import com.edplan.nso.ruleset.base.game.World;
 import com.edplan.nso.ruleset.base.game.judge.CursorData;
+import com.edplan.nso.ruleset.base.game.judge.CursorTestObject;
+import com.edplan.nso.ruleset.base.game.judge.HitArea;
+import com.edplan.nso.ruleset.base.game.judge.HitWindow;
+import com.edplan.nso.ruleset.base.game.judge.JudgeData;
+import com.edplan.nso.ruleset.base.game.judge.JudgeWorld;
+import com.edplan.nso.ruleset.base.game.judge.PositionHitObject;
 import com.edplan.nso.ruleset.base.game.paint.GroupDrawObjectWithSchedule;
 import com.edplan.nso.ruleset.base.game.paint.TextureQuadObject;
 import com.edplan.nso.ruleset.std.StdRuleset;
@@ -19,6 +26,7 @@ import com.edplan.nso.ruleset.std.beatmap.StdBeatmap;
 import com.edplan.nso.ruleset.std.game.drawables.ApproachCircle;
 import com.edplan.nso.ruleset.std.game.drawables.CirclePiece;
 import com.edplan.nso.ruleset.std.objects.v2.StdCircle;
+import com.edplan.nso.ruleset.std.objects.v2.StdGameObject;
 
 import org.json.JSONObject;
 
@@ -56,7 +64,10 @@ public class StdGameField extends NsoCoreBased{
                     .minus(StdGameField.BASE_X * 0.5f / scale, StdGameField.BASE_Y * 0.5f / scale);
 
             world.setOnDrawStart(canvas -> canvas.translate(startOffset.x, startOffset.y).expendAxis(scale).translate(PADDING_X, PADDING_Y));
-            world.setMotionEventDec(event -> event.eventPosition.minus(startOffset).zoom(scale));
+            world.setMotionEventDec(event -> {
+                event.eventPosition.minus(startOffset).zoom(scale).minus(PADDING_X, PADDING_Y);
+                event.time += 50;
+            });
         });
 
         world.getPaintWorld().addDrawObjects(
@@ -77,11 +88,19 @@ public class StdGameField extends NsoCoreBased{
         }
 
         StdRuleset ruleset = (StdRuleset) getCore().getRulesetById(StdRuleset.ID_NAME);
+        JudgeWorld judgeWorld = world.getJudgeWorld();
         Skin skin = ruleset.getStdSkin();
+        DifficultyUtil.DifficultyHelper difficultyHelper = DifficultyUtil.DifficultyHelper.StdDifficulty;
 
         List<GameObject> gameObjects = beatmap.getAllHitObjects();
         final int size = gameObjects.size();
-        final float scale = DifficultyUtil.stdCircleSizeScale(beatmap.getDifficulty().getCircleSize());
+        final float scale = DifficultyUtil.stdCircleSizeScale(beatmap.getDifficulty().getCircleSize()) * 1.3f;
+
+
+
+        CursorTestObject cursorTestObject = new CursorTestObject();
+        judgeWorld.addJudgeObject(cursorTestObject);
+
         for (int i = 0; i < size; i++) {
             GameObject object = gameObjects.get(i);
             if (object instanceof StdCircle) {
@@ -110,7 +129,7 @@ public class StdGameField extends NsoCoreBased{
                 approachCircle.initialApproachAnim(
                         stdCircle.getTime() - stdCircle.getTimePreempt(beatmap),
                         stdCircle.getTimePreempt(beatmap),
-                        stdCircle.getFadeInDuration(beatmap));
+                        stdCircle.getTimePreempt(beatmap));
                 approachCircle.position.set(stdCircle.getX(), stdCircle.getY());
 
                 hitobjectLayer.addEvent(
@@ -119,14 +138,83 @@ public class StdGameField extends NsoCoreBased{
                             hitobjectLayer.attachBehind(approachCircle);
                             hitobjectLayer.attachBehind(circlePiece);
                         });
-                hitobjectLayer.addEvent(stdCircle.getTime(), () -> {
-                    circlePiece.expire(stdCircle.getTime());
-                    approachCircle.expire(stdCircle.getTime());
-                });
+
+                PositionHitObject positionHitObject = new PositionHitObject() {{
+
+                    separateJudge = true;
+
+                    hitWindow = HitWindow.interval(
+                            stdCircle.getTime(),
+                            difficultyHelper.hitWindowFor50(beatmap.getDifficulty().getOverallDifficulty())
+                    );
+
+                    area = HitArea.circle(stdCircle.getX(), stdCircle.getY(), StdGameObject.BASE_OBJECT_SIZE / 2 * scale);
+
+                    onHit = (time, x, y) -> {
+                        circlePiece.postOperation(()->{
+                            approachCircle.expire(time);
+                            circlePiece.expire(time);
+                        });
+                    };
+
+                    onTimeOut = time -> {
+                        circlePiece.postOperation(()->{
+                            approachCircle.detach();
+                            circlePiece.detach();
+                            addHitEffect(
+                                    StdGameObject.HitLevel.MISS,
+                                    time,
+                                    stdCircle.getX(), stdCircle.getY(),
+                                    scale,
+                                    skin);
+                        });
+                    };
+
+                }};
+
+                judgeWorld.addJudgeObject(positionHitObject);
+
             }
         }
+
+
+        TextureQuadObject cursor = new TextureQuadObject();
+        cursor.sprite.setTextureAndSize(skin.getTexture(StdSkin.cursor));
+        cursor.sprite.position = cursorTestObject.holders[0].pos;
+        cursor.sprite.enableScale().scale.set(0.5f * scale);
+        topEffectLayer.attachFront(cursor);
 
         world.load();
         return world;
     }
+
+    protected void addHitCircle(StdCircle circle) {
+
+    }
+
+    protected void addHitEffect(StdGameObject.HitLevel level, double time, float x, float y, float scale, Skin skin) {
+        switch (level) {
+            case MISS: {
+
+                TextureQuadObject miss = new TextureQuadObject();
+                miss.sprite.setTextureAndSize(skin.getTexture(StdSkin.hit0_0));
+                miss.sprite.enableScale().enableRotation();
+                miss.sprite.size.zoom(scale);
+                miss.sprite.position.set(x, y);
+
+                miss.addAnimTask(time, 400, p -> {
+                    miss.sprite.alpha.value = (float) (1 - p);
+                });
+                miss.addTask(time + 400, miss::detach);
+
+                backgroundEffectLayer.attachFront(miss);
+
+            }
+            break;
+            default:
+
+        }
+    }
+
+
 }

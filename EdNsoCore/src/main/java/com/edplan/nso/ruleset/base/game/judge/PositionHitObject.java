@@ -1,11 +1,12 @@
 package com.edplan.nso.ruleset.base.game.judge;
 
+import com.edplan.framework.utils.interfaces.Consumer;
 import com.edplan.nso.ruleset.base.game.World;
 
 public class PositionHitObject extends JudgeObject {
 
     //是否是分离判定，即判定时其他点的点击是否可以被记为点击
-    private boolean separateJudge = false;
+    protected boolean separateJudge = false;
 
     private boolean hit = false;
 
@@ -15,11 +16,11 @@ public class PositionHitObject extends JudgeObject {
 
     public HitWindow hitWindow;
 
-    public PositionChecker positionChecker;
+    public PositionChecker area;
 
     public OnHit onHit;
 
-    public Runnable onTimeOut;
+    public Consumer<Double> onTimeOut;
 
     @FunctionalInterface
     public interface OnHit{
@@ -29,7 +30,7 @@ public class PositionHitObject extends JudgeObject {
     @Override
     protected void onRelease() {
         if (!hit) {
-            onTimeOut.run();
+            onTimeOut.consume(hitWindow.getEnd());
         }
     }
 
@@ -47,7 +48,7 @@ public class PositionHitObject extends JudgeObject {
                     timeHolder = holder;
                 }
                 if (posHolder == null) {
-                    if (positionChecker.checkPosition(holder.x, holder.y)) {
+                    if (area.checkPosition(holder.x, holder.y)) {
                         posHolder = holder;
                     }
                 }
@@ -60,13 +61,11 @@ public class PositionHitObject extends JudgeObject {
                 return !cursorData.hasMoreAction();
             }
         } else {
-            //System.out.println("check");
             for (CursorData.CursorHolder holder : cursorData.getCursors()) {
                 if (holder.down.empty()) {
                     continue;
                 }
-                //System.out.println("check " + holder.down.time + " " + holder.x + " " + holder.y);
-                if (hitWindow.checkTime(holder.down.time) && positionChecker.checkPosition(holder.x, holder.y)) {
+                if (hitWindow.checkTime(holder.down.time) && area.checkPosition(holder.x, holder.y)) {
                     hit = true;
                     onHit.onHit(holder.down.time, holder.x, holder.y);
                     releaseObject();

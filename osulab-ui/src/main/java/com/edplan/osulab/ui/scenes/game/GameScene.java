@@ -5,6 +5,7 @@ import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
+import com.edplan.framework.resource.AResource;
 import com.edplan.framework.ui.additions.popupview.defviews.RenderStatPopupView;
 import com.edplan.framework.ui.inputs.DirectMotionHandler;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
@@ -24,6 +25,7 @@ import com.edplan.osulab.ui.BackQuery;
 import com.edplan.osulab.ui.scenes.BaseScene;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public class GameScene extends BaseScene implements DirectMotionHandler{
 
@@ -36,10 +38,27 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
                 .getRulesetById(StdRuleset.ID_NAME)
                 .getWorldLoader()
                 .loadWorld(
-                        new BeatmapDescription() {{
-                            beatmapType = StdRuleset.ID_NAME;
-                            filePath = "/storage/emulated/0/osu!droid/Songs/346314 Mai Zang - Si Ye Cao De Huang Xiang/Mai Zang - Si Ye Cao De Huang Xiang (Axarious) [Despair].osu";
-                        }},
+                        new BeatmapDescription() {
+
+                            AResource test = c.getAssetResource()
+                                    .subResource("test")
+                                    .subResource("songs")
+                                    .subResource("346314 Mai Zang - Si Ye Cao De Huang Xiang");
+
+                            {
+                                beatmapType = StdRuleset.ID_NAME;
+                            }
+
+                            @Override
+                            public AResource openDirRes() {
+                                return test;
+                            }
+
+                            @Override
+                            public InputStream openBeatmapStream() throws IOException {
+                                return test.openInput("test.osu");
+                            }
+                        },
                         null
                 );
         /*world = new World(c);
@@ -56,7 +75,7 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
         for (int i = 0; i < 10; i++) {
             final int ii = i;
 
-            TextureQuadObject textureQuadObject = new TextureQuadObject(c);
+            TextureQuadObject textureQuadObject = new TextureQuadObject();
             textureQuadObject.sprite.setTextureAndSize(cust);
             textureQuadObject.sprite.setBaseWidth(200);
             textureQuadObject.sprite.position.set(100, 100);
@@ -68,12 +87,12 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
 
             PositionHitObject noteHit = new PositionHitObject() {{
                 hitWindow = HitWindow.interval(3000 + 2000 * ii + 500, 500);
-                positionChecker = HitArea.circle(200, 200, 1000);
+                area = HitArea.circle(200, 200, 1000);
                 onHit = (time, x, y) -> {
                     System.out.println("hit offset " + (3000 + 2000 * ii + 500 - time));
                     textureQuadObject.postDetach();
                 };
-                onTimeOut = textureQuadObject::postDetach;
+                onTimeOut = t -> textureQuadObject.postDetach();
             }};
 
             world.getPaintWorld().addDrawObject(textureQuadObject);
@@ -83,7 +102,7 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
 
 
         Vec2 pos = new Vec2();
-        TextureQuadObject cus = new TextureQuadObject(c) {
+        TextureQuadObject cus = new TextureQuadObject() {
             @Override
             protected void onDraw(BaseCanvas canvas, World world) {
                 sprite.position.set(pos.x, pos.y);
@@ -136,8 +155,7 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
 
         world.getJudgeWorld().addJudgeObject(cst);
         world.getPaintWorld().addDrawObject(cus);
-        world.load();
-        world.start();*/
+        world.load();*/
     }
 
     @Override
