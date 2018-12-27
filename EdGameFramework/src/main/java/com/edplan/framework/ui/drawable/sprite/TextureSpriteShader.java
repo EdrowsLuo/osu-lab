@@ -40,11 +40,11 @@ public class TextureSpriteShader extends SpriteShader {
         });
         FRAGMENT_SHADER = StringUtil.link(StringUtil.LINE_BREAK, new String[]{
                 "precision mediump float;",
-                "varying vec4 f_Color;",
+                "varying lowp vec4 f_Color;",
                 "varying vec2 f_TextureCoord;",
                 "uniform sampler2D u_Texture;",
                 "void main(){",
-                "    gl_FragColor=f_Color*texture2D(u_Texture,f_TextureCoord);",
+                "    gl_FragColor = f_Color * texture2D(u_Texture, f_TextureCoord);",
                 "}"
         });
     }

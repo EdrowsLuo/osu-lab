@@ -17,10 +17,6 @@ public abstract class Ruleset {
         this.context = context;
     }
 
-    public NsoCore getCore() {
-        return context;
-    }
-
     /**
      * @return 一般而言是显示给用户的简短名称
      */
@@ -31,10 +27,6 @@ public abstract class Ruleset {
      */
     public abstract String getRulesetIdName();
 
-    public void applyName(RulesetNameManager manager) {
-        manager.putNameRef(getRulesetName(),getRulesetIdName());
-    }
-
     public abstract AbstractTexture getModeIcon();
 
     /**
@@ -42,16 +34,17 @@ public abstract class Ruleset {
      */
     public abstract void onLoad();
 
-    public AbstractTexture getModeIconBig() {
-        return getModeIcon();
-    }
-
-    public AbstractTexture getModeIconSmall() {
-        return getModeIcon();
-    }
-
     public abstract BeatmapParser getBeatmapParser();
 
+    public abstract WorldLoader getWorldLoader();
+
+    public NsoCore getCore() {
+        return context;
+    }
+
+    public void applyName(RulesetNameManager manager) {
+        manager.putNameRef(getRulesetName(),getRulesetIdName());
+    }
 
     /**
      * @return 默认的对铺面各个部分组装的工厂
@@ -60,6 +53,13 @@ public abstract class Ruleset {
         return PartFactory.get();
     }
 
-    public abstract WorldLoader getWorldLoader();
+
+    public AbstractTexture getModeIconBig() {
+        return getModeIcon();
+    }
+
+    public AbstractTexture getModeIconSmall() {
+        return getModeIcon();
+    }
 
 }

@@ -79,8 +79,20 @@ public class BassChannel {
         return BASS.BASS_ChannelStop(getChannelId());
     }
 
+    boolean freed = false;
     public boolean free() {
-        return BASS.BASS_StreamFree(getChannelId());
+        if (!freed) {
+            freed = true;
+            return BASS.BASS_StreamFree(getChannelId());
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        super.finalize();
+        free();
     }
 
     public static BassChannel createStreamFromResource(AResource res, String path) throws IOException {

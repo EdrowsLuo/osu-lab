@@ -62,6 +62,7 @@ public class BeatmapDecoder extends BaseDecoder{
 
     @Override
     protected void onParse(IniParser parser, JSONObject config) {
+
         result = new Result();
 
         parseFormatLine(parser);
@@ -89,6 +90,8 @@ public class BeatmapDecoder extends BaseDecoder{
             result.success = false;
             return;
         }
+
+
         Beatmap beatmap = ruleset.getBeatmapParser()
                 .parse(core, formatVersion, rulesetId, ganeralPage, parser, new OpenInfo(), config);
 

@@ -5,6 +5,7 @@ import android.opengl.GLES20;
 import android.opengl.GLES30;
 import android.util.Log;
 
+import com.edplan.framework.graphics.opengl.batch.v2.BatchEngine;
 import com.edplan.framework.graphics.opengl.bufferObjects.FBOPool;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
@@ -184,8 +185,10 @@ public class GLWrapped {
                 pre.onUnprepare();
             }
         }
+        BatchEngine.flush();
         canvasStack.push(canvas);
         canvas.onPrepare();
+        BatchEngine.setGlobalCamera(canvas.getCamera());
     }
 
     protected static void unprepareCanvas(BaseCanvas canvas) {
@@ -193,6 +196,7 @@ public class GLWrapped {
             //发生错误，释放的画板不是当前画板
             throw new GLException("错误的canvas释放顺序！");
         }
+        BatchEngine.flush();
         canvas.onUnprepare();
         canvasStack.pop();
         if (!canvasStack.empty()) {

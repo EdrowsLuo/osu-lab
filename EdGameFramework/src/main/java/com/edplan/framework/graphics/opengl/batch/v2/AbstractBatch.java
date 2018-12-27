@@ -14,7 +14,13 @@ public abstract class AbstractBatch<T> {
 
     protected abstract void clearData();
 
-    protected abstract void applyToGL();
+    protected abstract boolean applyToGL();
+
+    public void addAll(T... ts) {
+        for (T t : ts) {
+            add(t);
+        }
+    }
 
     protected void checkForBind() {
         if (!isBind()) {
@@ -37,7 +43,8 @@ public abstract class AbstractBatch<T> {
     }
 
     public final void flush() {
-        applyToGL();
-        clearData();
+        if (applyToGL()) {
+            clearData();
+        }
     }
 }

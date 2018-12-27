@@ -20,6 +20,10 @@ public class PaintWorld {
         rootGroup.attachFront(object);
     }
 
+    public void addDrawObjects(DrawObject... objects) {
+        for (DrawObject object : objects) addDrawObject(object);
+    }
+
     public void draw(BaseCanvas canvas) {
         rootGroup.draw(canvas, world);
     }

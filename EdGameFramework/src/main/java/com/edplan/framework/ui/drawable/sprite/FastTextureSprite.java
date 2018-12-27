@@ -13,8 +13,8 @@ public class FastTextureSprite extends BaseRectTextureSprite<FastTextureSpriteSh
 
     @Override
     protected void prepareColorUniformBase(BaseCanvas canvas) {
-        shader.loadAccentColor(Color4.White);
-        shader.loadAlpha(alpha*canvas.getCanvasAlpha());
+        getShader().loadAccentColor(Color4.White);
+        getShader().loadAlpha(alpha*canvas.getCanvasAlpha());
     }
 
     @Deprecated
@@ -50,7 +50,7 @@ public class FastTextureSprite extends BaseRectTextureSprite<FastTextureSpriteSh
     }
 
     @Override
-    protected FastTextureSpriteShader createShader() {
+    protected FastTextureSpriteShader getShader() {
         return FastTextureSpriteShader.get();
     }
 }

@@ -6,7 +6,6 @@ import com.edplan.framework.graphics.opengl.BlendType;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 
 public abstract class Sprite<S extends SpriteShader> extends AbstractSprite {
-    protected S shader;
 
     protected float alpha = 1;
 
@@ -16,11 +15,6 @@ public abstract class Sprite<S extends SpriteShader> extends AbstractSprite {
 
     public Sprite(MContext c) {
         super(c);
-        shader = createShader();
-    }
-
-    protected void setShader(S s) {
-        shader = s;
     }
 
     public void setBlendType(BlendType blendType) {
@@ -48,13 +42,13 @@ public abstract class Sprite<S extends SpriteShader> extends AbstractSprite {
         return accentColor;
     }
 
-    protected abstract S createShader();
+    protected abstract S getShader();
 
     private boolean changeBlend = false;
 
     @Override
     protected void startDraw(BaseCanvas canvas) {
-        shader.useThis();
+        getShader().useThis();
         changeBlend = (canvas.getBlendSetting().getBlendType() == blendType);
         if (changeBlend) {
             canvas.getBlendSetting().save();
@@ -63,14 +57,14 @@ public abstract class Sprite<S extends SpriteShader> extends AbstractSprite {
     }
 
     protected void prepareColorUniformBase(BaseCanvas canvas) {
-        shader.loadAccentColor(accentColor.copyNew().multipleAlpha(alpha*canvas.getCanvasAlpha()));
-        shader.loadAlpha(1);
+        getShader().loadAccentColor(accentColor.copyNew().multipleAlpha(alpha*canvas.getCanvasAlpha()));
+        getShader().loadAlpha(1);
     }
 
     @Override
     protected void prepareShader(BaseCanvas canvas) {
         prepareColorUniformBase(canvas);
-        shader.loadCamera(canvas.getCamera());
+        getShader().loadCamera(canvas.getCamera());
     }
 
     @Override

@@ -35,7 +35,7 @@ public class CircleSprite extends RectSprite<CircleShader> {
     }
 
     @Override
-    protected CircleShader createShader() {
+    protected CircleShader getShader() {
 
         return CircleShader.get();
     }
@@ -44,7 +44,7 @@ public class CircleSprite extends RectSprite<CircleShader> {
     protected void prepareShader(BaseCanvas canvas) {
 
         super.prepareShader(canvas);
-        shader.loadCircleData(innerRadius, radius);
+        getShader().loadCircleData(innerRadius, radius);
     }
 }
 

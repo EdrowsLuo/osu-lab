@@ -30,6 +30,10 @@ public class StdRuleset extends Ruleset{
         super(context);
     }
 
+    public Skin getStdSkin() {
+        return stdSkin;
+    }
+
     @Override
     public String getRulesetName() {
         return NAME;
@@ -54,11 +58,6 @@ public class StdRuleset extends Ruleset{
     public void onLoad() {
         icon = FontAwesome.fa_osu_osu_o.getTexture();
         StdBeatmapParser.load();
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         stdSkin = StdSkin.createSkinDescription(getCore().getContext())
                 .load(getCore().getContext()
                         .getAssetResource()
@@ -74,6 +73,7 @@ public class StdRuleset extends Ruleset{
 
     @Override
     public WorldLoader getWorldLoader() {
-        return null;
+        return new StdWorldLoader(getCore());
     }
+
 }

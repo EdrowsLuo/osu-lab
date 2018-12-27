@@ -20,7 +20,7 @@ public class CanvasUtil {
             } else if (Scale.equalsIgnoreCase(key)) {
                 i++;
                 float s = Float.parseFloat(spl[i]);
-                canvas.scaleContent(s);
+                canvas.expendAxis(s);
             }
         }
     }

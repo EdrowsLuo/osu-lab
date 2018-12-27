@@ -11,6 +11,9 @@ public abstract class AbstractMeshBatch<T extends Mesh> extends AbstractBatch<T>
     protected int currentSize;
 
     public AbstractMeshBatch(int maxBatch) {
+        if (maxBatch % 3 != 0) {
+            throw new IllegalArgumentException("batch size必须为3的倍数");
+        }
         this.maxBatch = maxBatch;
     }
 
@@ -18,10 +21,14 @@ public abstract class AbstractMeshBatch<T extends Mesh> extends AbstractBatch<T>
 
     protected abstract void clearBuffer();
 
-    protected abstract void onApplyToGL();
+    protected abstract boolean onApplyToGL();
+
+    protected boolean checkStateForFlush(T mesh, int offset, int size) {
+        return currentSize + size >= maxBatch;
+    }
 
     private final void add(T mesh, int offset, int size) {
-        if (currentSize + size >= maxBatch) {
+        if (checkStateForFlush(mesh, offset, size)) {
             flush();
         }
         appendData(mesh, offset, size);
@@ -65,9 +72,11 @@ public abstract class AbstractMeshBatch<T extends Mesh> extends AbstractBatch<T>
     }
 
     @Override
-    protected final void applyToGL() {
+    protected boolean applyToGL() {
         if (currentSize != 0) {
-            onApplyToGL();
+            return onApplyToGL();
+        } else {
+            return false;
         }
     }
 }

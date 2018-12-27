@@ -27,7 +27,7 @@ public class Texture3DShader extends ColorShader {
                                 "uniform float u_FinalAlpha;\n" +
                                 "uniform vec4 u_AccentColor;\n" +
                                 "\n" +
-                                "attribute vec3 a_TextureCoord;\n" +
+                                "attribute vec2 a_TextureCoord;\n" +
                                 "attribute vec3 a_Position;\n" +
                                 "attribute vec4 a_VaryingColor;\n" +
                                 "\n" +

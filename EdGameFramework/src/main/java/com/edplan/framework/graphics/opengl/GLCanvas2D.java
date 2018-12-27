@@ -128,7 +128,7 @@ public class GLCanvas2D extends BaseCanvas
         int iyh = Math.round((getData().getTheOrigin().y + y + height) / getData().getPixelDensity());
         GLCanvas2D canvas2D = new GLCanvas2D(new BufferedLayer(layer, ix, iy, ixw - ix, iyh - iy));
         if (getData().getPixelDensity() != 1) {
-            canvas2D.scaleContent(getData().getPixelDensity());
+            canvas2D.expendAxis(getData().getPixelDensity());
         }
         return canvas2D;
     }

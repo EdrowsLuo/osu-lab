@@ -43,7 +43,7 @@ public class StdSkin {
                     name(cursor_smoke)
                             .raw(png(cursor_smoke)),
                     name(cursortrail)
-                            .raw(cursortrail),
+                            .raw(png(cursortrail)),
                     name(followpoint)
                             .rawList(followpoint),
                     name(hit0_0)

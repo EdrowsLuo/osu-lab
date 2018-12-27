@@ -30,7 +30,7 @@ public class TextureSprite extends BaseRectTextureSprite<TextureSpriteShader> {
     }
 
     @Override
-    protected TextureSpriteShader createShader() {
+    protected TextureSpriteShader getShader() {
         return TextureSpriteShader.get();
     }
 }

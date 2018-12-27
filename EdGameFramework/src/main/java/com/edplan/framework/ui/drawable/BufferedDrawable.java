@@ -69,7 +69,7 @@ public abstract class BufferedDrawable extends EdDrawable implements IFadeable {
      * 默认操作只同步pixelDensity
      */
     protected void transformCanvas(BaseCanvas nowCanvas, BaseCanvas parentCanvas) {
-        nowCanvas.scaleContent(parentCanvas.getPixelDensity());
+        nowCanvas.expendAxis(parentCanvas.getPixelDensity());
         //MLog.test.vOnce("dest","dest",parentCanvas.getPixelDensity()+"");
         nowCanvas.translate(-area.getLeft(), -area.getTop());
         //MLog.test.vOnce("n-canvas","n-canvas","parent:"+parentCanvas.getPixelDensity()+" now:"+nowCanvas.getPixelDensity());

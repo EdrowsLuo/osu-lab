@@ -12,23 +12,25 @@ public class GroupDrawObject extends DrawObject {
 
     @Override
     public void draw(BaseCanvas canvas, World world) {
-        if (drawForward) {
-            DrawNode nextNode = preStartNode.next;
-            DrawObject object;
-            while (nextNode != null) {
-                object = nextNode.drawObject;
-                nextNode = nextNode.next;
-                object.draw(canvas, world);
+        handleOperations();
+        //if (isAttached())
+            if (drawForward) {
+                DrawNode nextNode = preStartNode.next;
+                DrawObject object;
+                while (nextNode != null) {
+                    object = nextNode.drawObject;
+                    nextNode = nextNode.next;
+                    object.draw(canvas, world);
+                }
+            } else {
+                DrawNode nextNode = afterEndNode.pre;
+                DrawObject object;
+                while (nextNode != null) {
+                    object = nextNode.drawObject;
+                    nextNode = nextNode.pre;
+                    object.draw(canvas, world);
+                }
             }
-        } else {
-            DrawNode nextNode = afterEndNode.pre;
-            DrawObject object;
-            while (nextNode != null) {
-                object = nextNode.drawObject;
-                nextNode = nextNode.pre;
-                object.draw(canvas, world);
-            }
-        }
     }
 
     public void drawForward(boolean drawForward) {

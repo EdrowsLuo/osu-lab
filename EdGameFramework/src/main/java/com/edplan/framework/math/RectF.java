@@ -91,6 +91,10 @@ public class RectF implements Copyable, Area2D, IQuad {
         return new Vec2(getRight(), getBottom());
     }
 
+    public Vec2 getCenter() {
+        return new Vec2(getCenterHorizon(), getCenterVertical());
+    }
+
     @Override
     public Vec2 getPoint(float x, float y) {
         return basePoint.copy().add(x * width, y * height);

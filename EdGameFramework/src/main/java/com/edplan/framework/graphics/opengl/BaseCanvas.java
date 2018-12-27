@@ -5,6 +5,7 @@ import com.edplan.framework.graphics.opengl.batch.BaseColorBatch;
 import com.edplan.framework.graphics.opengl.batch.RectVertexBatch;
 import com.edplan.framework.graphics.opengl.batch.Texture3DBatch;
 import com.edplan.framework.graphics.opengl.batch.interfaces.ITexture3DBatch;
+import com.edplan.framework.graphics.opengl.batch.v2.BatchEngine;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
@@ -94,31 +95,37 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
 
     public BaseCanvas translate(float tx, float ty) {
         getData().translate(tx, ty);
+        BatchEngine.setGlobalCamera(getData().getCamera());
         return this;
     }
 
     public BaseCanvas rotate(float r) {
         getData().rotate(r);
+        BatchEngine.setGlobalCamera(getData().getCamera());
         return this;
     }
 
     public BaseCanvas rotate(float ox, float oy, float r) {
         getData().rotate(ox, oy, r);
+        BatchEngine.setGlobalCamera(getData().getCamera());
         return this;
     }
 
     public BaseCanvas scale(float x, float y) {
         getData().scale(x, y);
+        BatchEngine.setGlobalCamera(getData().getCamera());
         return this;
     }
 
-    public BaseCanvas scaleContent(float s) {
-        getData().scaleContent(s);
+    public BaseCanvas expendAxis(float s) {
+        getData().expendAxis(s);
+        BatchEngine.setGlobalCamera(getData().getCamera());
         return this;
     }
 
     public BaseCanvas clip(float w, float h) {
         getData().clip(w, h);
+        BatchEngine.setGlobalCamera(getData().getCamera());
         return this;
     }
 
@@ -132,18 +139,6 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
 
     public float getHeight() {
         return getData().getHeight();
-    }
-
-    public void setMProjMatrix(Mat4 mProjMatrix) {
-        this.getData().setCurrentProjMatrix(mProjMatrix);
-    }
-
-    public Mat4 getMProjMatrix() {
-        return getData().getCurrentProjMatrix();
-    }
-
-    public Mat4 getMaskMatrix() {
-        return getData().getCurrentMaskMatrix();
     }
 
     public Camera getCamera() {
@@ -189,6 +184,7 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
     @Override
     public void onRestore(CanvasData now, CanvasData pre) {
         pre.recycle();
+        BatchEngine.setGlobalCamera(now.getCamera());
     }
 
     public void delete() {

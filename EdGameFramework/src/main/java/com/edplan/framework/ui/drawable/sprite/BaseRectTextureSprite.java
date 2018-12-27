@@ -46,13 +46,13 @@ public abstract class BaseRectTextureSprite<S extends TextureSpriteShader> exten
     protected void prepareShader(BaseCanvas canvas) {
 
         super.prepareShader(canvas);
-        shader.loadTexture(texture);
+        getShader().loadTexture(texture);
     }
 
     @Override
     protected void loadVertexs(BaseCanvas canvas) {
 
         super.loadVertexs(canvas);
-        shader.loadTextureCoord(textureCoordBuffer);
+        getShader().loadTextureCoord(textureCoordBuffer);
     }
 }

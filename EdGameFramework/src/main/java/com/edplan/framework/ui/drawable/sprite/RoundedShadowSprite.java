@@ -34,14 +34,14 @@ public class RoundedShadowSprite extends RoundedRectSprite {
     protected void prepareShader(BaseCanvas canvas) {
 
         super.prepareShader(canvas);
-        RoundedShadowShader s = (RoundedShadowShader) shader;
+        RoundedShadowShader s = (RoundedShadowShader) getShader();
         s.uShadowWidth.loadData(shadowWidth);
         s.uShadowStart.loadData(shadowStart);
         s.uShadowEnd.loadData(shadowEnd);
     }
 
     @Override
-    protected RoundedShader createShader() {
+    protected RoundedShader getShader() {
 
         return RoundedShadowShader.get();
     }

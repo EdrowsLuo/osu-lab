@@ -6,6 +6,7 @@ import com.edplan.framework.utils.advance.BaseDataMap;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,22 @@ public class IniParser {
 
     public IniParser() {
 
+    }
+
+    public void dumpText() {
+        PrintStream printer = System.out;
+        printer.println("[headers]");
+        for (String s : header) {
+            printer.println(s);
+        }
+
+        for (Page page : pages) {
+            printer.println();
+            printer.println("[" + page.tag + "]");
+            for (String l : page.lines) {
+                printer.println(l);
+            }
+        }
     }
 
     public List<String> getHeader() {

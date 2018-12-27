@@ -141,7 +141,6 @@ public class Quad implements IQuad {
 
     @Override
     public Vec2 getPoint(float x, float y) {
-
         return mapPoint(topLeft, topRight, bottomLeft, bottomRight, x, y);
     }
 

@@ -114,6 +114,10 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
         set(v.x, v.y);
     }
 
+    public void set(float v) {
+        x = y = v;
+    }
+
     public Vec2 add(float a) {
         return add(a, a);
     }
@@ -162,7 +166,9 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
     }
 
     public Vec2 zoom(float zt) {
-        return zoom(0, 0, zt, zt);
+        x *= zt;
+        y *= zt;
+        return this;
     }
 
     public Vec2 zoom(float ox, float oy, float zoomTimesX, float zoomTimesY) {

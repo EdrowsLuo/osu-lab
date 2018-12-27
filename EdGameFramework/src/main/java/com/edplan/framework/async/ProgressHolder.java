@@ -20,6 +20,7 @@ public class ProgressHolder {
     }
 
     public void setMessage(String message) {
+        System.out.println("onMessageChange: " + message);
         this.message = message;
     }
 }

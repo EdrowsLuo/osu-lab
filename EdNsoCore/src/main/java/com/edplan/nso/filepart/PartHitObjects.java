@@ -16,7 +16,7 @@ import com.edplan.nso.ruleset.mania.objects.ManiaHitObjects;
 import com.edplan.nso.ruleset.std.objects.StdHitObject;
 
 public class PartHitObjects implements OsuFilePart {
-    public static final String TAG = "GameObjects";
+    public static final String TAG = "HitObjects";
 
     public int mode;
 

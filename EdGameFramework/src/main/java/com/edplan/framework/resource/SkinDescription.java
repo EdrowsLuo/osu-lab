@@ -96,6 +96,7 @@ public class SkinDescription {
                 skin.putTexture(name, textures);
                 return true;
             } else {
+                System.out.println("load failed, not found " + name + " : " + basePath);
                 return false;
             }
         }
@@ -118,9 +119,11 @@ public class SkinDescription {
         @Override
         public boolean load(Skin skin, AResource resource, boolean isOverride) {
             if (skin.contains(refName)) {
+                System.out.println("load " + name + " reuse " + name);
                 skin.putRawData(name,skin.getTexture(refName));
                 return true;
             } else {
+                System.out.println("load failed " + name + " reuse " + name);
                 return false;
             }
         }
@@ -143,6 +146,7 @@ public class SkinDescription {
         @Override
         public boolean load(Skin skin, AResource resource, boolean isOverride) {
             if (resource.contain(path)) {
+                System.out.println("load " + name + " : " + path);
                 try {
                     GLTexture texture = resource.loadTextureAsync(path, container);
                     skin.putTexture(name, texture);
@@ -152,6 +156,7 @@ public class SkinDescription {
                     return false;
                 }
             } else {
+                System.out.println("load failed " + name + " : " + path);
                 return false;
             }
         }

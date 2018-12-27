@@ -17,8 +17,7 @@ public class ColorRectSprite extends RectSprite<ColorSpriteShader> {
     }
 
     @Override
-    protected ColorSpriteShader createShader() {
-
+    protected ColorSpriteShader getShader() {
         return ColorSpriteShader.get();
     }
 }

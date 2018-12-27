@@ -7,11 +7,12 @@ import com.edplan.framework.Framework;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.MainRenderer;
+import com.edplan.framework.graphics.opengl.batch.v2.object.TextureQuad;
+import com.edplan.framework.graphics.opengl.batch.v2.object.TextureQuadBatch;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
-import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.main.EdMainActivity;
 import com.edplan.framework.main.MainApplication;
-import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.additions.popupview.defviews.RenderStatPopupView;
 import com.edplan.framework.ui.layout.EdLayoutParam;
@@ -20,12 +21,9 @@ import com.edplan.framework.ui.text.font.bmfont.BMFont;
 import com.edplan.framework.ui.widget.AbsoluteLayout;
 import com.edplan.framework.utils.dataobject.DataMapObject;
 import com.edplan.framework.utils.dataobject.Struct;
-import com.edplan.framework.utils.io.MemoryFile;
 import com.edplan.osulab.ui.BackQuery;
 import com.edplan.osulab.ui.popup.PopupToast;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -108,23 +106,14 @@ public class LabActivity extends EdMainActivity {
         @Override
         protected void onDraw(BaseCanvas canvas) {
             super.onDraw(canvas);
-            if (texture == null) {
-                try {
-                    texture = getContext().getAssetResource().loadTexture("osu/ui/menu-background-1.jpg");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
 
+            canvas.expendAxis(2);
+            TextureQuad quad = new TextureQuad();
+            quad.setTextureAndSize(GLTexture.ErrorTexture);
+            quad.setBaseWidth(200);
+            quad.position.set(300, 300);
 
-            for(int i = 0;i<10;i++) {
-                canvas.drawTexture(
-                        texture,
-                        RectF.xywh(0, 0, canvas.getWidth(), canvas.getHeight()),
-                        Color4.ONE,
-                        1);
-            }
-
+            TextureQuadBatch.getDefaultBatch().add(quad);
         }
     }
 

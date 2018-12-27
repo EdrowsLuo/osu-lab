@@ -3,9 +3,11 @@ package com.edplan.nso.ruleset.base.game;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.math.RectF;
+import com.edplan.framework.media.bass.BassChannel;
 import com.edplan.framework.timing.FrameClock;
 import com.edplan.framework.ui.inputs.EdKeyEvent;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
+import com.edplan.framework.utils.interfaces.Consumer;
 import com.edplan.nso.ruleset.base.game.judge.CursorData;
 import com.edplan.nso.ruleset.base.game.judge.JudgeWorld;
 import com.edplan.nso.ruleset.base.game.judge.RawInputHandler;
@@ -19,11 +21,6 @@ import java.util.ArrayList;
  * 在onDraw里面处理绘制事件
  */
 public class World implements RawInputHandler {
-
-    /**
-     * 世界窗口位置
-     */
-    private RectF worldRect;
 
     /**
      * 判定世界
@@ -46,8 +43,36 @@ public class World implements RawInputHandler {
 
     private WorldConfig config;
 
+    private Consumer<BaseCanvas> onDrawStart, onDrawEnd;
+
+    private Consumer<RectF> onConfigDrawArea;
+
+    private Consumer<EdMotionEvent> motionEventDec;
+
+    private BassChannel channel;
+
     public World(MContext context) {
         this.context = context;
+    }
+
+    public void setSong(BassChannel channel) {
+        this.channel = channel;
+    }
+
+    public void setOnDrawStart(Consumer<BaseCanvas> onDrawStart) {
+        this.onDrawStart = onDrawStart;
+    }
+
+    public void setOnDrawEnd(Consumer<BaseCanvas> onDrawEnd) {
+        this.onDrawEnd = onDrawEnd;
+    }
+
+    public void setOnConfigDrawArea(Consumer<RectF> onConfigDrawArea) {
+        this.onConfigDrawArea = onConfigDrawArea;
+    }
+
+    public void setMotionEventDec(Consumer<EdMotionEvent> motionEventDec) {
+        this.motionEventDec = motionEventDec;
     }
 
     public JudgeWorld getJudgeWorld() {
@@ -78,20 +103,40 @@ public class World implements RawInputHandler {
         return judgeClock.getFrameTime();
     }
 
+    /**
+     * 设置实际绘制区域
+     * @param area
+     */
+    public void configDrawArea(RectF area) {
+        if (onConfigDrawArea != null) {
+            onConfigDrawArea.consume(area);
+        }
+    }
+
     public void onDraw(BaseCanvas canvas) {
+        int stat = canvas.save();
         paintClock.update();
+        if (onDrawStart != null) {
+            onDrawStart.consume(canvas);
+        }
         paintWorld.draw(canvas);
+        if (onDrawEnd != null) {
+            onDrawEnd.consume(canvas);
+        }
+        canvas.restoreToCount(stat);
     }
 
     public void pause() {
         paintClock.pause();
         judgeClock.pause();
+        channel.pause();
         gameState = State.PAUSE;
     }
 
     public void resume() {
         paintClock.run();
         judgeClock.run();
+        channel.play();
         gameState = State.PLAYING;
     }
 
@@ -103,7 +148,15 @@ public class World implements RawInputHandler {
         judgeThread.start();
         paintClock.start();
         judgeClock.start();
+        channel.play();
         gameState = State.PLAYING;
+    }
+
+    public void stop() {
+        paintClock.pause();
+        judgeClock.pause();
+        channel.stop();
+        gameState = State.STOP;
     }
 
     public void onLoadConfig(WorldConfig config) {
@@ -120,6 +173,9 @@ public class World implements RawInputHandler {
         for (int i = 0; i < copy.length; i++) {
             copy[i] = event[i].copy();
             copy[i].time = judgeClock.toClockTime(copy[i].time);
+            if (motionEventDec != null) {
+                motionEventDec.consume(copy[i]);
+            }
         }
         return judgeWorld.onMotionEvent(copy);
     }

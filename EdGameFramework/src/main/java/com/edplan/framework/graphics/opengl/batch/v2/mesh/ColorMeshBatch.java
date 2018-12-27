@@ -14,7 +14,7 @@ public class ColorMeshBatch extends AbstractMeshBatch<ColorMesh> {
 
     public static ColorMeshBatch getDefaultBatch() {
         if (defaultBatch == null) {
-            defaultBatch = new ColorMeshBatch(1024);
+            defaultBatch = new ColorMeshBatch(1023);
         }
         return defaultBatch;
     }
@@ -46,7 +46,7 @@ public class ColorMeshBatch extends AbstractMeshBatch<ColorMesh> {
     }
 
     @Override
-    protected void onApplyToGL() {
+    protected boolean onApplyToGL() {
         shader.useThis();
         shader.loadShaderGlobals(BatchEngine.getShaderGlobals());
 
@@ -58,5 +58,6 @@ public class ColorMeshBatch extends AbstractMeshBatch<ColorMesh> {
         shader.loadColor(colorBuffer);
         shader.loadPosition(positionBuffer);
         GLWrapped.drawArrays(GLWrapped.GL_TRIANGLES, 0, currentSize);
+        return true;
     }
 }

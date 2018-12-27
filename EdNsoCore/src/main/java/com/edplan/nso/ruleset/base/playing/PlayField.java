@@ -17,13 +17,8 @@ public abstract class PlayField<T extends PlayingBeatmap> extends EdDrawable {
     public static final float BASE_Y = 480;
     public static final float PADDING_X = 64;
     public static final float PADDING_Y = 48;
-    public static final float CANVAS_SIZE_X;//512
-    public static final float CANVAS_SIZE_Y;//384
-
-    static {
-        CANVAS_SIZE_X = BASE_X - 2 * PADDING_X;
-        CANVAS_SIZE_Y = BASE_Y - 2 * PADDING_Y;
-    }
+    public static final float CANVAS_SIZE_X = BASE_X - 2 * PADDING_X;//512
+    public static final float CANVAS_SIZE_Y = BASE_Y - 2 * PADDING_Y;//384
 
     public PlayField(MContext c) {
         super(c);

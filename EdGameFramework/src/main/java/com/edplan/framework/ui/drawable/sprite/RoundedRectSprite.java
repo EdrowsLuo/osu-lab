@@ -41,12 +41,12 @@ public class RoundedRectSprite extends BaseRectTextureSprite<RoundedShader> {
     protected void prepareShader(BaseCanvas canvas) {
 
         super.prepareShader(canvas);
-        shader.loadRadius(r1, r2, r3, r4);
-        shader.loadRect(l, t, r, b);
+        getShader().loadRadius(r1, r2, r3, r4);
+        getShader().loadRect(l, t, r, b);
     }
 
     @Override
-    protected RoundedShader createShader() {
+    protected RoundedShader getShader() {
 
         return RoundedShader.get();
     }

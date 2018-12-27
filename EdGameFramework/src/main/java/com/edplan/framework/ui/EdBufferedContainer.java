@@ -89,7 +89,7 @@ public abstract class EdBufferedContainer extends EdAbstractViewGroup {
 
     protected void updateCanvas(BaseCanvas canvas) {
         layerCanvas.reinitial();
-        layerCanvas.scaleContent(canvas.getPixelDensity() / pixelScale);
+        layerCanvas.expendAxis(canvas.getPixelDensity() / pixelScale);
         layerCanvas.clip(getWidth(), getHeight());
     }
 

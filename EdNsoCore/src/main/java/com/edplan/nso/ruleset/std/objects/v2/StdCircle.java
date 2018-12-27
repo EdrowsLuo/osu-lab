@@ -3,7 +3,7 @@ package com.edplan.nso.ruleset.std.objects.v2;
 import com.edplan.nso.parser.ParseException;
 import com.edplan.framework.utils.advance.StringSplitter;
 
-public class StdGameCircle extends StdGameObject {
+public class StdCircle extends StdGameObject {
 
     public static final int TYPE_MASK = 1;
 

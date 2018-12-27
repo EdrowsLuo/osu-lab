@@ -25,6 +25,25 @@ public class Color4 {
 
     public static final Color4 Red = Color4.rgba(1, 0, 0, 1, true);
 
+    public static final float PackedONE = ONE.toFloatBitABGR();
+
+    private static final float[] PackedAlphas = new float[256];
+
+    static {
+        for (int i = 0 ;i <256;i++) {
+            float a = i / 255f;
+            PackedAlphas[i] = Color4.rgba(a, a, a, a, true).toFloatBitABGR();
+        }
+    }
+
+    public static float getPackedAlphaBit(float a) {
+        int idx = Math.round(a * 255);
+        if (idx > 255) {
+            idx = 255;
+        }
+        return PackedAlphas[idx];
+    }
+
     public float r, g, b, a;
 
     public boolean premultiple = false;
@@ -195,6 +214,27 @@ public class Color4 {
     //默认模式是argb
     public int toIntBit() {
         return Color.argb(getA255(), getR255(), getG255(), getB255());
+    }
+
+    public float toFloatBitABGR() {
+        if (premultiple) {
+            return Float.intBitsToFloat(((int) (255 * a) << 24) | ((int) (255 * b) << 16) | ((int) (255 * g) << 8) | ((int) (255 * r)));
+        } else {
+            return Float.intBitsToFloat(((int) (255 * a) << 24) | ((int) (255 * b * a) << 16) | ((int) (255 * g * a) << 8) | ((int) (255 * r * a)));
+        }
+    }
+
+    public float toFloatBitABGR(float aa) {
+        if (premultiple) {
+            return Float.intBitsToFloat(
+                    ((int) (255 * a * aa) << 24) | ((int) (255 * b * aa) << 16)
+                            | ((int) (255 * g * aa) << 8) | ((int) (255 * r * aa)));
+        } else {
+            float a = this.a * aa;
+            return Float.intBitsToFloat(
+                    ((int) (255 * a ) << 24) | ((int) (255 * b * a) << 16)
+                            | ((int) (255 * g * a) << 8) | ((int) (255 * r * a)));
+        }
     }
 
     @Override

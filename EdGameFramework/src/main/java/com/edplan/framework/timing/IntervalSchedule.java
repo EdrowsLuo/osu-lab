@@ -18,8 +18,8 @@ public class IntervalSchedule implements TimeUpdateable {
             }
             if (task.end <= time) {
                 taskIterator.remove();
-                if (task.start == task.end) {
-                    task.body.update(time);
+                if (task.start == task.end || task.strictEnd) {
+                    task.body.update(task.end);
                 }
             } else {
                 task.body.update(time);
@@ -27,8 +27,13 @@ public class IntervalSchedule implements TimeUpdateable {
         }
     }
 
-    public void addTask(double start, double end, TimeUpdateable body) {
+    public void addAnimTask(double start, double duration, TimeUpdateable anim) {
+        addTask(start, start + duration, true, time -> anim.update((time - start) / duration));
+    }
+
+    public void addTask(double start, double end, boolean strictEnd, TimeUpdateable body) {
         Task task = new Task();
+        task.strictEnd = strictEnd;
         task.body = body;
         task.start = start;
         task.end = end;
@@ -57,6 +62,7 @@ public class IntervalSchedule implements TimeUpdateable {
     public static class Task {
         double start;
         double end;
+        boolean strictEnd = false;
         TimeUpdateable body;
     }
 }

@@ -150,7 +150,7 @@ public abstract class MainRenderer implements GLSurfaceView.Renderer,OnTouchList
 		uiLooper.loop(tmer.getDeltaTime());
 		GLCanvas2D canvas=new GLCanvas2D(rootLayer);
 		canvas.prepare();
-		canvas.getMProjMatrix().setOrtho(0,canvas.getWidth(),canvas.getHeight(),0,-100,100);
+		canvas.getData().getCurrentProjMatrix().setOrtho(0,canvas.getWidth(),canvas.getHeight(),0,-100,100);
 		context.getUiLooper().handlerExpensiveTask();
 		canvas.drawColor(Color4.gray(0.0f));
 		viewRoot.onNewFrame(canvas,tmer.getDeltaTime());

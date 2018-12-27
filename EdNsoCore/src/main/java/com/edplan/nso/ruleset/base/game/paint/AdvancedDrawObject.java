@@ -19,12 +19,17 @@ public abstract class AdvancedDrawObject extends DrawObject {
 
     @NotThreadSafe
     public void addIntervalTask(double start, double end, TimeUpdateable updateable) {
-        getIntervalSchedule().addTask(start, end, updateable);
+        getIntervalSchedule().addTask(start, end, false, updateable);
     }
 
     @NotThreadSafe
     public void addAnimTask(double start, double duration, TimeUpdateable anim) {
-        addIntervalTask(start, start + duration, time -> anim.update((time - start) / duration));
+        getIntervalSchedule().addAnimTask(start, duration, anim);
+    }
+
+    @NotThreadSafe
+    public void addTask(double time, Runnable runnable) {
+        getIntervalSchedule().addTask(time, time, true, time1 -> runnable.run());
     }
 
     @Override

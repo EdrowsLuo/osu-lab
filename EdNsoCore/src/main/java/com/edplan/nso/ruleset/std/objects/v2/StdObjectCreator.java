@@ -12,8 +12,8 @@ public class StdObjectCreator implements StdFormatObjectParser.ObjectCreator<Std
 
     @Override
     public StdGameObject create(int type) {
-        if ((type & StdGameCircle.TYPE_MASK) > 0) {
-            return new StdGameCircle();
+        if ((type & StdCircle.TYPE_MASK) > 0) {
+            return new StdCircle();
         } else if ((type & StdSlider.TYPE_MASK) > 0) {
             return new StdSlider();
         } else if ((type & StdSpinner.TYPE_MASK) > 0) {

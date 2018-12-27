@@ -139,7 +139,7 @@ public class CanvasData implements Recycleable, Copyable {
     /**
      * 对轴进行缩放，而不是对物件缩放，所以处理Matrix时用倒数
      */
-    public CanvasData scaleContent(float s) {
+    public CanvasData expendAxis(float s) {
         if (s == 0)
             throw new IllegalArgumentException("you can't scale content using a scale rate ==0");
         float rs = 1 / s;

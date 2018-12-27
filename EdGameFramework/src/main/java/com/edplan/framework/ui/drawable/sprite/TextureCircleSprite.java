@@ -35,7 +35,7 @@ public class TextureCircleSprite extends BaseRectTextureSprite<TextureCircleShad
     }
 
     @Override
-    protected TextureCircleShader createShader() {
+    protected TextureCircleShader getShader() {
 
         return TextureCircleShader.get();
     }
@@ -44,7 +44,7 @@ public class TextureCircleSprite extends BaseRectTextureSprite<TextureCircleShad
     protected void prepareShader(BaseCanvas canvas) {
 
         super.prepareShader(canvas);
-        shader.loadCircleData(innerRadius, radius);
+        getShader().loadCircleData(innerRadius, radius);
     }
 }
 

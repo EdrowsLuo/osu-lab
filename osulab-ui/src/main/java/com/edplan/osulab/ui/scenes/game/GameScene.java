@@ -5,10 +5,10 @@ import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
-import com.edplan.framework.ui.Anchor;
 import com.edplan.framework.ui.additions.popupview.defviews.RenderStatPopupView;
 import com.edplan.framework.ui.inputs.DirectMotionHandler;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
+import com.edplan.nso.ruleset.base.beatmap.BeatmapDescription;
 import com.edplan.nso.ruleset.base.game.World;
 import com.edplan.nso.ruleset.base.game.judge.CursorData;
 import com.edplan.nso.ruleset.base.game.judge.HitArea;
@@ -16,7 +16,8 @@ import com.edplan.nso.ruleset.base.game.judge.HitWindow;
 import com.edplan.nso.ruleset.base.game.judge.JudgeData;
 import com.edplan.nso.ruleset.base.game.judge.JudgeObject;
 import com.edplan.nso.ruleset.base.game.judge.PositionHitObject;
-import com.edplan.nso.ruleset.base.game.paint.TextureRect;
+import com.edplan.nso.ruleset.base.game.paint.TextureQuadObject;
+import com.edplan.nso.ruleset.std.StdRuleset;
 import com.edplan.osulab.LabGame;
 import com.edplan.osulab.ScenesName;
 import com.edplan.osulab.ui.BackQuery;
@@ -30,7 +31,18 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
 
     public GameScene(MContext c) {
         super(c);
-        world = new World(c);
+        world = LabGame.get()
+                .getNsoCore()
+                .getRulesetById(StdRuleset.ID_NAME)
+                .getWorldLoader()
+                .loadWorld(
+                        new BeatmapDescription() {{
+                            beatmapType = StdRuleset.ID_NAME;
+                            filePath = "/storage/emulated/0/osu!droid/Songs/346314 Mai Zang - Si Ye Cao De Huang Xiang/Mai Zang - Si Ye Cao De Huang Xiang (Axarious) [Despair].osu";
+                        }},
+                        null
+                );
+        /*world = new World(c);
         world.onLoadConfig(new World.WorldConfig() {{
             judgeTypes.add(CursorData.class);
         }});
@@ -44,11 +56,14 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
         for (int i = 0; i < 10; i++) {
             final int ii = i;
 
-            TextureRect textureRect = new TextureRect(c);
-            textureRect.setTexture(cust);
-            textureRect.setQuad(RectF.anchorOWH(Anchor.Center, 200, 200, 200, 200));
-            textureRect.addAnimTask(3000 + 2000 * ii + 200,300,time -> {
-                textureRect.getSprite().setScale((float) (3 - time * 2));
+            TextureQuadObject textureQuadObject = new TextureQuadObject(c);
+            textureQuadObject.sprite.setTextureAndSize(cust);
+            textureQuadObject.sprite.setBaseWidth(200);
+            textureQuadObject.sprite.position.set(100, 100);
+            textureQuadObject.sprite.enableScale();
+            textureQuadObject.addAnimTask(3000 + 2000 * ii + 200,300, time -> {
+                textureQuadObject.sprite.position.set((float) (200 + (1 - time) * 300));
+                textureQuadObject.sprite.scale.set((float) (3 - time * 2));
             });
 
             PositionHitObject noteHit = new PositionHitObject() {{
@@ -56,33 +71,28 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
                 positionChecker = HitArea.circle(200, 200, 1000);
                 onHit = (time, x, y) -> {
                     System.out.println("hit offset " + (3000 + 2000 * ii + 500 - time));
-                    textureRect.postDetach();
+                    textureQuadObject.postDetach();
                 };
-                onTimeOut = textureRect::postDetach;
+                onTimeOut = textureQuadObject::postDetach;
             }};
 
-            world.getPaintWorld().addDrawObject(textureRect);
+            world.getPaintWorld().addDrawObject(textureQuadObject);
             world.getJudgeWorld().addJudgeObject(noteHit);
         }
 
 
 
         Vec2 pos = new Vec2();
-        TextureRect cus = new TextureRect(c) {
+        TextureQuadObject cus = new TextureQuadObject(c) {
             @Override
             protected void onDraw(BaseCanvas canvas, World world) {
-                setQuad(
-                        RectF.anchorOWH(
-                                Anchor.Center,
-                                pos.x,
-                                pos.y,
-                                500,
-                                500));
+                sprite.position.set(pos.x, pos.y);
                 super.onDraw(canvas, world);
             }
         };
         try {
-            cus.setTexture(c.getAssetResource().loadTexture("osu/skins/default/cursor.png"));
+            cus.sprite.setTextureAndSize(c.getAssetResource().loadTexture("osu/skins/default/cursor.png"));
+            cus.sprite.setBaseWidth(500);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -124,9 +134,16 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
             }
         };
 
-        //world.getJudgeWorld().addJudgeObject(cst);
-        //world.getPaintWorld().addDrawObject(cus);
+        world.getJudgeWorld().addJudgeObject(cst);
+        world.getPaintWorld().addDrawObject(cus);
         world.load();
+        world.start();*/
+    }
+
+    @Override
+    public void onInitialLayouted() {
+        super.onInitialLayouted();
+        world.configDrawArea(RectF.xywh(0, 0, getWidth(), getHeight()));
         world.start();
     }
 
@@ -156,6 +173,7 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
         //TODO : 隐藏显示FPS计数器的方法应该统一管理
         RenderStatPopupView.getInstance(getContext()).setLowDetailMode(false);
         getViewRoot().unregisterDirectMotionHandler(this);
+        world.stop();
     }
 
     @Override

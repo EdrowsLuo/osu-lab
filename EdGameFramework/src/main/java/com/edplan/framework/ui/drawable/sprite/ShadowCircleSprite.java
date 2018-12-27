@@ -13,8 +13,9 @@ public class ShadowCircleSprite extends CircleSprite {
         super(c);
     }
 
+    boolean isInner = false;
     public void setInner() {
-        setShader(InnerShadowCircleShader.get());
+        isInner = true;
     }
 
     public void setStartColor(Color4 startColor) {
@@ -36,16 +37,14 @@ public class ShadowCircleSprite extends CircleSprite {
     }
 
     @Override
-    protected CircleShader createShader() {
-
-        return ShadowCircleShader.get();
+    protected CircleShader getShader() {
+        return isInner ? InnerShadowCircleShader.get() : ShadowCircleShader.get();
     }
 
     @Override
     protected void prepareShader(BaseCanvas canvas) {
-
         super.prepareShader(canvas);
-        ((ShadowCircleShader) shader).loadStartAndEndColor(startColor, endColor);
+        ((ShadowCircleShader) getShader()).loadStartAndEndColor(startColor, endColor);
     }
 }
 
