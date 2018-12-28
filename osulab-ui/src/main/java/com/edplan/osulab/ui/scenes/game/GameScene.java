@@ -43,7 +43,7 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
                             AResource test = c.getAssetResource()
                                     .subResource("test")
                                     .subResource("songs")
-                                    .subResource("346314 Mai Zang - Si Ye Cao De Huang Xiang");
+                                    .subResource("teo");
 
                             {
                                 beatmapType = StdRuleset.ID_NAME;
@@ -56,7 +56,7 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
 
                             @Override
                             public InputStream openBeatmapStream() throws IOException {
-                                return test.openInput("test.osu");
+                                return test.openInput("Araki - Teo (Nevo) [Descent].osu");
                             }
                         },
                         null

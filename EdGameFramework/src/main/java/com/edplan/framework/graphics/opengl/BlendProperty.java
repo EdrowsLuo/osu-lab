@@ -2,6 +2,7 @@ package com.edplan.framework.graphics.opengl;
 
 import android.opengl.GLES20;
 
+import com.edplan.framework.graphics.opengl.batch.v2.BatchEngine;
 import com.edplan.framework.utils.interfaces.Copyable;
 
 public class BlendProperty implements Copyable {
@@ -29,6 +30,7 @@ public class BlendProperty implements Copyable {
     }
 
     public void applyToGL() {
+        BatchEngine.flush();
         if (enable) {
             GLES20.glEnable(GLES20.GL_BLEND);
             GLES20.glBlendFunc(blendType.srcType, blendType.dstType);

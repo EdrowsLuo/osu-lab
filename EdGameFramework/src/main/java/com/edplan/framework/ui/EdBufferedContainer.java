@@ -42,7 +42,7 @@ public abstract class EdBufferedContainer extends EdAbstractViewGroup {
     }
 
     public void enableDepth() {
-        if (!layer.isHasDepthBuffer()) {
+        if (!layer.getFrameBuffer().hasDepthAttachment()) {
             layer = new BufferedLayer(getContext(), true);
         }
     }

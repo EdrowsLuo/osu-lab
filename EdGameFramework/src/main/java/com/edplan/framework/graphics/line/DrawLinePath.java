@@ -16,13 +16,13 @@ import java.util.ArrayList;
 public class DrawLinePath {
     private static final int MAXRES = 24;
 
-    private static final float Z_MIDDLE = 1.0f;
+    private static final float Z_MIDDLE = 3.0f;
 
     private static final float Z_SIDE = 0.0f;
 
-    private final PackedTriangles triangles;
+    private PackedTriangles triangles;
 
-    public final FloatRef alpha = new FloatRef(1);
+    public final FloatRef alpha;
 
     private AbstractPath path;
 
@@ -30,10 +30,22 @@ public class DrawLinePath {
 
     public final Vec2 textureEnd = new Vec2(1, 1);
 
-    public DrawLinePath(AbstractPath p) {
-        triangles = new PackedTriangles(p.size() * 4);
+    public DrawLinePath(AbstractPath p, FloatRef alpha) {
+        this.alpha = alpha;
         path = p;
-        init();
+    }
+
+    public DrawLinePath(AbstractPath p) {
+        alpha = new FloatRef(1);
+        path = p;
+    }
+
+    public PackedTriangles getTriangles() {
+        if (triangles == null) {
+            triangles = new PackedTriangles(path.size() * 4);
+            init();
+        }
+        return triangles;
     }
 
     private void addLineCap(Vec2 org, float theta, float thetaDiff) {
@@ -156,13 +168,16 @@ public class DrawLinePath {
         int max_i = path.size();
         for (int i = 2; i < max_i; i++) {
             nextPoint = path.get(i);
+            /*if (Vec2.length(nextPoint, nowPoint) < 1) {
+                continue;
+            }*/
             nextTheta = Vec2.calTheta(nowPoint, nextPoint);
             addLineCap(nowPoint, preTheta - FMath.PiHalf, nextTheta - preTheta);
             addLineQuads(nowPoint, nextPoint);
             nowPoint = nextPoint;
             preTheta = nextTheta;
         }
-        addLineCap(path.get(max_i - 1), preTheta - FMath.PiHalf, FMath.Pi);
+        addLineCap(nowPoint, preTheta - FMath.PiHalf, FMath.Pi);
     }
 
 

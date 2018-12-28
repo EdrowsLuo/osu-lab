@@ -190,7 +190,7 @@ public class LinePath implements AbstractPath {
 			}
 		}*/
 
-        return new SubLinePathLR(startPoint, endPoint, s, e);
+        return new SubLinePathLR(startPoint, endPoint, s, e).fitToLinePath();
     }
 
     public class SubLinePath implements AbstractPath {
@@ -313,7 +313,7 @@ public class LinePath implements AbstractPath {
             this.startIndexM1 = startIndex - 1;
             this.endPointIdx = endIndex - startIndex + 2;
             this.size = endIndex - startIndex + 3;
-            MLog.test.vOnce("sub", "path-test", "e:" + endIndex + " s:" + startIndex + " size: " + size);
+            //MLog.test.vOnce("sub", "path-test", "e:" + endIndex + " s:" + startIndex + " size: " + size);
         }
 
         @Override
@@ -324,9 +324,9 @@ public class LinePath implements AbstractPath {
             } else if (idx == endPointIdx) {
                 return endPoint;
             } else {
-                if (startIndexM1 + idx == 3) {
+                /*if (startIndexM1 + idx == 3) {
                     MLog.test.vOnce("sub2", "path-test", "err called 3 :" + idx + ":" + endPointIdx);
-                }
+                }*/
                 return LinePath.this.get(startIndexM1 + idx);
             }
         }

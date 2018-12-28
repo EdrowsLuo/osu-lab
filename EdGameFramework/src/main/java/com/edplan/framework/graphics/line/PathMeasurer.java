@@ -101,7 +101,7 @@ public class PathMeasurer {
             int s = binarySearch(l);
             float ls = lengthes.get(s);
             Vec2 v = Vec2.onLineLength(path.get(s), path.get(s + 1), l - ls);
-            MLog.test.vOnce("vec", "path-test", "vec:" + v + " v1:" + path.get(s) + " v2:" + path.get(s + 1) + " s:" + s);
+            //MLog.test.vOnce("vec", "path-test", "vec:" + v + " v1:" + path.get(s) + " v2:" + path.get(s + 1) + " s:" + s);
             return v;
         }
     }

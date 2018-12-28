@@ -47,6 +47,7 @@ public class BufferedLayer {
         this.context = layer.context;
         this.directLayer = true;
         this.frameBuffer = layer.frameBuffer;
+        this.hasDepthBuffer = layer.hasDepthBuffer;
         this.height = height;
         this.width = width;
         if (layer.isDirectLayer()) {
@@ -80,7 +81,7 @@ public class BufferedLayer {
         this.context = context;
         this.width = 1;
         this.height = 1;
-        this.hasDepthBuffer = false;
+        this.hasDepthBuffer = true;
         bufferedPool = DEF_FBOPOOL;
     }
 
@@ -98,9 +99,14 @@ public class BufferedLayer {
         permissionToTexture = false;
     }
 
-    public boolean isHasDepthBuffer() {
-        return hasDepthBuffer;
+    /*public void attachDepthBuffer() {
+        frameBuffer.attachDepthBuffer();
+        hasDepthBuffer = true;
     }
+
+    public void dettachDepthBuffer() {
+        frameBuffer.dettachDepthBuffer();
+    }*/
 
     public boolean isDirectLayer() {
         return directLayer;
