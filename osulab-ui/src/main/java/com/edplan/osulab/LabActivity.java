@@ -50,10 +50,10 @@ public class LabActivity extends EdMainActivity {
         }
 
 
-        initialWithView(TestView.class);
+        //initialWithView(TestView.class);
 
-        //app = new LabApplication();
-        //app.setUpActivity(this);
+        app = new LabApplication();
+        app.setUpActivity(this);
 
         //DatabaseTable table=new DatabaseTable();
         //table.initial(TestDBLine.class);
