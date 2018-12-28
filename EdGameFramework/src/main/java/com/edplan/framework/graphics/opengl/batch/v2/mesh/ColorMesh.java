@@ -19,7 +19,6 @@ public class ColorMesh implements Mesh{
         colors.data = color;
         positions = new MeshPart();
         positions.data = pos;
-
     }
 
     public ColorMesh(int size) {

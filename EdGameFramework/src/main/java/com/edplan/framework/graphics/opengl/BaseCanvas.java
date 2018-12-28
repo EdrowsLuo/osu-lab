@@ -13,7 +13,7 @@ import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
 import com.edplan.framework.graphics.opengl.objs.Vertex3D;
 import com.edplan.framework.graphics.opengl.objs.vertex.RectVertex;
 import com.edplan.framework.graphics.opengl.shader.advance.ColorShader;
-import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
+import com.edplan.framework.graphics.opengl.shader.advance.LegacyTexture3DShader;
 import com.edplan.framework.math.IQuad;
 import com.edplan.framework.math.Mat4;
 import com.edplan.framework.math.RectF;
@@ -193,7 +193,7 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
 
 
     @Deprecated
-    private void injectData(BaseBatch batch, AbstractTexture texture, float alpha, Color4 mixColor, Texture3DShader shader) {
+    private void injectData(BaseBatch batch, AbstractTexture texture, float alpha, Color4 mixColor, LegacyTexture3DShader shader) {
         shader.useThis();
         shader.loadAccentColor(mixColor);
         shader.loadAlpha(alpha * getCanvasAlpha());

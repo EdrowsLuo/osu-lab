@@ -41,6 +41,12 @@ public abstract class EdBufferedContainer extends EdAbstractViewGroup {
         postPaint = new GLPaint();
     }
 
+    public void enableDepth() {
+        if (!layer.isHasDepthBuffer()) {
+            layer = new BufferedLayer(getContext(), true);
+        }
+    }
+
     public boolean isNeedRefresh() {
         return needRefresh;
     }

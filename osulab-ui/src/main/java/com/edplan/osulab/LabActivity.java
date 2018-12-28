@@ -6,6 +6,7 @@ import android.util.Log;
 import com.edplan.framework.Framework;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.graphics.opengl.GLWrapped;
 import com.edplan.framework.graphics.opengl.MainRenderer;
 import com.edplan.framework.graphics.opengl.batch.v2.object.TextureQuad;
 import com.edplan.framework.graphics.opengl.batch.v2.object.TextureQuadBatch;
@@ -13,12 +14,14 @@ import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.main.EdMainActivity;
 import com.edplan.framework.main.MainApplication;
+import com.edplan.framework.ui.EdBufferedContainer;
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.additions.popupview.defviews.RenderStatPopupView;
 import com.edplan.framework.ui.layout.EdLayoutParam;
 import com.edplan.framework.ui.layout.Param;
 import com.edplan.framework.ui.text.font.bmfont.BMFont;
 import com.edplan.framework.ui.widget.AbsoluteLayout;
+import com.edplan.framework.ui.widget.RelativeContainer;
 import com.edplan.framework.utils.dataobject.DataMapObject;
 import com.edplan.framework.utils.dataobject.Struct;
 import com.edplan.osulab.ui.BackQuery;
@@ -47,10 +50,10 @@ public class LabActivity extends EdMainActivity {
         }
 
 
-        //initialWithView(TestView.class);
+        initialWithView(TestView.class);
 
-        app = new LabApplication();
-        app.setUpActivity(this);
+        //app = new LabApplication();
+        //app.setUpActivity(this);
 
         //DatabaseTable table=new DatabaseTable();
         //table.initial(TestDBLine.class);
@@ -87,12 +90,13 @@ public class LabActivity extends EdMainActivity {
     }
 
 
-    public static class TestView extends EdView {
+    public static class TestView extends RelativeContainer {
 
         AbstractTexture texture;
 
         public TestView(MContext context) {
             super(context);
+            enableDepth();
         }
 
         @Override
@@ -107,13 +111,26 @@ public class LabActivity extends EdMainActivity {
         protected void onDraw(BaseCanvas canvas) {
             super.onDraw(canvas);
 
-            canvas.expendAxis(2);
-            TextureQuad quad = new TextureQuad();
-            quad.setTextureAndSize(GLTexture.ErrorTexture);
-            quad.setBaseWidth(200);
-            quad.position.set(300, 300);
+            GLWrapped.depthTest.save();
+            GLWrapped.depthTest.set(true);
+            GLWrapped.clearDepthBuffer();
 
-            TextureQuadBatch.getDefaultBatch().add(quad);
+            TextureQuad quad1 = new TextureQuad();
+            quad1.setTextureAndSize(GLTexture.White);
+            quad1.size.set(200, 200);
+            quad1.position.set(300, 300);
+
+            TextureQuad quad2 = new TextureQuad();
+            quad2.setTextureAndSize(GLTexture.Red);
+            quad2.alpha.value = 0.5f;
+            quad2.size.set(200, 200);
+            quad2.position.set(200, 200);
+
+            TextureQuadBatch.getDefaultBatch().addAll(quad1, quad2);
+
+
+            GLWrapped.depthTest.restore();
+
         }
     }
 

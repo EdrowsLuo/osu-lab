@@ -68,6 +68,14 @@ public class BufferedLayer {
         bufferedPool = DEF_FBOPOOL;
     }
 
+    public BufferedLayer(MContext context, boolean hasDepthBuffer) {
+        this.context = context;
+        this.width = 1;
+        this.height = 1;
+        this.hasDepthBuffer = hasDepthBuffer;
+        bufferedPool = DEF_FBOPOOL;
+    }
+
     public BufferedLayer(MContext context) {
         this.context = context;
         this.width = 1;
@@ -88,6 +96,10 @@ public class BufferedLayer {
     public BufferedLayer(MContext context, GLTexture texture, boolean useDepth) {
         this(context, FrameBufferObject.create(texture, useDepth));
         permissionToTexture = false;
+    }
+
+    public boolean isHasDepthBuffer() {
+        return hasDepthBuffer;
     }
 
     public boolean isDirectLayer() {

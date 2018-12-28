@@ -113,4 +113,8 @@ public class FMath {
     public static float squareDistance(float x, float y) {
         return x * x + y * y;
     }
+
+    public static double linear(double progress, double bottom, double top) {
+        return bottom * (1 - progress) + top * progress;
+    }
 }

@@ -18,4 +18,27 @@ public class GroupDrawObjectWithSchedule extends GroupDrawObject {
         schedule.addEvent(time, runnable);
     }
 
+    public void scheduleAttachFront(double time, DrawObject object) {
+        addEvent(time, () -> attachFront(object));
+    }
+
+    public void scheduleAttachBehind(double time, DrawObject object) {
+        addEvent(time, () -> attachBehind(object));
+    }
+
+    public void scheduleAttachFrontAll(double time, DrawObject... objects) {
+        addEvent(time, () -> {
+            for (DrawObject object : objects) {
+                attachFront(object);
+            }
+        });
+    }
+
+    public void scheduleAttachBehindAll(double time, DrawObject... objects) {
+        addEvent(time, () -> {
+            for (DrawObject object : objects) {
+                attachBehind(object);
+            }
+        });
+    }
 }

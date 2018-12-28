@@ -2,7 +2,9 @@ package com.edplan.framework.ui.drawable.sprite;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.graphics.opengl.GLCanvas2D;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformColor4;
+import com.edplan.framework.graphics.opengl.shader.uniforms.UniformSample2D;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.utils.StringUtil;
 
@@ -41,6 +43,7 @@ public class RoundedRectSprite extends BaseRectTextureSprite<RoundedShader> {
     protected void prepareShader(BaseCanvas canvas) {
 
         super.prepareShader(canvas);
+        //getShader().uBackbuffer.loadData(((GLCanvas2D) canvas).getLayer().getTexture().getTexture());
         getShader().loadRadius(r1, r2, r3, r4);
         getShader().loadRect(l, t, r, b);
     }
@@ -65,29 +68,32 @@ class RoundedShader extends TextureSpriteShader {
     }
 
     static {
-        VERTEX_SHADER = StringUtil.link(StringUtil.LINE_BREAK, new String[]{
+        VERTEX_SHADER = StringUtil.link(StringUtil.LINE_BREAK,
                 "@include <TextureSpriteBase.vs>",
-                "void main(){ setUpSpriteBase(); }"
-        });
-        FRAGMENT_SHADER = StringUtil.link(StringUtil.LINE_BREAK, new String[]{
+                "void main(){ setUpSpriteBase(); }");
+        FRAGMENT_SHADER = StringUtil.link(StringUtil.LINE_BREAK,
                 "precision highp float;",
                 "@include <TextureSpriteBase.fs>",
                 "@include <Rounded>",
                 "uniform vec4 u_Rect,u_RoundedRadius;",
+                //"uniform sampler2D u_Backbuffer;",
                 "void main(){",
                 "    float r=u_RoundedRadius.x;",
                 "    vec4 inner=vec4(u_Rect.x+r,u_Rect.y+r,u_Rect.z-r,u_Rect.w-r);",
                 "    float v=distanceFromRoundedRect(f_Position.xy,inner,r);",
                 "    float a=1.0-smoothstep(0.0,1.0,v);",
+                //"    vec4 c=f_Color*texture2D(u_Backbuffer,f_Position.xy)*getTextureColor()*a;",
                 "    vec4 c=f_Color*getTextureColor()*a;",
                 "    @include <discard>",
                 "    gl_FragColor=c;",
-                "}"
-        });
+                "}");
     }
 
     @PointerName
     public UniformColor4 uRect, uRoundedRadius;
+
+    //@PointerName
+    //public UniformSample2D uBackbuffer;
 
     public RoundedShader(String v, String f) {
         super(v, f);

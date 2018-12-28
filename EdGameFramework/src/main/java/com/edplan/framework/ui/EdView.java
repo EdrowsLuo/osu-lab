@@ -5,6 +5,7 @@ import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.main.MainCallBack;
 import com.edplan.framework.math.RectF;
+import com.edplan.framework.math.Vec2;
 import com.edplan.framework.ui.additions.FrameListener;
 import com.edplan.framework.ui.animation.AbstractAnimation;
 import com.edplan.framework.ui.animation.AnimationHandler;
@@ -150,6 +151,18 @@ public class EdView implements IRunnableHandler, MainCallBack, FrameListener {
     @Override
     public void onFrameStart() {
 
+    }
+
+    public Vec2 getOffsetToNextContainer(Vec2 dst) {
+        if (dst == null) {
+            dst = new Vec2();
+        }
+        dst.add(getLeft(), getTop());
+        if (getParent() instanceof EdBufferedContainer) {
+            return dst;
+        } else {
+            return getParent().getOffsetToNextContainer(dst);
+        }
     }
 
     public void setOutsideTouchable(boolean outsideTouchable) {

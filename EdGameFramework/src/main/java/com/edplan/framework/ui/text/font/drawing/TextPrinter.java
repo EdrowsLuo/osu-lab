@@ -7,7 +7,7 @@ import com.edplan.framework.graphics.opengl.batch.Texture3DBatch;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
 import com.edplan.framework.graphics.opengl.objs.advanced.Texture3DRect;
-import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
+import com.edplan.framework.graphics.opengl.shader.advance.LegacyTexture3DShader;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.text.font.bmfont.BMFont;
 import com.edplan.framework.ui.text.font.bmfont.FNTChar;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 public class TextPrinter {
 
-    private static Texture3DShader shader;
+    private static LegacyTexture3DShader shader;
 
     public static final char NO_PREVIOUS_CHAR = 0;
     /**
@@ -232,7 +232,7 @@ public class TextPrinter {
     public void draw(BaseCanvas canvas) {
         if (shader == null) {
             try {
-                shader = Texture3DShader.createT3S(
+                shader = LegacyTexture3DShader.createT3S(
                         ((GLCanvas2D) canvas).getContext().getAssetResource().loadText("shaders/StdTexture3DShader.vs"),
                         ((GLCanvas2D) canvas).getContext().getAssetResource().loadText("shaders/FontTexture3DShader.fs")
                         );
@@ -243,7 +243,7 @@ public class TextPrinter {
         }
         if (useFontShader()) {
             canvas.save();
-            canvas.getData().getShaders().setTexture3DShader(shader);
+            canvas.getData().getShaders().setLegacyTexture3DShader(shader);
         }
         for (int i = 0; i < font.getPageCount(); i++) {
             Texture3DBatch<TextureVertex3D> batch = batchs.get(i);

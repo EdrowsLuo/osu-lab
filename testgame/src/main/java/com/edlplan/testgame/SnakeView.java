@@ -4,7 +4,7 @@ import android.graphics.Bitmap;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.line.AbstractPath;
-import com.edplan.framework.graphics.line.DrawLinePath;
+import com.edplan.framework.graphics.line.LegacyDrawLinePath;
 import com.edplan.framework.graphics.line.LinePath;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.GLWrapped;
@@ -302,7 +302,7 @@ public class SnakeView extends EdView {
             canvas.getBlendSetting().save();
             canvas.getBlendSetting().setEnable(false);
             for (AbstractPath path : paths) {
-                DrawLinePath<Texture3DBatch> d = new DrawLinePath<>(path);
+                LegacyDrawLinePath<Texture3DBatch> d = new LegacyDrawLinePath<>(path);
                 batch.clear();
                 d.addToBatch(batch);
                 canvas.drawTexture3DBatch(batch, bodyTexture, 1, Color4.White);

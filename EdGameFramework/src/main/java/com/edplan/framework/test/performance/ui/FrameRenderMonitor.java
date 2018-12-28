@@ -26,7 +26,7 @@ public class FrameRenderMonitor extends EdView {
     public static int fboCreate;
 
     public static int getFPS() {
-        return (avg != 0) ? (int) (1000 / avg) : 0;
+        return (avg != 0) ? Math.round(1000 / avg) : 0;
     }
 
     public static int getFrameDeltaTimeAvg() {

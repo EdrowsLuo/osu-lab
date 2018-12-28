@@ -1,20 +1,24 @@
 package com.edplan.framework.graphics.opengl.shader.advance;
 
+import android.opengl.GLES20;
+
 import com.edplan.framework.graphics.opengl.Camera;
-import com.edplan.framework.graphics.opengl.GLPaint;
-import com.edplan.framework.graphics.opengl.batch.BaseBatch;
-import com.edplan.framework.graphics.opengl.batch.base.IHasTexturePosition;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
+import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.graphics.opengl.shader.Attr;
 import com.edplan.framework.graphics.opengl.shader.GLProgram;
+import com.edplan.framework.graphics.opengl.shader.ShaderGlobals;
 import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
+import com.edplan.framework.graphics.opengl.shader.uniforms.UniformColor4;
+import com.edplan.framework.graphics.opengl.shader.uniforms.UniformFloat;
+import com.edplan.framework.graphics.opengl.shader.uniforms.UniformMat4;
 import com.edplan.framework.graphics.opengl.shader.uniforms.UniformSample2D;
 import com.edplan.framework.math.Mat4;
 import com.edplan.framework.utils.Lazy;
 
 import java.nio.FloatBuffer;
 
-public class Texture3DShader extends ColorShader {
-    public static Texture3DShader Invalid = new InvalidTexture3DShader();
+public class Texture3DShader  extends BaseShader{
 
     public static final Lazy<Texture3DShader> DEFAULT;
 
@@ -27,15 +31,15 @@ public class Texture3DShader extends ColorShader {
                                 "uniform float u_FinalAlpha;\n" +
                                 "uniform vec4 u_AccentColor;\n" +
                                 "\n" +
-                                "attribute vec2 a_TextureCoord;\n" +
                                 "attribute vec3 a_Position;\n" +
+                                "attribute vec2 a_Coord;\n" +
                                 "attribute vec4 a_VaryingColor;\n" +
                                 "\n" +
                                 "varying vec4 f_VaryingColor;\n" +
                                 "varying vec2 f_TextureCoord;\n" +
                                 "\n" +
                                 "void main(){\n" +
-                                "    f_TextureCoord = a_TextureCoord;\n" +
+                                "    f_TextureCoord = a_Coord;\n" +
                                 "    f_VaryingColor = a_VaryingColor * u_FinalAlpha;\n" +
                                 "    gl_Position = u_MVPMatrix * vec4(a_Position, 1.0);\n" +
                                 "}",
@@ -54,118 +58,118 @@ public class Texture3DShader extends ColorShader {
     }
 
     @PointerName
-    public UniformSample2D uTexture;
+    public UniformMat4 uMVPMatrix;
+
+    @PointerName
+    public UniformMat4 uMaskMatrix;
+
+    @PointerName
+    public UniformFloat uFinalAlpha;
+
+    @PointerName
+    public UniformColor4 uAccentColor;
+
+    @PointerName
+    @AttribType(VertexAttrib.Type.VEC3)
+    public VertexAttrib aPosition;
 
     @PointerName
     @AttribType(VertexAttrib.Type.VEC2)
-    public VertexAttrib aTextureCoord;
+    public VertexAttrib aCoord;
+
+    @PointerName(Attr.Color)
+    @AttribType(VertexAttrib.Type.VEC4)
+    public VertexAttrib aColor;
+
+    @PointerName
+    public UniformSample2D uTexture;
+
+    public static final int STEP = (3 + 2 + 1) * 4;
 
     protected Texture3DShader(GLProgram program) {
         super(program, true);
-    }
-
-    protected Texture3DShader(GLProgram p, boolean i) {
-        super(p, i);
-    }
-
-    @Override
-    public boolean loadBatch(BaseBatch batch) {
-        if (super.loadBatch(batch)) {
-            if (batch instanceof IHasTexturePosition) {
-                loadTextureCoord(((IHasTexturePosition) batch).makeTexturePositionBuffer());
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
     }
 
     public void loadTexture(AbstractTexture texture) {
         uTexture.loadData(texture.getTexture());
     }
 
-    public void loadTextureCoord(FloatBuffer buffer) {
-        aTextureCoord.loadData(buffer);
+    public void loadMatrix(Camera c) {
+        loadMVPMatrix(c.getFinalMatrix());
+        loadMaskMatrix(c.getMaskMatrix());
     }
 
-    public static final Texture3DShader createT3S(String vs, String fs) {
-        Texture3DShader s = new Texture3DShader(GLProgram.createProgram(vs, fs));
-        return s;
+    protected void loadMVPMatrix(Mat4 mvp) {
+        uMVPMatrix.loadData(mvp);
     }
 
-    public static class InvalidTexture3DShader extends Texture3DShader {
-        public InvalidTexture3DShader() {
-            super(GLProgram.invalidProgram(), false);
+    protected void loadMaskMatrix(Mat4 mpm) {
+        uMaskMatrix.loadData(mpm);
+    }
+
+    public void loadBuffer(FloatBuffer buffer) {
+        int pos = buffer.position();
+        int limit = buffer.limit();
+        aPosition.loadData(buffer, 3, GLES20.GL_FLOAT, STEP, false);
+        buffer.position(pos + 3);
+        aCoord.loadData(buffer, 2, GLES20.GL_FLOAT, STEP, false);
+        buffer.position(pos + 5);
+        aColor.loadData(buffer, 4, GLES20.GL_UNSIGNED_BYTE, STEP, true);
+        buffer.position(pos);
+        buffer.limit(limit);
+    }
+
+    @Override
+    public void loadShaderGlobals(ShaderGlobals globals) {
+        uFinalAlpha.loadData(globals.alpha);
+        uAccentColor.loadData(globals.accentColor);
+        loadMatrix(globals.camera);
+    }
+
+    /**
+     * 特殊化，不绘制实质性图像的shader（但是会影响 depth test）
+     */
+    public static class DepthShader extends Texture3DShader {
+
+        public static final Lazy<DepthShader> DEFAULT;
+
+        static {
+            DEFAULT = Lazy.create(() -> new DepthShader(
+                    GLProgram.createProgram(
+                            "" +
+                                    "uniform mat4 u_MVPMatrix;\n" +
+                                    "\n" +
+                                    "attribute vec3 a_Position;\n" +
+                                    "\n" +
+                                    "void main(){\n" +
+                                    "    gl_Position = u_MVPMatrix * vec4(a_Position, 1.0);\n" +
+                                    "}",
+                            "" +
+                                    "precision mediump float;\n" +
+                                    "void main(){\n" +
+                                    "    gl_FragColor = vec4(0.0);\n" +
+                                    "}"
+                    )
+            ));
+        }
+
+
+        protected DepthShader(GLProgram program) {
+            super(program);
         }
 
         @Override
-        public void loadPosition(FloatBuffer buffer) {
-
-            //super.loadPosition(buffer);
+        public void loadShaderGlobals(ShaderGlobals globals) {
+            loadMatrix(globals.camera);
         }
 
         @Override
-        public void loadTexture(AbstractTexture texture) {
-
-            //super.loadTexture(texture);
+        public void loadBuffer(FloatBuffer buffer) {
+            int pos = buffer.position();
+            int limit = buffer.limit();
+            aPosition.loadData(buffer, 3, GLES20.GL_FLOAT, STEP, false);
+            buffer.position(pos);
+            buffer.limit(limit);
         }
-
-        @Override
-        public void loadColor(FloatBuffer buffer) {
-
-            //super.loadColor(buffer);
-        }
-
-        @Override
-        protected void loadMVPMatrix(Mat4 mvp) {
-
-            //super.loadMVPMatrix(mvp);
-        }
-
-        @Override
-        public void loadPaint(GLPaint paint, float alphaAdjust) {
-
-            //super.loadPaint(paint, alphaAdjust);
-        }
-
-        @Override
-        public void loadMatrix(Camera c) {
-
-            //super.loadMatrix(mvp, mask);
-        }
-
-        @Override
-        public void loadTextureCoord(FloatBuffer buffer) {
-
-            //super.loadTextureCoord(buffer);
-        }
-
-        @Override
-        public boolean loadBatch(BaseBatch batch) {
-
-            return true;//super.loadBatch(batch);
-        }
-
-        @Override
-        public void loadAlpha(float a) {
-
-            //super.loadAlpha(a);
-        }
-
-        @Override
-        protected void loadMaskMatrix(Mat4 mpm) {
-
-            //super.loadMaskMatrix(mpm);
-        }
-
-        @Override
-        public void applyToGL(int mode, int offset, int count) {
-
-            //super.applyToGL(mode, offset, count);
-        }
-
-
     }
 }

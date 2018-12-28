@@ -23,7 +23,9 @@ public class RenderStatPopupView extends PopupView {
     public RenderStatPopupView(MContext c) {
         super(c);
         //setRounded(ViewConfiguration.dp(5));
-        setBackgroundRoundedRect(Color4.rgba(0, 0, 0, 0.4f),ViewConfiguration.dp(5));
+        setBackgroundRoundedRect(
+                Color4.rgba(0, 0, 0, 0.4f),
+                ViewConfiguration.dp(5));
         //.setShadow(ViewConfiguration.dp(3),Color4.rgba(0.5f,0.5f,0.5f,0.3f),Color4.Alpha);
         LinearLayout l = new LinearLayout(c);
         l.setGravity(Gravity.Center);

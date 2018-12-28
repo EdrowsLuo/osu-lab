@@ -4,8 +4,7 @@ import com.edplan.framework.graphics.opengl.GLWrapped;
 import com.edplan.framework.graphics.opengl.batch.v2.BatchEngine;
 import com.edplan.framework.graphics.opengl.buffer.BufferUtil;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
-import com.edplan.framework.graphics.opengl.shader.advance.ColorShader;
-import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
+import com.edplan.framework.graphics.opengl.shader.advance.LegacyTexture3DShader;
 
 import java.nio.FloatBuffer;
 
@@ -20,7 +19,7 @@ public class TextureMeshBatch extends AbstractMeshBatch<TextureMesh> {
         return defaultBatch;
     }
 
-    private Texture3DShader shader = Texture3DShader.DEFAULT.get();
+    private LegacyTexture3DShader shader = LegacyTexture3DShader.DEFAULT.get();
 
     private FloatBuffer colorBuffer;
 

@@ -161,7 +161,7 @@ public class GLTexture extends AbstractTexture {
         canvas.drawColor(Color4.Alpha);
         canvas.clearBuffer();
         canvas.save();
-        //canvas.getData().getShaders().setTexture3DShader(ShaderManager.getRawTextureShader());
+        //canvas.getData().getShaders().setLegacyTexture3DShader(ShaderManager.getRawTextureShader());
         GLPaint rawPaint = new GLPaint();
         canvas.drawTexture(this, RectF.xywh(0, 0, getWidth(), getHeight()), rawPaint);
         if (GLWrapped.GL_VERSION >= 2) {

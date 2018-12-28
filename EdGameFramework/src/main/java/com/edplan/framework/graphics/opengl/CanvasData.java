@@ -1,6 +1,6 @@
 package com.edplan.framework.graphics.opengl;
 
-import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
+import com.edplan.framework.graphics.opengl.shader.advance.LegacyTexture3DShader;
 import com.edplan.framework.utils.interfaces.Copyable;
 import com.edplan.framework.utils.interfaces.Recycleable;
 import com.edplan.framework.math.Mat4;
@@ -89,12 +89,12 @@ public class CanvasData implements Recycleable, Copyable {
         return camera.getProjectionMatrix();
     }
 
-    public void setTexture3DShader(Texture3DShader texture3DShader) {
-        this.shaders.setTexture3DShader(texture3DShader);
+    public void setTexture3DShader(LegacyTexture3DShader legacyTexture3DShader) {
+        this.shaders.setLegacyTexture3DShader(legacyTexture3DShader);
     }
 
-    public Texture3DShader getTexture3DShader() {
-        return shaders.getTexture3DShader();
+    public LegacyTexture3DShader getTexture3DShader() {
+        return shaders.getLegacyTexture3DShader();
     }
 
     public void setCurrentMaskMatrix(Mat4 matrix) {

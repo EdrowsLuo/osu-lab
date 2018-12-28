@@ -2,7 +2,7 @@ package com.edplan.framework.graphics.opengl;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.shader.advance.ColorShader;
-import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
+import com.edplan.framework.graphics.opengl.shader.advance.LegacyTexture3DShader;
 import com.edplan.framework.graphics.opengl.shader.compile.CompileRawStringStore;
 import com.edplan.framework.resource.AResource;
 
@@ -20,7 +20,7 @@ public class ShaderManager {
 
     private static ShaderManager shaderManager;
 
-    private Texture3DShader texture3DShader;
+    private LegacyTexture3DShader legacyTexture3DShader;
 
     private ColorShader colorShader;
 
@@ -44,7 +44,7 @@ public class ShaderManager {
     }
 
     public void set(ShaderManager s) {
-        texture3DShader = s.texture3DShader;
+        legacyTexture3DShader = s.legacyTexture3DShader;
         colorShader = s.colorShader;
         res = s.res;
     }
@@ -52,8 +52,8 @@ public class ShaderManager {
     private void loadShader() {
         if (GLWrapped.GL_VERSION >= 2)
             try {
-                texture3DShader =
-                        Texture3DShader.createT3S(
+                legacyTexture3DShader =
+                        LegacyTexture3DShader.createT3S(
                                 res.loadText(PATH.PATH_Texture3DShader + ".vs"),
                                 res.loadText(PATH.PATH_Texture3DShader + ".fs")
                         );
@@ -72,12 +72,12 @@ public class ShaderManager {
         return colorShader;
     }
 
-    public void setTexture3DShader(Texture3DShader texture3DShader) {
-        this.texture3DShader = texture3DShader;
+    public void setLegacyTexture3DShader(LegacyTexture3DShader legacyTexture3DShader) {
+        this.legacyTexture3DShader = legacyTexture3DShader;
     }
 
-    public Texture3DShader getTexture3DShader() {
-        return texture3DShader;
+    public LegacyTexture3DShader getLegacyTexture3DShader() {
+        return legacyTexture3DShader;
     }
 
     public static void initStatic(MContext context) {

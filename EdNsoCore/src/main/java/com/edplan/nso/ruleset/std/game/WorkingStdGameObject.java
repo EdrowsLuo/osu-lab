@@ -51,6 +51,10 @@ public abstract class WorkingStdGameObject<T extends StdGameObject> {
         return gameObject.getTime();
     }
 
+    public double getShowTime() {
+        return getStartTime() - getGameObject().getTimePreempt(beatmap);
+    }
+
     public double getEndTime() {
         return getStartTime();
     }

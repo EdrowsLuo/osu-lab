@@ -35,7 +35,6 @@ public class CirclePiece extends BasePiece {
 
     @Override
     public void expire(double time) {
-        super.expire(time);
         scale.set(1);
         alpha.value = 1;
 

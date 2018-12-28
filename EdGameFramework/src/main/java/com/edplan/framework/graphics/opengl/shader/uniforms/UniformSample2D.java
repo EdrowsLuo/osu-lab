@@ -16,7 +16,6 @@ public class UniformSample2D extends DataUniform<GLTexture> {
 
     @Override
     public void loadData(GLTexture t) {
-
         if (available) t.bind(textureIndex);
     }
 

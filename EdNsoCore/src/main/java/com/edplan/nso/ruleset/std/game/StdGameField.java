@@ -133,22 +133,20 @@ public class StdGameField extends NsoCoreBased {
             workingStdGameObjects.get(i).setComboIndex(comboIndex);
         }
 
+        for (WorkingStdGameObject object : workingStdGameObjects) {
+            object.applyToGameField(this);
+        }
+
         for (int i = 1; i < size; i++) {
             WorkingStdGameObject object = workingStdGameObjects.get(i);
             if (object.getComboIndex() != 1) {
                 FollowPoints.addFollowPoints(
                         this,
                         globalScale,
-                        workingStdGameObjects.get(i - 1).getEndPosition(),
-                        object.getEndPosition(),
-                        workingStdGameObjects.get(i - 1).getEndTime(),
-                        object.getEndTime()
+                        workingStdGameObjects.get(i - 1),
+                        object
                 );
             }
-        }
-
-        for (WorkingStdGameObject object : workingStdGameObjects) {
-            object.applyToGameField(this);
         }
 
         TextureQuadObject cursor = new TextureQuadObject();
@@ -159,10 +157,6 @@ public class StdGameField extends NsoCoreBased {
 
         world.load();
         return world;
-    }
-
-    protected void addHitCircle(StdCircle stdCircle, int comboIndex) {
-
     }
 
     protected void addHitEffect(StdGameObject.HitLevel level, double time, float x, float y, float scale, Skin skin) {

@@ -3,6 +3,7 @@ package com.edplan.osulab.ui.pieces;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.BlendType;
+import com.edplan.framework.graphics.opengl.GLCanvas2D;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.math.FMath;
@@ -21,6 +22,7 @@ import com.edplan.framework.ui.animation.callback.OnFinishListener;
 import com.edplan.framework.ui.drawable.sprite.CircleSprite;
 import com.edplan.framework.ui.drawable.sprite.ShadowCircleSprite;
 import com.edplan.framework.ui.drawable.sprite.TextureCircleSprite;
+import com.edplan.framework.ui.drawable.sprite.TextureSprite;
 import com.edplan.framework.ui.widget.component.Hideable;
 import com.edplan.osulab.LabGame;
 import com.edplan.osulab.ScenesName;
@@ -40,6 +42,8 @@ public class JumpingCircle extends EdView implements Hideable{
     private CircleSprite pinkCover;
     private ShadowCircleSprite shadow, shadowInner;
     private TextureCircleSprite centerRing;
+
+    TextureSprite moveSprite;
 
     private GLTexture logo;
 
@@ -118,6 +122,9 @@ public class JumpingCircle extends EdView implements Hideable{
             e.printStackTrace();
             getContext().toast("err");
         }
+
+        moveSprite = new TextureSprite(c);
+
     }
 
     @Override
@@ -445,11 +452,17 @@ public class JumpingCircle extends EdView implements Hideable{
 
         shadowInner.draw(canvas);
         ring.draw(canvas);
+
+        /*Vec2 pos = getOffsetToNextContainer(null);
+        moveSprite.setTexture(
+                ((GLCanvas2D) canvas).getLayer().getTexture(),
+                RectF.xywh(pos.x, pos.y, canvas.getWidth(), canvas.getHeight()));
+        moveSprite.setArea(RectF.xywh(100, 100, canvas.getWidth(), canvas.getHeight()));
+        moveSprite.draw(canvas);*/
     }
 
     @Override
     public boolean inViewBound(float x, float y) {
-
         return Vec2.length(x - (getLeft() + getRight()) / 2, y - (getTop() + getBottom()) / 2) < Math.min(getWidth(), getHeight()) / 2;
     }
 

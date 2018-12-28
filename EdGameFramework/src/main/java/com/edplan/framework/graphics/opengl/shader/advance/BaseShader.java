@@ -28,7 +28,6 @@ public abstract class BaseShader extends GLProgram {
         try {
             Class klass = this.getClass();
             Field[] fields = klass.getFields();
-            int sampleIndex = 0;
             for (Field f : fields) {
                 if (f.isAnnotationPresent(PointerName.class)) {
                     String name = f.getAnnotation(PointerName.class).value();
@@ -51,8 +50,11 @@ public abstract class BaseShader extends GLProgram {
                     } else if (f.getType().equals(UniformColor4.class)) {
                         f.set(this, UniformColor4.findUniform(this, name));
                     } else if (f.getType().equals(UniformSample2D.class)) {
+                        int sampleIndex = 0;
+                        if (f.isAnnotationPresent(SampleIndex.class)) {
+                            sampleIndex = f.getAnnotation(SampleIndex.class).value();
+                        }
                         f.set(this, UniformSample2D.findUniform(this, name, sampleIndex));
-                        sampleIndex++;
                     } else if (f.getType().equals(UniformFloat.class)) {
                         f.set(this, UniformFloat.findUniform(this, name));
                     } else if (f.getType().equals(UniformVec2.class)) {
@@ -103,4 +105,12 @@ public abstract class BaseShader extends GLProgram {
 
         int offset();
     }
+
+    @Documented
+    @Target(ElementType.FIELD)
+    @Retention(RetentionPolicy.RUNTIME)
+    public @interface SampleIndex {
+        int value();
+    }
+
 }

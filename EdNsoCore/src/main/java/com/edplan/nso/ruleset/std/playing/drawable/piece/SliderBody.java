@@ -1,12 +1,10 @@
 package com.edplan.nso.ruleset.std.playing.drawable.piece;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
 
 import com.edplan.framework.MContext;
-import com.edplan.framework.graphics.line.DrawLinePath;
+import com.edplan.framework.graphics.line.LegacyDrawLinePath;
 import com.edplan.framework.graphics.line.LinePath;
-import com.edplan.framework.graphics.opengl.GLCanvas2D;
 import com.edplan.framework.graphics.opengl.GLWrapped;
 import com.edplan.framework.graphics.opengl.batch.Texture3DBatch;
 import com.edplan.framework.graphics.opengl.objs.Color4;
@@ -19,8 +17,6 @@ import com.edplan.nso.resource.OsuSkin;
 import com.edplan.nso.ruleset.std.objects.StdSlider;
 import com.edplan.nso.ruleset.std.playing.drawable.DrawableStdSlider;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.math.RectF;
-import com.edplan.framework.ui.text.font.drawing.TextPrinter;
 
 public class SliderBody extends BasePiece {
     private BufferedDrawable sliderBuffered;
@@ -213,7 +209,7 @@ public class SliderBody extends BasePiece {
 
             canvas.drawColor(Color4.Alpha);
             canvas.clearBuffer();
-            DrawLinePath<Texture3DBatch> d = new DrawLinePath<Texture3DBatch>(
+            LegacyDrawLinePath<Texture3DBatch> d = new LegacyDrawLinePath<Texture3DBatch>(
                     getSliderPath()
                             .cutPath(
                                     (float) (slider.getPixelLength() * getProgress1()),

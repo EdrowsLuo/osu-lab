@@ -51,8 +51,18 @@ public class World implements RawInputHandler {
 
     private BassChannel channel;
 
+    private Score score;
+
     public World(MContext context) {
         this.context = context;
+    }
+
+    public void setScore(Score score) {
+        this.score = score;
+    }
+
+    public Score getScore() {
+        return score;
     }
 
     public void setSong(BassChannel channel) {
