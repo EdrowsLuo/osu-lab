@@ -82,6 +82,10 @@ public class SliderBody extends AdvancedDrawObject {
         return path;
     }
 
+    public float getLength() {
+        return length;
+    }
+
     private void initialPathTexture() {
         float aa_portion = 0.02f;
         float border_portion = 0.128f;

@@ -13,6 +13,12 @@ import com.edplan.nso.ruleset.std.objects.v2.StdGameObject;
 
 public class WorkingStdHitCircle extends WorkingStdGameObject<StdCircle> {
 
+    CirclePiece circlePiece;
+
+    ApproachCircle approachCircle;
+
+    StdGameField gameField;
+
     public WorkingStdHitCircle(StdCircle gameObject, StdBeatmap beatmap) {
         super(gameObject, beatmap);
     }
@@ -20,24 +26,19 @@ public class WorkingStdHitCircle extends WorkingStdGameObject<StdCircle> {
     @Override
     public void applyToGameField(StdGameField gameField) {
 
-        CirclePiece circlePiece = new CirclePiece();
+        this.gameField = gameField;
+
+        circlePiece = new CirclePiece();
         circlePiece.initialTexture(
                 gameField.skin.getTexture(StdSkin.hitcircle),
                 gameField.skin.getTexture(StdSkin.hitcircleoverlay));
         circlePiece.initialBaseScale(gameField.globalScale);
         circlePiece.initialFadeInAnim(
-                getGameObject().getTime() - getGameObject().getTimePreempt(gameField.beatmap),
+                getGameObject().getTime() - getTimePreempt(),
                 getGameObject().getFadeInDuration(gameField.beatmap));
         circlePiece.position.set(getGameObject().getX(), getGameObject().getY());
 
-        ApproachCircle approachCircle = new ApproachCircle();
-        approachCircle.initialApproachCircleTexture(gameField.skin.getTexture(StdSkin.approachcircle));
-        approachCircle.initialBaseScale(gameField.globalScale);
-        approachCircle.initialApproachAnim(
-                getGameObject().getTime() - getGameObject().getTimePreempt(gameField.beatmap),
-                getGameObject().getTimePreempt(gameField.beatmap),
-                getGameObject().getTimePreempt(gameField.beatmap));
-        approachCircle.position.set(getGameObject().getX(), getGameObject().getY());
+        approachCircle = gameField.buildApprochCircle(getGameObject());
 
         gameField.hitobjectLayer.scheduleAttachBehind(getShowTime(), circlePiece);
         gameField.approachCircleLayer.scheduleAttachBehind(getShowTime(), approachCircle);
@@ -46,35 +47,36 @@ public class WorkingStdHitCircle extends WorkingStdGameObject<StdCircle> {
 
             separateJudge = true;
 
-            hitWindow = HitWindow.interval(
-                    getGameObject().getTime(),
-                    gameField.difficultyHelper.hitWindowFor50(gameField.beatmap.getDifficulty().getOverallDifficulty())
-            );
+            hitWindow = HitWindow.interval(getGameObject().getTime(), gameField.difficultyHelper.hitWindowFor50());
 
             area = HitArea.circle(getGameObject().getX(), getGameObject().getY(), StdGameObject.BASE_OBJECT_SIZE / 2 * gameField.globalScale);
 
-            onHit = (time, x, y) -> {
-                circlePiece.postOperation(() -> {
-                    approachCircle.expire(time);
-                    circlePiece.expire(time);
-                });
-            };
+            onHit = WorkingStdHitCircle.this::onHit;
 
-            onTimeOut = time -> {
-                circlePiece.postOperation(() -> {
-                    approachCircle.detach();
-                    circlePiece.detach();
-                    gameField.addHitEffect(
-                            StdGameObject.HitLevel.MISS,
-                            time,
-                            getGameObject().getX(), getGameObject().getY(),
-                            gameField.globalScale,
-                            gameField.skin);
-                });
-            };
+            onTimeOut = WorkingStdHitCircle.this::onTimeOut;
 
         }};
 
         gameField.world.getJudgeWorld().addJudgeObject(positionHitObject);
+    }
+
+    protected void onHit(double time, float x, float y) {
+        circlePiece.postOperation(() -> {
+            approachCircle.expire(time);
+            circlePiece.expire(time);
+        });
+    }
+
+    protected void onTimeOut(double time) {
+        circlePiece.postOperation(() -> {
+            approachCircle.detach();
+            circlePiece.detach();
+            gameField.addHitEffect(
+                    StdGameObject.HitLevel.MISS,
+                    time,
+                    getGameObject().getX(), getGameObject().getY(),
+                    gameField.globalScale,
+                    gameField.skin);
+        });
     }
 }

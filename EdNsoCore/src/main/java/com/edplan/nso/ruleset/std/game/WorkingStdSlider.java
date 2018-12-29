@@ -9,6 +9,7 @@ import com.edplan.nso.ruleset.std.StdSkin;
 import com.edplan.nso.ruleset.std.beatmap.StdBeatmap;
 import com.edplan.nso.ruleset.std.game.drawables.ApproachCircle;
 import com.edplan.nso.ruleset.std.game.drawables.CirclePiece;
+import com.edplan.nso.ruleset.std.game.drawables.SliderBall;
 import com.edplan.nso.ruleset.std.game.drawables.SliderBody;
 import com.edplan.nso.ruleset.std.objects.drawables.StdSliderPathMaker;
 import com.edplan.nso.ruleset.std.objects.v2.StdGameObject;
@@ -38,10 +39,14 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
         return velocity;
     }
 
+    public double getCycleTime() {
+        return getGameObject().getPixelLength() / getVelocity();
+    }
+
     @Override
     public double getEndTime() {
         StdSlider slider = getGameObject();
-        return slider.getTime() + slider.getRepeat() * slider.getPixelLength() / getVelocity();
+        return slider.getTime() + slider.getRepeat() * getCycleTime();
     }
 
     @Override
@@ -51,6 +56,7 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
 
     @Override
     public void applyToGameField(StdGameField gameField) {
+
         StdBeatmap beatmap = gameField.beatmap;
         StdSlider slider = getGameObject();
         TimingControlPoint timingPoint = beatmap.getControlPoints().getTimingPointAt(slider.getTime());
@@ -67,37 +73,21 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
         path.bufferLength((float) slider.getPixelLength());
         endPoint = (slider.getRepeat() % 2 == 1) ? path.getMeasurer().atLength((float) slider.getPixelLength()) : new Vec2(getStartPosition());
 
-
-
-
-
-
-
         CirclePiece circlePiece = new CirclePiece();
         circlePiece.initialTexture(
                 gameField.skin.getTexture(StdSkin.sliderstartcircle),
                 gameField.skin.getTexture(StdSkin.sliderstartcircleoverlay));
         circlePiece.initialBaseScale(gameField.globalScale);
         circlePiece.initialFadeInAnim(
-                getGameObject().getTime() - getGameObject().getTimePreempt(gameField.beatmap),
+                getGameObject().getTime() - getTimePreempt(),
                 getGameObject().getFadeInDuration(gameField.beatmap));
         circlePiece.position.set(getGameObject().getX(), getGameObject().getY());
 
-        ApproachCircle approachCircle = new ApproachCircle();
-        approachCircle.initialApproachCircleTexture(gameField.skin.getTexture(StdSkin.approachcircle));
-        approachCircle.initialBaseScale(gameField.globalScale);
-        approachCircle.initialApproachAnim(
-                getGameObject().getTime() - getGameObject().getTimePreempt(gameField.beatmap),
-                getGameObject().getTimePreempt(gameField.beatmap),
-                getGameObject().getTimePreempt(gameField.beatmap));
-        approachCircle.position.set(getGameObject().getX(), getGameObject().getY());
+        ApproachCircle approachCircle = gameField.buildApprochCircle(getGameObject());
 
         gameField.hitobjectLayer.scheduleAttachBehind(getShowTime(), circlePiece);
+        gameField.hitobjectLayer.addEvent(slider.getTime(), circlePiece::detach);
         gameField.approachCircleLayer.scheduleAttachBehind(getShowTime(), approachCircle);
-
-
-
-
 
         SliderBody body = new SliderBody(
                 gameField.getContext(),
@@ -105,19 +95,45 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
                 StdGameObject.BASE_OBJECT_SIZE / 2 * gameField.globalScale,
                 (float) slider.getPixelLength());
 
-        body.addAnimTask(getShowTime(), slider.getFadeInDuration(beatmap), t -> body.setProgress2((float) t));
+        body.addAnimTask(getShowTime(), slider.getFadeInDuration(beatmap),
+                t -> {
+                    body.setProgress2((float) t);
+                    body.alpha.value = (float) t;
+                });
+        body.addAnimTask(
+                getEndTime(),
+                200,
+                time -> body.alpha.value = (float) (1 - time)
+        );
+
+
+
+        SliderBall ball = new SliderBall(body.getPath(), body.getLength());
+        ball.sprite.alpha = body.alpha;
+        ball.sprite.initialWithTextureListWithScale(
+                gameField.skin.getTextureList(StdSkin.sliderb),
+                gameField.globalScale
+        );
+        ball.setStartTime(slider.getTime());
+        ball.setCycleDuration(600);
+        ball.buildAnimation(
+                slider.getTime(),
+                getCycleTime(),
+                slider.getRepeat()
+        );
 
         gameField.sliderLayer.scheduleAttachBehindAll(getShowTime(), body);
-        gameField.sliderLayer.addEvent(getEndTime(), body::detach);
+        gameField.hitobjectLayer.scheduleAttachBehind(slider.getTime(), ball);
+        gameField.sliderLayer.addEvent(getEndTime() + 200, () -> {
+            body.detach();
+            ball.detach();
+        });
 
         PositionHitObject positionHitObject = new PositionHitObject() {{
 
             separateJudge = true;
 
-            hitWindow = HitWindow.interval(
-                    getGameObject().getTime(),
-                    gameField.difficultyHelper.hitWindowFor50(gameField.beatmap.getDifficulty().getOverallDifficulty())
-            );
+            hitWindow = HitWindow.interval(getGameObject().getTime(), gameField.difficultyHelper.hitWindowFor50());
 
             area = HitArea.circle(getGameObject().getX(), getGameObject().getY(), StdGameObject.BASE_OBJECT_SIZE / 2 * gameField.globalScale);
 
@@ -132,12 +148,6 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
                 circlePiece.postOperation(() -> {
                     approachCircle.detach();
                     circlePiece.detach();
-                    gameField.addHitEffect(
-                            StdGameObject.HitLevel.MISS,
-                            time,
-                            getGameObject().getX(), getGameObject().getY(),
-                            gameField.globalScale,
-                            gameField.skin);
                 });
             };
 

@@ -32,6 +32,7 @@ public class ApproachCircle extends BasePiece {
                         (float) time,
                         StdGameObject.APPROACH_CIRCLE_START_SCALE,
                         StdGameObject.APPROACH_CIRCLE_END_SCALE)));
+        addTask(start + duration, this::detach);
     }
 
     public void initialApproachCircleTexture(AbstractTexture texture) {

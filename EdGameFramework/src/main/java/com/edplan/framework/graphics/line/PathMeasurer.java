@@ -107,7 +107,7 @@ public class PathMeasurer {
     }
 
     public Vec2 getTangentLine(float length) {
-        return directions.get(binarySearch(length));
+        return directions.get(Math.max(0, binarySearch(length) - 1));
     }
 
     //l>=0

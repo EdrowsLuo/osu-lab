@@ -57,6 +57,33 @@ public class DifficultyUtil {
         return (1.0f - 0.7f * (cs - 5) / 5) / 2;
     }
 
+    public static class BuildedDifficultyHelper {
+
+        private float hitWindowFor300, hitWindowFor100, hitWindowFor50;
+
+        private float od;
+
+        public BuildedDifficultyHelper(DifficultyHelper difficultyHelper, float od) {
+            hitWindowFor300 = difficultyHelper.hitWindowFor300(od);
+            hitWindowFor100 = difficultyHelper.hitWindowFor100(od);
+            hitWindowFor50 = difficultyHelper.hitWindowFor50(od);
+            this.od = od;
+        }
+
+        public float hitWindowFor300() {
+            return hitWindowFor300;
+        }
+
+        public float hitWindowFor100() {
+            return hitWindowFor100;
+        }
+
+        public float hitWindowFor50() {
+            return hitWindowFor50;
+        }
+
+    }
+
     public static abstract class DifficultyHelper {
 
         public static final DifficultyHelper StdDifficulty = new DifficultyHelper() {

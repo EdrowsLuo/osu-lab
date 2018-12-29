@@ -13,6 +13,15 @@ public class CursorTestObject extends JudgeObject {
         }
     }
 
+    public boolean isDown(PositionChecker pos) {
+        for (Holder holder : holders) {
+            if (holder.down && pos.checkPosition(holder.pos)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public double getStartJudgeTime() {
         return -1000000000;

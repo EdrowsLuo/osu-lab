@@ -65,7 +65,7 @@ public class SkinDescription {
         }
 
         private String indexString(int id) {
-            return basePath + "-" + id + suffix;
+            return basePath + id + suffix;
         }
 
         @Override

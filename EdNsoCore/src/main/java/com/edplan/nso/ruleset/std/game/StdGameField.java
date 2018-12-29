@@ -53,9 +53,11 @@ public class StdGameField extends NsoCoreBased {
     public GroupDrawObjectWithSchedule topEffectLayer = new GroupDrawObjectWithSchedule();
 
 
-    public DifficultyUtil.DifficultyHelper difficultyHelper = DifficultyUtil.DifficultyHelper.StdDifficulty;
+    public DifficultyUtil.BuildedDifficultyHelper difficultyHelper;
     public float globalScale;
     public StdBeatmap beatmap;
+
+    public CursorTestObject cursorTestObject;
 
     public StdGameField(NsoCore core) {
         super(core);
@@ -87,7 +89,9 @@ public class StdGameField extends NsoCoreBased {
     }
 
     public World load(StdBeatmap beatmap, AResource dir, JSONObject config) {
-
+        difficultyHelper = new DifficultyUtil.BuildedDifficultyHelper(
+                DifficultyUtil.DifficultyHelper.StdDifficulty,
+                beatmap.getDifficulty().getOverallDifficulty());
         this.beatmap = beatmap;
 
         try {
@@ -104,7 +108,7 @@ public class StdGameField extends NsoCoreBased {
         final int size = gameObjects.size();
         List<WorkingStdGameObject<?>> workingStdGameObjects = new ArrayList<>(gameObjects.size());
 
-        CursorTestObject cursorTestObject = new CursorTestObject();
+        cursorTestObject = new CursorTestObject();
         world.getJudgeWorld().addJudgeObject(cursorTestObject);
 
         int comboIndex = 0;
@@ -159,6 +163,18 @@ public class StdGameField extends NsoCoreBased {
 
         world.load();
         return world;
+    }
+
+    public ApproachCircle buildApprochCircle(StdGameObject object) {
+        ApproachCircle approachCircle = new ApproachCircle();
+        approachCircle.initialApproachCircleTexture(skin.getTexture(StdSkin.approachcircle));
+        approachCircle.initialBaseScale(globalScale);
+        approachCircle.initialApproachAnim(
+                object.getTime() - object.getTimePreempt(beatmap),
+                object.getTimePreempt(beatmap),
+                object.getTimePreempt(beatmap));
+        approachCircle.position.set(object.getX(), object.getY());
+        return approachCircle;
     }
 
     protected void addHitEffect(StdGameObject.HitLevel level, double time, float x, float y, float scale, Skin skin) {

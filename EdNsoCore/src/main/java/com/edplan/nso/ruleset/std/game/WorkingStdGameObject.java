@@ -19,6 +19,10 @@ public abstract class WorkingStdGameObject<T extends StdGameObject> {
         this.gameObject = gameObject;
     }
 
+    public double getTimePreempt() {
+        return gameObject.getTimePreempt(beatmap);
+    }
+
     public boolean isGroupEnd() {
         return groupEnd;
     }

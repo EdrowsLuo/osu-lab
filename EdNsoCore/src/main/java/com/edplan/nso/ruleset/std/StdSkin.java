@@ -11,7 +11,7 @@ public class StdSkin {
             cursormiddle = "cursormiddle",
             cursor_smoke = "cursor-smoke",
             cursortrail = "cursortrail",
-            followpoint = "followpoint",
+            followpoint = "followpoint-",
             hit0_0 = "hit0-0",
             hit50_0 = "hit50-0",
             hit100_0 = "hit100-0",
@@ -32,7 +32,7 @@ public class StdSkin {
 
 
     public static SkinDescription createSkinDescription(MContext context) {
-        SkinDescription description = new SkinDescription(context) {{
+        return new SkinDescription(context) {{
             addLoaders(
                     name(approachcircle)
                             .raw(png(approachcircle)),
@@ -64,6 +64,8 @@ public class StdSkin {
                             .raw(png(hitcircle)),
                     name(hitcircleoverlay)
                             .raw(png(hitcircleoverlay)),
+                    name(sliderb)
+                            .rawList(sliderb),
                     name(sliderendcircle)
                             .raw(png(sliderendcircle))
                             .ref(hitcircle),
@@ -78,7 +80,6 @@ public class StdSkin {
                             .ref(hitcircleoverlay)
             );
         }};
-        return description;
     }
 
 
