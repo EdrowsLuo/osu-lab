@@ -92,7 +92,23 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
                 getGameObject().getTimePreempt(gameField.beatmap));
         approachCircle.position.set(getGameObject().getX(), getGameObject().getY());
 
-        gameField.hitobjectLayer.scheduleAttachBehindAll(getShowTime(), approachCircle, circlePiece);
+        gameField.hitobjectLayer.scheduleAttachBehind(getShowTime(), circlePiece);
+        gameField.approachCircleLayer.scheduleAttachBehind(getShowTime(), approachCircle);
+
+
+
+
+
+        SliderBody body = new SliderBody(
+                gameField.getContext(),
+                path.cutPath(0, (float) slider.getPixelLength()),
+                StdGameObject.BASE_OBJECT_SIZE / 2 * gameField.globalScale,
+                (float) slider.getPixelLength());
+
+        body.addAnimTask(getShowTime(), slider.getFadeInDuration(beatmap), t -> body.setProgress2((float) t));
+
+        gameField.sliderLayer.scheduleAttachBehindAll(getShowTime(), body);
+        gameField.sliderLayer.addEvent(getEndTime(), body::detach);
 
         PositionHitObject positionHitObject = new PositionHitObject() {{
 
@@ -128,16 +144,5 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
         }};
 
         gameField.world.getJudgeWorld().addJudgeObject(positionHitObject);
-
-
-
-        SliderBody body = new SliderBody(
-                gameField.getContext(),
-                path.cutPath(0, (float) slider.getPixelLength()),
-                StdGameObject.BASE_OBJECT_SIZE / 2 * gameField.globalScale,
-                (float) slider.getPixelLength());
-
-        gameField.hitobjectLayer.scheduleAttachBehindAll(getShowTime(), body);
-        gameField.hitobjectLayer.addEvent(getEndTime(), body::detach);
     }
 }

@@ -47,6 +47,7 @@ public class StdGameField extends NsoCoreBased {
     public World world;
     public GroupDrawObjectWithSchedule backgroundEffectLayer = new GroupDrawObjectWithSchedule();
     public GroupDrawObjectWithSchedule followPointsLayer = new GroupDrawObjectWithSchedule();
+    public GroupDrawObjectWithSchedule sliderLayer = new GroupDrawObjectWithSchedule();
     public GroupDrawObjectWithSchedule hitobjectLayer = new GroupDrawObjectWithSchedule();
     public GroupDrawObjectWithSchedule approachCircleLayer = new GroupDrawObjectWithSchedule();
     public GroupDrawObjectWithSchedule topEffectLayer = new GroupDrawObjectWithSchedule();
@@ -79,6 +80,7 @@ public class StdGameField extends NsoCoreBased {
         world.getPaintWorld().addDrawObjects(
                 backgroundEffectLayer,
                 followPointsLayer,
+                sliderLayer,
                 hitobjectLayer,
                 approachCircleLayer,
                 topEffectLayer);

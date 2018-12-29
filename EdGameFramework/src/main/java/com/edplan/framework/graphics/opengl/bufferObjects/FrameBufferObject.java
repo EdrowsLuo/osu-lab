@@ -11,6 +11,8 @@ import com.edplan.framework.graphics.opengl.objs.texture.TextureRegion;
 import com.edplan.framework.math.RectF;
 
 public class FrameBufferObject {
+
+    private boolean isDepthAttached = true;
     private DepthBufferObject depthAttachment;
 
     private boolean permissionToDeleteTexture = true;
@@ -39,6 +41,42 @@ public class FrameBufferObject {
         this.height = height;
         this.createdHeight = height;
         this.createdWidth = width;
+    }
+
+    public boolean isDepthBufferAttached() {
+        return depthAttachment != null && isDepthAttached;
+    }
+
+    public void attacheDepthBuffer() {
+        checkCurrent();
+        if (depthAttachment == null) {
+            linkDepthBuffer(DepthBufferObject.create(colorAttachment.getWidth(), colorAttachment.getHeight()));
+        } else {
+            if (!isDepthAttached) {
+                isDepthAttached = true;
+                GLES20.glFramebufferRenderbuffer(
+                        GLES20.GL_FRAMEBUFFER,
+                        GLES20.GL_DEPTH_ATTACHMENT,
+                        GLES20.GL_RENDERBUFFER,
+                        depthAttachment.getBufferId()
+                );
+            }
+        }
+    }
+
+    public void dettachDepthBuffer() {
+        checkCurrent();
+        if (depthAttachment != null) {
+            if (isDepthAttached) {
+                isDepthAttached = false;
+                GLES20.glFramebufferRenderbuffer(
+                        GLES20.GL_FRAMEBUFFER,
+                        GLES20.GL_DEPTH_ATTACHMENT,
+                        GLES20.GL_RENDERBUFFER,
+                        0
+                );
+            }
+        }
     }
 
     protected void setCreatedWidth(int createdWidth) {
@@ -191,7 +229,7 @@ public class FrameBufferObject {
         fbo.bind();
         //if(useDepth){
         if (needDepth)
-            fbo.linkDepthBuffer(DepthBufferObject.create(texture.getHeight(), texture.getWidth()));
+            fbo.linkDepthBuffer(DepthBufferObject.create(texture.getWidth(), texture.getHeight()));
         //}
         fbo.linkColorAttachment(GLTexture.createGPUTexture(texture.getWidth(), texture.getHeight()));
         fbo.unBind();

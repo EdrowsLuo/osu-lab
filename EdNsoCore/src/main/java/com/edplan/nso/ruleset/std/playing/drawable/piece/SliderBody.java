@@ -207,7 +207,7 @@ public class SliderBody extends BasePiece {
         @Override
         protected void drawContent(BaseCanvas canvas) {
 
-            canvas.drawColor(Color4.Alpha);
+            /*canvas.drawColor(Color4.Alpha);
             canvas.clearBuffer();
             LegacyDrawLinePath<Texture3DBatch> d = new LegacyDrawLinePath<Texture3DBatch>(
                     getSliderPath()
@@ -224,7 +224,7 @@ public class SliderBody extends BasePiece {
             canvas.getBlendSetting().setEnable(false);
             canvas.drawTexture3DBatch(batch, sliderPathTexture, 1, Color4.White);
             canvas.getBlendSetting().restore();
-            GLWrapped.depthTest.restore();
+            GLWrapped.depthTest.restore();*/
         }
     }
 }

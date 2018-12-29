@@ -66,8 +66,8 @@ public class FMath {
         return (float) Math.tan(v);
     }
 
-    public static float atan2(double x, double y) {
-        return (float) Math.atan2(x, y);
+    public static float atan2(double y, double x) {
+        return (float) Math.atan2(y, x);
     }
 
     public static boolean allmostEqual(float f1, float f2, float t) {

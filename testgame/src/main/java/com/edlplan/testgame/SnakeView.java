@@ -4,14 +4,17 @@ import android.graphics.Bitmap;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.line.AbstractPath;
+import com.edplan.framework.graphics.line.DrawLinePath;
 import com.edplan.framework.graphics.line.LegacyDrawLinePath;
 import com.edplan.framework.graphics.line.LinePath;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.GLWrapped;
 import com.edplan.framework.graphics.opengl.batch.Texture3DBatch;
+import com.edplan.framework.graphics.opengl.batch.v2.BatchEngine;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
+import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
 import com.edplan.framework.math.MathExt;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
@@ -296,16 +299,13 @@ public class SnakeView extends EdView {
                 updateTexture();
             }
             ArrayList<AbstractPath> paths = createBodySlider();
-            Texture3DBatch<TextureVertex3D> batch = new Texture3DBatch<>();
             GLWrapped.depthTest.save();
             GLWrapped.depthTest.forceSet(true);
             canvas.getBlendSetting().save();
             canvas.getBlendSetting().setEnable(false);
             for (AbstractPath path : paths) {
-                LegacyDrawLinePath<Texture3DBatch> d = new LegacyDrawLinePath<>(path);
-                batch.clear();
-                d.addToBatch(batch);
-                canvas.drawTexture3DBatch(batch, bodyTexture, 1, Color4.White);
+                DrawLinePath d = new DrawLinePath(path);
+                d.getTriangles().render(Texture3DShader.DEFAULT.get(), bodyTexture, BatchEngine.getShaderGlobals());
             }
             canvas.getBlendSetting().restore();
             GLWrapped.depthTest.restore();

@@ -39,7 +39,8 @@ public class WorkingStdHitCircle extends WorkingStdGameObject<StdCircle> {
                 getGameObject().getTimePreempt(gameField.beatmap));
         approachCircle.position.set(getGameObject().getX(), getGameObject().getY());
 
-        gameField.hitobjectLayer.scheduleAttachBehindAll(getShowTime(), approachCircle, circlePiece);
+        gameField.hitobjectLayer.scheduleAttachBehind(getShowTime(), circlePiece);
+        gameField.approachCircleLayer.scheduleAttachBehind(getShowTime(), approachCircle);
 
         PositionHitObject positionHitObject = new PositionHitObject() {{
 

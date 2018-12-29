@@ -142,7 +142,7 @@ public class Texture3DShader  extends BaseShader{
                                     "attribute vec3 a_Position;\n" +
                                     "\n" +
                                     "void main(){\n" +
-                                    "    gl_Position = u_MVPMatrix * vec4(a_Position, 1.0);\n" +
+                                    "    gl_Position = u_MVPMatrix * vec4(a_Position.xy,a_Position.z-0.01, 1.0);\n" +
                                     "}",
                             "" +
                                     "precision mediump float;\n" +
