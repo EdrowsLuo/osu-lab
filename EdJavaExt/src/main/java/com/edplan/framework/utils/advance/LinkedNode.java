@@ -37,7 +37,7 @@ public final class LinkedNode<T> {
         next = null;
     }
 
-    public void insertBehind(LinkedNode<T> node) {
+    public void insertToNext(LinkedNode<T> node) {
         if (next != null) {
             next.pre = node;
         }
@@ -46,7 +46,7 @@ public final class LinkedNode<T> {
         node.pre = this;
     }
 
-    public void insertFront(LinkedNode<T> node) {
+    public void insertToPrevious(LinkedNode<T> node) {
         if (pre != null) {
             pre.next = node;
         }

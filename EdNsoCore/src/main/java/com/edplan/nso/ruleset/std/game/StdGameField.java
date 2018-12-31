@@ -14,6 +14,7 @@ import com.edplan.nso.ruleset.base.game.judge.CursorTestObject;
 import com.edplan.nso.ruleset.base.game.judge.HitArea;
 import com.edplan.nso.ruleset.base.game.judge.HitWindow;
 import com.edplan.nso.ruleset.base.game.judge.PositionHitObject;
+import com.edplan.nso.ruleset.base.game.paint.CursorLayer;
 import com.edplan.nso.ruleset.base.game.paint.GroupDrawObjectWithSchedule;
 import com.edplan.nso.ruleset.base.game.paint.TextureQuadObject;
 import com.edplan.nso.ruleset.std.StdRuleset;
@@ -22,6 +23,7 @@ import com.edplan.nso.ruleset.std.beatmap.StdBeatmap;
 import com.edplan.nso.ruleset.std.game.drawables.ApproachCircle;
 import com.edplan.nso.ruleset.std.game.drawables.CirclePiece;
 import com.edplan.nso.ruleset.std.game.drawables.FollowPoints;
+import com.edplan.nso.ruleset.std.game.drawables.TestFollowPoints;
 import com.edplan.nso.ruleset.std.objects.v2.StdCircle;
 import com.edplan.nso.ruleset.std.objects.v2.StdGameObject;
 import com.edplan.nso.ruleset.std.objects.v2.StdSlider;
@@ -51,7 +53,7 @@ public class StdGameField extends NsoCoreBased {
     public GroupDrawObjectWithSchedule hitobjectLayer = new GroupDrawObjectWithSchedule();
     public GroupDrawObjectWithSchedule approachCircleLayer = new GroupDrawObjectWithSchedule();
     public GroupDrawObjectWithSchedule topEffectLayer = new GroupDrawObjectWithSchedule();
-
+    public CursorLayer cursorLayer;
 
     public DifficultyUtil.BuildedDifficultyHelper difficultyHelper;
     public float globalScale;
@@ -146,7 +148,7 @@ public class StdGameField extends NsoCoreBased {
         for (int i = 1; i < size; i++) {
             WorkingStdGameObject object = workingStdGameObjects.get(i);
             if (object.getComboIndex() != 1) {
-                FollowPoints.addFollowPoints(
+                TestFollowPoints.addFollowPoints(
                         this,
                         globalScale,
                         workingStdGameObjects.get(i - 1),
@@ -155,11 +157,14 @@ public class StdGameField extends NsoCoreBased {
             }
         }
 
-        TextureQuadObject cursor = new TextureQuadObject();
+        /*TextureQuadObject cursor = new TextureQuadObject();
         cursor.sprite.setTextureAndSize(skin.getTexture(StdSkin.cursor));
         cursor.sprite.position = cursorTestObject.holders[0].pos;
         cursor.sprite.enableScale().scale.set(0.5f * globalScale);
-        topEffectLayer.attachFront(cursor);
+        topEffectLayer.attachFront(cursor);*/
+
+        cursorLayer = new CursorLayer(cursorTestObject, skin.getTexture(StdSkin.cursor), skin.getTexture(StdSkin.cursortrail), globalScale * 0.5f);
+        world.getPaintWorld().addDrawObject(cursorLayer);
 
         world.load();
         return world;
@@ -177,7 +182,7 @@ public class StdGameField extends NsoCoreBased {
         return approachCircle;
     }
 
-    protected void addHitEffect(StdGameObject.HitLevel level, double time, float x, float y, float scale, Skin skin) {
+    protected void addHitEffect(StdScore.HitLevel level, double time, float x, float y, float scale, Skin skin) {
         switch (level) {
             case MISS: {
 

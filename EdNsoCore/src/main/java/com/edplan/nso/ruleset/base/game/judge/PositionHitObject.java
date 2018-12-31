@@ -41,18 +41,18 @@ public class PositionHitObject extends JudgeObject {
             CursorData.CursorHolder timeHolder = null;
             CursorData.CursorHolder posHolder = null;
             for (CursorData.CursorHolder holder : cursorData.getCursors()) {
-                if (holder.down.empty()) {
-                    continue;
-                }
-                if (timeHolder == null && hitWindow.checkTime(holder.down.time)) {
+                if ((!holder.down.empty()) && hitWindow.checkTime(holder.down.time)) {
                     timeHolder = holder;
-                }
-                if (posHolder == null) {
-                    if (area.checkPosition(holder.x, holder.y)) {
-                        posHolder = holder;
-                    }
+                    break;
                 }
             }
+            for (CursorData.CursorHolder holder : cursorData.getCursors()) {
+                if (holder.isDown && area.checkPosition(holder.x, holder.y)) {
+                    posHolder = holder;
+                    break;
+                }
+            }
+
             if (timeHolder != null && posHolder != null) {
                 hit = true;
                 onHit.onHit(timeHolder.down.time, posHolder.x, posHolder.y);

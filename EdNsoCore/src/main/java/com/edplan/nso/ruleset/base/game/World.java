@@ -5,6 +5,7 @@ import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.media.bass.BassChannel;
 import com.edplan.framework.timing.FrameClock;
+import com.edplan.framework.timing.Schedule;
 import com.edplan.framework.ui.inputs.EdKeyEvent;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
 import com.edplan.framework.utils.interfaces.Consumer;
@@ -28,6 +29,8 @@ public class World implements RawInputHandler {
     private JudgeWorld judgeWorld = new JudgeWorld();
 
     private JudgeThread judgeThread = new JudgeThread();
+
+    private Schedule topLevelSchedule = new Schedule();
 
     /**
      * 绘制世界

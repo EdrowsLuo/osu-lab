@@ -3,6 +3,8 @@ package com.edplan.nso.ruleset.std.game.drawables;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.math.FMath;
 import com.edplan.framework.math.Vec2;
+import com.edplan.framework.ui.animation.Easing;
+import com.edplan.framework.ui.animation.interpolate.EasingManager;
 import com.edplan.nso.ruleset.base.game.paint.TextureQuadObject;
 import com.edplan.nso.ruleset.std.game.StdGameField;
 import com.edplan.nso.ruleset.std.game.WorkingStdGameObject;
@@ -46,9 +48,11 @@ public class TestFollowPoints {
             quadObject.sprite.enableScale().scale.set(0.5f);
             quadObject.sprite.enableRotation().rotation.value = ang;
 
+            float moveScale = 1 + progrees * 3;
+
             quadObject.addAnimTask(time - fadeTime * 2, fadeTime * 2, p -> {
-                float pp = (float) (1 - p);
-                quadObject.sprite.position.set(endPos.x - moveVec.x * pp, endPos.y - moveVec.y * pp);
+                float pp = (float) EasingManager.apply(Easing.OutQuad, 1 - p);
+                quadObject.sprite.position.set(endPos.x - moveVec.x * moveScale * pp, endPos.y - moveVec.y * moveScale * pp);
                 quadObject.sprite.alpha.value = 1 - pp;
                 quadObject.sprite.scale.set((2 - pp) / 2);
             });

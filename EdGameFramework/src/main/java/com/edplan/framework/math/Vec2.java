@@ -49,7 +49,8 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
     }
 
     public static Vec2 onLineLength(Vec2 v1, Vec2 v2, float l) {
-        return onLine(v1, v2, l / length(v1, v2));
+        float ll = length(v1, v2);
+        return ll <= 0.0000001 ? v1 : onLine(v1, v2, l / ll);
     }
 
     public static Vec2 lineOthNormal(Vec2 ps, Vec2 pe) {

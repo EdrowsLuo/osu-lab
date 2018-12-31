@@ -18,11 +18,6 @@ public abstract class StdGameObject extends StdFormatGameObject {
 
     public static final float BASE_OBJECT_SIZE = 128;
 
-    public enum HitLevel {
-        H300,
-        MISS
-    }
-
     public boolean isNewCombo() {
         return (getType() & NEW_COMBO_MASK) > 0;
     }

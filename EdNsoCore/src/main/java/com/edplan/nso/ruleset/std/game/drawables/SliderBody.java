@@ -18,6 +18,7 @@ import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
 import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
+import com.edplan.framework.math.Vec2;
 import com.edplan.framework.ui.drawable.BufferedDrawable;
 import com.edplan.framework.utils.FloatRef;
 import com.edplan.nso.ruleset.base.game.World;
@@ -43,6 +44,10 @@ public class SliderBody extends AdvancedDrawObject {
 
     private GLTexture pathTexture;
 
+    private Vec2 endPosition = new Vec2();
+
+    private Vec2 startPosition = new Vec2();
+
     public SliderBody(MContext context,AbstractPath path, float width, float length) {
         this.length = length;
         this.path = path.fitToLinePath();
@@ -51,10 +56,19 @@ public class SliderBody extends AdvancedDrawObject {
         this.path.bufferLength(length);
     }
 
+    public Vec2 getEndPosition() {
+        return endPosition;
+    }
+
+    public Vec2 getStartPosition() {
+        return startPosition;
+    }
+
     public void setProgress1(float progress1) {
         if (Math.abs(progress1 - this.progress1) > 0.01) {
             dirty = true;
             this.progress1 = progress1;
+            startPosition.set(path.getMeasurer().atLength(length * progress1));
         }
     }
 
@@ -62,6 +76,7 @@ public class SliderBody extends AdvancedDrawObject {
         if (Math.abs(progress2 - this.progress2) > 0.01) {
             dirty = true;
             this.progress2 = progress2;
+            endPosition.set(path.getMeasurer().atLength(length * progress2));
         }
     }
 

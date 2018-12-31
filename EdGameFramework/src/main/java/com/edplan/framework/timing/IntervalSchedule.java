@@ -1,23 +1,45 @@
 package com.edplan.framework.timing;
 
 
+import com.edplan.framework.utils.advance.LinkedNode;
+
 import java.util.Iterator;
-import java.util.LinkedList;
 
 public class IntervalSchedule implements TimeUpdateable {
 
-    LinkedList<Task> tasks = new LinkedList<>();
+    //LinkedList<Task> tasks = new LinkedList<>();
+
+    LinkedNode<Task> first, last;
+
+    public IntervalSchedule() {
+        first = new LinkedNode<>();
+        first.value = new Task() {{
+            start = Double.NEGATIVE_INFINITY;
+            end = Double.POSITIVE_INFINITY;
+            body = time -> { };
+        }};
+        last = new LinkedNode<>();
+        last.value = new Task() {{
+            start = end = Double.POSITIVE_INFINITY;
+            body = time -> { };
+        }};
+        first.insertToNext(last);
+    }
+
 
     @Override
     public void update(double time) {
-        Iterator<Task> taskIterator = tasks.iterator();
-        while (taskIterator.hasNext()) {
-            final Task task = taskIterator.next();
+        LinkedNode<Task> cur = first;
+        LinkedNode<Task> next = cur.next;
+        while (next != null) {
+            cur = next;
+            next = cur.next;
+            final Task task = cur.value;
             if (task.start > time) {
                 return;
             }
             if (task.end <= time) {
-                taskIterator.remove();
+                cur.removeFromList();
                 if (task.start == task.end || task.strictEnd) {
                     task.body.update(task.end);
                 }
@@ -37,26 +59,24 @@ public class IntervalSchedule implements TimeUpdateable {
         task.body = body;
         task.start = start;
         task.end = end;
-        if (tasks.isEmpty()) {
-            tasks.addLast(task);
+
+        LinkedNode<Task> node = new LinkedNode<>();
+        node.value = task;
+        if (start >= last.pre.value.start) {
+            last.pre.insertToNext(node);
+        } else if (start < first.next.value.start) {
+            first.next.insertToNext(node);
         } else {
-            if (start >= tasks.getLast().start) {
-                tasks.addLast(task);
-            } else if (start < tasks.getFirst().start) {
-                tasks.addFirst(task);
-            } else {
-                Iterator<Task> iterator = tasks.descendingIterator();
-                int idx = tasks.size();
-                while (iterator.hasNext()) {
-                    final Task t = iterator.next();
-                    idx--;
-                    if (t.start <= start) {
-                        tasks.add(idx + 1, task);
-                        break;
-                    }
+            LinkedNode<Task> cur = last.pre;
+            while (cur != null) {
+                if (cur.value.start <= start) {
+                    cur.insertToNext(node);
+                    return;
                 }
+                cur = cur.pre;
             }
         }
+
     }
 
     public static class Task {

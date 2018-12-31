@@ -72,7 +72,7 @@ public class WorkingStdHitCircle extends WorkingStdGameObject<StdCircle> {
             approachCircle.detach();
             circlePiece.detach();
             gameField.addHitEffect(
-                    StdGameObject.HitLevel.MISS,
+                    StdScore.HitLevel.MISS,
                     time,
                     getGameObject().getX(), getGameObject().getY(),
                     gameField.globalScale,

@@ -9,7 +9,7 @@ public class CursorTestObject extends JudgeObject {
 
     public CursorTestObject() {
         for (int i = 0 ;i <holders.length;i++) {
-            holders[i] = new Holder();
+            holders[i] = new Holder(i);
         }
     }
 
@@ -55,7 +55,12 @@ public class CursorTestObject extends JudgeObject {
     }
 
     public static class Holder {
+        public final int id;
         public boolean down = false;
         public final Vec2 pos = new Vec2();
+
+        public Holder(int id) {
+            this.id = id;
+        }
     }
 }

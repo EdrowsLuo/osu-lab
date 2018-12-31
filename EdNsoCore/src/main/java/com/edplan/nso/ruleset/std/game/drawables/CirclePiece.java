@@ -15,8 +15,7 @@ import com.edplan.nso.ruleset.base.game.World;
 public class CirclePiece extends BasePiece {
 
     private final TextureQuad circle = new TextureQuad()
-            .enableScale()
-            .enableColor();
+            .enableScale();
 
     private final TextureQuad overlay = new TextureQuad()
             .syncPosition(circle.position)
@@ -64,7 +63,7 @@ public class CirclePiece extends BasePiece {
 
     @Override
     public void initialAccentColor(Color4 color) {
-        circle.accentColor.set(color);
+        circle.enableColor().accentColor.set(color);
     }
 
     @Override
