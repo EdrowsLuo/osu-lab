@@ -11,7 +11,7 @@ public class ColorRectSprite extends RectSprite<ColorSpriteShader> {
     }
 
     public void setParallelogram(RectF raw, float angle) {
-        float d = raw.getHeight() / FMath.tan(angle) / 2;
+        float d = (float) (raw.getHeight() / Math.tan(angle) / 2);
         setArea(new Quad(raw.getTopLeft().add(d, 0), raw.getTopRight().add(d, 0),
                 raw.getBottomLeft().add(-d, 0), raw.getBottomRight().add(-d, 0)));
     }

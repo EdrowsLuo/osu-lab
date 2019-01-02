@@ -165,8 +165,8 @@ public class Quad implements IQuad {
     }
 
     public void rotate(float ox, float oy, float ang) {
-        final float s = FMath.sin(ang);
-        final float c = FMath.cos(ang);
+        final float s = (float) Math.sin(ang);
+        final float c = (float) Math.cos(ang);
         for (Vec2 v : vertexs) {
             v.rotate(ox, oy, s, c);
         }

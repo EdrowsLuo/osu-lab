@@ -93,8 +93,8 @@ public class Mat2 {
     }
 
     public static Mat2 rotation(float ang) {
-        float sin = FMath.sin(ang);
-        float cos = FMath.cos(ang);
+        float sin = (float) Math.sin(ang);
+        float cos = (float) Math.cos(ang);
         return
                 new Mat2(
                         cos, sin,

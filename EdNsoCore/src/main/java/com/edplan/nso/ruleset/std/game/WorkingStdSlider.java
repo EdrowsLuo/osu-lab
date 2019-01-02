@@ -93,8 +93,29 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
                 StdGameObject.BASE_OBJECT_SIZE / 2 * gameField.globalScale,
                 (float) slider.getPixelLength());
 
+        CirclePiece[] pieces = new CirclePiece[slider.getRepeat()];
+        for (int i = 0; i < pieces.length; i++) {
+            final int ii = i;
+            final double showTime = slider.getTime() + getCycleTime() * i;
+            if (i == pieces.length - 1) {
+                CirclePiece circle = new CirclePiece() {
+                    @Override
+                    protected void onDraw(BaseCanvas canvas, World world) {
+                        position.set((ii % 2 == 0) ? body.getEndPosition() : body.getStartPosition());
+                        super.onDraw(canvas, world);
+                    }
+                };
+                circle.initialTexture(
+                        gameField.skin.getTexture(StdSkin.sliderendcircle),
+                        gameField.skin.getTexture(StdSkin.sliderendcircleoverlay));
+                circle.initialBaseScale(gameField.globalScale);
+                circle.initialFadeInAnim(
+                        showTime - getTimePreempt(),
+                        getGameObject().getFadeInDuration(gameField.beatmap));
+                circle.initialAccentColor(Color4.Red);
+            }
 
-
+        }
         CirclePiece endCircle = new CirclePiece() {
             @Override
             protected void onDraw(BaseCanvas canvas, World world) {
@@ -154,6 +175,7 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
         gameField.hitobjectLayer.scheduleAttachBehind(slider.getTime(), ball);
         gameField.hitobjectLayer.addEvent(getEndTime(), () -> endCircle.expire(getEndTime()));
         gameField.sliderLayer.addEvent(getEndTime() + 200, () -> {
+            circlePiece.detach();
             body.detach();
             ball.detach();
             endCircle.detach();

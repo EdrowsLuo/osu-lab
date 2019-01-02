@@ -8,7 +8,7 @@ import com.edplan.framework.math.Vec2;
  * 对于鼠标，触摸等事件的封装，包含事件发生位置，事件种类等信息
  */
 public class EdMotionEvent {
-    public static final int MAX_POINTER = 5;
+    public static final int MAX_POINTER = 10;
 
     /**
      * 记录事件对应原始输入的类型

@@ -51,8 +51,8 @@ public class CircleApproximator {
 
         float r = dA.length();
 
-        float thetaStart = FMath.atan2(dA.y, dA.x);
-        float thetaEnd = FMath.atan2(dC.y, dC.x);
+        float thetaStart = (float) Math.atan2(dA.y, dA.x);
+        float thetaEnd = (float) Math.atan2(dC.y, dC.x);
 
         while (thetaEnd < thetaStart) thetaEnd += FMath.Pi2;
 
@@ -73,7 +73,7 @@ public class CircleApproximator {
         float currTheta;
         for (int i = 0; i < amountPoints; i++) {
             currTheta = thetaStart + dir * i / (amountPoints - 1) * thetaRange;
-            output.add((new Vec2(FMath.cos(currTheta), FMath.sin(currTheta))).zoom(r).add(center));
+            output.add((new Vec2((float) Math.cos(currTheta), (float) Math.sin(currTheta))).zoom(r).add(center));
         }
         return output;
     }

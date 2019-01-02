@@ -144,8 +144,8 @@ public class TextureQuad {
             ary[offset++] = v2;
             ary[offset  ] = color;
         } else {
-            final float s = FMath.sin(rotation.value);
-            final float c = FMath.cos(rotation.value);
+            final float s = (float) Math.sin(rotation.value);
+            final float c = (float) Math.cos(rotation.value);
             final float x = position.x, y = position.y;
             ary[offset++] = l * c - t * s + x;
             ary[offset++] = l * s + t * c + y;

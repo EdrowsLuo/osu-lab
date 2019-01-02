@@ -254,6 +254,9 @@ public abstract class EdAbstractViewGroup extends EdView implements IHasAlpha{
     private PointerHolder holder;
 
     protected boolean dispatchMotionEvent(EdMotionEvent event) {
+        if (event.pointerId >= 5) {
+            return false;
+        }
         if (holder == null) holder = new PointerHolder();
         if (holder.ifIgnore(event)) return false;
 
@@ -505,8 +508,8 @@ public abstract class EdAbstractViewGroup extends EdView implements IHasAlpha{
     }
 
     public class PointerHolder {
-        public EdView[] holdingView = new EdView[EdMotionEvent.MAX_POINTER];
-        public boolean[] isOutside = new boolean[EdMotionEvent.MAX_POINTER];
+        public EdView[] holdingView = new EdView[5];
+        public boolean[] isOutside = new boolean[5];
         //public boolean[] handlePointer=new boolean[EdMotionEvent.MAX_POINTER];
 
         public PointerHolder() {

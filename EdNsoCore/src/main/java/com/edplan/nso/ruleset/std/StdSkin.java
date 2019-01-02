@@ -28,7 +28,8 @@ public class StdSkin {
             sliderb = "sliderb",
             sliderfollowcircle = "sliderfollowcircle",
             sliderscorepoint = "sliderscorepoint",
-            slidertrack = "slidertrack";
+            slidertrack = "slidertrack",
+            reversearrow = "reversearrow";
 
 
     public static SkinDescription createSkinDescription(MContext context) {
@@ -77,7 +78,9 @@ public class StdSkin {
                             .ref(hitcircle),
                     name(sliderstartcircleoverlay)
                             .raw(png(sliderstartcircleoverlay))
-                            .ref(hitcircleoverlay)
+                            .ref(hitcircleoverlay),
+                    name(reversearrow)
+                            .raw(png(reversearrow))
             );
         }};
     }

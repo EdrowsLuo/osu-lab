@@ -43,8 +43,8 @@ public class ReferenceQuad {
     }
 
     public void rotate(final float ox, final float oy, final float ang) {
-        final float s = FMath.sin(ang);
-        final float c = FMath.cos(ang);
+        final float s = (float) Math.sin(ang);
+        final float c = (float) Math.cos(ang);
         for (IVec2 v : vertexs) {
             Vec2.rotate(v, ox, oy, s, c);
         }

@@ -31,14 +31,6 @@ public class FMath {
         }
     }
 
-    public static float toDegrees(float r) {
-        return (float) Math.toDegrees(r);
-    }
-
-    public static float toRadians(float ang) {
-        return (float) Math.toRadians(ang);
-    }
-
     public static boolean inInterval(float x1, float x2, float t) {
         return t > x1 && t < x2;
     }
@@ -52,42 +44,12 @@ public class FMath {
         }
     }
 
-    public static float sin(double v) {
-        //return (float)Math.sin(v);
-        return SIN[toBufferIndex(v)];
-    }
-
-    public static float cos(double v) {
-        //return (float)Math.cos(v);
-        return COS[toBufferIndex(v)];
-    }
-
-    public static float tan(double v) {
-        return (float) Math.tan(v);
-    }
-
-    public static float atan2(double y, double x) {
-        return (float) Math.atan2(y, x);
-    }
-
     public static boolean allmostEqual(float f1, float f2, float t) {
         return Math.abs(f1 - f2) <= t;
     }
 
-    public static float sqrt(double v) {
-        return (float) Math.sqrt(v);
-    }
-
-    public static float max(float a, float b) {
-        return a > b ? a : b;
-    }
-
-    public static float min(float a, float b) {
-        return a > b ? b : a;
-    }
-
     public static float clamp(float value, float max, float min) {
-        return min(max(value, min), max);
+        return value < min ? (value) : (value < max ? value : max);
     }
 
     public static float linear(float progress, float bottom, float top) {

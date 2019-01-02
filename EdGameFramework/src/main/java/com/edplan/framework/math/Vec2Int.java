@@ -89,7 +89,7 @@ public class Vec2Int {
     }
 
     public float theta() {
-        return FMath.atan2(y, x);
+        return (float) Math.atan2(y, x);
     }
 
     //public int thetaX(){
@@ -113,7 +113,7 @@ public class Vec2Int {
     }
 
     public static float length(int x, int y) {
-        return FMath.sqrt(lengthSquared(x, y));
+        return (float) Math.sqrt(lengthSquared(x, y));
     }
 
     public static float length(Vec2Int p1, Vec2Int p2) {
@@ -121,7 +121,7 @@ public class Vec2Int {
     }
 
     public static float calTheta(Vec2Int start, Vec2Int end) {
-        return FMath.atan2(end.y - start.y, end.x - start.x);
+        return (float) Math.atan2(end.y - start.y, end.x - start.x);
     }
 
     @Override

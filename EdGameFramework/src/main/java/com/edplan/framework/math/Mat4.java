@@ -68,7 +68,7 @@ public class Mat4 implements Recycleable {
     }
 
     public Mat4 rotate(float angle, float x, float y, float z) {
-        Matrix.rotateM(data, 0, FMath.toDegrees(angle), x, y, z);
+        Matrix.rotateM(data, 0, (float) Math.toDegrees(angle), x, y, z);
         return this;
     }
 

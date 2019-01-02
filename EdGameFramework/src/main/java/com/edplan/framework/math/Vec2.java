@@ -71,7 +71,7 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
     }
 
     public static float calTheta(Vec2 start, Vec2 end) {
-        return FMath.atan2(end.y - start.y, end.x - start.x);
+        return (float) Math.atan2(end.y - start.y, end.x - start.x);
     }
 
     public void put2buffer(FloatBuffer b) {
@@ -188,8 +188,8 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
     }
 
     public Vec2 rotate(float r) {
-        float c = FMath.cos(r);
-        float s = FMath.sin(r);
+        float c = (float) Math.cos(r);
+        float s = (float) Math.sin(r);
         float tmpX = x;
         x = x * c - y * s;
         y = y * c + tmpX * s;
@@ -210,8 +210,8 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
     }
 
     public Vec2 rotate(float ox, float oy, float r) {
-        final float c = FMath.cos(r);
-        final float s = FMath.sin(r);
+        final float c = (float) Math.cos(r);
+        final float s = (float) Math.sin(r);
         final float xr = x - ox;
         final float yr = y - oy;
         x = ox + xr * c - yr * s;
@@ -227,8 +227,8 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
     }
 
     public static void rotate(IVec2 v, float ox, float oy, float r) {
-        float c = FMath.cos(r);
-        float s = FMath.sin(r);
+        float c = (float) Math.cos(r);
+        float s = (float) Math.sin(r);
         float x = v.getX() - ox;
         float y = v.getY() - oy;
         v.setX(x * c - y * s + ox);
@@ -271,7 +271,7 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
     }
 
     public float theta() {
-        return FMath.atan2(y, x);
+        return (float) Math.atan2(y, x);
     }
 
     public Vec2 copy() {
