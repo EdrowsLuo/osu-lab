@@ -9,11 +9,9 @@ import com.edplan.nso.NsoCoreBased;
 import com.edplan.nso.difficulty.DifficultyUtil;
 import com.edplan.nso.ruleset.base.game.GameObject;
 import com.edplan.nso.ruleset.base.game.World;
+import com.edplan.nso.ruleset.base.game.build.BuildContext;
 import com.edplan.nso.ruleset.base.game.judge.CursorData;
 import com.edplan.nso.ruleset.base.game.judge.CursorTestObject;
-import com.edplan.nso.ruleset.base.game.judge.HitArea;
-import com.edplan.nso.ruleset.base.game.judge.HitWindow;
-import com.edplan.nso.ruleset.base.game.judge.PositionHitObject;
 import com.edplan.nso.ruleset.base.game.paint.CursorLayer;
 import com.edplan.nso.ruleset.base.game.paint.GroupDrawObjectWithSchedule;
 import com.edplan.nso.ruleset.base.game.paint.TextureQuadObject;
@@ -21,8 +19,6 @@ import com.edplan.nso.ruleset.std.StdRuleset;
 import com.edplan.nso.ruleset.std.StdSkin;
 import com.edplan.nso.ruleset.std.beatmap.StdBeatmap;
 import com.edplan.nso.ruleset.std.game.drawables.ApproachCircle;
-import com.edplan.nso.ruleset.std.game.drawables.CirclePiece;
-import com.edplan.nso.ruleset.std.game.drawables.FollowPoints;
 import com.edplan.nso.ruleset.std.game.drawables.TestFollowPoints;
 import com.edplan.nso.ruleset.std.objects.v2.StdCircle;
 import com.edplan.nso.ruleset.std.objects.v2.StdGameObject;
@@ -36,6 +32,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StdGameField extends NsoCoreBased {
+    public static final String KEY_STD_GAME_FIELD = "STD_GAME_FIELD";
+
     public static final float BASE_X = 640;
     public static final float BASE_Y = 480;
     public static final float PADDING_X = 64;
@@ -55,11 +53,13 @@ public class StdGameField extends NsoCoreBased {
     public GroupDrawObjectWithSchedule topEffectLayer = new GroupDrawObjectWithSchedule();
     public CursorLayer cursorLayer;
 
-    public DifficultyUtil.BuildedDifficultyHelper difficultyHelper;
+    public DifficultyUtil.BuiltDifficultyHelper difficultyHelper;
     public float globalScale;
     public StdBeatmap beatmap;
 
     public CursorTestObject cursorTestObject;
+
+    public BuildContext buildContext = new BuildContext();
 
     public StdGameField(NsoCore core) {
         super(core);
@@ -88,10 +88,13 @@ public class StdGameField extends NsoCoreBased {
                 hitobjectLayer,
                 approachCircleLayer,
                 topEffectLayer);
+
+        buildContext.setProperty(KEY_STD_GAME_FIELD, this);
+        buildContext.setSkin(skin);
     }
 
     public World load(StdBeatmap beatmap, AResource dir, JSONObject config) {
-        difficultyHelper = new DifficultyUtil.BuildedDifficultyHelper(
+        difficultyHelper = new DifficultyUtil.BuiltDifficultyHelper(
                 DifficultyUtil.DifficultyHelper.StdDifficulty,
                 beatmap.getDifficulty().getOverallDifficulty());
         this.beatmap = beatmap;

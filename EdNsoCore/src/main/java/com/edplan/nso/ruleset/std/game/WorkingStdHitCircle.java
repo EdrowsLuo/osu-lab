@@ -29,10 +29,7 @@ public class WorkingStdHitCircle extends WorkingStdGameObject<StdCircle> {
         this.gameField = gameField;
 
         circlePiece = new CirclePiece();
-        circlePiece.initialTexture(
-                gameField.skin.getTexture(StdSkin.hitcircle),
-                gameField.skin.getTexture(StdSkin.hitcircleoverlay));
-        circlePiece.initialBaseScale(gameField.globalScale);
+        CirclePiece.DefaultStyle.apply(circlePiece, gameField.buildContext);
         circlePiece.initialFadeInAnim(
                 getGameObject().getTime() - getTimePreempt(),
                 getGameObject().getFadeInDuration(gameField.beatmap));
@@ -62,7 +59,7 @@ public class WorkingStdHitCircle extends WorkingStdGameObject<StdCircle> {
 
     protected void onHit(double time, float x, float y) {
         circlePiece.postOperation(() -> {
-            approachCircle.expire(time);
+            approachCircle.detach();
             circlePiece.expire(time);
         });
     }

@@ -12,6 +12,7 @@ import com.edplan.nso.filepart.PartEvents;
 import com.edplan.nso.filepart.PartVariables;
 import com.edplan.nso.storyboard.Storyboard;
 
+@Deprecated
 public class StoryboardDecoder extends BaseDecoder {
     StoryboardPartParser parser;
 

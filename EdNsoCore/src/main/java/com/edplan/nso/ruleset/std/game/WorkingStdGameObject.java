@@ -63,6 +63,9 @@ public abstract class WorkingStdGameObject<T extends StdGameObject> {
         return getStartTime();
     }
 
+    public double getHideTime() {
+        return getEndTime();
+    }
 
     public abstract void applyToGameField(StdGameField gameField);
 }

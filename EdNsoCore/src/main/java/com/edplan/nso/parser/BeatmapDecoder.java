@@ -33,6 +33,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+@Deprecated
 public class BeatmapDecoder extends BaseDecoder {
 
     private int format;

@@ -18,7 +18,7 @@ public class NativeInputQuery {
     }
 
     public void postEvent(MotionEvent raw, DirectMotionHandler directMotionHandler) {
-        List<EdMotionEvent> events = load(raw);
+        List<EdMotionEvent> events = load(raw, true);
         if (directMotionHandler != null) {
             directMotionHandler.onDirectMotionEvent(events.toArray(new EdMotionEvent[events.size()]));
         }
@@ -42,7 +42,7 @@ public class NativeInputQuery {
         eventQuery2 = q;
     }
 
-    public List<EdMotionEvent> load(MotionEvent raw) {
+    public List<EdMotionEvent> load(MotionEvent raw, boolean cancelAsUp) {
         if (raw.getPointerId(raw.getActionIndex()) >= EdMotionEvent.MAX_POINTER) {
             //不对过多点做反应
             return new ArrayList<EdMotionEvent>();
@@ -53,7 +53,10 @@ public class NativeInputQuery {
             for (int idx = 0; idx < raw.getPointerCount(); idx++) {
                 final EdMotionEvent event = new EdMotionEvent();
                 final int id = raw.getPointerId(idx);
-                event.eventType = eventType;
+                event.eventType = cancelAsUp ?
+                        ((eventType == EdMotionEvent.EventType.Cancel) ?
+                                EdMotionEvent.EventType.Up : eventType)
+                        : eventType;
                 event.pointerId = id;
                 event.eventPosition.set(raw.getX(idx), raw.getY(idx));
                 event.rawType = RawType.TouchScreen;

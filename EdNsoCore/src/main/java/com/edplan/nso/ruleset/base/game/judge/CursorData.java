@@ -3,6 +3,7 @@ package com.edplan.nso.ruleset.base.game.judge;
 import com.edplan.framework.timing.FrameClock;
 import com.edplan.framework.ui.inputs.EdKeyEvent;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
+import com.edplan.framework.utils.interfaces.Consumer;
 
 import java.io.DataInput;
 import java.io.DataOutput;
@@ -47,6 +48,9 @@ public class CursorData extends JudgeData {
     private CursorDataUpdater updater = new CursorDataUpdater();
 
     private CursorHolder[] cursors = new CursorHolder[MAX_CURSOR_COUNT];
+    private CursorHolder[] hasAction = new CursorHolder[MAX_CURSOR_COUNT];
+
+    private int hasActionCount = 0;
 
     private int actions = 0;
 
@@ -108,6 +112,15 @@ public class CursorData extends JudgeData {
         }
     }
 
+    /**
+     * 遍历所有点击、保留在屏幕以及发生离开屏幕事件的Cursor
+     */
+    public void forEachActionCursor(Consumer<CursorHolder> consumer) {
+        for (int i = 0; i < hasActionCount; i++) {
+            consumer.consume(hasAction[i]);
+        }
+    }
+
     @Override
     public void update(int type, DataInput inputStream) {
         switch (type) {
@@ -117,6 +130,12 @@ public class CursorData extends JudgeData {
             case USING_KEYFRAME_DATA:
                 usingKeyFrameData(inputStream);
                 break;
+        }
+        hasActionCount = 0;
+        for (int i = 0; i < MAX_CURSOR_COUNT; i++) {
+            if (cursors[i].isDown || (!(cursors[i].down.empty() || cursors[i].up.empty()))) {
+                hasAction[hasActionCount++] = cursors[i];
+            }
         }
     }
 

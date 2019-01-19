@@ -7,12 +7,18 @@ import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.math.FMath;
 import com.edplan.framework.math.Vec2;
+import com.edplan.framework.resource.Skin;
 import com.edplan.framework.ui.animation.Easing;
 import com.edplan.framework.ui.animation.interpolate.EasingManager;
 import com.edplan.framework.utils.FloatRef;
 import com.edplan.nso.ruleset.base.game.World;
+import com.edplan.nso.ruleset.base.game.build.BuildContext;
+import com.edplan.nso.ruleset.base.game.build.Style;
+import com.edplan.nso.ruleset.base.game.paint.AdvancedDrawObject;
+import com.edplan.nso.ruleset.std.StdSkin;
+import com.edplan.nso.ruleset.std.game.StdGameField;
 
-public class CirclePiece extends BasePiece {
+public class CirclePiece extends AdvancedDrawObject {
 
     private final TextureQuad circle = new TextureQuad()
             .enableScale();
@@ -22,17 +28,16 @@ public class CirclePiece extends BasePiece {
             .syncScale(circle.scale)
             .syncAlpha(circle.alpha);
 
-    public final Vec2 position = circle.position;
+    public Vec2 position = circle.position;
 
-    public final Vec2 scale = circle.scale;
+    public Vec2 scale = circle.scale;
 
-    public final FloatRef alpha = circle.alpha;
+    public FloatRef alpha = circle.alpha;
 
     public CirclePiece() {
 
     }
 
-    @Override
     public void expire(double time) {
         scale.set(1);
         alpha.value = 1;
@@ -41,8 +46,8 @@ public class CirclePiece extends BasePiece {
                 FMath.linear(
                         (float) EasingManager.apply(Easing.OutQuad, time1),
                         1, 1.5f)));
-        addAnimTask(time, 400, time1 -> alpha.value = (float) (1 - time1));
-        addTask(time + 400, this::detach);
+        addAnimTask(time, 200, time1 -> alpha.value = (float) (1 - time1));
+        addTask(time + 200, this::detach);
     }
 
     public void initialFadeInAnim(double start, double duration) {
@@ -55,13 +60,11 @@ public class CirclePiece extends BasePiece {
         overlay.setTextureAndSize(overlayT);
     }
 
-    @Override
     public void initialBaseScale(float scale) {
         circle.size.zoom(scale);
         overlay.size.zoom(scale);
     }
 
-    @Override
     public void initialAccentColor(Color4 color) {
         circle.enableColor().accentColor.set(color);
     }
@@ -70,4 +73,42 @@ public class CirclePiece extends BasePiece {
     protected void onDraw(BaseCanvas canvas, World world) {
         TextureQuadBatch.getDefaultBatch().addAll(circle, overlay);
     }
+
+
+    public static final String KEY_TEXTURE_HIT_CIRCLE = "TEXTURE_HIT_CIRCLE";
+
+    public static final String KEY_TEXTURE_HIT_CIRCLE_OVERLAY = "TEXTURE_HIT_CIRCLE_OVERLAY";
+
+    public static final Style<CirclePiece> DefaultStyle = new Style<CirclePiece>() {
+
+        @Override
+        protected void initial(Style<? extends CirclePiece> style) {
+            style.data(KEY_TEXTURE_HIT_CIRCLE, StdSkin.hitcircle);
+            style.data(KEY_TEXTURE_HIT_CIRCLE_OVERLAY, StdSkin.hitcircleoverlay);
+        }
+
+        @Override
+        public void apply(CirclePiece circlePiece, BuildContext context) {
+            StdGameField gameField = context.getProperty(StdGameField.KEY_STD_GAME_FIELD);
+            Skin skin = context.getSkin();
+            circlePiece.initialTexture(
+                    skin.getTexture(getString(KEY_TEXTURE_HIT_CIRCLE)),
+                    skin.getTexture(getString(KEY_TEXTURE_HIT_CIRCLE_OVERLAY)));
+            circlePiece.initialBaseScale(gameField.globalScale);
+        }
+    };
+
+    public static final Style<CirclePiece> SliderStartStyle = DefaultStyle.override(
+            style -> {
+                style.data(KEY_TEXTURE_HIT_CIRCLE, StdSkin.sliderstartcircle);
+                style.data(KEY_TEXTURE_HIT_CIRCLE_OVERLAY, StdSkin.sliderstartcircleoverlay);
+            }
+    );
+
+    public static final Style<CirclePiece> SliderEndStyle = DefaultStyle.override(
+            style -> {
+                style.data(KEY_TEXTURE_HIT_CIRCLE, StdSkin.sliderendcircle);
+                style.data(KEY_TEXTURE_HIT_CIRCLE_OVERLAY, StdSkin.sliderendcircleoverlay);
+            }
+    );
 }

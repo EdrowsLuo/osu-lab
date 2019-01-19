@@ -34,9 +34,9 @@ public class SliderBody extends AdvancedDrawObject {
 
     private boolean dirty = true;
 
-    private float progress1 = 0;
+    private float progress1 = 1;
 
-    private float progress2 = 1;
+    private float progress2 = 0;
 
     private Color4 accentColor = Color4.White.copyNew();
 
@@ -48,12 +48,16 @@ public class SliderBody extends AdvancedDrawObject {
 
     private Vec2 startPosition = new Vec2();
 
+    private float endRotation,startRotation;
+
     public SliderBody(MContext context,AbstractPath path, float width, float length) {
         this.length = length;
         this.path = path.fitToLinePath();
         this.path.setWidth(width);
         this.path.measure();
         this.path.bufferLength(length);
+        setProgress1(0);
+        setProgress2(1);
     }
 
     public Vec2 getEndPosition() {
@@ -64,11 +68,20 @@ public class SliderBody extends AdvancedDrawObject {
         return startPosition;
     }
 
+    public float getStartRotation() {
+        return startRotation;
+    }
+
+    public float getEndRotation() {
+        return endRotation;
+    }
+
     public void setProgress1(float progress1) {
         if (Math.abs(progress1 - this.progress1) > 0.01) {
             dirty = true;
             this.progress1 = progress1;
             startPosition.set(path.getMeasurer().atLength(length * progress1));
+            startRotation = path.getMeasurer().getTangentLine(length * progress1).theta();
         }
     }
 
@@ -77,6 +90,7 @@ public class SliderBody extends AdvancedDrawObject {
             dirty = true;
             this.progress2 = progress2;
             endPosition.set(path.getMeasurer().atLength(length * progress2));
+            endRotation = path.getMeasurer().getTangentLine(length * progress2).theta();
         }
     }
 

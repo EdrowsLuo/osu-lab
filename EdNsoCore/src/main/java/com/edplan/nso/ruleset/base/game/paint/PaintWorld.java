@@ -10,7 +10,12 @@ public class PaintWorld {
 
     private World world;
 
-    private GroupDrawObject rootGroup = new GroupDrawObject();
+    private GroupDrawObject rootGroup = new GroupDrawObject(){
+        @Override
+        public boolean isAttached() {
+            return true;
+        }
+    };
 
     public PaintWorld(World world) {
         this.world = world;

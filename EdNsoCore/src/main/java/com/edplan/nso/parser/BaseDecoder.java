@@ -15,6 +15,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+@Deprecated
 public class BaseDecoder {
     public static String FORMAT_LINE_HEAD = "osu file format v";
 

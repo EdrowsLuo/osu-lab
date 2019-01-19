@@ -1,10 +1,11 @@
 package com.edplan.nso.ruleset.std.game;
 
+import com.edplan.nso.difficulty.DifficultyUtil;
 import com.edplan.nso.ruleset.base.game.Score;
 
 public class StdScore implements Score {
 
-
+    private DifficultyUtil.BuiltDifficultyHelper difficultyHelper;
 
     public void applyHitResult(HitResult result) {
 
@@ -32,7 +33,9 @@ public class StdScore implements Score {
 
     public static class HitResult {
 
-        public double sourseTime;
+        public HitType hitType;
+
+        public double sourceTime;
 
         public double offset;
 

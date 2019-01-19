@@ -3,6 +3,7 @@ package com.edplan.nso.ruleset.std.game;
 import com.edplan.framework.graphics.line.LinePath;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.math.FMath;
 import com.edplan.framework.math.Vec2;
 import com.edplan.nso.ruleset.base.game.World;
 import com.edplan.nso.ruleset.base.game.judge.HitArea;
@@ -14,6 +15,7 @@ import com.edplan.nso.ruleset.std.game.drawables.ApproachCircle;
 import com.edplan.nso.ruleset.std.game.drawables.CirclePiece;
 import com.edplan.nso.ruleset.std.game.drawables.SliderBall;
 import com.edplan.nso.ruleset.std.game.drawables.SliderBody;
+import com.edplan.nso.ruleset.std.game.drawables.SliderReverseCircle;
 import com.edplan.nso.ruleset.std.objects.drawables.StdSliderPathMaker;
 import com.edplan.nso.ruleset.std.objects.v2.StdGameObject;
 import com.edplan.nso.ruleset.std.objects.v2.StdSlider;
@@ -22,6 +24,8 @@ import com.edplan.nso.ruleset.std.playing.controlpoint.TimingControlPoint;
 public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
 
     public final double BASE_SCORING_DISTANCE = 100;
+
+    private double bodyFadeOutTime = 200;
 
     private LinePath path;
 
@@ -50,6 +54,11 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
     public double getEndTime() {
         StdSlider slider = getGameObject();
         return slider.getTime() + slider.getRepeat() * getCycleTime();
+    }
+
+    @Override
+    public double getHideTime() {
+        return getEndTime() + bodyFadeOutTime;
     }
 
     @Override
@@ -96,8 +105,14 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
         CirclePiece[] pieces = new CirclePiece[slider.getRepeat()];
         for (int i = 0; i < pieces.length; i++) {
             final int ii = i;
-            final double showTime = slider.getTime() + getCycleTime() * i;
+            double showTime = slider.getTime() + getCycleTime() * (i - 1);
+            double hitTime = slider.getTime() + getCycleTime() * (i + 1);
+            if (i == 0) {
+                showTime = getShowTime();
+            }
+
             if (i == pieces.length - 1) {
+                //最后的一个circle不需要反转
                 CirclePiece circle = new CirclePiece() {
                     @Override
                     protected void onDraw(BaseCanvas canvas, World world) {
@@ -109,32 +124,41 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
                         gameField.skin.getTexture(StdSkin.sliderendcircle),
                         gameField.skin.getTexture(StdSkin.sliderendcircleoverlay));
                 circle.initialBaseScale(gameField.globalScale);
-                circle.initialFadeInAnim(
-                        showTime - getTimePreempt(),
-                        getGameObject().getFadeInDuration(gameField.beatmap));
-                circle.initialAccentColor(Color4.Red);
+                //circle.initialAccentColor(Color4.Red);
+
+                gameField.hitobjectLayer.scheduleAttachBehind(showTime, circle);
+                circle.expire(getEndTime());
+                gameField.hitobjectLayer.addEvent(getEndTime() + 200, circle::detach);
+
+                pieces[i] = circle;
+            } else if (i != pieces.length - 1) {
+                SliderReverseCircle circle = new SliderReverseCircle() {
+                    @Override
+                    protected void onDraw(BaseCanvas canvas, World world) {
+                        reverseArrow.rotation.value = (ii % 2 == 0) ? (body.getEndRotation() + FMath.Pi) : body.getStartRotation();
+                        position.set((ii % 2 == 0) ? body.getEndPosition() : body.getStartPosition());
+                        super.onDraw(canvas, world);
+                    }
+                };
+                circle.initialTexture(
+                        gameField.skin.getTexture(StdSkin.sliderendcircle),
+                        gameField.skin.getTexture(StdSkin.sliderendcircleoverlay));
+                circle.initialReverseTexture(
+                        gameField.skin.getTexture(StdSkin.reversearrow)
+                );
+                circle.initialBaseScale(gameField.globalScale);
+                //circle.initialAccentColor(Color4.Red);
+
+                gameField.hitobjectLayer.scheduleAttachBehind(showTime, circle);
+                circle.expire(hitTime);
+                gameField.hitobjectLayer.addEvent(hitTime + 200, circle::detach);
             }
 
         }
-        CirclePiece endCircle = new CirclePiece() {
-            @Override
-            protected void onDraw(BaseCanvas canvas, World world) {
-                position.set(body.getEndPosition());
-                super.onDraw(canvas, world);
-            }
-        };
-        endCircle.initialTexture(
-                gameField.skin.getTexture(StdSkin.sliderendcircle),
-                gameField.skin.getTexture(StdSkin.sliderendcircleoverlay));
-        endCircle.initialBaseScale(gameField.globalScale);
-        endCircle.initialFadeInAnim(
-                getGameObject().getTime() - getTimePreempt(),
-                getGameObject().getFadeInDuration(gameField.beatmap));
-        endCircle.initialAccentColor(Color4.Red);
         
         ApproachCircle approachCircle = gameField.buildApprochCircle(getGameObject());
 
-        gameField.hitobjectLayer.scheduleAttachBehindAll(getShowTime(), circlePiece, endCircle);
+        gameField.hitobjectLayer.scheduleAttachBehindAll(getShowTime(), circlePiece);
         gameField.hitobjectLayer.addEvent(slider.getTime(), circlePiece::detach);
         gameField.approachCircleLayer.scheduleAttachBehind(getShowTime(), approachCircle);
 
@@ -146,16 +170,9 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
                 });
         body.addAnimTask(
                 getEndTime(),
-                200,
+                bodyFadeOutTime,
                 time -> body.alpha.value = (float) (1 - time)
         );
-
-        if (id == 12) {
-            System.out.println("slider12:: " + endCircle.position);
-            System.out.println(body.getPath().getAll());
-            System.out.println(slider.getPixelLength());
-            System.out.println(slider.getStdPath().getControlPoints());
-        }
 
         SliderBall ball = new SliderBall(body.getPath(), body.getLength());
         ball.sprite.alpha = body.alpha;
@@ -173,13 +190,8 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
 
         gameField.sliderLayer.scheduleAttachBehindAll(getShowTime(), body);
         gameField.hitobjectLayer.scheduleAttachBehind(slider.getTime(), ball);
-        gameField.hitobjectLayer.addEvent(getEndTime(), () -> endCircle.expire(getEndTime()));
-        gameField.sliderLayer.addEvent(getEndTime() + 200, () -> {
-            circlePiece.detach();
-            body.detach();
-            ball.detach();
-            endCircle.detach();
-        });
+        gameField.sliderLayer.addEvent(getEndTime(), ball::detach);
+        gameField.sliderLayer.addEvent(getHideTime(), body::detach);
 
         PositionHitObject positionHitObject = new PositionHitObject() {{
 
@@ -190,17 +202,16 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
             area = HitArea.circle(getGameObject().getX(), getGameObject().getY(), StdGameObject.BASE_OBJECT_SIZE / 2 * gameField.globalScale);
 
             onHit = (time, x, y) -> {
-                circlePiece.postOperation(() -> {
-                    approachCircle.expire(time);
-                    circlePiece.expire(time);
+                gameField.hitobjectLayer.postOperation(() -> {
+                    if (circlePiece.isAttached()) {
+                        approachCircle.detach();
+                        circlePiece.expire(time);
+                    }
                 });
             };
 
             onTimeOut = time -> {
-                circlePiece.postOperation(() -> {
-                    approachCircle.detach();
-                    circlePiece.detach();
-                });
+
             };
 
         }};

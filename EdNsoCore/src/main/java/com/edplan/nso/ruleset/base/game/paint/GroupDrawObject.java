@@ -13,7 +13,7 @@ public class GroupDrawObject extends DrawObject {
     @Override
     public void draw(BaseCanvas canvas, World world) {
         handleOperations();
-        //if (isAttached())
+        if (isAttached())
             if (drawForward) {
                 DrawNode nextNode = preStartNode.next;
                 DrawObject object;

@@ -9,9 +9,10 @@ import com.edplan.framework.math.FMath;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.utils.FloatRef;
 import com.edplan.nso.ruleset.base.game.World;
+import com.edplan.nso.ruleset.base.game.paint.AdvancedDrawObject;
 import com.edplan.nso.ruleset.std.objects.v2.StdGameObject;
 
-public class ApproachCircle extends BasePiece {
+public class ApproachCircle extends AdvancedDrawObject {
 
     private final TextureQuad approachCircle = new TextureQuad()
             .enableColor()
@@ -39,12 +40,10 @@ public class ApproachCircle extends BasePiece {
         approachCircle.setTextureAndSize(texture);
     }
 
-    @Override
     public void initialBaseScale(float scale) {
         approachCircle.size.zoom(scale);
     }
 
-    @Override
     public void initialAccentColor(Color4 color) {
         approachCircle.accentColor.set(color);
     }

@@ -85,7 +85,7 @@ public class HitCirclePiece extends BasePiece implements IScaleable2D, IFadeable
         protected void seekToTime(double p) {
 
             float fp = (float) (p / getDuration());
-            setAlpha(FMath.sin(fp * FMath.PiHalf));
+            setAlpha((float) Math.sin(fp * FMath.PiHalf));
         }
 
         @Override

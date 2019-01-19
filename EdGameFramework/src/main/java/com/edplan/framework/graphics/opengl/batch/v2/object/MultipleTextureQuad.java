@@ -3,6 +3,8 @@ package com.edplan.framework.graphics.opengl.batch.v2.object;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
+import com.edplan.framework.utils.functionality.Function;
+import com.edplan.framework.utils.functionality.Value;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class MultipleTextureQuad extends TextureQuad {
         id = id % textureEntries.length;
         currentEntry = textureEntries[id];
         texture = currentEntry.texture;
-        size = currentEntry.size;
+        size.set(currentEntry.size);
         u1 = currentEntry.u1;
         v1 = currentEntry.v1;
         u2 = currentEntry.u2;
