@@ -7,6 +7,7 @@ import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.math.Vec3;
 
+@Deprecated
 public class Texture3DRect implements VertexList<TextureVertex3D> {
     private TextureVertex3D[] v = new TextureVertex3D[4];
 

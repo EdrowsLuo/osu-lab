@@ -11,6 +11,7 @@ import com.edplan.framework.math.Vec3;
 import java.nio.FloatBuffer;
 import java.util.Arrays;
 
+@Deprecated
 public class BaseColorBatch<T extends Vertex3D> implements BaseBatch<T>, IHasColor, IHasPosition {
     protected Object[] vertexs;
     protected int idx = 0;

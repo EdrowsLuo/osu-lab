@@ -1,7 +1,6 @@
 package com.edplan.framework.graphics.line;
 
 import com.edplan.framework.graphics.opengl.batch.BaseColorBatch;
-import com.edplan.framework.graphics.opengl.drawui.DrawInfo;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
 import com.edplan.framework.math.FMath;
@@ -10,6 +9,7 @@ import com.edplan.framework.math.Vec3;
 
 import java.util.ArrayList;
 
+@Deprecated
 public class LegacyDrawLinePath<T extends BaseColorBatch> {
     public static final int MAXRES = 24;
 
@@ -222,4 +222,16 @@ public class LegacyDrawLinePath<T extends BaseColorBatch> {
         }
         addLineCap(path.get(max_i - 1), preTheta - FMath.PiHalf, FMath.Pi);
     }
+
+    public static abstract class DrawInfo {
+
+        //return the real draw position on current layer,
+        //according to current GLCanvas
+        public abstract Vec2 toLayerPosition(Vec2 v);
+
+        public abstract Color4 getVaryingColor(Vec2 position);
+
+
+    }
+
 }

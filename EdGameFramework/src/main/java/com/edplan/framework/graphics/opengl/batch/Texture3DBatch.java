@@ -7,6 +7,7 @@ import com.edplan.framework.math.Vec2;
 
 import java.nio.FloatBuffer;
 
+@Deprecated
 public class Texture3DBatch<T extends TextureVertex3D> extends BaseColorBatch<T> implements ITexture3DBatch<T> {
     public Texture3DBatch() {
 

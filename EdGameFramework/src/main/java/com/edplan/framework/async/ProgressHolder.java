@@ -2,7 +2,6 @@ package com.edplan.framework.async;
 
 public class ProgressHolder {
 
-
     private String message = "";
 
     private double progress = 0;

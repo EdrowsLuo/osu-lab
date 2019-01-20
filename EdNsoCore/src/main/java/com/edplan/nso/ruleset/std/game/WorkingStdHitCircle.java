@@ -19,21 +19,26 @@ public class WorkingStdHitCircle extends WorkingStdGameObject<StdCircle> {
 
     StdGameField gameField;
 
-    public WorkingStdHitCircle(StdCircle gameObject, StdBeatmap beatmap) {
-        super(gameObject, beatmap);
+    public WorkingStdHitCircle(StdCircle gameObject, StdGameField gameField) {
+        super(gameObject, gameField);
+        this.gameField = gameField;
     }
 
     @Override
-    public void applyToGameField(StdGameField gameField) {
+    public void applyToGameField() {
 
-        this.gameField = gameField;
+        circlePiece = new CirclePiece() {{
 
-        circlePiece = new CirclePiece();
-        CirclePiece.DefaultStyle.apply(circlePiece, gameField.buildContext);
-        circlePiece.initialFadeInAnim(
-                getGameObject().getTime() - getTimePreempt(),
-                getGameObject().getFadeInDuration(gameField.beatmap));
-        circlePiece.position.set(getGameObject().getX(), getGameObject().getY());
+            CirclePiece.DefaultStyle.apply(this, gameField.buildContext);
+
+            position.set(getGameObject().getX(), getGameObject().getY());
+
+            initialFadeInAnim(
+                    getShowTime(),
+                    getFadeInDuration());
+
+        }};
+
 
         approachCircle = gameField.buildApprochCircle(getGameObject());
 

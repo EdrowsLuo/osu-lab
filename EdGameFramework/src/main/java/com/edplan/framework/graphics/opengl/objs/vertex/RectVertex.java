@@ -5,6 +5,7 @@ import com.edplan.framework.graphics.opengl.objs.Vertex3D;
 import com.edplan.framework.math.IQuad;
 import com.edplan.framework.math.Vec2;
 
+@Deprecated
 public class RectVertex extends TextureVertex3D {
     public Vec2 rectPosition = new Vec2();
 

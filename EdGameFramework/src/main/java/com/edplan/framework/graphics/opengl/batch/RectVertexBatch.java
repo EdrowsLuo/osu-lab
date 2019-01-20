@@ -7,6 +7,7 @@ import com.edplan.framework.math.Vec2;
 
 import java.nio.FloatBuffer;
 
+@Deprecated
 public class RectVertexBatch<T extends RectVertex> extends Texture3DBatch<T> implements IHasRectPosition {
 
     private FloatBuffer rectPositionBuffer;

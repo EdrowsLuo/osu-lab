@@ -7,6 +7,7 @@ import com.edplan.framework.math.Vec2;
 
 import java.util.ArrayList;
 
+@Deprecated
 public class FrameTexture extends AbstractTexture {
     private ArrayList<AbstractTexture> textures = new ArrayList<AbstractTexture>();
 

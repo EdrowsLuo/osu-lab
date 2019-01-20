@@ -3,17 +3,15 @@ package com.edplan.framework.config.property;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@Deprecated
 public class ConfigInteger extends ConfigProperty {
     public static final String TYPE = "int";
 
     static {
-        ConfigProperty.registerLoader(TYPE, new ConfigProperty.Loader() {
-            @Override
-            public ConfigProperty load(JSONObject obj) {
-                ConfigBoolean b = new ConfigBoolean();
-                b.injectJson(obj);
-                return b;
-            }
+        ConfigProperty.registerLoader(TYPE, obj -> {
+            ConfigBoolean b = new ConfigBoolean();
+            b.injectJson(obj);
+            return b;
         });
     }
 

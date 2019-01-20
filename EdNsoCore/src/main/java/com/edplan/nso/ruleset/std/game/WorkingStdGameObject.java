@@ -10,12 +10,15 @@ public abstract class WorkingStdGameObject<T extends StdGameObject> {
 
     private final StdBeatmap beatmap;
 
+    private final StdGameField gameField;
+
     private int comboIndex = 0;
 
     private boolean groupEnd = false;
 
-    public WorkingStdGameObject(T gameObject, StdBeatmap beatmap) {
-        this.beatmap = beatmap;
+    public WorkingStdGameObject(T gameObject, StdGameField gameField) {
+        this.beatmap = gameField.beatmap;
+        this.gameField = gameField;
         this.gameObject = gameObject;
     }
 
@@ -67,5 +70,17 @@ public abstract class WorkingStdGameObject<T extends StdGameObject> {
         return getEndTime();
     }
 
-    public abstract void applyToGameField(StdGameField gameField);
+    public double getFadeInDuration() {
+        return getGameObject().getFadeInDuration(getBeatmap());
+    }
+
+    public StdBeatmap getBeatmap() {
+        return beatmap;
+    }
+
+    public StdGameField getGameField() {
+        return gameField;
+    }
+
+    public abstract void applyToGameField();
 }

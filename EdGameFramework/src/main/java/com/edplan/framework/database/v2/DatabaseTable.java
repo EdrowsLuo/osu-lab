@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+@Deprecated
 public abstract class DatabaseTable {
 
     private static final int NOT_PREPARE=0,IN_PREPARE=1, PREPARED = 3;

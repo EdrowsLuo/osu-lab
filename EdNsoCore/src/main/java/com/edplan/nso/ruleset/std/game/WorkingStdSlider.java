@@ -33,8 +33,30 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
 
     private double velocity;
 
-    public WorkingStdSlider(StdSlider gameObject, StdBeatmap beatmap) {
-        super(gameObject, beatmap);
+    StdSlider slider;
+
+    TimingControlPoint timingPoint;
+
+    double speedMultiplier;
+
+    double scoringDistance;
+
+    public WorkingStdSlider(StdSlider gameObject, StdGameField gameField) {
+        super(gameObject, gameField);
+        slider = getGameObject();
+        timingPoint = getBeatmap().getControlPoints().getTimingPointAt(slider.getTime());
+        speedMultiplier = getBeatmap().getControlPoints().getDifficultyPointAt(slider.getTime()).getSpeedMultiplier();
+
+        scoringDistance = BASE_SCORING_DISTANCE * getBeatmap().getDifficulty().getSliderMultiplier() * speedMultiplier;
+        velocity = scoringDistance / timingPoint.getBeatLength();
+
+        StdSliderPathMaker maker = new StdSliderPathMaker(slider.getStdPath());
+        maker.setBaseSize(StdGameObject.BASE_OBJECT_SIZE / 2 * gameField.globalScale);
+        path = maker.calculatePath();
+
+        path.measure();
+        path.bufferLength((float) slider.getPixelLength());
+        endPoint = (slider.getRepeat() % 2 == 1) ? path.getMeasurer().atLength((float) slider.getPixelLength()) : new Vec2(getStartPosition());
 
     }
 
@@ -68,33 +90,20 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
 
     static int id = 0;
     @Override
-    public void applyToGameField(StdGameField gameField) {
+    public void applyToGameField() {
         id++;
-        StdBeatmap beatmap = gameField.beatmap;
-        StdSlider slider = getGameObject();
-        TimingControlPoint timingPoint = beatmap.getControlPoints().getTimingPointAt(slider.getTime());
-        double speedMultiplier = beatmap.getControlPoints().getDifficultyPointAt(slider.getTime()).getSpeedMultiplier();
+        StdGameField gameField = getGameField();
+        CirclePiece circlePiece = new CirclePiece() {{
 
-        double scoringDistance = BASE_SCORING_DISTANCE * beatmap.getDifficulty().getSliderMultiplier() * speedMultiplier;
-        velocity = scoringDistance / timingPoint.getBeatLength();
+            SliderStartStyle.apply(this, gameField.buildContext);
 
-        StdSliderPathMaker maker = new StdSliderPathMaker(slider.getStdPath());
-        maker.setBaseSize(StdGameObject.BASE_OBJECT_SIZE / 2 * gameField.globalScale);
-        path = maker.calculatePath();
+            position.set(getGameObject().getX(), getGameObject().getY());
 
-        path.measure();
-        path.bufferLength((float) slider.getPixelLength());
-        endPoint = (slider.getRepeat() % 2 == 1) ? path.getMeasurer().atLength((float) slider.getPixelLength()) : new Vec2(getStartPosition());
+            initialFadeInAnim(
+                    getShowTime(),
+                    getFadeInDuration());
 
-        CirclePiece circlePiece = new CirclePiece();
-        circlePiece.initialTexture(
-                gameField.skin.getTexture(StdSkin.sliderstartcircle),
-                gameField.skin.getTexture(StdSkin.sliderstartcircleoverlay));
-        circlePiece.initialBaseScale(gameField.globalScale);
-        circlePiece.initialFadeInAnim(
-                getGameObject().getTime() - getTimePreempt(),
-                getGameObject().getFadeInDuration(gameField.beatmap));
-        circlePiece.position.set(getGameObject().getX(), getGameObject().getY());
+        }};
 
         SliderBody body = new SliderBody(
                 gameField.getContext(),
@@ -124,7 +133,6 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
                         gameField.skin.getTexture(StdSkin.sliderendcircle),
                         gameField.skin.getTexture(StdSkin.sliderendcircleoverlay));
                 circle.initialBaseScale(gameField.globalScale);
-                //circle.initialAccentColor(Color4.Red);
 
                 gameField.hitobjectLayer.scheduleAttachBehind(showTime, circle);
                 circle.expire(getEndTime());
@@ -147,7 +155,6 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
                         gameField.skin.getTexture(StdSkin.reversearrow)
                 );
                 circle.initialBaseScale(gameField.globalScale);
-                //circle.initialAccentColor(Color4.Red);
 
                 gameField.hitobjectLayer.scheduleAttachBehind(showTime, circle);
                 circle.expire(hitTime);
@@ -163,7 +170,7 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
         gameField.approachCircleLayer.scheduleAttachBehind(getShowTime(), approachCircle);
 
 
-        body.addAnimTask(getShowTime(), slider.getFadeInDuration(beatmap),
+        body.addAnimTask(getShowTime(), slider.getFadeInDuration(getBeatmap()),
                 t -> {
                     body.setProgress2((float) t);
                     body.alpha.value = (float) t;

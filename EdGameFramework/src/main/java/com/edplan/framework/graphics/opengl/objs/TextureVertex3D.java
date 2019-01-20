@@ -3,6 +3,7 @@ package com.edplan.framework.graphics.opengl.objs;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.math.Vec3;
 
+@Deprecated
 public class TextureVertex3D extends Vertex3D {
     public static final Vec2 DEF_TEXTURE_POINT = new Vec2(0, 0);
     public Vec2 texturePoint;

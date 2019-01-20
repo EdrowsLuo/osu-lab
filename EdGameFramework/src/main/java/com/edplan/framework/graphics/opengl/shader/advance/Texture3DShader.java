@@ -4,8 +4,6 @@ import android.opengl.GLES20;
 
 import com.edplan.framework.graphics.opengl.Camera;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
-import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.graphics.opengl.shader.Attr;
 import com.edplan.framework.graphics.opengl.shader.GLProgram;
 import com.edplan.framework.graphics.opengl.shader.ShaderGlobals;
 import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
@@ -77,9 +75,9 @@ public class Texture3DShader  extends BaseShader{
     @AttribType(VertexAttrib.Type.VEC2)
     public VertexAttrib aCoord;
 
-    @PointerName(Attr.Color)
+    @PointerName
     @AttribType(VertexAttrib.Type.VEC4)
-    public VertexAttrib aColor;
+    public VertexAttrib aVaryingColor;
 
     @PointerName
     public UniformSample2D uTexture;
@@ -114,7 +112,7 @@ public class Texture3DShader  extends BaseShader{
         buffer.position(pos + 3);
         aCoord.loadData(buffer, 2, GLES20.GL_FLOAT, STEP, false);
         buffer.position(pos + 5);
-        aColor.loadData(buffer, 4, GLES20.GL_UNSIGNED_BYTE, STEP, true);
+        aVaryingColor.loadData(buffer, 4, GLES20.GL_UNSIGNED_BYTE, STEP, true);
         buffer.position(pos);
         buffer.limit(limit);
     }

@@ -45,8 +45,6 @@ public class TextPrinter {
 
     private ArrayList<Texture3DBatch<TextureVertex3D>> batchs;
 
-    private BufferedTextRectGroup rectGroup;
-
     private char preChar = 0;
 
     private BMFont font;

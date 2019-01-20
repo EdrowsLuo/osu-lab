@@ -3,17 +3,15 @@ package com.edplan.framework.config.property;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@Deprecated
 public class ConfigString extends ConfigProperty {
     public static final String TYPE = "string";
 
     static {
-        ConfigProperty.registerLoader(TYPE, new ConfigProperty.Loader() {
-            @Override
-            public ConfigProperty load(JSONObject obj) {
-                ConfigBoolean b = new ConfigBoolean();
-                b.injectJson(obj);
-                return b;
-            }
+        ConfigProperty.registerLoader(TYPE, obj -> {
+            ConfigBoolean b = new ConfigBoolean();
+            b.injectJson(obj);
+            return b;
         });
     }
 

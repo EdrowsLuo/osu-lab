@@ -5,12 +5,12 @@ import com.edplan.nso.ruleset.std.objects.v2.StdSpinner;
 
 public class WorkingStdSpinner extends WorkingStdGameObject<StdSpinner> {
 
-    public WorkingStdSpinner(StdSpinner gameObject, StdBeatmap beatmap) {
-        super(gameObject, beatmap);
+    public WorkingStdSpinner(StdSpinner gameObject, StdGameField gameField) {
+        super(gameObject, gameField);
     }
 
     @Override
-    public void applyToGameField(StdGameField gameField) {
+    public void applyToGameField() {
 
     }
 }

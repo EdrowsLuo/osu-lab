@@ -133,11 +133,11 @@ public class StdGameField extends NsoCoreBased {
             }
 
             if (object instanceof StdCircle) {
-                workingStdGameObjects.add(new WorkingStdHitCircle((StdCircle) object, beatmap));
+                workingStdGameObjects.add(new WorkingStdHitCircle((StdCircle) object, this));
             } else if (object instanceof StdSlider) {
-                workingStdGameObjects.add(new WorkingStdSlider((StdSlider) object, beatmap));
+                workingStdGameObjects.add(new WorkingStdSlider((StdSlider) object, this));
             } else if (object instanceof StdSpinner) {
-                workingStdGameObjects.add(new WorkingStdSpinner((StdSpinner) object, beatmap));
+                workingStdGameObjects.add(new WorkingStdSpinner((StdSpinner) object, this));
             } else {
                 throw new RuntimeException("错误的物件类型 " + object.getClass());
             }
@@ -145,7 +145,7 @@ public class StdGameField extends NsoCoreBased {
         }
 
         for (WorkingStdGameObject object : workingStdGameObjects) {
-            object.applyToGameField(this);
+            object.applyToGameField();
         }
 
         for (int i = 1; i < size; i++) {

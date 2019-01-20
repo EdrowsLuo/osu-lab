@@ -1,5 +1,6 @@
 package com.edplan.framework.graphics.opengl.batch;
 
+@Deprecated
 public interface BaseBatch<T> {
 
     public void add(T t);

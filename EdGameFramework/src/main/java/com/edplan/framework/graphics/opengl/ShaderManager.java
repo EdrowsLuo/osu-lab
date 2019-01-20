@@ -11,10 +11,6 @@ import java.io.IOException;
 public class ShaderManager {
     public static class PATH {
         private static final String PATH_Texture3DShader = "StdTexture3DShader";
-        private static final String PATH_RawTextureShader = "StdRawTextureShader.fs";
-        private static final String PATH_RectShader_VS = "StdRectShader.vs";
-        private static final String PATH_RectShader_FS = "StdRectShader.fs";
-        private static final String PATH_RoundedRectShader_FS = "StdRoundedRectShader.fs";
         private static final String PATH_ColorShader = "StdColorShader";
     }
 

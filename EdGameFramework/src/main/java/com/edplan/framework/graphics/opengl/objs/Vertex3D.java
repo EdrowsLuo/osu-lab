@@ -3,6 +3,7 @@ package com.edplan.framework.graphics.opengl.objs;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.math.Vec3;
 
+@Deprecated
 public class Vertex3D {
     public static final Color4 DEF_COLOR = Color4.rgba(1.0f, 1.0f, 1.0f, 1.0f);
 

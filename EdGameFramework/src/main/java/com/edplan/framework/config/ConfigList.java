@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
+@Deprecated
 public class ConfigList implements JsonBasedObject {
     private HashMap<String, ConfigEntry> data = new HashMap<String, ConfigEntry>();
 

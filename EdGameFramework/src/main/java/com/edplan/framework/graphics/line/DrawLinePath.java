@@ -1,17 +1,11 @@
 package com.edplan.framework.graphics.line;
 
-import com.edplan.framework.graphics.opengl.batch.BaseColorBatch;
 import com.edplan.framework.graphics.opengl.batch.v2.object.PackedTriangles;
 import com.edplan.framework.graphics.opengl.batch.v2.object.TextureTriangle;
-import com.edplan.framework.graphics.opengl.drawui.DrawInfo;
-import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
 import com.edplan.framework.math.FMath;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.math.Vec3;
 import com.edplan.framework.utils.FloatRef;
-
-import java.util.ArrayList;
 
 public class DrawLinePath {
     private static final int MAXRES = 24;

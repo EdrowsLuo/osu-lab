@@ -7,7 +7,6 @@ import com.edplan.framework.graphics.opengl.batch.BaseBatch;
 import com.edplan.framework.graphics.opengl.batch.base.IHasColor;
 import com.edplan.framework.graphics.opengl.batch.base.IHasPosition;
 import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.graphics.opengl.shader.Attr;
 import com.edplan.framework.graphics.opengl.shader.GLProgram;
 import com.edplan.framework.graphics.opengl.shader.ShaderGlobals;
 import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
@@ -71,9 +70,9 @@ public class ColorShader extends BaseShader {
     @AttribType(VertexAttrib.Type.VEC3)
     public VertexAttrib aPosition;
 
-    @PointerName(Attr.Color)
+    @PointerName
     @AttribType(VertexAttrib.Type.VEC4)
-    public VertexAttrib aColor;
+    public VertexAttrib aVaryingColor;
 
     protected ColorShader(GLProgram program) {
         super(program, true);
@@ -120,7 +119,7 @@ public class ColorShader extends BaseShader {
     }
 
     public void loadColor(FloatBuffer buffer) {
-        aColor.loadData(buffer);
+        aVaryingColor.loadData(buffer);
     }
 
     public void loadAlpha(float a) {

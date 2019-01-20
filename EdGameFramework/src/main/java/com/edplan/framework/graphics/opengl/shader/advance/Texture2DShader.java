@@ -5,7 +5,6 @@ import android.opengl.GLES20;
 import com.edplan.framework.graphics.opengl.Camera;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.graphics.opengl.shader.Attr;
 import com.edplan.framework.graphics.opengl.shader.GLProgram;
 import com.edplan.framework.graphics.opengl.shader.ShaderGlobals;
 import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
@@ -16,7 +15,6 @@ import com.edplan.framework.graphics.opengl.shader.uniforms.UniformSample2D;
 import com.edplan.framework.math.Mat4;
 import com.edplan.framework.utils.Lazy;
 
-import java.nio.Buffer;
 import java.nio.FloatBuffer;
 
 public class Texture2DShader extends BaseShader {
@@ -73,9 +71,9 @@ public class Texture2DShader extends BaseShader {
     @AttribType(VertexAttrib.Type.VEC4)
     public VertexAttrib aPositionAndCoord;
 
-    @PointerName(Attr.Color)
+    @PointerName
     @AttribType(VertexAttrib.Type.VEC4)
-    public VertexAttrib aColor;
+    public VertexAttrib aVaryingColor;
 
     @PointerName
     public UniformSample2D uTexture;
@@ -120,7 +118,7 @@ public class Texture2DShader extends BaseShader {
         int limit = buffer.limit();
         aPositionAndCoord.loadData(buffer, 4, GLES20.GL_FLOAT, STEP, false);
         buffer.position(pos + 4);
-        aColor.loadData(buffer, 4, GLES20.GL_UNSIGNED_BYTE, STEP, true);
+        aVaryingColor.loadData(buffer, 4, GLES20.GL_UNSIGNED_BYTE, STEP, true);
         buffer.position(pos);
         buffer.limit(limit);
     }
