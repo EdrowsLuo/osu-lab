@@ -142,10 +142,10 @@ public class SnakeView extends EdView {
         @Override
         public void draw(BaseCanvas canvas) {
             savedCanvasWidth = canvas.getWidth();
-            canvas.drawTexture(
+            /*canvas.drawTexture(
                     GLTexture.Black,
                     RectF.ltrb(0, 0, canvas.getWidth(), canvas.getHeight()),
-                    Color4.ONE, 1);
+                    Color4.ONE, 1);*/
         }
     }
 

@@ -2,12 +2,11 @@ package com.edplan.nso.ruleset.std.objects.drawables;
 
 import com.edplan.framework.graphics.line.LinePath;
 import com.edplan.framework.math.Vec2;
-import com.edplan.nso.ruleset.std.objects.StdSlider;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.edplan.nso.ruleset.std.objects.StdPath;
+import com.edplan.nso.ruleset.std.objects.v2.StdPath;
 import com.edplan.framework.graphics.line.approximator.CircleApproximator;
 import com.edplan.framework.graphics.line.approximator.BezierApproximator;
 import com.edplan.framework.graphics.line.approximator.CatmullApproximator;

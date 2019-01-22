@@ -218,7 +218,7 @@ public class PlayingStoryboardLayer extends EdDrawable {
 
         if (asyncPrepare) doAsyncPrepare();
         int c = canvas.getBlendSetting().save();
-        canvas.enablePost();
+        //canvas.enablePost();
         PrepareTime.watch();
         SpriteNode node = first;
         while (node != null) {
@@ -251,7 +251,7 @@ public class PlayingStoryboardLayer extends EdDrawable {
         RenderOsb.end();
 
 
-        canvas.disablePost();
+        //canvas.disablePost();
         canvas.getBlendSetting().restoreToCount(c);
     }
 

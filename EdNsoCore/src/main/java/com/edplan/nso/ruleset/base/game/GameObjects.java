@@ -4,6 +4,7 @@ import com.edplan.nso.ruleset.base.game.GameObject;
 
 import java.util.List;
 
+@Deprecated
 public abstract class GameObjects<T extends GameObject> {
     public abstract List<T> getHitObjectList();
 

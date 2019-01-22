@@ -1,6 +1,9 @@
 package com.edplan.osulab;
 
 import com.edplan.framework.MContext;
+import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.math.Mat4;
+import com.edplan.framework.test.performance.Tracker;
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.ViewConfiguration;
 import com.edplan.framework.ui.layout.Gravity;
@@ -179,101 +182,119 @@ public class LabGame {
         }};
 
 
-        RelativeLayout mainLayout = new RelativeLayout(c) {{
-            layoutParam(
-                    new RelativeParam() {{
-                        gravity = Gravity.TopLeft;
-                        width = Param.makeupScaleOfParentParam(1f);
-                        height = Param.makeupScaleOfParentParam(1f);
-                    }}
-            );
+        RelativeLayout mainLayout = new RelativeLayout(c) {
+            {
+                layoutParam(
+                        new RelativeParam() {{
+                            gravity = Gravity.TopLeft;
+                            width = Param.makeupScaleOfParentParam(1f);
+                            height = Param.makeupScaleOfParentParam(1f);
+                        }}
+                );
 
-            children(
-                    mainBackground = new MainBackground(c) {{
-                        layoutParam(
-                                new RelativeParam() {{
-                                    width = Param.MODE_MATCH_PARENT;
-                                    height = Param.MODE_MATCH_PARENT;
-                                }}
-                        );
-                    }},
-                    scenes = new Scenes(c) {{
-                        layoutParam(
-                                new RelativeParam() {{
-                                    width = Param.MODE_MATCH_PARENT;
-                                    height = Param.MODE_MATCH_PARENT;
-                                }}
-                        );
-                    }},
-                    toolBar.shadow,
-                    sceneSelectButtonBar = new SceneSelectButtonBar(c) {{
-                        layoutParam(
-                                new RelativeParam() {{
-                                    width = Param.MODE_MATCH_PARENT;
-                                    height = Param.makeUpDP(UiConfig.SCENE_SELECT_BUTTON_BAR_HEIGHT);
-                                    gravity = Gravity.Center;
-                                }}
-                        );
-                    }},
-                    new MainCircleView(c) {{
-                        layoutParam(
-                                new RelativeParam() {{
-                                    width = Param.makeupScaleOfParentOtherParam(0.6f);
-                                    height = Param.makeupScaleOfParentParam(0.6f);
-                                    gravity = Gravity.Center;
-                                }}
-                        );
-                    }},
-                    jumpingCircle = new JumpingCircle(c) {{
-                        layoutParam(
-                                new RelativeParam() {{
-                                    width = Param.makeupScaleOfParentOtherParam(0.6f);
-                                    height = Param.makeupScaleOfParentParam(0.6f);
-                                    gravity = Gravity.Center;
-                                }}
-                        );
-                    }},
-                    sceneOverlay = new SceneOverlay(c) {{
-                        layoutParam(
-                                new RelativeParam() {{
-                                    width = Param.MODE_MATCH_PARENT;
-                                    height = Param.MODE_MATCH_PARENT;
-                                    marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
-                                    gravity = Gravity.BottomCenter;
-                                }}
-                        );
-                    }},
-                    optionList = new OptionList(c) {{
-                        layoutParam(
-                                new RelativeParam() {{
-                                    width = Param.makeUpDP(350);
-                                    height = Param.MODE_MATCH_PARENT;
-                                    marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
-                                }}
-                        );
-                    }},
-                    messageList = new MessageList(c) {{
-                        layoutParam(
-                                new RelativeParam() {{
-                                    width = Param.makeUpDP(350);
-                                    height = Param.MODE_MATCH_PARENT;
-                                    marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
-                                    gravity = Gravity.BottomRight;
-                                }}
-                        );
-                    }},
-                    toolBar,
-                    backButton = new BackButton(c) {{
-                        layoutParam(
-                                new RelativeParam() {{
-                                    width = Param.makeUpDP(40);
-                                    height = Param.makeUpDP(40);
-                                    gravity = Gravity.BottomLeft;
-                                }}
-                        );
-                    }}
-            );
-        }};
+                children(
+                        mainBackground = new MainBackground(c) {{
+                            layoutParam(
+                                    new RelativeParam() {{
+                                        width = Param.MODE_MATCH_PARENT;
+                                        height = Param.MODE_MATCH_PARENT;
+                                    }}
+                            );
+                        }},
+                        scenes = new Scenes(c) {{
+                            layoutParam(
+                                    new RelativeParam() {{
+                                        width = Param.MODE_MATCH_PARENT;
+                                        height = Param.MODE_MATCH_PARENT;
+                                    }}
+                            );
+                        }},
+                        toolBar.shadow,
+                        sceneSelectButtonBar = new SceneSelectButtonBar(c) {{
+                            layoutParam(
+                                    new RelativeParam() {{
+                                        width = Param.MODE_MATCH_PARENT;
+                                        height = Param.makeUpDP(UiConfig.SCENE_SELECT_BUTTON_BAR_HEIGHT);
+                                        gravity = Gravity.Center;
+                                    }}
+                            );
+                        }},
+                        new MainCircleView(c) {{
+                            layoutParam(
+                                    new RelativeParam() {{
+                                        width = Param.makeupScaleOfParentOtherParam(0.6f);
+                                        height = Param.makeupScaleOfParentParam(0.6f);
+                                        gravity = Gravity.Center;
+                                    }}
+                            );
+                        }},
+                        jumpingCircle = new JumpingCircle(c) {{
+                            layoutParam(
+                                    new RelativeParam() {{
+                                        width = Param.makeupScaleOfParentOtherParam(0.6f);
+                                        height = Param.makeupScaleOfParentParam(0.6f);
+                                        gravity = Gravity.Center;
+                                    }}
+                            );
+                        }},
+                        sceneOverlay = new SceneOverlay(c) {{
+                            layoutParam(
+                                    new RelativeParam() {{
+                                        width = Param.MODE_MATCH_PARENT;
+                                        height = Param.MODE_MATCH_PARENT;
+                                        marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
+                                        gravity = Gravity.BottomCenter;
+                                    }}
+                            );
+                        }},
+                        optionList = new OptionList(c) {{
+                            layoutParam(
+                                    new RelativeParam() {{
+                                        width = Param.makeUpDP(350);
+                                        height = Param.MODE_MATCH_PARENT;
+                                        marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
+                                    }}
+                            );
+                        }},
+                        messageList = new MessageList(c) {{
+                            layoutParam(
+                                    new RelativeParam() {{
+                                        width = Param.makeUpDP(350);
+                                        height = Param.MODE_MATCH_PARENT;
+                                        marginTop = ViewConfiguration.dp(UiConfig.TOOLBAR_HEIGHT_DP);
+                                        gravity = Gravity.BottomRight;
+                                    }}
+                            );
+                        }},
+                        toolBar,
+                        backButton = new BackButton(c) {{
+                            layoutParam(
+                                    new RelativeParam() {{
+                                        width = Param.makeUpDP(40);
+                                        height = Param.makeUpDP(40);
+                                        gravity = Gravity.BottomLeft;
+                                    }}
+                            );
+                        }}
+                );
+            }
+
+            boolean hasTest = false;
+
+            @Override
+            protected void onDraw(BaseCanvas canvas) {
+                super.onDraw(canvas);
+                if (!hasTest) {
+                    hasTest = true;
+                    Tracker.createTmpNode("canvas-operation").wrap(() -> {
+                        Mat4 mat4 = Mat4.createIdentity();
+                        for (int i = 0; i < 1000; i++) {
+                            mat4.translate(10, 10, 10);
+                        }
+                    }).then(System.out::println);
+                }
+            }
+        };
         return mainLayout;
     }
 

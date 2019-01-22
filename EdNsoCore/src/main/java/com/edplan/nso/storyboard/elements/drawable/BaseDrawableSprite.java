@@ -361,9 +361,10 @@ public class BaseDrawableSprite extends ADrawableStoryboardElement {
 
     }
 
+    @Deprecated
     @Override
     public void draw(BaseCanvas canvas) {
-
+/*
         if (alpha < 0.002) return;
         if (needReCreateQuad) {
             updateQuad();
@@ -371,7 +372,7 @@ public class BaseDrawableSprite extends ADrawableStoryboardElement {
         }
         //默认只按次流程绘制且只绘制StoryboardSprite，这里省去save/restore节省时间
         canvas.getBlendSetting().setBlendType(blendType);
-        canvas.drawTexture(texture, quad, varyingColor, alpha);
+        canvas.drawTexture(texture, quad, varyingColor, alpha);*/
 		/*
 		if(flipV){
 			canvas.drawTexture(texture,quad,varyingColor,alpha*0.3f);

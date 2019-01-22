@@ -5,7 +5,6 @@ import com.edplan.nso.difficulty.DifficultyUtil;
 import com.edplan.nso.parser.ParseException;
 import com.edplan.nso.ruleset.base.game.StdFormatGameObject;
 import com.edplan.nso.ruleset.std.beatmap.StdBeatmap;
-import com.edplan.nso.ruleset.std.objects.StdPath;
 import com.edplan.framework.utils.advance.StringSplitter;
 
 public abstract class StdGameObject extends StdFormatGameObject {

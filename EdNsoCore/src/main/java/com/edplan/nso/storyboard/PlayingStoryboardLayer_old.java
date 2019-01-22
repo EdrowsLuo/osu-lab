@@ -168,7 +168,7 @@ public class PlayingStoryboardLayer_old extends EdDrawable {
 
         if (asyncPrepare) doAsyncPrepare();
         int c = canvas.getBlendSetting().save();
-        canvas.enablePost();
+        //canvas.enablePost();
         PrepareTime.watch();
         for (ElementNode ele : spriteInField) {
             if (!asyncPrepare) ele.element.prepareForDraw();
@@ -186,7 +186,7 @@ public class PlayingStoryboardLayer_old extends EdDrawable {
         RenderOsb.end();
 
 
-        canvas.disablePost();
+        //canvas.disablePost();
         canvas.getBlendSetting().restoreToCount(c);
     }
 

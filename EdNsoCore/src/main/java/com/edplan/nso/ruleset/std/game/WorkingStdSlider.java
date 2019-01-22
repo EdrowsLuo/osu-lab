@@ -2,7 +2,6 @@ package com.edplan.nso.ruleset.std.game;
 
 import com.edplan.framework.graphics.line.LinePath;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.math.FMath;
 import com.edplan.framework.math.Vec2;
 import com.edplan.nso.ruleset.base.game.World;
@@ -10,7 +9,6 @@ import com.edplan.nso.ruleset.base.game.judge.HitArea;
 import com.edplan.nso.ruleset.base.game.judge.HitWindow;
 import com.edplan.nso.ruleset.base.game.judge.PositionHitObject;
 import com.edplan.nso.ruleset.std.StdSkin;
-import com.edplan.nso.ruleset.std.beatmap.StdBeatmap;
 import com.edplan.nso.ruleset.std.game.drawables.ApproachCircle;
 import com.edplan.nso.ruleset.std.game.drawables.CirclePiece;
 import com.edplan.nso.ruleset.std.game.drawables.SliderBall;
@@ -19,7 +17,7 @@ import com.edplan.nso.ruleset.std.game.drawables.SliderReverseCircle;
 import com.edplan.nso.ruleset.std.objects.drawables.StdSliderPathMaker;
 import com.edplan.nso.ruleset.std.objects.v2.StdGameObject;
 import com.edplan.nso.ruleset.std.objects.v2.StdSlider;
-import com.edplan.nso.ruleset.std.playing.controlpoint.TimingControlPoint;
+import com.edplan.nso.ruleset.base.beatmap.controlpoint.TimingControlPoint;
 
 public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
 

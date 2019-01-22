@@ -129,11 +129,9 @@ public abstract class EdBufferedContainer extends EdAbstractViewGroup {
         if (layerPoster != null) {
             layerPoster.postLayer(canvas, layer, area, paint);
             return;
+        } else {
+            throw new RuntimeException("layerPoster is null");
         }
-        canvas.getBlendSetting().save();
-        canvas.getBlendSetting().setEnable(false);
-        canvas.drawTexture(layer.getTexture(), area, paint);
-        canvas.getBlendSetting().restore();
     }
 
     public RoundedLayerPoster setRounded(float radius) {

@@ -263,7 +263,7 @@ public class AutoPackTexturePool extends TexturePool {
             packCanvas.prepare();
             packCanvas.save();
             //packCanvas.getData().getShaders().setTexture3DShader(ShaderManager.getRawTextureShader());
-            packCanvas.drawTexture(raw, RectF.xywh(currentX, currentY, raw.getWidth(), raw.getHeight()), rawPaint);
+            packCanvas.drawTexture(raw, RectF.xywh(currentX, currentY, raw.getWidth(), raw.getHeight()));
             packCanvas.restore();
             packCanvas.unprepare();
             RectF area = RectF.xywh(currentX, currentY, raw.getWidth(), raw.getHeight());

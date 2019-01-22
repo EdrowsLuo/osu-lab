@@ -1,6 +1,7 @@
 package com.edplan.nso.ruleset.std.objects;
 
 import com.edplan.framework.utils.Vct2;
+import com.edplan.nso.ruleset.std.objects.v2.StdPath;
 
 import java.util.List;
 

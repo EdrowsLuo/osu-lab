@@ -1,6 +1,6 @@
 package com.edplan.nso.ruleset.mania;
 
-import com.edplan.nso.ruleset.base.playing.PlayField;
+import com.edplan.nso.ruleset.base.game.PlayField;
 
 public class ManiaUtil {
     public static final float[] COLUMN_WIDTH;

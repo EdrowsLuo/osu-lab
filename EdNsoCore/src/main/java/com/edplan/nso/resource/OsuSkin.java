@@ -4,13 +4,11 @@ import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.resource.AResource;
 import com.edplan.nso.resource.annotation.AResPath;
 import com.edplan.nso.resource.annotation.AResType;
-import com.edplan.nso.ruleset.std.playing.IComboColorGenerater;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
-import com.edplan.nso.ruleset.std.playing.BaseComboColorGenerater;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.nso.resource.annotation.AResList;
 import com.edplan.nso.resource.annotation.AFontCharList;

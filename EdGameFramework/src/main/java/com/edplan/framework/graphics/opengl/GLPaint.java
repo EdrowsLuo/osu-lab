@@ -3,6 +3,7 @@ package com.edplan.framework.graphics.opengl;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.math.Vec4;
 
+@Deprecated
 public class GLPaint {
     //#Base Data，每一种绘制都会使用的
     public Color4 accentColor = Color4.rgba(1, 1, 1, 1);
