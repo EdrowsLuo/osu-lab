@@ -6,7 +6,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
-import com.edplan.framework.Framework;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.layer.BufferedLayer;
 import com.edplan.framework.graphics.layer.DefBufferedLayer;
@@ -152,7 +151,7 @@ public abstract class MainRenderer implements GLSurfaceView.Renderer,OnTouchList
 		canvas.prepare();
 		canvas.getData().getCurrentProjMatrix().setOrtho(0,canvas.getWidth(),canvas.getHeight(),0,-100,100);
 		context.getUiLooper().handlerExpensiveTask();
-		canvas.drawColor(Color4.gray(0.0f));
+		canvas.clearColor(Color4.gray(0.0f));
 		viewRoot.onNewFrame(canvas,tmer.getDeltaTime());
 		canvas.unprepare();
 		Tracker.TotalFrameTime.end();

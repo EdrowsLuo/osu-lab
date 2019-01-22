@@ -11,7 +11,6 @@ import com.edplan.framework.resource.BufferedListResource;
 import com.edplan.framework.timing.PreciseTimeline;
 import com.edplan.framework.ui.drawable.EdDrawable;
 import com.edplan.framework.ui.looper.ExpensiveTask;
-import com.edplan.nso.resource.OsuSkin;
 import com.edplan.nso.storyboard.elements.IStoryboardElements;
 
 import java.io.IOException;
@@ -31,7 +30,7 @@ public class PlayingStoryboard extends EdDrawable {
 
     private boolean loaded = false;
 
-    public PlayingStoryboard(MContext context, PreciseTimeline timeline, Storyboard storyboard, AResource resource, OsuSkin skin) {
+    public PlayingStoryboard(MContext context, PreciseTimeline timeline, Storyboard storyboard, AResource resource) {
         super(context);
         this.storyboard = storyboard;
         this.resource = new BufferedListResource(resource);

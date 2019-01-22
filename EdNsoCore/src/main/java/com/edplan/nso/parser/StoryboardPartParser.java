@@ -13,7 +13,6 @@ import com.edplan.nso.storyboard.elements.StoryboardSample;
 import com.edplan.framework.ui.animation.Easing;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.BlendType;
-import com.edplan.nso.ParsingBeatmap;
 
 public class StoryboardPartParser extends PartParser<PartEvents> {
     private Storyboard storyboard = new Storyboard();
@@ -28,14 +27,11 @@ public class StoryboardPartParser extends PartParser<PartEvents> {
 
     private CommandTimeLineGroup timelineGroup;
 
-    private ParsingBeatmap parsingData;
-
     private boolean enableRawData = false;
 
-    public StoryboardPartParser(ParsingBeatmap data) {
+    public StoryboardPartParser() {
         variableDecoder = new VariablesDecoder();
         variables = variableDecoder.getPart();
-        this.parsingData = data;
     }
 
     public Storyboard getStoryboard() {

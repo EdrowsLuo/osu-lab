@@ -245,7 +245,7 @@ public class AutoPackTexturePool extends TexturePool {
         packs.add(currentPack);
         packCanvas = new GLCanvas2D(currentPack.layer);
         packCanvas.prepare();
-        packCanvas.drawColor(Color4.Alpha);
+        packCanvas.clearColor(Color4.Alpha);
         packCanvas.clearBuffer();
         packCanvas.unprepare();
         currentX = 0;

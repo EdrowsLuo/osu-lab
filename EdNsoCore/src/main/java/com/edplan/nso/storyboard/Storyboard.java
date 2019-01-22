@@ -8,8 +8,6 @@ import com.edplan.framework.ui.Anchor;
 
 import java.util.Map;
 
-import com.edplan.nso.NsoBeatmap;
-
 public class Storyboard {
     private HashMap<String, StoryboardLayer> layers = new HashMap<String, StoryboardLayer>();
 
@@ -20,11 +18,11 @@ public class Storyboard {
         layers.put(Layer.Foreground.name(), Layer.Foreground.createLayer());
     }
 
-    public void applyBeatmap(NsoBeatmap beatmap) {
+    /*public void applyBeatmap(NsoBeatmap beatmap) {
         if (beatmap.getStoryboard() != null) {
             append(beatmap.getStoryboard());
         }
-    }
+    }*/
 
     public void append(Storyboard sb) {
         for (Map.Entry<String, StoryboardLayer> l : sb.layers.entrySet()) {

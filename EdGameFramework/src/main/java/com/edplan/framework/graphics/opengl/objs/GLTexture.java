@@ -158,7 +158,7 @@ public class GLTexture extends AbstractTexture {
         BufferedLayer layer = new BufferedLayer(context, getWidth(), getHeight(), false);
         GLCanvas2D canvas = new GLCanvas2D(layer);
         canvas.prepare();
-        canvas.drawColor(Color4.Alpha);
+        canvas.clearColor(Color4.Alpha);
         canvas.clearBuffer();
         canvas.save();
         //canvas.getData().getShaders().setLegacyTexture3DShader(ShaderManager.getRawTextureShader());
@@ -290,7 +290,7 @@ public class GLTexture extends AbstractTexture {
 			if(w!=bmp.getWidth()||h!=bmp.getHeight()){
 				Bitmap nb=Bitmap.createBitmap(w,h,Bitmap.Config.ARGB_8888);
 				Canvas c=new Canvas(nb);
-				c.drawColor(0x00000000);
+				c.clearColor(0x00000000);
 				Paint p=new Paint();
 				p.setAntiAlias(false);
 				c.drawBitmap(bmp,0,0,p);

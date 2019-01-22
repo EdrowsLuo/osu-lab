@@ -1,7 +1,5 @@
 package com.edplan.nso.filepart;
 
-import com.edplan.nso.OsuFilePart;
-
 import java.util.HashMap;
 
 public class PartVariables implements OsuFilePart {

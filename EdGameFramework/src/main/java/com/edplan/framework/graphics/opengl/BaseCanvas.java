@@ -255,13 +255,7 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
 
     public abstract void clearBuffer();
 
-    public abstract void drawColor(Color4 c);
-
-    public Mat4 createDefProjMatrix() {
-        Mat4 projMatrix = new Mat4();
-        projMatrix.setOrtho(0, getDefWidth(), 0, getDefHeight(), -100, 100);
-        return projMatrix;
-    }
+    public abstract void clearColor(Color4 c);
 
     @Override
     public void recycle() {

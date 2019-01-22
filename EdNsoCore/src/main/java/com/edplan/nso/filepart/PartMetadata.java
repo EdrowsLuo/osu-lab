@@ -4,7 +4,6 @@ import com.edplan.framework.utils.dataobject.DataMapObject;
 import com.edplan.framework.utils.dataobject.ItemInfo;
 import com.edplan.framework.utils.dataobject.Struct;
 import com.edplan.framework.utils.dataobject.def.DefaultInt;
-import com.edplan.nso.OsuFilePart;
 import com.edplan.framework.utils.U;
 
 public class PartMetadata extends DataMapObject implements OsuFilePart {

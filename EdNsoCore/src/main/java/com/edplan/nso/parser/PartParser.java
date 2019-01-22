@@ -1,7 +1,6 @@
 package com.edplan.nso.parser;
 
-import com.edplan.nso.parser.LinesParser;
-import com.edplan.nso.OsuFilePart;
+import com.edplan.nso.filepart.OsuFilePart;
 
 public abstract class PartParser<T extends OsuFilePart> implements LinesParser {
     private String errMessage;

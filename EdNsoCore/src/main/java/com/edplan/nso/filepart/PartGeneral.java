@@ -6,7 +6,6 @@ import com.edplan.framework.utils.dataobject.Struct;
 import com.edplan.framework.utils.dataobject.def.DefaultBoolean;
 import com.edplan.framework.utils.dataobject.def.DefaultFloat;
 import com.edplan.framework.utils.dataobject.def.DefaultInt;
-import com.edplan.nso.OsuFilePart;
 import com.edplan.framework.utils.U;
 
 public class PartGeneral extends DataMapObject implements OsuFilePart {

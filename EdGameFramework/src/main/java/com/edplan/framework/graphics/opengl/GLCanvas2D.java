@@ -94,7 +94,7 @@ public class GLCanvas2D extends BaseCanvas
     }
 
     @Override
-    public void drawColor(Color4 color) {
+    public void clearColor(Color4 color) {
         GLWrapped.setClearColor(color.r, color.g, color.b, color.a);
         GLWrapped.clearColorBuffer();
     }
