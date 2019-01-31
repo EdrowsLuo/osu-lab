@@ -4,7 +4,9 @@ import com.edplan.framework.ui.widget.Fragment;
 
 public interface ITest {
 
-    String getName();
+    default String getName() {
+        return getClass().getSimpleName();
+    }
 
     Fragment createFragment();
 

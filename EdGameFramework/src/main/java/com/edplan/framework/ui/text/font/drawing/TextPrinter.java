@@ -1,24 +1,19 @@
 package com.edplan.framework.ui.text.font.drawing;
 
 import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.graphics.opengl.GLCanvas2D;
 import com.edplan.framework.graphics.opengl.GLPaint;
-import com.edplan.framework.graphics.opengl.batch.Texture3DBatch;
-import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
-import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
-import com.edplan.framework.graphics.opengl.objs.advanced.Texture3DRect;
-import com.edplan.framework.graphics.opengl.shader.advance.LegacyTexture3DShader;
+import com.edplan.framework.graphics.opengl.batch.v2.BatchEngine;
+import com.edplan.framework.graphics.opengl.batch.v2.object.PackedTriangles;
+import com.edplan.framework.graphics.opengl.batch.v2.object.TextureTriangle;
+import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.graphics.opengl.shader.advance.Texture3DShader;
+import com.edplan.framework.math.IQuad;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.text.font.bmfont.BMFont;
 import com.edplan.framework.ui.text.font.bmfont.FNTChar;
 import com.edplan.framework.ui.text.font.bmfont.FNTKerning;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
 public class TextPrinter {
-
-    private static LegacyTexture3DShader shader;
 
     public static final char NO_PREVIOUS_CHAR = 0;
     /**
@@ -43,7 +38,7 @@ public class TextPrinter {
 
     private GLPaint paint;
 
-    private ArrayList<Texture3DBatch<TextureVertex3D>> batchs;
+    private PackedTriangles[] triangles;
 
     private char preChar = 0;
 
@@ -99,15 +94,16 @@ public class TextPrinter {
 
 
     public void initial(float startX, float startY) {
-        batchs = new ArrayList<Texture3DBatch<TextureVertex3D>>();
-        for (int i = 0; i < font.getPageCount(); i++) {
-            batchs.add(new Texture3DBatch<TextureVertex3D>());
-        }
         this.lineHeight = font.getCommon().lineHeight;
         recalScale();
         currentX = startX;
         currentBaseY = startY;
         setTextSize(lineHeight);
+
+        triangles = new PackedTriangles[font.getPageCount()];
+        for (int i = 0; i < font.getPageCount(); i++) {
+            triangles[i] = new PackedTriangles();
+        }
     }
 
     private void recalScale() {
@@ -187,17 +183,32 @@ public class TextPrinter {
                 }
             }
             xadvance *= scale;
-            Texture3DBatch<TextureVertex3D> batch = getBatchByPage(fntc.page);
-            batch.add(Texture3DRect.makeup(area, fntc.rawTextureArea, paint));
+            IQuad tq = fntc.rawTextureArea;
+            triangles[fntc.page].add(new TextureTriangle(
+                    area.getTopLeft(),
+                    area.getTopRight(),
+                    area.getBottomRight(),
+                    tq.getTopLeft(),
+                    tq.getTopRight(),
+                    tq.getBottomRight(),
+                    paint.finalAlpha
+            ));
+            triangles[fntc.page].add(new TextureTriangle(
+                    area.getTopLeft(),
+                    area.getBottomRight(),
+                    area.getBottomLeft(),
+                    tq.getTopLeft(),
+                    tq.getBottomRight(),
+                    tq.getBottomLeft(),
+                    paint.finalAlpha
+            ));
+
+
             preChar = c;
             currentX += xadvance;
         } else {
             printErrCharacter();
         }
-    }
-
-    private Texture3DBatch<TextureVertex3D> getBatchByPage(int page) {
-        return batchs.get(page);
     }
 
     private RectF calCharArea(FNTChar fntc) {
@@ -217,8 +228,26 @@ public class TextPrinter {
         RectF area = calCharArea(fntc);
         float xadvance = fntc.xadvance;
         xadvance *= scale;
-        Texture3DBatch<TextureVertex3D> batch = getBatchByPage(fntc.page);
-        batch.add(Texture3DRect.makeup(area, fntc.rawTextureArea, paint));
+        IQuad tq = fntc.rawTextureArea;
+        triangles[fntc.page].add(new TextureTriangle(
+                area.getTopLeft(),
+                area.getTopRight(),
+                area.getBottomRight(),
+                tq.getTopLeft(),
+                tq.getTopRight(),
+                tq.getBottomRight(),
+                paint.finalAlpha
+        ));
+        triangles[fntc.page].add(new TextureTriangle(
+                area.getTopLeft(),
+                area.getBottomRight(),
+                area.getBottomLeft(),
+                tq.getTopLeft(),
+                tq.getBottomRight(),
+                tq.getBottomLeft(),
+                paint.finalAlpha
+        ));
+
         preChar = NO_PREVIOUS_CHAR;
         currentX += xadvance;
     }
@@ -228,32 +257,19 @@ public class TextPrinter {
     }
 
     public void draw(BaseCanvas canvas) {
-        if (shader == null) {
-            try {
-                shader = LegacyTexture3DShader.createT3S(
-                        ((GLCanvas2D) canvas).getContext().getAssetResource().loadText("shaders/StdTexture3DShader.vs"),
-                        ((GLCanvas2D) canvas).getContext().getAssetResource().loadText("shaders/FontTexture3DShader.fs")
-                        );
-            } catch (IOException e) {
-                e.printStackTrace();
-                throw new RuntimeException(e);
-            }
-        }
-        if (useFontShader()) {
-            canvas.save();
-            canvas.getData().getShaders().setLegacyTexture3DShader(shader);
-        }
+        BatchEngine.flush();
+        Color4 color4 = BatchEngine.getShaderGlobals().accentColor;
+        BatchEngine.getShaderGlobals().accentColor = paint.accentColor;
+
         for (int i = 0; i < font.getPageCount(); i++) {
-            Texture3DBatch<TextureVertex3D> batch = batchs.get(i);
-            AbstractTexture texture = font.getPage(i).texture;
-            if (batch.getVertexCount() > 0) {
-                canvas.drawTexture3DBatch(batch, texture, paint.getFinalAlpha(), paint.getAccentColor());
-                //Log.v("text-test","post "+batch.getVertexCount()+" vertex to canvas");
-            }
+            triangles[i].render(
+                    useFontShader() ? Texture3DShader.FONT_SHADER.get() : Texture3DShader.DEFAULT.get(),
+                    font.getPage(i).texture.getTexture(),
+                    BatchEngine.getShaderGlobals()
+            );
         }
-        if (useFontShader()) {
-            canvas.restore();
-        }
+
+        BatchEngine.getShaderGlobals().accentColor = color4;
     }
 
 }

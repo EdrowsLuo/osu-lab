@@ -42,8 +42,8 @@ public class AnyQuadTextureQuad extends ATextureQuad {
         ary[offset++] = lbT.y;
         ary[offset++] = color;
 
-        Vec2 rb = positionQuad.getBottomLeft();
-        Vec2 rbT = textureQuad.getBottomLeft();
+        Vec2 rb = positionQuad.getBottomRight();
+        Vec2 rbT = textureQuad.getBottomRight();
         ary[offset++] = rb.x;
         ary[offset++] = rb.y;
         ary[offset++] = rbT.x;

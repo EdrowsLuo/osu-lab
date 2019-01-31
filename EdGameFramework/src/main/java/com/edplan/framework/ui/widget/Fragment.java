@@ -3,6 +3,8 @@ package com.edplan.framework.ui.widget;
 import com.edplan.framework.MContext;
 import com.edplan.framework.ui.EdAbstractViewGroup;
 import com.edplan.framework.ui.EdView;
+import com.edplan.framework.ui.layout.MarginLayoutParam;
+import com.edplan.framework.ui.layout.Param;
 
 public class Fragment {
 
@@ -14,6 +16,11 @@ public class Fragment {
 
     public void setContentView(EdView view) {
         this.contentView = view;
+        if (contentView.getLayoutParam() == null) {
+            contentView.setLayoutParam(new MarginLayoutParam() {{
+                width = height = Param.MODE_MATCH_PARENT;
+            }});
+        }
         if (contentView.hasCreated()) {
             this.contentView.onCreate();
         }

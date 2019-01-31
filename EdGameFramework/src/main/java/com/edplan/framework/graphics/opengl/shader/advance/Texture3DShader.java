@@ -20,6 +20,8 @@ public class Texture3DShader  extends BaseShader{
 
     public static final Lazy<Texture3DShader> DEFAULT;
 
+    public static final Lazy<Texture3DShader> FONT_SHADER;
+
     static {
         DEFAULT = Lazy.create(() -> new Texture3DShader(
                 GLProgram.createProgram(
@@ -38,7 +40,7 @@ public class Texture3DShader  extends BaseShader{
                                 "\n" +
                                 "void main(){\n" +
                                 "    f_TextureCoord = a_Coord;\n" +
-                                "    f_VaryingColor = a_VaryingColor * u_FinalAlpha;\n" +
+                                "    f_VaryingColor = u_AccentColor * a_VaryingColor * u_FinalAlpha;\n" +
                                 "    gl_Position = u_MVPMatrix * vec4(a_Position, 1.0);\n" +
                                 "}",
                         "" +
@@ -50,6 +52,39 @@ public class Texture3DShader  extends BaseShader{
                                 "\n" +
                                 "void main(){\n" +
                                 "    gl_FragColor = f_VaryingColor * texture2D(u_Texture, f_TextureCoord);\n" +
+                                "}"
+                )
+        ));
+
+        FONT_SHADER = Lazy.create(() -> new Texture3DShader(
+                GLProgram.createProgram(
+                        "" +
+                                "uniform mat4 u_MVPMatrix;\n" +
+                                "uniform mat4 u_MaskMatrix;\n" +
+                                "uniform float u_FinalAlpha;\n" +
+                                "uniform vec4 u_AccentColor;\n" +
+                                "\n" +
+                                "attribute vec3 a_Position;\n" +
+                                "attribute vec2 a_Coord;\n" +
+                                "attribute vec4 a_VaryingColor;\n" +
+                                "\n" +
+                                "varying vec4 f_VaryingColor;\n" +
+                                "varying vec2 f_TextureCoord;\n" +
+                                "\n" +
+                                "void main(){\n" +
+                                "    f_TextureCoord = a_Coord;\n" +
+                                "    f_VaryingColor = u_AccentColor * a_VaryingColor * u_FinalAlpha;\n" +
+                                "    gl_Position = u_MVPMatrix * vec4(a_Position, 1.0);\n" +
+                                "}",
+                        "" +
+                                "precision mediump float;\n" +
+                                "\n" +
+                                "uniform sampler2D u_Texture;\n" +
+                                "varying lowp vec4 f_VaryingColor;\n" +
+                                "varying vec2 f_TextureCoord;\n" +
+                                "\n" +
+                                "void main(){\n" +
+                                "    gl_FragColor = f_VaryingColor * vec4(texture2D(u_Texture, f_TextureCoord).a);\n" +
                                 "}"
                 )
         ));

@@ -151,7 +151,11 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
     }
 
     public void setCanvasAlpha(float a) {
-        getData().setCanvasAlpha(a);
+        if (Math.abs(a - getData().getCanvasAlpha()) > 0.0001) {
+            BatchEngine.flush();
+            BatchEngine.getShaderGlobals().alpha = a;
+            getData().setCanvasAlpha(a);
+        }
     }
 
     /**

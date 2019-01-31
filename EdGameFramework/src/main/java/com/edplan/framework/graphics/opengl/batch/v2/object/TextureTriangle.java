@@ -40,6 +40,24 @@ public class TextureTriangle {
         alpha = aalpha;
     }
 
+    public TextureTriangle(
+            Vec2 ap1,
+            Vec2 ap2,
+            Vec2 ap3,
+            Vec2 at1,
+            Vec2 at2,
+            Vec2 at3,
+            float aalpha) {
+        p1 = new Vec3(ap1, 0);
+        p2 = new Vec3(ap2, 0);
+        p3 = new Vec3(ap3, 0);
+        t1 = at1;
+        t2 = at2;
+        t3 = at3;
+        alpha = new FloatRef();
+        alpha.value = aalpha;
+    }
+
     public TextureTriangle() {
         p1 = new Vec3();
         p2 = new Vec3();
