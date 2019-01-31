@@ -16,7 +16,7 @@ import com.edplan.framework.utils.Lazy;
 
 import java.nio.FloatBuffer;
 
-public class Texture3DShader  extends BaseShader{
+public class Texture3DShader extends BaseShader {
 
     public static final Lazy<Texture3DShader> DEFAULT;
 

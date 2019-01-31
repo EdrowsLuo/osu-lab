@@ -1,9 +1,8 @@
 package com.edplan.framework.graphics.opengl.shader.advance;
 
+import android.opengl.GLES20;
+
 import com.edplan.framework.graphics.opengl.Camera;
-import com.edplan.framework.graphics.opengl.GLPaint;
-import com.edplan.framework.graphics.opengl.GLWrapped;
-import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.shader.GLProgram;
 import com.edplan.framework.graphics.opengl.shader.ShaderGlobals;
 import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
@@ -15,8 +14,7 @@ import com.edplan.framework.utils.Lazy;
 
 import java.nio.FloatBuffer;
 
-public class ColorShader extends BaseShader {
-    public static ColorShader Invalid = new InvalidColorShader();
+public class ColorShader extends BaseShader{
 
     public static final Lazy<ColorShader> DEFAULT;
 
@@ -35,8 +33,8 @@ public class ColorShader extends BaseShader {
                                 "varying vec4 f_VaryingColor;\n" +
                                 "\n" +
                                 "void main(){\n" +
-                                "    f_VaryingColor=a_VaryingColor*u_FinalAlpha;\n" +
-                                "    gl_Position=u_MVPMatrix*vec4(a_Position,1.0);\n" +
+                                "    f_VaryingColor = u_AccentColor * a_VaryingColor * u_FinalAlpha;\n" +
+                                "    gl_Position = u_MVPMatrix * vec4(a_Position, 1.0);\n" +
                                 "}",
                         "" +
                                 "precision mediump float;\n" +
@@ -44,53 +42,41 @@ public class ColorShader extends BaseShader {
                                 "varying lowp vec4 f_VaryingColor;\n" +
                                 "\n" +
                                 "void main(){\n" +
-                                "    gl_FragColor=f_VaryingColor;\n" +
+                                "    gl_FragColor = f_VaryingColor;\n" +
                                 "}"
                 )
         ));
     }
 
-
-    @PointerName
+    @BaseShader.PointerName
     public UniformMat4 uMVPMatrix;
 
-    @PointerName
+    @BaseShader.PointerName
     public UniformMat4 uMaskMatrix;
 
-    @PointerName
+    @BaseShader.PointerName
     public UniformFloat uFinalAlpha;
 
-    @PointerName
+    @BaseShader.PointerName
     public UniformColor4 uAccentColor;
 
-    @PointerName
-    @AttribType(VertexAttrib.Type.VEC3)
+    @BaseShader.PointerName
+    @BaseShader.AttribType(VertexAttrib.Type.VEC3)
     public VertexAttrib aPosition;
 
-    @PointerName
-    @AttribType(VertexAttrib.Type.VEC4)
+    @BaseShader.PointerName
+    @BaseShader.AttribType(VertexAttrib.Type.VEC4)
     public VertexAttrib aVaryingColor;
+
+    public static final int STEP = (3 + 1) * 4;
 
     protected ColorShader(GLProgram program) {
         super(program, true);
     }
 
-    protected ColorShader(GLProgram p, boolean i) {
-        super(p, i);
-    }
-
-    public void loadPaint(GLPaint paint, float alphaAdjust) {
-        loadAccentColor(paint.getAccentColor());
-        loadAlpha(paint.getFinalAlpha() * alphaAdjust);
-    }
-
     public void loadMatrix(Camera c) {
         loadMVPMatrix(c.getFinalMatrix());
         loadMaskMatrix(c.getMaskMatrix());
-    }
-
-    public void loadAccentColor(Color4 c) {
-        uAccentColor.loadData(c);
     }
 
     protected void loadMVPMatrix(Mat4 mvp) {
@@ -101,20 +87,14 @@ public class ColorShader extends BaseShader {
         uMaskMatrix.loadData(mpm);
     }
 
-    public void loadPosition(FloatBuffer buffer) {
-        aPosition.loadData(buffer);
-    }
-
-    public void loadColor(FloatBuffer buffer) {
-        aVaryingColor.loadData(buffer);
-    }
-
-    public void loadAlpha(float a) {
-        uFinalAlpha.loadData(a);
-    }
-
-    public void applyToGL(int mode, int offset, int count) {
-        GLWrapped.drawArrays(mode, offset, count);
+    public void loadBuffer(FloatBuffer buffer) {
+        int pos = buffer.position();
+        int limit = buffer.limit();
+        aPosition.loadData(buffer, 3, GLES20.GL_FLOAT, STEP, false);
+        buffer.position(pos + 3);
+        aVaryingColor.loadData(buffer, 4, GLES20.GL_UNSIGNED_BYTE, STEP, true);
+        buffer.position(pos);
+        buffer.limit(limit);
     }
 
     @Override
@@ -124,68 +104,4 @@ public class ColorShader extends BaseShader {
         loadMatrix(globals.camera);
     }
 
-    public static final ColorShader createCS(String vs, String fs) {
-        ColorShader s = new ColorShader(GLProgram.createProgram(vs, fs));
-        return s;
-    }
-
-    public static class GL10ColorShader extends ColorShader {
-        public GL10ColorShader() {
-            super(GLProgram.invalidProgram());
-        }
-    }
-
-    public static class InvalidColorShader extends ColorShader {
-        public InvalidColorShader() {
-            super(GLProgram.invalidProgram(), false);
-        }
-
-        @Override
-        public void loadColor(FloatBuffer buffer) {
-
-            //super.loadColor(buffer);
-        }
-
-        @Override
-        public void loadPaint(GLPaint paint, float alphaAdjust) {
-
-            //super.loadPaint(paint, alphaAdjust);
-        }
-
-        @Override
-        protected void loadMVPMatrix(Mat4 mvp) {
-
-            //super.loadMVPMatrix(mvp);
-        }
-
-        @Override
-        protected void loadMaskMatrix(Mat4 mpm) {
-
-            //super.loadMaskMatrix(mpm);
-        }
-
-        @Override
-        public void loadPosition(FloatBuffer buffer) {
-
-            //super.loadPosition(buffer);
-        }
-
-        @Override
-        public void loadMatrix(Camera c) {
-
-            //super.loadMatrix(mvp, mask);
-        }
-
-        @Override
-        public void loadAlpha(float a) {
-
-            //super.loadAlpha(a);
-        }
-
-        @Override
-        public void applyToGL(int mode, int offset, int count) {
-
-            //super.applyToGL(mode, offset, count);
-        }
-    }
 }

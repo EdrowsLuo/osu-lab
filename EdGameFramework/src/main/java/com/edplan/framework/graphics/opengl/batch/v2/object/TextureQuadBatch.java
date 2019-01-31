@@ -5,7 +5,6 @@ import android.opengl.GLES20;
 import com.edplan.framework.graphics.opengl.GLWrapped;
 import com.edplan.framework.graphics.opengl.batch.v2.AbstractBatch;
 import com.edplan.framework.graphics.opengl.batch.v2.BatchEngine;
-import com.edplan.framework.graphics.opengl.batch.v2.mesh.ColorMeshBatch;
 import com.edplan.framework.graphics.opengl.buffer.BufferUtil;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.graphics.opengl.shader.advance.Texture2DShader;

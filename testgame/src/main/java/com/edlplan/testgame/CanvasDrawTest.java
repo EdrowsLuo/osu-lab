@@ -2,6 +2,7 @@ package com.edlplan.testgame;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
+import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.ui.EdView;
@@ -20,6 +21,7 @@ public class CanvasDrawTest implements ITest {
                     protected void onDraw(BaseCanvas canvas) {
                         super.onDraw(canvas);
                         canvas.drawTexture(GLTexture.ErrorTexture, RectF.xywh(100, 100, 200, 200));
+                        canvas.drawCircle(500, 500, 100, Color4.Green, 1);
                     }
                 });
             }

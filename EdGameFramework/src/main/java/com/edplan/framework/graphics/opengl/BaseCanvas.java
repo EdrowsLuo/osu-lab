@@ -2,11 +2,17 @@ package com.edplan.framework.graphics.opengl;
 
 import com.edplan.framework.graphics.opengl.batch.v2.BatchEngine;
 import com.edplan.framework.graphics.opengl.batch.v2.object.AnyQuadTextureQuad;
+import com.edplan.framework.graphics.opengl.batch.v2.object.ColorTriangle;
+import com.edplan.framework.graphics.opengl.batch.v2.object.PackedColorTriangles;
 import com.edplan.framework.graphics.opengl.batch.v2.object.TextureQuadBatch;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.graphics.opengl.shader.advance.ColorShader;
 import com.edplan.framework.math.IQuad;
+import com.edplan.framework.math.Vec2;
+import com.edplan.framework.math.polygon.PolygonMath;
 import com.edplan.framework.utils.AbstractSRable;
+import com.edplan.framework.utils.FloatRef;
 
 
 /**
@@ -140,6 +146,61 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
         anyQuadTextureQuad.alpha.value = alpha;
         TextureQuadBatch.getDefaultBatch().add(anyQuadTextureQuad);
     }
+
+    public void drawLine(float x1, float y1, float x2, float y2, Color4 color, float alpha) {
+
+    }
+
+    private static final int CIRCLE_SPLIT_RATE = 48, CIRCLE_SPLIT_RATE_HALF = 24;
+    private static final double CIRCLE_SPLIT_ANGLE = Math.PI / CIRCLE_SPLIT_RATE_HALF;
+    public void drawCircle(float ox, float oy, float radius, Color4 color, float alpha) {
+        Vec2[] polygon = new Vec2[CIRCLE_SPLIT_RATE];
+        float ox2 = ox * 2;
+        float oy2 = oy * 2;
+        for (int i = 0; i< CIRCLE_SPLIT_RATE_HALF;i++) {
+            double theta = i * CIRCLE_SPLIT_ANGLE;
+            Vec2 v = new Vec2(
+                    (float) Math.cos(theta) * radius + ox,
+                    (float) Math.sin(theta) * radius + oy
+            );
+            polygon[i] = v;
+            polygon[CIRCLE_SPLIT_RATE_HALF + i] = new Vec2(-v.x + ox2, -v.y + oy2);
+        }
+        Vec2[] spl = new Vec2[3 * (CIRCLE_SPLIT_RATE - 2)];
+        PolygonMath.divideConvexPolygon(polygon, spl);
+        PackedColorTriangles packedColorTriangles = new PackedColorTriangles();
+        makeUpTriangles(spl, packedColorTriangles, color, alpha);
+        packedColorTriangles.render(ColorShader.DEFAULT.get(),BatchEngine.getShaderGlobals());
+    }
+
+    private void makeUpTriangles(Vec2[] t, PackedColorTriangles colorTriangles, Color4 color4, float a) {
+        for (int i = 0; i < t.length; i += 3) {
+            colorTriangles.add(
+                    new ColorTriangle(
+                            t[i],
+                            t[i+1],
+                            t[i+2],
+                            a,
+                            color4
+                    )
+            );
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * @return 返回是否支持裁剪画板的一部分

@@ -1,7 +1,9 @@
 package com.edplan.framework.graphics.opengl.shader.compile;
 
+import com.edplan.framework.resource.AResource;
 import com.edplan.framework.utils.StringUtil;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 public class CompileRawStringStore {
@@ -9,6 +11,18 @@ public class CompileRawStringStore {
 
     static {
         DEFAULT = new CompileRawStringStore();
+    }
+
+    public static void load(AResource storeDir) {
+        try {
+            for (String name : storeDir.list("")) {
+                if (name.endsWith(".store")) {
+                    CompileRawStringStore.get().addToStore(storeDir.loadText(name));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private HashMap<String, ProgramNode> map;
