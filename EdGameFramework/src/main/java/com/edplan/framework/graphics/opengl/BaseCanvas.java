@@ -6,6 +6,8 @@ import com.edplan.framework.graphics.opengl.batch.RectVertexBatch;
 import com.edplan.framework.graphics.opengl.batch.Texture3DBatch;
 import com.edplan.framework.graphics.opengl.batch.interfaces.ITexture3DBatch;
 import com.edplan.framework.graphics.opengl.batch.v2.BatchEngine;
+import com.edplan.framework.graphics.opengl.batch.v2.object.AnyQuadTextureQuad;
+import com.edplan.framework.graphics.opengl.batch.v2.object.TextureQuadBatch;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
@@ -209,8 +211,18 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
     }
 
     public void drawTexture(AbstractTexture texture, IQuad dst) {
+        drawTexture(texture, dst, 1);
+    }
+
+
+    public void drawTexture(AbstractTexture texture, IQuad dst, float alpha) {
         //TODO : 重写drawTexture(AbstractTexture texture, IQuad dst)
-        //drawTexture(texture, dst, paint.getAccentColor(), paint.getVaryingColor(), defZ, paint.getFinalAlpha());
+        AnyQuadTextureQuad anyQuadTextureQuad = new AnyQuadTextureQuad();
+        anyQuadTextureQuad.texture = texture;
+        anyQuadTextureQuad.textureQuad = texture.getRawQuad();
+        anyQuadTextureQuad.positionQuad = dst;
+        anyQuadTextureQuad.alpha.value = alpha;
+        TextureQuadBatch.getDefaultBatch().add(anyQuadTextureQuad);
     }
 
     /**

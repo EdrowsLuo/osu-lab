@@ -190,7 +190,7 @@ public class Quad implements IQuad {
      * 通过射线法判断p是否在范围内
      */
     public boolean inArea(Vec2 p) {
-        return Polygon.inPolygon(p, vertexs);
+        return PolygonUtil.inPolygon(p, vertexs);
     }
 
     public static Vec2 mapPoint(Vec2 ptl, Vec2 ptr, Vec2 pbl, Vec2 pbr, float vx, float vy) {

@@ -8,7 +8,7 @@ import com.edplan.framework.math.Vec2;
 import com.edplan.framework.ui.Anchor;
 import com.edplan.framework.utils.FloatRef;
 
-public class TextureQuad {
+public class TextureQuad extends  ATextureQuad{
 
     public static final int TopLeft = 0;
 
@@ -31,8 +31,6 @@ public class TextureQuad {
     public FloatRef alpha = new FloatRef(1);
 
     public Color4 accentColor;
-
-    public AbstractTexture texture;
 
     public float u1,v1,u2, v2;
 
@@ -100,6 +98,7 @@ public class TextureQuad {
         size.set(height * (size.x / size.y), height);
     }
 
+    @Override
     public void write(float[] ary, int offset) {
         float l = -size.x * anchor.x();
         float r = size.x + l;

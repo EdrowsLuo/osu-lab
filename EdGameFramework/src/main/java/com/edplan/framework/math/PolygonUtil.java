@@ -1,6 +1,6 @@
 package com.edplan.framework.math;
 
-public class Polygon {
+public class PolygonUtil {
     /**
      * ray-crossing算法
      * 通过射线法判断v是否在list所组成的多边形内，

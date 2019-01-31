@@ -13,7 +13,7 @@ import com.edplan.framework.graphics.opengl.shader.advance.Texture2DShader;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 
-public class TextureQuadBatch extends AbstractBatch<TextureQuad> {
+public class TextureQuadBatch extends AbstractBatch<ATextureQuad> {
 
     private static final int SIZE_PER_QUAD = 4 * 5;
 
@@ -73,7 +73,7 @@ public class TextureQuadBatch extends AbstractBatch<TextureQuad> {
     }
 
     @Override
-    public void add(TextureQuad textureQuad) {
+    public void add(ATextureQuad textureQuad) {
 
         if (textureQuad.texture == null) {
             return;

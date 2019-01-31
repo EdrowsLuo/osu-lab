@@ -6,12 +6,21 @@ import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.main.EdMainActivity;
+import com.edplan.framework.ui.EdAbstractViewGroup;
 import com.edplan.framework.ui.ViewConfiguration;
 import com.edplan.framework.ui.additions.popupview.defviews.RenderStatPopupView;
 import com.edplan.framework.ui.layout.Gravity;
+import com.edplan.framework.ui.layout.MarginLayoutParam;
+import com.edplan.framework.ui.layout.Orientation;
 import com.edplan.framework.ui.layout.Param;
+import com.edplan.framework.ui.widget.FrameLayout;
+import com.edplan.framework.ui.widget.LinearLayout;
 import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.widget.RoundedButton;
+import com.edplan.framework.ui.widget.ScrollLayout;
+import com.edplan.framework.ui.widget.TextView;
+
+import java.util.List;
 
 public class MainActivity extends EdMainActivity {
 
@@ -22,85 +31,118 @@ public class MainActivity extends EdMainActivity {
 
     public static class TestView extends RelativeLayout {
 
-        SnakeView snakeView;
+        private FrameLayout frame;
+
+        private EdAbstractViewGroup scroll;
+
+        private TextView testName;
 
         public TestView(MContext context) {
             super(context);
             setBackgroundColor(Color4.gray(0.1f));
-            {
-                snakeView = new SnakeView(context);
-                RelativeParam param = new RelativeParam();
-                param.height = Param.makeupScaleOfParentParam(0.8f);
-                param.width = Param.makeupScaleOfParentOtherParam(0.8f);
-                param.gravity = Gravity.Center;
 
-                addView(snakeView, param);
+            children(
+                    new RelativeLayout(context) {{
+
+                        layoutParam(
+                                new RelativeParam() {{
+                                    width = Param.MODE_MATCH_PARENT;
+                                    height = Param.MODE_MATCH_PARENT;
+                                }}
+                        );
+
+                        children(
+                                scroll = new LinearLayout(context) {{
+
+                                    setBackgroundColor(Color4.rgba(0, 0, 0, 0.7f));
+
+                                    layoutParam(
+                                            new RelativeParam() {{
+                                                width = Param.makeUpDP(100);
+                                                height = Param.MODE_MATCH_PARENT;
+                                            }}
+                                    );
+
+                                    setOrientation(Orientation.DIRECTION_T2B);
+
+                                    gravity(Gravity.Center);
+
+                                    childoffset = ViewConfiguration.dp(10);
+                                }},
+                                frame = new FrameLayout(context) {{
+                                    layoutParam(
+                                            new RelativeParam() {{
+                                                marginLeft = ViewConfiguration.dp(100);
+                                                width = Param.MODE_MATCH_PARENT;
+                                                height = Param.MODE_MATCH_PARENT;
+                                            }}
+                                    );
+                                }}
+                        );
+
+                    }},
+                    testName = new TextView(context) {{
+                        layoutParam(
+                                new RelativeParam() {{
+                                    width = Param.MODE_WRAP_CONTENT;
+                                    height = Param.MODE_WRAP_CONTENT;
+                                    gravity = Gravity.TopCenter;
+                                }}
+                        );
+                        textSize = ViewConfiguration.dp(40);
+
+                        setTextColor(Color4.Green);
+
+                        setText("unknown");
+
+                    }}
+            );
+
+            for (final ITest test : createTests()) {
+                scroll.addView(
+                        new RoundedButton(context) {{
+
+                            setPadding(ViewConfiguration.dp(10));
+
+                            layoutParam(
+                                    new MarginLayoutParam() {{
+
+                                        width = Param.MODE_WRAP_CONTENT;
+                                        height = Param.MODE_WRAP_CONTENT;
+                                    }}
+                            );
+
+                            children(
+                                    new TextView(context) {{
+                                        layoutParam(
+                                                new RelativeParam() {{
+                                                    width = Param.MODE_WRAP_CONTENT;
+                                                    height = Param.MODE_WRAP_CONTENT;
+                                                    gravity = Gravity.Center;
+                                                }}
+                                        );
+                                        textSize = ViewConfiguration.dp(20);
+
+                                        setText(test.getName());
+
+                                        setOnClickListener(view -> {
+                                            frame.setFragment(test.createFragment());
+                                            testName.setText(test.getName());
+                                        });
+                                    }}
+                            );
+                        }}
+                );
             }
 
-            {
-                RelativeLayout pad = new RelativeLayout(context);
-                pad.setPadding(ViewConfiguration.dp(20));
-                RelativeParam paramp = new RelativeParam();
-                paramp.height = Param.makeUpDP(190);
-                paramp.width = Param.makeUpDP(190);
-                paramp.gravity = Gravity.BottomLeft;
-                addView(pad, paramp);
-                {
-                    RoundedButton button = new RoundedButton(context);
-                    button.setOnClickWhenDown(true);
-                    button.setOnClickListener(v -> {
-                        if (snakeView.getSnake().getDirection() != SnakeView.Snake.Direction.Down) {
-                            snakeView.getSnake().setDirection(SnakeView.Snake.Direction.Up);
-                        }
-                    });
-                    RelativeParam param = new RelativeParam();
-                    param.height = Param.makeUpDP(50);
-                    param.width = Param.makeUpDP(50);
-                    param.gravity = Gravity.TopCenter;
-                    pad.addView(button, param);
-                }
-                {
-                    RoundedButton button = new RoundedButton(context);
-                    button.setOnClickWhenDown(true);
-                    button.setOnClickListener(v -> {
-                        if (snakeView.getSnake().getDirection() != SnakeView.Snake.Direction.Up) {
-                            snakeView.getSnake().setDirection(SnakeView.Snake.Direction.Down);
-                        }
-                    });
-                    RelativeParam param = new RelativeParam();
-                    param.height = Param.makeUpDP(50);
-                    param.width = Param.makeUpDP(50);
-                    param.gravity = Gravity.BottomCenter;
-                    pad.addView(button, param);
-                }
-                {
-                    RoundedButton button = new RoundedButton(context);
-                    button.setOnClickWhenDown(true);
-                    button.setOnClickListener(v -> {
-                        if (snakeView.getSnake().getDirection() != SnakeView.Snake.Direction.Right) {
-                            snakeView.getSnake().setDirection(SnakeView.Snake.Direction.Left);
-                        }
-                    });RelativeParam param = new RelativeParam();
-                    param.height = Param.makeUpDP(50);
-                    param.width = Param.makeUpDP(50);
-                    param.gravity = Gravity.CenterLeft;
-                    pad.addView(button, param);
-                }
-                {
-                    RoundedButton button = new RoundedButton(context);
-                    button.setOnClickWhenDown(true);
-                    button.setOnClickListener(v -> {
-                        if (snakeView.getSnake().getDirection() != SnakeView.Snake.Direction.Left) {
-                            snakeView.getSnake().setDirection(SnakeView.Snake.Direction.Right);
-                        }
-                    });
-                    RelativeParam param = new RelativeParam();
-                    param.height = Param.makeUpDP(50);
-                    param.width = Param.makeUpDP(50);
-                    param.gravity = Gravity.CenterRight;
-                    pad.addView(button, param);
-                }
-            }
+
+
+        }
+
+        public ITest[] createTests() {
+            return new ITest[]{
+                    new SnakeTest()
+            };
         }
 
         @SuppressLint("DefaultLocale")
@@ -108,8 +150,8 @@ public class MainActivity extends EdMainActivity {
         public void onInitialLayouted() {
             super.onInitialLayouted();
             RenderStatPopupView.getInstance(getContext()).show();
-            getContext().toast(String.format("%f %f", getWidth(), getHeight()));
-            post(() -> System.out.println(getContext().getViewRoot().loadViewTreeStruct()), 100);
+            //getContext().toast(String.format("%f %f", getWidth(), getHeight()));
+            //post(() -> System.out.println(getContext().getViewRoot().loadViewTreeStruct()), 100);
         }
 
         @Override
