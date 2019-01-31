@@ -264,8 +264,6 @@ public class PlayingStoryboard extends EdDrawable {
 
         if (!loaded) return;
         int i = canvas.save();
-        //canvas.getData().getShaders().setColorShader(ColorShader.Invalid);
-        //canvas.getData().getShaders().setLegacyTexture3DShader(LegacyTexture3DShader.Invalid);
         for (Map.Entry<String, PlayingStoryboardLayer> e : layers.entrySet()) {
             e.getValue().draw(canvas);
         }

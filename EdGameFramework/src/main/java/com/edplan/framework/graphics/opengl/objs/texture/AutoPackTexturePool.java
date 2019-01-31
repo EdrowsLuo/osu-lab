@@ -261,9 +261,7 @@ public class AutoPackTexturePool extends TexturePool {
     private AbstractTexture tryAddInLine(AbstractTexture raw, String msg) {
         if (currentY + raw.getHeight() + marginY < currentPack.layer.getHeight()) {
             packCanvas.prepare();
-            packCanvas.save();
-            //packCanvas.getData().getShaders().setTexture3DShader(ShaderManager.getRawTextureShader());
-            packCanvas.drawTexture(raw, RectF.xywh(currentX, currentY, raw.getWidth(), raw.getHeight()));
+            packCanvas.save();packCanvas.drawTexture(raw, RectF.xywh(currentX, currentY, raw.getWidth(), raw.getHeight()));
             packCanvas.restore();
             packCanvas.unprepare();
             RectF area = RectF.xywh(currentX, currentY, raw.getWidth(), raw.getHeight());

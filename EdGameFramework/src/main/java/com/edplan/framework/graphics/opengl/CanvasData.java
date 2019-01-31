@@ -1,6 +1,5 @@
 package com.edplan.framework.graphics.opengl;
 
-import com.edplan.framework.graphics.opengl.shader.advance.LegacyTexture3DShader;
 import com.edplan.framework.utils.interfaces.Copyable;
 import com.edplan.framework.utils.interfaces.Recycleable;
 import com.edplan.framework.math.Mat4;
@@ -18,8 +17,6 @@ public class CanvasData implements Recycleable, Copyable {
 
     private float canvasAlpha = 1;
 
-    private ShaderManager shaders;
-
     private Vec2 theOrigin = new Vec2();
 
     public CanvasData(CanvasData c) {
@@ -29,24 +26,14 @@ public class CanvasData implements Recycleable, Copyable {
         this.pixelDensity = c.pixelDensity;
         this.canvasAlpha = c.canvasAlpha;
         this.theOrigin.set(c.theOrigin);
-        this.shaders = new ShaderManager(c.shaders);
     }
 
     public CanvasData() {
         camera = new Camera();
-        shaders = ShaderManager.getNewDefault();
     }
 
     public Vec2 getTheOrigin() {
         return theOrigin;
-    }
-
-    public void setShaders(ShaderManager shaders) {
-        this.shaders.set(shaders);
-    }
-
-    public ShaderManager getShaders() {
-        return shaders;
     }
 
     public void setCanvasAlpha(float canvasAlpha) {
@@ -87,14 +74,6 @@ public class CanvasData implements Recycleable, Copyable {
 
     public Mat4 getCurrentProjMatrix() {
         return camera.getProjectionMatrix();
-    }
-
-    public void setTexture3DShader(LegacyTexture3DShader legacyTexture3DShader) {
-        this.shaders.setLegacyTexture3DShader(legacyTexture3DShader);
-    }
-
-    public LegacyTexture3DShader getTexture3DShader() {
-        return shaders.getLegacyTexture3DShader();
     }
 
     public void setCurrentMaskMatrix(Mat4 matrix) {

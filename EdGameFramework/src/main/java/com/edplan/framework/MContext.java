@@ -4,7 +4,6 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.edplan.framework.graphics.opengl.BaseGLSurfaceView;
-import com.edplan.framework.graphics.opengl.ShaderManager;
 import com.edplan.framework.resource.advance.ApplicationAssetResource;
 import com.edplan.framework.ui.ViewRoot;
 import com.edplan.framework.ui.looper.UILooper;
@@ -143,7 +142,6 @@ public class MContext {
     public void initial() {
         mainThread = Thread.currentThread();
         assetResource = new ApplicationAssetResource(getNativeContext().getAssets());
-        ShaderManager.initStatic(this);
     }
 
     public boolean checkThread() {

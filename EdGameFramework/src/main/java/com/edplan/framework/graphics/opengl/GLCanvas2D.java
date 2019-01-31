@@ -36,7 +36,6 @@ public class GLCanvas2D extends BaseCanvas
         d.setCurrentMaskMatrix(Mat4.createIdentity());
         d.setHeight(getLayer().getHeight());
         d.setWidth(getLayer().getWidth());
-        d.setShaders(ShaderManager.getNewDefault());
         return d;
     }
 
@@ -85,12 +84,6 @@ public class GLCanvas2D extends BaseCanvas
                 "you can't call unprepare when GLCanvas isn't prepared",
                 true);
         getLayer().unbind();
-    }
-
-    @Override
-    public void delete() {
-        checkPrepared("you delete a prepared canvas!", false);
-        recycle();
     }
 
     @Override

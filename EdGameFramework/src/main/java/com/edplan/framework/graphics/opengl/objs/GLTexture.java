@@ -161,8 +161,6 @@ public class GLTexture extends AbstractTexture {
         canvas.clearColor(Color4.Alpha);
         canvas.clearBuffer();
         canvas.save();
-        //canvas.getData().getShaders().setLegacyTexture3DShader(ShaderManager.getRawTextureShader());
-        GLPaint rawPaint = new GLPaint();
         canvas.drawTexture(this, RectF.xywh(0, 0, getWidth(), getHeight()));
         if (GLWrapped.GL_VERSION >= 2) {
             GLES20.glReadPixels(0, 0, getWidth(), getHeight(), GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, buffer);
