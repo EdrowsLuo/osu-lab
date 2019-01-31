@@ -1,21 +1,11 @@
 package com.edplan.framework.graphics.opengl;
 
-import com.edplan.framework.graphics.opengl.batch.BaseBatch;
-import com.edplan.framework.graphics.opengl.batch.BaseColorBatch;
-import com.edplan.framework.graphics.opengl.batch.RectVertexBatch;
-import com.edplan.framework.graphics.opengl.batch.Texture3DBatch;
-import com.edplan.framework.graphics.opengl.batch.interfaces.ITexture3DBatch;
 import com.edplan.framework.graphics.opengl.batch.v2.BatchEngine;
 import com.edplan.framework.graphics.opengl.batch.v2.object.AnyQuadTextureQuad;
 import com.edplan.framework.graphics.opengl.batch.v2.object.TextureQuadBatch;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.Color4;
-import com.edplan.framework.graphics.opengl.objs.TextureVertex3D;
-import com.edplan.framework.graphics.opengl.objs.Vertex3D;
-import com.edplan.framework.graphics.opengl.objs.vertex.RectVertex;
-import com.edplan.framework.graphics.opengl.shader.advance.LegacyTexture3DShader;
 import com.edplan.framework.math.IQuad;
-import com.edplan.framework.math.Mat4;
 import com.edplan.framework.utils.AbstractSRable;
 
 
@@ -24,62 +14,8 @@ import com.edplan.framework.utils.AbstractSRable;
  */
 public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
 
-    private ITexture3DBatch<TextureVertex3D> tmpBatch;
-
-    /**
-     * 对于开启了post的应该手动post
-     */
-    private boolean enablePost = false;
-
-    private int maxBatchSize = 5000;
-
-    private int drawCalls = 0;
-
     public BaseCanvas() {
-        initialBatch();
-    }
 
-    public BaseCanvas(boolean initial) {
-        if (initial) initialBatch();
-    }
-
-    protected void initialBatch() {
-        tmpBatch = createTexture3DBatch();
-    }
-
-    @Deprecated
-    public void setMaxBatchSize(int maxBatchSize) {
-        this.maxBatchSize = maxBatchSize;
-    }
-
-    @Deprecated
-    public int getMaxBatchSize() {
-        return maxBatchSize;
-    }
-
-    @Deprecated
-    protected ITexture3DBatch<TextureVertex3D> createTexture3DBatch() {
-        return new Texture3DBatch<TextureVertex3D>();
-        //return new DataDrawBaseTexture(6);
-    }
-
-    @Deprecated
-    protected RectVertexBatch<RectVertex> createRectVertexBatch() {
-        return new RectVertexBatch<>();
-    }
-
-    @Deprecated
-    protected BaseColorBatch<Vertex3D> createColorBatch() {
-        return new BaseColorBatch<>();
-    }
-
-    public int getDrawCalls() {
-        return drawCalls;
-    }
-
-    @Deprecated
-    public boolean isEnablePost() {
-        return enablePost;
     }
 
     public BaseCanvas translate(float tx, float ty) {
@@ -192,35 +128,11 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
         BatchEngine.setGlobalCamera(now.getCamera());
     }
 
-    public void delete() {
-        recycle();
-    }
-
-
-    @Deprecated
-    private void injectData(BaseBatch batch, AbstractTexture texture, float alpha, Color4 mixColor, LegacyTexture3DShader shader) {
-        shader.useThis();
-        shader.loadAccentColor(mixColor);
-        shader.loadAlpha(alpha * getCanvasAlpha());
-        shader.loadMatrix(getCamera());
-        shader.loadTexture(texture.getTexture());
-        shader.loadBatch(batch);
-    }
-
-    @Deprecated
-    public void drawTexture3DBatch(BaseBatch batch, AbstractTexture texture, float alpha, Color4 mixColor) {
-        checkCanDraw();
-        injectData(batch, texture.getTexture(), alpha, mixColor, getData().getTexture3DShader());
-        getData().getTexture3DShader().applyToGL(GLWrapped.GL_TRIANGLES, 0, batch.getVertexCount());
-    }
-
     public void drawTexture(AbstractTexture texture, IQuad dst) {
         drawTexture(texture, dst, 1);
     }
 
-
     public void drawTexture(AbstractTexture texture, IQuad dst, float alpha) {
-        //TODO : 重写drawTexture(AbstractTexture texture, IQuad dst)
         AnyQuadTextureQuad anyQuadTextureQuad = new AnyQuadTextureQuad();
         anyQuadTextureQuad.texture = texture;
         anyQuadTextureQuad.textureQuad = texture.getRawQuad();
@@ -275,7 +187,7 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
 
     @Override
     public void recycle() {
-        tmpBatch.clear();
+
     }
 
     @Override

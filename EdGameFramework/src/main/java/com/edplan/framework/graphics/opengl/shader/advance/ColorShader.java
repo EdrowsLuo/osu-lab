@@ -3,9 +3,6 @@ package com.edplan.framework.graphics.opengl.shader.advance;
 import com.edplan.framework.graphics.opengl.Camera;
 import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.GLWrapped;
-import com.edplan.framework.graphics.opengl.batch.BaseBatch;
-import com.edplan.framework.graphics.opengl.batch.base.IHasColor;
-import com.edplan.framework.graphics.opengl.batch.base.IHasPosition;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.shader.GLProgram;
 import com.edplan.framework.graphics.opengl.shader.ShaderGlobals;
@@ -87,16 +84,6 @@ public class ColorShader extends BaseShader {
         loadAlpha(paint.getFinalAlpha() * alphaAdjust);
     }
 
-    public boolean loadBatch(BaseBatch batch) {
-        if (batch instanceof IHasColor && batch instanceof IHasPosition) {
-            loadColor(((IHasColor) batch).makeColorBuffer());
-            loadPosition(((IHasPosition) batch).makePositionBuffer());
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     public void loadMatrix(Camera c) {
         loadMVPMatrix(c.getFinalMatrix());
         loadMaskMatrix(c.getMaskMatrix());
@@ -175,12 +162,6 @@ public class ColorShader extends BaseShader {
         protected void loadMaskMatrix(Mat4 mpm) {
 
             //super.loadMaskMatrix(mpm);
-        }
-
-        @Override
-        public boolean loadBatch(BaseBatch batch) {
-
-            return true;//super.loadBatch(batch);
         }
 
         @Override

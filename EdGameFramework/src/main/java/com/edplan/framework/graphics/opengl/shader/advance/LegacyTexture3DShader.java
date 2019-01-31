@@ -2,8 +2,6 @@ package com.edplan.framework.graphics.opengl.shader.advance;
 
 import com.edplan.framework.graphics.opengl.Camera;
 import com.edplan.framework.graphics.opengl.GLPaint;
-import com.edplan.framework.graphics.opengl.batch.BaseBatch;
-import com.edplan.framework.graphics.opengl.batch.base.IHasTexturePosition;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.shader.GLProgram;
 import com.edplan.framework.graphics.opengl.shader.VertexAttrib;
@@ -69,20 +67,6 @@ public class LegacyTexture3DShader extends ColorShader {
         super(p, i);
     }
 
-    @Override
-    public boolean loadBatch(BaseBatch batch) {
-        if (super.loadBatch(batch)) {
-            if (batch instanceof IHasTexturePosition) {
-                loadTextureCoord(((IHasTexturePosition) batch).makeTexturePositionBuffer());
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
     public void loadTexture(AbstractTexture texture) {
         uTexture.loadData(texture.getTexture());
     }
@@ -141,12 +125,6 @@ public class LegacyTexture3DShader extends ColorShader {
         public void loadTextureCoord(FloatBuffer buffer) {
 
             //super.loadTextureCoord(buffer);
-        }
-
-        @Override
-        public boolean loadBatch(BaseBatch batch) {
-
-            return true;//super.loadBatch(batch);
         }
 
         @Override
