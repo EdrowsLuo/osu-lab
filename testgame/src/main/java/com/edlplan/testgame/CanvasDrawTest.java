@@ -22,6 +22,9 @@ public class CanvasDrawTest implements ITest {
                         super.onDraw(canvas);
                         canvas.drawTexture(GLTexture.ErrorTexture, RectF.xywh(100, 100, 200, 200));
                         canvas.drawCircle(500, 500, 100, Color4.Green, 1);
+                        canvas.drawRect(RectF.xywh(800, 800, 100, 100), Color4.White, 1);
+                        canvas.drawRect(RectF.xywh(800, 400, 500, 300), Color4.Red, 1);
+                        canvas.drawRoundedRect(RectF.xywh(800, 400, 500, 300), 50, Color4.White, 1);
                     }
                 });
             }

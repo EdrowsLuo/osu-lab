@@ -1,12 +1,17 @@
 package com.edplan.osulab.ui;
 
+import android.graphics.Bitmap;
+
 import com.edplan.framework.ui.EdView;
+import com.edplan.framework.ui.text.font.FontAwesome;
 import com.edplan.framework.ui.widget.RelativeContainer;
 import com.edplan.framework.MContext;
 import com.edplan.framework.ui.drawable.ColorDrawable;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import com.edplan.framework.ui.drawable.sprite.TextureSprite;
@@ -39,6 +44,11 @@ public class MainBackground extends RelativeLayout {
             e.printStackTrace();
             PopupToast.toast(getContext(), "err " + e.getMessage()).show();
         }
+    }
+
+    @Override
+    public void onInitialLayouted() {
+        super.onInitialLayouted();
     }
 
     @Override

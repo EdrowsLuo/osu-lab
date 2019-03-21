@@ -159,13 +159,11 @@ public class LabActivity extends EdMainActivity {
     public class LabApplication extends MainApplication {
         @Override
         public MainRenderer createRenderer(MContext context) {
-
             return new LabMainRenderer(context, this);
         }
 
         @Override
         public boolean onBackPressNotHandled() {
-
             return BackQuery.get().back();
         }
 
@@ -186,19 +184,6 @@ public class LabActivity extends EdMainActivity {
                     f.addFont(
                             mContext.getAssetResource().subResource("font"),
                             "osuFont.fnt");
-
-                    /*FontAwesome.fa_osu_osu_o.getTexture().toBitmap(null).compress(
-                            Bitmap.CompressFormat.PNG, 100, new FileOutputStream("/sdcard/MyDisk/osu_osu.png")
-                    );
-                    FontAwesome.fa_osu_taiko_o.getTexture().toBitmap(null).compress(
-                            Bitmap.CompressFormat.PNG, 100, new FileOutputStream("/sdcard/MyDisk/osu_taiko.png")
-                    );
-                    FontAwesome.fa_osu_fruits_o.getTexture().toBitmap(null).compress(
-                            Bitmap.CompressFormat.PNG, 100, new FileOutputStream("/sdcard/MyDisk/osu_ctb.png")
-                    );
-                    FontAwesome.fa_osu_mania_o.getTexture().toBitmap(null).compress(
-                            Bitmap.CompressFormat.PNG, 100, new FileOutputStream("/sdcard/MyDisk/osu_mania.png")
-                    );*/
                 }
             } catch (Exception e) {
                 e.printStackTrace();

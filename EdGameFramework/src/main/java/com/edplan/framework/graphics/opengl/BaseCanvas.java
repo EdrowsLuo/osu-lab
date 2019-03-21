@@ -8,7 +8,10 @@ import com.edplan.framework.graphics.opengl.batch.v2.object.TextureQuadBatch;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.shader.advance.ColorShader;
+import com.edplan.framework.graphics.shape.IPath;
 import com.edplan.framework.graphics.shape.Path;
+import com.edplan.framework.graphics.shape.PathBuilder;
+import com.edplan.framework.math.FMath;
 import com.edplan.framework.math.IQuad;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
@@ -201,13 +204,25 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
                 alpha);
     }
 
+    public void drawPath(IPath path, Color4 color, float alpha) {
+        drawConvexPolygon(path.buffer(), path.offset(), path.size(), color, alpha);
+    }
+
     public void drawRoundedRect(RectF rectF, float radius, Color4 color, float alpha) {
         Path path = new Path(CIRCLE_SPLIT_RATE);
         radius = Math.min(radius, Math.min(rectF.getWidth() / 2, rectF.getHeight() / 2));
-        Vec2 org = new Vec2(rectF.getRight() - radius, rectF.getTop() + radius);
-        for (int i = 0; i < CIRCLE_SPLIT_RATE_HH; i++) {
 
-        }
+        PathBuilder builder = new PathBuilder(path);
+        builder.moveTo(rectF.getRight() - radius, rectF.getTop());
+        builder.circleMove(new Vec2(rectF.getRight() - radius, rectF.getTop() + radius), FMath.PiHalf);
+        builder.moveTo(rectF.getRight(), rectF.getBottom() - radius);
+        builder.circleMove(new Vec2(rectF.getRight() - radius, rectF.getBottom() - radius), FMath.PiHalf);
+        builder.moveTo(rectF.getLeft() + radius, rectF.getBottom());
+        builder.circleMove(new Vec2(rectF.getLeft() + radius, rectF.getBottom() - radius), FMath.PiHalf);
+        builder.moveTo(rectF.getLeft(), rectF.getTop() + radius);
+        builder.circleMove(new Vec2(rectF.getLeft() + radius, rectF.getTop() + radius), FMath.PiHalf);
+
+        drawPath(path, color, alpha);
     }
 
     private void makeUpTriangles(Vec2[] t, PackedColorTriangles colorTriangles, Color4 color4, float a) {
@@ -282,6 +297,10 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
     public abstract void clearBuffer();
 
     public abstract void clearColor(Color4 c);
+
+    public void flush() {
+        BatchEngine.flush();
+    }
 
     @Override
     public void recycle() {

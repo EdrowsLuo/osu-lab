@@ -8,4 +8,7 @@ public interface IPath {
 
     Vec2[] buffer();
 
+    default int offset() {
+        return 0;
+    }
 }

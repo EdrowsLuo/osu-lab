@@ -92,28 +92,4 @@ public class TextureRegion extends AbstractTexture {
         return height;
     }
 
-    @Override
-    public Bitmap toBitmap(MContext context) {
-        int[] b = new int[getWidth() * getHeight()];
-        IntBuffer buffer = IntBuffer.wrap(b);
-        buffer.position(0);
-        BufferedLayer layer = new BufferedLayer(context, getWidth(), getHeight(), false);
-        GLCanvas2D canvas = new GLCanvas2D(layer);
-        canvas.prepare();
-        canvas.clearColor(Color4.Alpha);
-        canvas.clearBuffer();
-        canvas.save();
-        canvas.drawTexture(this, RectF.xywh(0, 0, getWidth(), getHeight()));
-        if (GLWrapped.GL_VERSION >= 2) {
-            GLES20.glReadPixels(0, 0, getWidth(), getHeight(), GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, buffer);
-        } else {
-            GLES10.glReadPixels(0, 0, getWidth(), getHeight(), GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, buffer);
-        }
-        canvas.restore();
-        canvas.unprepare();
-        Bitmap bmp = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        bmp.copyPixelsFromBuffer(buffer);
-        buffer.clear();
-        return bmp;
-    }
 }

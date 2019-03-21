@@ -14,6 +14,7 @@ import com.edplan.framework.graphics.layer.BufferedLayer;
 import com.edplan.framework.graphics.opengl.GLCanvas2D;
 import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.GLWrapped;
+import com.edplan.framework.graphics.opengl.batch.v2.BatchEngine;
 import com.edplan.framework.math.IQuad;
 import com.edplan.framework.math.Quad;
 import com.edplan.framework.math.RectF;
@@ -149,31 +150,6 @@ public class GLTexture extends AbstractTexture {
     public void delete() {
         GLES20.glDeleteTextures(1, new int[]{textureId}, 0);
         recycled = true;
-    }
-
-    @Override
-    public Bitmap toBitmap(MContext context) {
-        int[] b = new int[getWidth() * getHeight()];
-        IntBuffer buffer = IntBuffer.wrap(b);
-        buffer.position(0);
-        BufferedLayer layer = new BufferedLayer(context, getWidth(), getHeight(), false);
-        GLCanvas2D canvas = new GLCanvas2D(layer);
-        canvas.prepare();
-        canvas.clearColor(Color4.Alpha);
-        canvas.clearBuffer();
-        canvas.save();
-        canvas.drawTexture(this, RectF.xywh(0, 0, getWidth(), getHeight()));
-        if (GLWrapped.GL_VERSION >= 2) {
-            GLES20.glReadPixels(0, 0, getWidth(), getHeight(), GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, buffer);
-        } else {
-            GLES10.glReadPixels(0, 0, getWidth(), getHeight(), GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, buffer);
-        }
-        canvas.restore();
-        canvas.unprepare();
-        Bitmap bmp = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
-        bmp.copyPixelsFromBuffer(buffer);
-        buffer.clear();
-        return bmp;
     }
 
     public void compress(File f, MContext context) throws IOException {
