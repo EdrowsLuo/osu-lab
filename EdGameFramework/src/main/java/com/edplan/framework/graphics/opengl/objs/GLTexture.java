@@ -151,6 +151,7 @@ public class GLTexture extends AbstractTexture {
         recycled = true;
     }
 
+    @Override
     public Bitmap toBitmap(MContext context) {
         int[] b = new int[getWidth() * getHeight()];
         IntBuffer buffer = IntBuffer.wrap(b);

@@ -26,8 +26,6 @@ public abstract class ADrawableStoryboardElement extends EdDrawable {
         return storyboard;
     }
 
-    public abstract void drawOsbRenderer(OsbRenderer renderer);
-
     public abstract void drawFastRenderer(FastRenderer renderer);
 
     public abstract void prepareForDraw();

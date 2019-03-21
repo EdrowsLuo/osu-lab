@@ -356,11 +356,6 @@ public class BaseDrawableSprite extends ADrawableStoryboardElement {
         fastQuad.addToRenderer(renderer);
     }
 
-    @Override
-    public void drawOsbRenderer(OsbRenderer renderer) {
-
-    }
-
     @Deprecated
     @Override
     public void draw(BaseCanvas canvas) {

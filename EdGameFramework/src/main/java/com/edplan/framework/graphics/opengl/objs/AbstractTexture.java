@@ -1,9 +1,19 @@
 package com.edplan.framework.graphics.opengl.objs;
 
+import android.graphics.Bitmap;
+import android.opengl.GLES10;
+import android.opengl.GLES20;
+
+import com.edplan.framework.MContext;
+import com.edplan.framework.graphics.layer.BufferedLayer;
+import com.edplan.framework.graphics.opengl.GLCanvas2D;
+import com.edplan.framework.graphics.opengl.GLWrapped;
 import com.edplan.framework.math.IQuad;
 import com.edplan.framework.math.Quad;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
+
+import java.nio.IntBuffer;
 
 public abstract class AbstractTexture {
     public abstract int getTextureId();
@@ -41,5 +51,9 @@ public abstract class AbstractTexture {
                 toTexturePosition(q.getBottomLeft()),
                 toTexturePosition(q.getBottomRight()));
         return r;
+    }
+
+    public Bitmap toBitmap(MContext context) {
+        throw new UnsupportedOperationException(this.getClass().getName()+" didn't override toBitmap");
     }
 }

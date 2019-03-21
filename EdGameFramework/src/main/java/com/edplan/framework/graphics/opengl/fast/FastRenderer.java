@@ -6,7 +6,6 @@ import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.BlendType;
 import com.edplan.framework.graphics.opengl.GLWrapped;
 import com.edplan.framework.graphics.opengl.buffer.BufferUtil;
-import com.edplan.framework.graphics.opengl.bufferObjects.VertexArrayObject;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
@@ -26,8 +25,6 @@ public class FastRenderer {
     public static final int MAX_INDICES_COUNT = 10000;
 
     private FastShader shader;
-
-    private VertexArrayObject vao;
 
     private float[] positionArray;
 
@@ -147,14 +144,12 @@ public class FastRenderer {
         isRendering = true;
         frameCanvas = canvas;
         blendType = frameCanvas.getBlendSetting().getBlendType();
-        if (vao == null) vao = VertexArrayObject.genVertexArray();
         resetIdxData();
     }
 
 
     public void flush() {
         if (texture == null || idcx == 0) return;
-        //vao.bind();
         shader.useThis();
         shader.bindTexture(texture);
         shader.loadCamera(frameCanvas.getCamera());
@@ -182,7 +177,6 @@ public class FastRenderer {
         //shader.bindAttributes(dataBuffer);
         //GLWrapped.drawArrays(GLWrapped.GL_TRIANGLES,0,idx);
         GLWrapped.drawElements(GLWrapped.GL_TRIANGLES, idcx, GLES20.GL_UNSIGNED_SHORT, indicesBuffer);
-        vao.unbind();
         resetIdxData();
     }
 

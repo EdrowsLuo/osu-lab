@@ -8,9 +8,12 @@ import com.edplan.framework.graphics.opengl.batch.v2.object.TextureQuadBatch;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.shader.advance.ColorShader;
+import com.edplan.framework.graphics.shape.Path;
 import com.edplan.framework.math.IQuad;
+import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.math.polygon.PolygonMath;
+import com.edplan.framework.ui.layout.Orientation;
 import com.edplan.framework.utils.AbstractSRable;
 import com.edplan.framework.utils.FloatRef;
 
@@ -147,11 +150,11 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
         TextureQuadBatch.getDefaultBatch().add(anyQuadTextureQuad);
     }
 
-    public void drawLine(float x1, float y1, float x2, float y2, Color4 color, float alpha) {
+    public void drawLine(float x1, float y1, float x2, float y2, float width, Color4 color, float alpha) {
 
     }
 
-    private static final int CIRCLE_SPLIT_RATE = 48, CIRCLE_SPLIT_RATE_HALF = 24;
+    private static final int CIRCLE_SPLIT_RATE = 48, CIRCLE_SPLIT_RATE_HALF = 24, CIRCLE_SPLIT_RATE_HH = 12;
     private static final double CIRCLE_SPLIT_ANGLE = Math.PI / CIRCLE_SPLIT_RATE_HALF;
     public void drawCircle(float ox, float oy, float radius, Color4 color, float alpha) {
         Vec2[] polygon = new Vec2[CIRCLE_SPLIT_RATE];
@@ -171,6 +174,39 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
         PackedColorTriangles packedColorTriangles = new PackedColorTriangles();
         makeUpTriangles(spl, packedColorTriangles, color, alpha);
         packedColorTriangles.render(ColorShader.DEFAULT.get(),BatchEngine.getShaderGlobals());
+    }
+
+    public void drawConvexPolygon(Vec2[] polygon, int offset, int length, Color4 color, float alpha) {
+        Vec2[] spl = new Vec2[3 * (length - 2)];
+        PolygonMath.divideConvexPolygon(polygon, offset, length, spl, 0);
+        PackedColorTriangles packedColorTriangles = new PackedColorTriangles();
+        makeUpTriangles(spl, packedColorTriangles, color, alpha);
+        packedColorTriangles.render(ColorShader.DEFAULT.get(),BatchEngine.getShaderGlobals());
+    }
+
+    public void drawConvexPolygon(Vec2[] polygon, Color4 color, float alpha) {
+        drawConvexPolygon(polygon, 0, polygon.length, color, alpha);
+    }
+
+    public void drawRect(IQuad quad, Color4 color, float alpha) {
+        drawConvexPolygon(
+                new Vec2[]{
+                        quad.getTopLeft(),
+                        quad.getTopRight(),
+                        quad.getBottomRight(),
+                        quad.getBottomLeft()
+                },
+                color,
+                alpha);
+    }
+
+    public void drawRoundedRect(RectF rectF, float radius, Color4 color, float alpha) {
+        Path path = new Path(CIRCLE_SPLIT_RATE);
+        radius = Math.min(radius, Math.min(rectF.getWidth() / 2, rectF.getHeight() / 2));
+        Vec2 org = new Vec2(rectF.getRight() - radius, rectF.getTop() + radius);
+        for (int i = 0; i < CIRCLE_SPLIT_RATE_HH; i++) {
+
+        }
     }
 
     private void makeUpTriangles(Vec2[] t, PackedColorTriangles colorTriangles, Color4 color4, float a) {

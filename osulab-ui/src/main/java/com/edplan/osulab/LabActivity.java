@@ -1,5 +1,6 @@
 package com.edplan.osulab;
 
+import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.Log;
 
@@ -19,6 +20,7 @@ import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.additions.popupview.defviews.RenderStatPopupView;
 import com.edplan.framework.ui.layout.EdLayoutParam;
 import com.edplan.framework.ui.layout.Param;
+import com.edplan.framework.ui.text.font.FontAwesome;
 import com.edplan.framework.ui.text.font.bmfont.BMFont;
 import com.edplan.framework.ui.widget.AbsoluteLayout;
 import com.edplan.framework.ui.widget.RelativeContainer;
@@ -28,6 +30,7 @@ import com.edplan.osulab.ui.BackQuery;
 import com.edplan.osulab.ui.popup.PopupToast;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class LabActivity extends EdMainActivity {
@@ -183,6 +186,19 @@ public class LabActivity extends EdMainActivity {
                     f.addFont(
                             mContext.getAssetResource().subResource("font"),
                             "osuFont.fnt");
+
+                    /*FontAwesome.fa_osu_osu_o.getTexture().toBitmap(null).compress(
+                            Bitmap.CompressFormat.PNG, 100, new FileOutputStream("/sdcard/MyDisk/osu_osu.png")
+                    );
+                    FontAwesome.fa_osu_taiko_o.getTexture().toBitmap(null).compress(
+                            Bitmap.CompressFormat.PNG, 100, new FileOutputStream("/sdcard/MyDisk/osu_taiko.png")
+                    );
+                    FontAwesome.fa_osu_fruits_o.getTexture().toBitmap(null).compress(
+                            Bitmap.CompressFormat.PNG, 100, new FileOutputStream("/sdcard/MyDisk/osu_ctb.png")
+                    );
+                    FontAwesome.fa_osu_mania_o.getTexture().toBitmap(null).compress(
+                            Bitmap.CompressFormat.PNG, 100, new FileOutputStream("/sdcard/MyDisk/osu_mania.png")
+                    );*/
                 }
             } catch (Exception e) {
                 e.printStackTrace();

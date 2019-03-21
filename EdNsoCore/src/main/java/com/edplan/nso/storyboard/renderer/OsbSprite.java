@@ -136,43 +136,12 @@ public class OsbSprite {
         texture = sb.getTexturePool().getTexture(rawSprite.getInitialPath());
     }
 
-    public void onLoadRenderer(OsbRenderer renderer) {
-        spriteQuad.load(renderer);
-    }
-
     public void updateTexture(float time) {
 
     }
 
     private AbstractTexture preDrawTexture;
     private short preFlip = 100;
-
-    public void drawOsbRenderer(OsbRenderer renderer) {
-        final float time = renderer.frameTime;
-        Alpha.update(time);
-        if (Alpha.isSmall(time)) {
-            return;
-        }
-        updateTexture(time);
-        Blend.update(time);
-        renderer.setBlendType(blendType);
-        renderer.setCurrentTexture(texture);
-        for (OsbFloatKeyFrameQuery q : querys) {
-            q.update(time);
-        }
-        Color.update(time);
-        FlipH.update(time);
-        FlipV.update(time);
-        if (preDrawTexture != texture) {
-            spriteQuad.updateAnchorOffset(texture, anchor);
-            preDrawTexture = texture;
-        }
-        if (preFlip != flip) {
-            spriteQuad.updateTextureCoord(texture.getRawQuad(), BitUtil.match(flip, 1), BitUtil.match(flip, 2));
-            preFlip = flip;
-        }
-        spriteQuad.addToRenderer(renderer);
-    }
 
     public void dispos() {
         spriteQuad.dispos();
