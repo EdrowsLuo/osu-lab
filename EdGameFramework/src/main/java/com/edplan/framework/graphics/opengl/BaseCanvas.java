@@ -98,9 +98,9 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
     public void setCanvasAlpha(float a) {
         if (Math.abs(a - getData().getCanvasAlpha()) > 0.0001) {
             BatchEngine.flush();
-            BatchEngine.getShaderGlobals().alpha = a;
-            getData().setCanvasAlpha(a);
         }
+        getData().setCanvasAlpha(a);
+        BatchEngine.getShaderGlobals().alpha = a;
     }
 
     /**
@@ -134,6 +134,7 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
     @Override
     public void onRestore(CanvasData now, CanvasData pre) {
         pre.recycle();
+        BatchEngine.getShaderGlobals().alpha = now.getCanvasAlpha();
         BatchEngine.setGlobalCamera(now.getCamera());
     }
 

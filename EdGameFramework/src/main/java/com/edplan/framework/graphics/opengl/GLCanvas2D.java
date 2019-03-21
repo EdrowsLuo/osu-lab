@@ -2,6 +2,7 @@ package com.edplan.framework.graphics.opengl;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.layer.BufferedLayer;
+import com.edplan.framework.graphics.opengl.batch.v2.BatchEngine;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.math.Mat4;
@@ -76,6 +77,7 @@ public class GLCanvas2D extends BaseCanvas
                 "you can't call prepare when GLCanvas is prepared",
                 false);
         getLayer().bind();
+        BatchEngine.getShaderGlobals().alpha = getCanvasAlpha();
     }
 
     @Override
@@ -120,6 +122,7 @@ public class GLCanvas2D extends BaseCanvas
         int ixw = Math.round((getData().getTheOrigin().x + x + width) / getData().getPixelDensity());
         int iyh = Math.round((getData().getTheOrigin().y + y + height) / getData().getPixelDensity());
         GLCanvas2D canvas2D = new GLCanvas2D(new BufferedLayer(layer, ix, iy, ixw - ix, iyh - iy));
+        canvas2D.setCanvasAlpha(getCanvasAlpha());
         if (getData().getPixelDensity() != 1) {
             canvas2D.expendAxis(getData().getPixelDensity());
         }
