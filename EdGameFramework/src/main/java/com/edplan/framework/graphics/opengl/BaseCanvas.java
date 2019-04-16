@@ -16,9 +16,7 @@ import com.edplan.framework.math.IQuad;
 import com.edplan.framework.math.RectF;
 import com.edplan.framework.math.Vec2;
 import com.edplan.framework.math.polygon.PolygonMath;
-import com.edplan.framework.ui.layout.Orientation;
 import com.edplan.framework.utils.AbstractSRable;
-import com.edplan.framework.utils.FloatRef;
 
 
 /**
@@ -124,6 +122,7 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
     protected abstract void onPrepare();
 
     public void unprepare() {
+        flush();
         GLWrapped.unprepareCanvas(this);
     }
 
@@ -160,36 +159,48 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
 
     private static final int CIRCLE_SPLIT_RATE = 48, CIRCLE_SPLIT_RATE_HALF = 24, CIRCLE_SPLIT_RATE_HH = 12;
     private static final double CIRCLE_SPLIT_ANGLE = Math.PI / CIRCLE_SPLIT_RATE_HALF;
+    private static final float SIN_ANGLE = (float) Math.sin(CIRCLE_SPLIT_ANGLE), COS_ANGLE = (float) Math.cos(CIRCLE_SPLIT_ANGLE);
     public void drawCircle(float ox, float oy, float radius, Color4 color, float alpha) {
-        Vec2[] polygon = new Vec2[CIRCLE_SPLIT_RATE];
-        float ox2 = ox * 2;
-        float oy2 = oy * 2;
-        for (int i = 0; i< CIRCLE_SPLIT_RATE_HALF;i++) {
-            double theta = i * CIRCLE_SPLIT_ANGLE;
-            Vec2 v = new Vec2(
-                    (float) Math.cos(theta) * radius + ox,
-                    (float) Math.sin(theta) * radius + oy
-            );
-            polygon[i] = v;
-            polygon[CIRCLE_SPLIT_RATE_HALF + i] = new Vec2(-v.x + ox2, -v.y + oy2);
+        Path path = new Path(CIRCLE_SPLIT_RATE);
+        PathBuilder builder = new PathBuilder(path);
+        builder.moveTo(ox + radius, oy);
+        builder.circleRotate(new Vec2(ox, oy), FMath.Pi2);
+        drawPath(path, color, alpha);
+    }
+
+    public void drawRing(float ox, float oy, float radius, float innerRadius, Color4 color, float alpha) {
+        Vec2[] spl = new Vec2[6 * CIRCLE_SPLIT_RATE];
+        Vec2 p1 = new Vec2(ox + radius, oy), p2 = p1.copy().rotate(ox, oy, SIN_ANGLE, COS_ANGLE);
+        Vec2 p1i = new Vec2(ox + innerRadius, oy), p2i = p1i.copy().rotate(ox, oy, SIN_ANGLE, COS_ANGLE);
+        for (int i = 0; i < spl.length; i += 6) {
+            spl[i] = p1;
+            spl[i + 1] = spl[i + 3] = p1i;
+            spl[i + 2] = spl[i + 5] = p2;
+            spl[i + 4] = p2i;
+            p1 = p2;
+            p1i = p2i;
+            p2 = p1.copy().rotate(ox, oy, SIN_ANGLE, COS_ANGLE);
+            p2i = p1i.copy().rotate(ox, oy, SIN_ANGLE, COS_ANGLE);
         }
-        Vec2[] spl = new Vec2[3 * (CIRCLE_SPLIT_RATE - 2)];
-        PolygonMath.divideConvexPolygon(polygon, spl);
         PackedColorTriangles packedColorTriangles = new PackedColorTriangles();
         makeUpTriangles(spl, packedColorTriangles, color, alpha);
         packedColorTriangles.render(ColorShader.DEFAULT.get(),BatchEngine.getShaderGlobals());
     }
 
-    public void drawConvexPolygon(Vec2[] polygon, int offset, int length, Color4 color, float alpha) {
+    public void drawConvexPolygon(Vec2[] polygon, int offset, int length, Color4 color, float alpha, ColorShader shader) {
         Vec2[] spl = new Vec2[3 * (length - 2)];
         PolygonMath.divideConvexPolygon(polygon, offset, length, spl, 0);
         PackedColorTriangles packedColorTriangles = new PackedColorTriangles();
         makeUpTriangles(spl, packedColorTriangles, color, alpha);
-        packedColorTriangles.render(ColorShader.DEFAULT.get(),BatchEngine.getShaderGlobals());
+        packedColorTriangles.render(shader, BatchEngine.getShaderGlobals());
+    }
+
+    public void drawConvexPolygon(Vec2[] polygon, Color4 color, float alpha, ColorShader shader) {
+        drawConvexPolygon(polygon, 0, polygon.length, color, alpha, shader);
     }
 
     public void drawConvexPolygon(Vec2[] polygon, Color4 color, float alpha) {
-        drawConvexPolygon(polygon, 0, polygon.length, color, alpha);
+        drawConvexPolygon(polygon, color, alpha, ColorShader.DEFAULT.get());
     }
 
     public void drawRect(IQuad quad, Color4 color, float alpha) {
@@ -205,7 +216,11 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
     }
 
     public void drawPath(IPath path, Color4 color, float alpha) {
-        drawConvexPolygon(path.buffer(), path.offset(), path.size(), color, alpha);
+        drawPath(path, color, alpha, ColorShader.DEFAULT.get());
+    }
+
+    public void drawPath(IPath path, Color4 color, float alpha, ColorShader shader) {
+        drawConvexPolygon(path.buffer(), path.offset(), path.size(), color, alpha, shader);
     }
 
     public void drawRoundedRect(RectF rectF, float radius, Color4 color, float alpha) {
@@ -214,13 +229,13 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
 
         PathBuilder builder = new PathBuilder(path);
         builder.moveTo(rectF.getRight() - radius, rectF.getTop());
-        builder.circleMove(new Vec2(rectF.getRight() - radius, rectF.getTop() + radius), FMath.PiHalf);
+        builder.circleRotate(new Vec2(rectF.getRight() - radius, rectF.getTop() + radius), FMath.PiHalf);
         builder.moveTo(rectF.getRight(), rectF.getBottom() - radius);
-        builder.circleMove(new Vec2(rectF.getRight() - radius, rectF.getBottom() - radius), FMath.PiHalf);
+        builder.circleRotate(new Vec2(rectF.getRight() - radius, rectF.getBottom() - radius), FMath.PiHalf);
         builder.moveTo(rectF.getLeft() + radius, rectF.getBottom());
-        builder.circleMove(new Vec2(rectF.getLeft() + radius, rectF.getBottom() - radius), FMath.PiHalf);
+        builder.circleRotate(new Vec2(rectF.getLeft() + radius, rectF.getBottom() - radius), FMath.PiHalf);
         builder.moveTo(rectF.getLeft(), rectF.getTop() + radius);
-        builder.circleMove(new Vec2(rectF.getLeft() + radius, rectF.getTop() + radius), FMath.PiHalf);
+        builder.circleRotate(new Vec2(rectF.getLeft() + radius, rectF.getTop() + radius), FMath.PiHalf);
 
         drawPath(path, color, alpha);
     }

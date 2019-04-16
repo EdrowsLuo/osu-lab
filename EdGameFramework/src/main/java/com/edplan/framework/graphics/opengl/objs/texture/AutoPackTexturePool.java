@@ -6,7 +6,6 @@ import android.util.ArrayMap;
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.layer.BufferedLayer;
 import com.edplan.framework.graphics.opengl.GLCanvas2D;
-import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.GLWrapped;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.Color4;
@@ -20,7 +19,6 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class AutoPackTexturePool extends TexturePool {
@@ -36,7 +34,6 @@ public class AutoPackTexturePool extends TexturePool {
     public List<RectF> packedPosition = new ArrayList<RectF>();
     private PackNode currentPack;
     private GLCanvas2D packCanvas;
-    private GLPaint rawPaint = new GLPaint();
     private int currentX;
     private int currentY;
     private int lineMaxY;
@@ -76,15 +73,11 @@ public class AutoPackTexturePool extends TexturePool {
     @Override
     public void addAll(List<TexturePool.MsgTexture> list) {
 
-        Collections.sort(list, new Comparator<MsgTexture>() {
-            @Override
-            public int compare(TexturePool.MsgTexture p1, TexturePool.MsgTexture p2) {
-
-                if (p1.texture.getHeight() == p2.texture.getHeight()) {
-                    return p1.texture.getWidth() - p2.texture.getWidth();
-                } else {
-                    return p1.texture.getHeight() - p2.texture.getHeight();
-                }
+        Collections.sort(list, (p1, p2) -> {
+            if (p1.texture.getHeight() == p2.texture.getHeight()) {
+                return p1.texture.getWidth() - p2.texture.getWidth();
+            } else {
+                return p1.texture.getHeight() - p2.texture.getHeight();
             }
         });
         for (MsgTexture t : list) {
@@ -94,28 +87,19 @@ public class AutoPackTexturePool extends TexturePool {
     }
 
     public void addAllSynchronized(final List<MsgTexture> list) {
-        Collections.sort(list, new Comparator<MsgTexture>() {
-            @Override
-            public int compare(TexturePool.MsgTexture p1, TexturePool.MsgTexture p2) {
-
-                if (p1.texture.getHeight() == p2.texture.getHeight()) {
-                    return p1.texture.getWidth() - p2.texture.getWidth();
-                } else {
-                    return p1.texture.getHeight() - p2.texture.getHeight();
-                }
+        Collections.sort(list, (p1, p2) -> {
+            if (p1.texture.getHeight() == p2.texture.getHeight()) {
+                return p1.texture.getWidth() - p2.texture.getWidth();
+            } else {
+                return p1.texture.getHeight() - p2.texture.getHeight();
             }
         });
-        ExpensiveTask loadTask = new ExpensiveTask(context, new Runnable() {
-            @Override
-            public void run() {
-
-                for (MsgTexture t : list) {
-                    final MsgTexture ft = t;
-                    LOADING = "mtt:" + ft.msg;
-                    ft.texture = testAddRaw(ft.texture, ft.msg);
-                    directPut(ft.msg, ft.texture);
-                }
-
+        ExpensiveTask loadTask = new ExpensiveTask(context, () -> {
+            for (MsgTexture t : list) {
+                final MsgTexture ft = t;
+                LOADING = "mtt:" + ft.msg;
+                ft.texture = testAddRaw(ft.texture, ft.msg);
+                directPut(ft.msg, ft.texture);
             }
         });
         try {
@@ -134,13 +118,7 @@ public class AutoPackTexturePool extends TexturePool {
             final MsgTexture t = new MsgTexture();
             t.msg = name;
             final String fn = name;
-            ExpensiveTask loadTask = new ExpensiveTask(context, new Runnable() {
-                @Override
-                public void run() {
-
-                    t.texture = loader.load(fn);
-                }
-            });
+            ExpensiveTask loadTask = new ExpensiveTask(context, () -> t.texture = loader.load(fn));
             try {
                 loadTask.startAndWait();
                 list.add(t);
@@ -152,29 +130,21 @@ public class AutoPackTexturePool extends TexturePool {
             }
         }
 
-        Collections.sort(list, new Comparator<MsgTexture>() {
-            @Override
-            public int compare(TexturePool.MsgTexture p1, TexturePool.MsgTexture p2) {
-
-                if (p1.texture.getHeight() == p2.texture.getHeight()) {
-                    return p1.texture.getWidth() - p2.texture.getWidth();
-                } else {
-                    return p1.texture.getHeight() - p2.texture.getHeight();
-                }
+        Collections.sort(list, (p1, p2) -> {
+            if (p1.texture.getHeight() == p2.texture.getHeight()) {
+                return p1.texture.getWidth() - p2.texture.getWidth();
+            } else {
+                return p1.texture.getHeight() - p2.texture.getHeight();
             }
         });
-        ExpensiveTask loadTask = new ExpensiveTask(context, new Runnable() {
-            @Override
-            public void run() {
-
-                for (MsgTexture t : list) {
-                    final MsgTexture ft = t;
-                    LOADING = "mtt:" + ft.msg;
-                    ft.texture = testAddRaw(ft.texture, ft.msg);
-                    directPut(ft.msg, ft.texture);
-                }
-
+        ExpensiveTask loadTask = new ExpensiveTask(context, () -> {
+            for (MsgTexture t : list) {
+                final MsgTexture ft = t;
+                LOADING = "mtt:" + ft.msg;
+                ft.texture = testAddRaw(ft.texture, ft.msg);
+                directPut(ft.msg, ft.texture);
             }
+
         });
         try {
             loadTask.startAndWait();

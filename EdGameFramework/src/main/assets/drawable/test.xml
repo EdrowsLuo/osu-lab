@@ -1,0 +1,16 @@
+<ds-drawable
+    name = "test"
+    width = "24"
+    height = "24">
+
+    <group>
+        <rect org="(10,10)" width="10" height="10" />
+        <path>
+            <var/>
+            <d>
+                <S pos="@startPos"/>
+            </d>
+        </path>
+    </group>
+
+</ds-drawable>

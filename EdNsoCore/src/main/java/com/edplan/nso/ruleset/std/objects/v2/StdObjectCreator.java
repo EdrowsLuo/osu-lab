@@ -1,6 +1,10 @@
 package com.edplan.nso.ruleset.std.objects.v2;
 
 import com.edplan.nso.ruleset.base.beatmap.parser.StdFormatObjectParser;
+import com.edplan.nso.ruleset.std.objects.v2.raw.StdCircle;
+import com.edplan.nso.ruleset.std.objects.v2.raw.StdGameObject;
+import com.edplan.nso.ruleset.std.objects.v2.raw.StdSlider;
+import com.edplan.nso.ruleset.std.objects.v2.raw.StdSpinner;
 
 public class StdObjectCreator implements StdFormatObjectParser.ObjectCreator<StdGameObject> {
 

@@ -111,7 +111,7 @@ public class PartFactory {
         PartTimingPoints timingPoints = new PartTimingPoints();
         for (String[] l : page.getData()) {
             TimingPoint t = new TimingPoint();
-            t.setTime(Integer.parseInt(l[0]));
+            t.setTime((int) Math.round(Double.parseDouble(l[0])));
             t.setBeatLength(Double.parseDouble(l[1]));
             t.setMeter(Integer.parseInt(l[2]));
             t.setSampleType(Integer.parseInt(l[3]));

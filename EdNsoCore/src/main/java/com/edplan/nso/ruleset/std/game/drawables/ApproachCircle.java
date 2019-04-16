@@ -10,7 +10,7 @@ import com.edplan.framework.math.Vec2;
 import com.edplan.framework.utils.FloatRef;
 import com.edplan.nso.ruleset.base.game.World;
 import com.edplan.nso.ruleset.base.game.paint.AdvancedDrawObject;
-import com.edplan.nso.ruleset.std.objects.v2.StdGameObject;
+import com.edplan.nso.ruleset.std.objects.v2.raw.StdGameObject;
 
 public class ApproachCircle extends AdvancedDrawObject {
 

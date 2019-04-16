@@ -2,7 +2,6 @@ package com.edplan.framework.ui.widget;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.ViewConfiguration;
@@ -13,6 +12,7 @@ import com.edplan.framework.ui.text.font.drawing.TextPrinter;
 import com.edplan.framework.ui.text.font.drawing.TextUtils;
 
 public class TextView extends EdView {
+
     private BMFont font;
 
     private String text = "";
@@ -27,7 +27,9 @@ public class TextView extends EdView {
 
     private String[] breaked;
 
-    private GLPaint paint = new GLPaint();
+    private float alpha = 1;
+
+    private Color4 textColor = Color4.White.copyNew();
 
     private TextPrinter printer;
 
@@ -40,7 +42,7 @@ public class TextView extends EdView {
     }
 
     public void setTextColor(Color4 textColor) {
-        this.paint.setAccentColor(textColor);
+        this.textColor.set(textColor);
         invalidateDraw();
     }
 
@@ -149,7 +151,7 @@ public class TextView extends EdView {
         prew = width;
         pres = text;
 
-        printer = new TextPrinter(font, 0, 0, paint);
+        printer = new TextPrinter(font, 0, 0, alpha, textColor);
         printer.setTextSize(textSize);
         printer.addOffset(pleft, getPaddingTop());
         printer.addOffsetRaw(0, font.getCommon().base);
@@ -204,7 +206,6 @@ public class TextView extends EdView {
 
     @Override
     protected void onMeasure(long widthSpec, long heightSpec) {
-
         float mwidth = 0, mheight = 0;
         switch (EdMeasureSpec.getMode(widthSpec)) {
             case EdMeasureSpec.MODE_NONE:
@@ -263,15 +264,11 @@ public class TextView extends EdView {
 
     @Override
     protected void onDraw(BaseCanvas canvas) {
-
         super.onDraw(canvas);
-        if (printer != null) printer.draw(canvas);
-		/*
-		GLPaint p=new GLPaint();
-		p.setAccentColor(Color4.rgb(1,0,0));
-		p.setStrokeWidth(3);
-		canvas.drawLine(10,10,10,50,p);
-		canvas.drawLine(40,10,40,10+font.getCommon().lineHeight,p);
-		*/
+        if (printer != null) {
+            printer.setAccentColor(textColor);
+            printer.setAlpha(alpha);
+            printer.draw(canvas);
+        }
     }
 }

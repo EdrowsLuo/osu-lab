@@ -67,6 +67,8 @@ public class StdSkin {
                             .raw(png(hitcircleoverlay)),
                     name(sliderb)
                             .rawList(sliderb),
+                    name(sliderscorepoint)
+                            .raw(png(sliderscorepoint)),
                     name(sliderendcircle)
                             .raw(png(sliderendcircle))
                             .ref(hitcircle),

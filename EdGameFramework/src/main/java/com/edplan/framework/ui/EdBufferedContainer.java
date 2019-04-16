@@ -5,7 +5,6 @@ import com.edplan.framework.graphics.layer.BufferedLayer;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.BlendType;
 import com.edplan.framework.graphics.opengl.GLCanvas2D;
-import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.math.RectF;
@@ -23,7 +22,11 @@ public abstract class EdBufferedContainer extends EdAbstractViewGroup {
 
     private BaseCanvas layerCanvas;
 
-    private GLPaint postPaint;
+    private float alpha = 1;
+
+    private Color4 accentColor = Color4.White.copyNew();
+
+    private Color4 clearColor = Color4.Alpha.copyNew();
 
     private LayerPoster layerPoster;
 
@@ -38,7 +41,10 @@ public abstract class EdBufferedContainer extends EdAbstractViewGroup {
         layer = new BufferedLayer(c);
         layerPoster = new DefaultLayerPoster(c);
         layerCanvas = new GLCanvas2D(layer);
-        postPaint = new GLPaint();
+    }
+
+    public void setClearColor(Color4 clearColor) {
+        this.clearColor.set(clearColor);
     }
 
     public void enableDepth() {
@@ -76,12 +82,12 @@ public abstract class EdBufferedContainer extends EdAbstractViewGroup {
     }
 
     public void setAlpha(float alpha) {
-        postPaint.setFinalAlpha(alpha);
+        this.alpha = alpha;
         invalidateDraw();
     }
 
     public float getAlpha() {
-        return postPaint.getFinalAlpha();
+        return alpha;
     }
 
     public Vec2 getBufferSize() {
@@ -117,17 +123,18 @@ public abstract class EdBufferedContainer extends EdAbstractViewGroup {
             updateCanvas(canvas);
             layerCanvas.prepare();
             layerCanvas.clearBuffer();
+            layerCanvas.clearColor(clearColor);
             drawBackground(layerCanvas);
             drawContainer(layerCanvas);
             layerCanvas.unprepare();
         }
-        postLayer(canvas, layer, RectF.xywh(0, 0, getWidth(), getHeight()), postPaint);
+        postLayer(canvas, layer, RectF.xywh(0, 0, getWidth(), getHeight()), alpha, accentColor);
     }
 
-    protected void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, GLPaint paint) {
+    protected void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, float alpha, Color4 accentColor) {
         if (layer.getTexture() == null) return;
         if (layerPoster != null) {
-            layerPoster.postLayer(canvas, layer, area, paint);
+            layerPoster.postLayer(canvas, layer, area, alpha, accentColor);
             return;
         } else {
             throw new RuntimeException("layerPoster is null");
@@ -147,7 +154,7 @@ public abstract class EdBufferedContainer extends EdAbstractViewGroup {
     }
 
     public interface LayerPoster {
-        void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, GLPaint paint);
+        void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, float alpha, Color4 accentColor);
     }
 
     public static class DefaultLayerPoster implements LayerPoster {
@@ -169,15 +176,15 @@ public abstract class EdBufferedContainer extends EdAbstractViewGroup {
         }
 
         @Override
-        public void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, GLPaint paint) {
+        public void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, float alpha, Color4 accentColor) {
             if(!enableBlending){
                 canvas.getBlendSetting().save();
                 canvas.getBlendSetting().setEnable(false);
             }
             sprite.setArea(area);
             sprite.setTexture(layer.getTexture());
-            sprite.setAlpha(paint.getFinalAlpha());
-            sprite.setAccentColor(paint.getAccentColor());
+            sprite.setAlpha(alpha);
+            sprite.setAccentColor(accentColor);
             sprite.draw(canvas);
             if (!enableBlending) {
                 canvas.getBlendSetting().restore();
@@ -260,26 +267,24 @@ public abstract class EdBufferedContainer extends EdAbstractViewGroup {
         }
 
         @Override
-        public void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, GLPaint paint) {
+        public void postLayer(BaseCanvas canvas, BufferedLayer layer, RectF area, float alpha, Color4 accentColor) {
 
             Vec2 org = new Vec2(area.getLeft() + area.getWidth() * anchor.x(), area.getTop() + area.getHeight() * anchor.y());
             if (shadow != null) {
                 shadow.setTexture(GLTexture.White);
-                shadow.setAccentColor(paint.getAccentColor());
-                shadow.setAlpha(paint.getFinalAlpha());
+                shadow.setAccentColor(accentColor);
+                shadow.setAlpha(alpha);
                 shadow.setArea(RectF.anchorOWH(anchor, org.x, org.y, (area.getWidth() + shadow.getShadowWidth() * 2) * scaleX, (area.getHeight() + shadow.getShadowWidth() * 2) * scaleY));
                 shadow.setRect(area);
                 shadow.draw(canvas);
             }
 
             sprite.setTexture(layer.getTexture());
-            sprite.setAccentColor(paint.getAccentColor());
-            sprite.setAlpha(paint.getFinalAlpha());
+            sprite.setAccentColor(accentColor);
+            sprite.setAlpha(alpha);
             RectF a = RectF.anchorOWH(anchor, org.x, org.y, area.getWidth() * scaleX, area.getHeight() * scaleY);
             sprite.setArea(a);
             sprite.setRect(a);
-            //	RectF.anchorOWH(anchor,org.x,org.y,area.getWidth()*scaleX,area.getHeight()*scaleY)
-            //);
             canvas.save();
             canvas.rotate(org.x, org.y, rotation);
             sprite.draw(canvas);

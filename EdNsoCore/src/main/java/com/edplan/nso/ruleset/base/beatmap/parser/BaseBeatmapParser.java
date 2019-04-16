@@ -36,7 +36,7 @@ public class BaseBeatmapParser {
         Ruleset ruleset = core.getRulesetById(rulesetId);
         PartFactory factory = ruleset.getPartFactory();
 
-        //Tracker.createTmpNode("parse-parts").wrap(() -> {
+        //Tracker.createTmpNode("parseExpression-parts").wrap(() -> {
             beatmap.setRulesetId(rulesetId);
             beatmap.setGeneral(factory.createPartGeneral(generalCache, info));
             beatmap.setEditor(factory.createPartEditor(parserData.asOptionPage(PartEditor.TAG), info));

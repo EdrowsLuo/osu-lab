@@ -90,6 +90,14 @@ public class SliderBody extends AdvancedDrawObject {
         }
     }
 
+    public Vec2 getBodyTailPosition() {
+        return path.getMeasurer().atLength(length);
+    }
+
+    public Vec2 getPointAtProgress(float p) {
+        return path.getMeasurer().atLength(length * p);
+    }
+
     private DrawLinePath getDrawLinePath() {
         if (dirty) {
             dirty = false;

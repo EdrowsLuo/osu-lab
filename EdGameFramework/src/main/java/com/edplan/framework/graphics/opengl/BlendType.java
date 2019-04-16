@@ -14,7 +14,16 @@ public enum BlendType {
     Delete(
             GLES20.GL_ZERO,
             GLES20.GL_ONE_MINUS_SRC_COLOR
-    );
+    ),
+    Delete_Alpha(
+            GLES20.GL_ZERO,
+            GLES20.GL_ONE_MINUS_SRC_ALPHA
+    ),
+    DeleteRepeat(
+            GLES20.GL_ONE_MINUS_DST_ALPHA,
+            GLES20.GL_ONE_MINUS_SRC_ALPHA
+    )
+    ;
     public final int srcType;
     public final int dstType;
 

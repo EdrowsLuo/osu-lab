@@ -1,7 +1,6 @@
 package com.edplan.framework.ui.text.font.drawing;
 
 import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.batch.v2.BatchEngine;
 import com.edplan.framework.graphics.opengl.batch.v2.object.PackedTriangles;
 import com.edplan.framework.graphics.opengl.batch.v2.object.TextureTriangle;
@@ -36,7 +35,9 @@ public class TextPrinter {
 
     private float scale;
 
-    private GLPaint paint;
+    private float alpha = 1;
+
+    private Color4 accentColor = Color4.White.copyNew();
 
     private PackedTriangles[] triangles;
 
@@ -48,20 +49,21 @@ public class TextPrinter {
 
     private boolean useFontShader = false;
 
-    public TextPrinter(BMFont font, float startX, float startY, GLPaint paint) {
+    public TextPrinter(BMFont font, float startX, float startY, float alpha, Color4 accentColor) {
         this.font = font;
-        this.paint = paint;
+        this.accentColor.set(accentColor);
+        this.alpha = alpha;
         this.startX = startX;
         this.startY = startY;
         initial(startX, startY);
     }
 
-    public TextPrinter(String font, float startX, float startY, GLPaint paint) {
-        this(BMFont.getFont(font), startX, startY, paint);
+    public void setAlpha(float alpha) {
+        this.alpha = alpha;
     }
 
-    public TextPrinter(float startX, float startY) {
-        this(BMFont.getDefaultFont(), startX, startX, new GLPaint());
+    public void setAccentColor(Color4 accentColor) {
+        this.accentColor.set(accentColor);
     }
 
     public void setUseFontShader(boolean useFontShader) {
@@ -191,7 +193,7 @@ public class TextPrinter {
                     tq.getTopLeft(),
                     tq.getTopRight(),
                     tq.getBottomRight(),
-                    paint.finalAlpha
+                    alpha
             ));
             triangles[fntc.page].add(new TextureTriangle(
                     area.getTopLeft(),
@@ -200,7 +202,7 @@ public class TextPrinter {
                     tq.getTopLeft(),
                     tq.getBottomRight(),
                     tq.getBottomLeft(),
-                    paint.finalAlpha
+                    alpha
             ));
 
 
@@ -236,7 +238,7 @@ public class TextPrinter {
                 tq.getTopLeft(),
                 tq.getTopRight(),
                 tq.getBottomRight(),
-                paint.finalAlpha
+                alpha
         ));
         triangles[fntc.page].add(new TextureTriangle(
                 area.getTopLeft(),
@@ -245,7 +247,7 @@ public class TextPrinter {
                 tq.getTopLeft(),
                 tq.getBottomRight(),
                 tq.getBottomLeft(),
-                paint.finalAlpha
+                alpha
         ));
 
         preChar = NO_PREVIOUS_CHAR;
@@ -259,7 +261,7 @@ public class TextPrinter {
     public void draw(BaseCanvas canvas) {
         BatchEngine.flush();
         Color4 color4 = BatchEngine.getShaderGlobals().accentColor;
-        BatchEngine.getShaderGlobals().accentColor = paint.accentColor;
+        BatchEngine.getShaderGlobals().accentColor = accentColor;
 
         for (int i = 0; i < font.getPageCount(); i++) {
             triangles[i].render(

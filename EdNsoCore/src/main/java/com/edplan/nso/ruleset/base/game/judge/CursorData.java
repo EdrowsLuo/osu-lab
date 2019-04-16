@@ -92,6 +92,7 @@ public class CursorData extends JudgeData {
                 holder.x = inputStream.readFloat();
                 holder.y = inputStream.readFloat();
                 double time = inputStream.readDouble();
+                holder.time = time;
                 switch (htype) {
                     case TYPE_DOWN:
                         holder.down.add();
@@ -152,6 +153,8 @@ public class CursorData extends JudgeData {
     public class CursorHolder {
 
         public boolean isDown = false;
+
+        public double time;
 
         public float x, y;
 

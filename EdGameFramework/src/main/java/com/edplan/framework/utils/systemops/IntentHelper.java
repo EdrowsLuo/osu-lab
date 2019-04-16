@@ -9,7 +9,7 @@ import com.edplan.framework.utils.interfaces.Consumer;
 public class IntentHelper {
 
 
-    public static void requirTextInput(
+    public static void requireTextInput(
             @NonNull MContext context,
             @Nullable String rawData,
             @NonNull Consumer<String> onInput) {

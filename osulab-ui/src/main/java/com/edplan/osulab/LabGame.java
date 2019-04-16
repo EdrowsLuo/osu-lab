@@ -279,7 +279,7 @@ public class LabGame {
                 );
             }
 
-            boolean hasTest = false;
+            /*boolean hasTest = false;
 
             @Override
             protected void onDraw(BaseCanvas canvas) {
@@ -293,7 +293,7 @@ public class LabGame {
                         }
                     }).then(System.out::println);
                 }
-            }
+            }*/
         };
         return mainLayout;
     }

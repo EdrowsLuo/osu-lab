@@ -51,15 +51,15 @@ public enum SampleSet {
 		
 	}
 	
-	public SampleSet(Type t){
+	public SampleSet(ValueType t){
 		setType(t);
 	}
 
-	public void setType(Type type){
+	public void setType(ValueType type){
 		this.type=type;
 	}
 
-	public Type getType(){
+	public ValueType getType(){
 		return type;
 	}*/
 

@@ -56,10 +56,10 @@ public class GLProgram implements Recycleable {
 
     public static GLProgram linkShader(GLShader vs, GLShader fs) {
         if (vs.getType() != GLShader.Type.Vertex) {
-            throw new IllegalArgumentException("param@vs should be Type.Vertex");
+            throw new IllegalArgumentException("param@vs should be ValueType.Vertex");
         }
         if (fs.getType() != GLShader.Type.Fragment) {
-            throw new IllegalArgumentException("param@fs should be Type.Fragment");
+            throw new IllegalArgumentException("param@fs should be ValueType.Fragment");
         }
         //创建程序
         int program = GLES20.glCreateProgram();

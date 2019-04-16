@@ -2,7 +2,7 @@ package com.edplan.nso.ruleset.std.game;
 
 import com.edplan.framework.math.Vec2;
 import com.edplan.nso.ruleset.std.beatmap.StdBeatmap;
-import com.edplan.nso.ruleset.std.objects.v2.StdGameObject;
+import com.edplan.nso.ruleset.std.objects.v2.raw.StdGameObject;
 
 public abstract class WorkingStdGameObject<T extends StdGameObject> {
 

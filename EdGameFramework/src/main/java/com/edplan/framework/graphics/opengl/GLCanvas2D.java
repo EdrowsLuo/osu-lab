@@ -26,11 +26,6 @@ public class GLCanvas2D extends BaseCanvas
     }
 
     @Override
-    public void onRestore(CanvasData now, CanvasData pre) {
-        pre.recycle();
-    }
-
-    @Override
     public CanvasData getDefData() {
         CanvasData d = new CanvasData();
         d.setCurrentProjMatrix(layer.createProjMatrix());

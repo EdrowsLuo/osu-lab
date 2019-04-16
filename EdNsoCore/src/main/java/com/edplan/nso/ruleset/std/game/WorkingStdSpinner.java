@@ -1,7 +1,6 @@
 package com.edplan.nso.ruleset.std.game;
 
-import com.edplan.nso.ruleset.std.beatmap.StdBeatmap;
-import com.edplan.nso.ruleset.std.objects.v2.StdSpinner;
+import com.edplan.nso.ruleset.std.objects.v2.raw.StdSpinner;
 
 public class WorkingStdSpinner extends WorkingStdGameObject<StdSpinner> {
 

@@ -9,15 +9,20 @@ import com.edplan.framework.ui.animation.ComplexAnimationBuilder;
 import com.edplan.framework.ui.animation.Easing;
 import com.edplan.framework.ui.animation.FloatQueryAnimation;
 import com.edplan.framework.ui.layout.Gravity;
+import com.edplan.framework.ui.layout.Orientation;
 import com.edplan.framework.ui.layout.Param;
+import com.edplan.framework.ui.widget.EditText;
+import com.edplan.framework.ui.widget.LinearLayout;
 import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.widget.component.Hideable;
 import com.edplan.osulab.LabGame;
 import com.edplan.osulab.ScenesName;
 import com.edplan.osulab.ui.pieces.TextButton;
+import com.edplan.osulab.ui.scenes.game.GameScene;
 
 public class DetailsPanel extends RelativeLayout implements Hideable {
     public static float WIDTH_DP = 350;
+    EditText dir;
 
     public DetailsPanel(MContext c) {
         super(c);
@@ -25,17 +30,44 @@ public class DetailsPanel extends RelativeLayout implements Hideable {
 
 
         addAll(
-                new TextButton(c) {{
+                new LinearLayout(c) {{
+                    orientation = Orientation.DIRECTION_T2B;
                     layoutParam(
                             new RelativeParam() {{
-                                width = Param.makeUpDP(200);
-                                height = Param.makeUpDP(60);
+                                width = Param.MODE_WRAP_CONTENT;
+                                height = Param.MODE_WRAP_CONTENT;
                                 gravity = Gravity.Center;
                             }}
                     );
-                    setText("testGame");
-                    setOnClickListener(view -> LabGame.get().getScenes().swapScene(ScenesName.GameScene));
+                    children(
+                            dir = new EditText(c) {{
+                                setBackgroundColor(Color4.rgba(0, 0, 0, 0.5f));
+                                layoutParam(
+                                        new RelativeParam() {{
+                                            width = Param.MODE_WRAP_CONTENT;
+                                            height = Param.MODE_WRAP_CONTENT;
+                                            gravity = Gravity.Center;
+                                        }}
+                                );
+                                getTextView().setTextSize(ViewConfiguration.dp(20));
+                            }},
+                            new TextButton(c) {{
+                                layoutParam(
+                                        new RelativeParam() {{
+                                            width = Param.makeUpDP(200);
+                                            height = Param.makeUpDP(60);
+                                            gravity = Gravity.Center;
+                                        }}
+                                );
+                                setText("testGame");
+                                setOnClickListener(view -> {
+                                    GameScene.testOsu = dir.getTextView().getText();
+                                    LabGame.get().getScenes().swapScene(ScenesName.GameScene);
+                                });
+                            }}
+                    );
                 }}
+
         );
 
     }

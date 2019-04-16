@@ -48,7 +48,11 @@ public class FMath {
         return Math.abs(f1 - f2) <= t;
     }
 
-    public static float clamp(float value, float max, float min) {
+    public static float clamp(float value, float min, float max) {
+        return value < min ? (value) : (value < max ? value : max);
+    }
+
+    public static double clamp(double value, double min, double max) {
         return value < min ? (value) : (value < max ? value : max);
     }
 

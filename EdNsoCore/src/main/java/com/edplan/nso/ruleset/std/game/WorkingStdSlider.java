@@ -5,21 +5,29 @@ import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.math.FMath;
 import com.edplan.framework.math.Vec2;
 import com.edplan.nso.ruleset.base.game.World;
+import com.edplan.nso.ruleset.base.game.judge.AreaHitObject;
+import com.edplan.nso.ruleset.base.game.judge.AreaHoldObject;
 import com.edplan.nso.ruleset.base.game.judge.HitArea;
 import com.edplan.nso.ruleset.base.game.judge.HitWindow;
-import com.edplan.nso.ruleset.base.game.judge.PositionHitObject;
 import com.edplan.nso.ruleset.std.StdSkin;
 import com.edplan.nso.ruleset.std.game.drawables.ApproachCircle;
 import com.edplan.nso.ruleset.std.game.drawables.CirclePiece;
 import com.edplan.nso.ruleset.std.game.drawables.SliderBall;
 import com.edplan.nso.ruleset.std.game.drawables.SliderBody;
 import com.edplan.nso.ruleset.std.game.drawables.SliderReverseCircle;
+import com.edplan.nso.ruleset.std.game.drawables.SliderTailCircle;
+import com.edplan.nso.ruleset.std.game.drawables.SliderTick;
 import com.edplan.nso.ruleset.std.objects.drawables.StdSliderPathMaker;
-import com.edplan.nso.ruleset.std.objects.v2.StdGameObject;
-import com.edplan.nso.ruleset.std.objects.v2.StdSlider;
+import com.edplan.nso.ruleset.std.objects.v2.raw.StdGameObject;
+import com.edplan.nso.ruleset.std.objects.v2.raw.StdSlider;
 import com.edplan.nso.ruleset.base.beatmap.controlpoint.TimingControlPoint;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
+
+    public static final float BASE_HIT_AREA_RADIUS = StdGameObject.BASE_OBJECT_SIZE * 0.75f;
 
     public final double BASE_SCORING_DISTANCE = 100;
 
@@ -39,6 +47,8 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
 
     double scoringDistance;
 
+    double tickDistance;
+
     public WorkingStdSlider(StdSlider gameObject, StdGameField gameField) {
         super(gameObject, gameField);
         slider = getGameObject();
@@ -47,6 +57,7 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
 
         scoringDistance = BASE_SCORING_DISTANCE * getBeatmap().getDifficulty().getSliderMultiplier() * speedMultiplier;
         velocity = scoringDistance / timingPoint.getBeatLength();
+        tickDistance = scoringDistance / getBeatmap().getDifficulty().getSliderTickRate();
 
         StdSliderPathMaker maker = new StdSliderPathMaker(slider.getStdPath());
         maker.setBaseSize(StdGameObject.BASE_OBJECT_SIZE / 2 * gameField.globalScale);
@@ -86,10 +97,8 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
         return endPoint.copy();
     }
 
-    static int id = 0;
     @Override
     public void applyToGameField() {
-        id++;
         StdGameField gameField = getGameField();
         CirclePiece circlePiece = new CirclePiece() {{
 
@@ -109,6 +118,7 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
                 StdGameObject.BASE_OBJECT_SIZE / 2 * gameField.globalScale,
                 (float) slider.getPixelLength());
 
+        //----------------------------------repeat circles------------------------------------------------------
         CirclePiece[] pieces = new CirclePiece[slider.getRepeat()];
         for (int i = 0; i < pieces.length; i++) {
             final int ii = i;
@@ -120,7 +130,8 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
 
             if (i == pieces.length - 1) {
                 //最后的一个circle不需要反转
-                CirclePiece circle = new CirclePiece() {
+                Vec2 endPos = (ii % 2 == 0) ? body.getBodyTailPosition() : body.getStartPosition();
+                SliderTailCircle circle = new SliderTailCircle() {
                     @Override
                     protected void onDraw(BaseCanvas canvas, World world) {
                         position.set((ii % 2 == 0) ? body.getEndPosition() : body.getStartPosition());
@@ -133,8 +144,28 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
                 circle.initialBaseScale(gameField.globalScale);
 
                 gameField.hitobjectLayer.scheduleAttachBehind(showTime, circle);
-                circle.expire(getEndTime());
-                gameField.hitobjectLayer.addEvent(getEndTime() + 200, circle::detach);
+
+                AreaHoldObject areaHitObject = new AreaHoldObject() {{
+
+                    hitWindow = HitWindow.interval(getEndTime(), gameField.difficultyHelper.hitWindowFor50());
+
+                    area = HitArea.circle(circle.position, BASE_HIT_AREA_RADIUS * gameField.globalScale);
+
+                    onHit = (time, x, y) -> circle.postOperation(() -> circle.expire(time));
+
+                    onTimeOut = (time) -> circle.postOperation(() -> {
+                        circle.detach();
+                        gameField.addHitEffect(
+                                StdScore.HitLevel.MISS,
+                                time,
+                                endPos.x, endPos.y,
+                                gameField.globalScale,
+                                gameField.skin);
+                    });
+
+                }};
+
+                gameField.world.getJudgeWorld().addJudgeObject(areaHitObject);
 
                 pieces[i] = circle;
             } else if (i != pieces.length - 1) {
@@ -155,16 +186,103 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
                 circle.initialBaseScale(gameField.globalScale);
 
                 gameField.hitobjectLayer.scheduleAttachBehind(showTime, circle);
-                circle.expire(hitTime);
-                gameField.hitobjectLayer.addEvent(hitTime + 200, circle::detach);
+
+                AreaHoldObject areaHitObject = new AreaHoldObject() {{
+
+                    hitWindow = HitWindow.interval(hitTime, gameField.difficultyHelper.hitWindowFor50());
+
+                    area = HitArea.circle(circle.position, BASE_HIT_AREA_RADIUS * gameField.globalScale);
+
+                    onHit = (time, x, y) -> circle.postOperation(() -> circle.expire(time));
+
+                    onTimeOut = (time) -> circle.postOperation(() -> {
+                        circle.detach();
+                        gameField.addHitEffect(
+                                StdScore.HitLevel.MISS,
+                                time,
+                                circle.position.x, circle.position.y,
+                                gameField.globalScale,
+                                gameField.skin);
+                    });
+
+                }};
+
+                gameField.world.getJudgeWorld().addJudgeObject(areaHitObject);
             }
 
         }
         
-        ApproachCircle approachCircle = gameField.buildApprochCircle(getGameObject());
+        //--------------------------slider ticks----------------------------------------------
+
+        List<SliderTick> sliderTicks = new ArrayList<>();
+
+        float length = Math.min(100000, body.getLength());
+        double tickDistance = FMath.clamp(this.tickDistance, 0, length);
+        double minDistanceFromEnd = velocity * 10;
+        final int repeat = getGameObject().getRepeat();
+        double startTime = getStartTime();
+        double spanDuration = getGameObject().getPixelLength() / velocity;
+
+        /*System.out.println("slider repeat=" + repeat
+                + " tickDistance=" + tickDistance + "," + this.tickDistance
+                + " fromEnd=" + minDistanceFromEnd
+                + " length=" + length);*/
+
+
+        if (tickDistance != 0) {
+            for (int span = 0; span < repeat; span++) {
+                double spanStartTime = startTime + span * spanDuration;
+                boolean reversed = span % 2 == 1;
+
+                for (double d = tickDistance; d <= length; d += tickDistance) {
+                    if (d >= length - minDistanceFromEnd) {
+                        break;
+                    }
+                    double pathProgress = d / length;
+                    double timeProgress = reversed ? (1 - pathProgress) : pathProgress;
+                    double time = spanStartTime + timeProgress * spanDuration;
+                    double appearTime = spanStartTime - getTimePreempt();
+
+                    SliderTick tick = new SliderTick();
+                    tick.position.set(body.getPointAtProgress((float) pathProgress));
+                    tick.initialTexture(gameField.skin.getTexture(StdSkin.sliderscorepoint));
+                    tick.initialBaseScale(gameField.globalScale);
+
+                    tick.preemptAnimation(appearTime);
+                    gameField.hitobjectLayer.scheduleAttachBehind(appearTime, tick);
+                    //System.out.println("add tick at " + tick.position + " " + time);
+
+                    AreaHoldObject areaHitObject = new AreaHoldObject() {{
+
+                        hitWindow = HitWindow.interval(time, gameField.difficultyHelper.hitWindowFor50());
+
+                        area = HitArea.circle(tick.position, BASE_HIT_AREA_RADIUS * gameField.globalScale);
+
+                        onHit = (time, x, y) -> tick.postOperation(() -> tick.hitAnimation(time));
+
+                        onTimeOut = (time) -> tick.postOperation(() -> {
+                            tick.detach();
+                            gameField.addHitEffect(
+                                    StdScore.HitLevel.MISS,
+                                    time,
+                                    tick.position.x, tick.position.y,
+                                    gameField.globalScale,
+                                    gameField.skin);
+                        });
+
+                    }};
+
+                    gameField.world.getJudgeWorld().addJudgeObject(areaHitObject);
+
+                }
+            }
+        }
+
 
         gameField.hitobjectLayer.scheduleAttachBehindAll(getShowTime(), circlePiece);
         gameField.hitobjectLayer.addEvent(slider.getTime(), circlePiece::detach);
+
+        ApproachCircle approachCircle = gameField.buildApprochCircle(getGameObject());
         gameField.approachCircleLayer.scheduleAttachBehind(getShowTime(), approachCircle);
 
 
@@ -198,7 +316,7 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
         gameField.sliderLayer.addEvent(getEndTime(), ball::detach);
         gameField.sliderLayer.addEvent(getHideTime(), body::detach);
 
-        PositionHitObject positionHitObject = new PositionHitObject() {{
+        AreaHitObject areaHitObject = new AreaHitObject() {{
 
             separateJudge = true;
 
@@ -221,6 +339,6 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
 
         }};
 
-        gameField.world.getJudgeWorld().addJudgeObject(positionHitObject);
+        gameField.world.getJudgeWorld().addJudgeObject(areaHitObject);
     }
 }

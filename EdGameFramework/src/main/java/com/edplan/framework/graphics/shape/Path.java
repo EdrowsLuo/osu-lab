@@ -30,7 +30,7 @@ public class Path implements IEditablePath{
             grow();
         }
 
-        if (size > 0 && Vec2.lengthSquared(vec, vArray[size - 1]) < 1) {
+        if (size > 0 && Vec2.lengthSquared(vec, vArray[size - 1]) < 0.01) {
             //对于过于接近的点的排除
             return;
         }

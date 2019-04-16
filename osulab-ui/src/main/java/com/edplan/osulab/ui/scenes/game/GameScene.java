@@ -2,32 +2,27 @@ package com.edplan.osulab.ui.scenes.game;
 
 import com.edplan.framework.MContext;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.math.RectF;
-import com.edplan.framework.math.Vec2;
 import com.edplan.framework.resource.AResource;
+import com.edplan.framework.resource.DirResource;
 import com.edplan.framework.ui.additions.popupview.defviews.RenderStatPopupView;
 import com.edplan.framework.ui.inputs.DirectMotionHandler;
 import com.edplan.framework.ui.inputs.EdMotionEvent;
 import com.edplan.nso.ruleset.base.beatmap.BeatmapDescription;
 import com.edplan.nso.ruleset.base.game.World;
-import com.edplan.nso.ruleset.base.game.judge.CursorData;
-import com.edplan.nso.ruleset.base.game.judge.HitArea;
-import com.edplan.nso.ruleset.base.game.judge.HitWindow;
-import com.edplan.nso.ruleset.base.game.judge.JudgeData;
-import com.edplan.nso.ruleset.base.game.judge.JudgeObject;
-import com.edplan.nso.ruleset.base.game.judge.PositionHitObject;
-import com.edplan.nso.ruleset.base.game.paint.TextureQuadObject;
 import com.edplan.nso.ruleset.std.StdRuleset;
 import com.edplan.osulab.LabGame;
 import com.edplan.osulab.ScenesName;
 import com.edplan.osulab.ui.BackQuery;
 import com.edplan.osulab.ui.scenes.BaseScene;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class GameScene extends BaseScene implements DirectMotionHandler{
+
+    public static String testOsu = null;
 
     private World world;
 
@@ -40,13 +35,22 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
                 .loadWorld(
                         new BeatmapDescription() {
 
-                            AResource test = c.getAssetResource()
-                                    .subResource("test")
-                                    .subResource("songs")
-                                    .subResource("teo");
+                            AResource test;
+
+                            File testFile;
 
                             {
                                 beatmapType = StdRuleset.ID_NAME;
+                                if (testOsu == null) {
+                                    test = c.getAssetResource()
+                                            .subResource("test")
+                                            .subResource("songs")
+                                            .subResource("teo");
+                                } else {
+                                    System.out.println("test osu : " + testOsu);
+                                    testFile = new File(testOsu);
+                                    test = new DirResource(testFile.getParentFile());
+                                }
                             }
 
                             @Override
@@ -56,7 +60,11 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
 
                             @Override
                             public InputStream openBeatmapStream() throws IOException {
-                                return test.openInput("Araki - Teo (Nevo) [Descent].osu");
+                                if (testFile == null) {
+                                    return test.openInput("Araki - Teo (Nevo) [Descent].osu");
+                                } else {
+                                    return test.openInput(testFile.getName());
+                                }
                             }
                         },
                         null
@@ -85,7 +93,7 @@ public class GameScene extends BaseScene implements DirectMotionHandler{
                 textureQuadObject.sprite.scale.set((float) (3 - time * 2));
             });
 
-            PositionHitObject noteHit = new PositionHitObject() {{
+            AreaHitObject noteHit = new AreaHitObject() {{
                 hitWindow = HitWindow.interval(3000 + 2000 * ii + 500, 500);
                 area = HitArea.circle(200, 200, 1000);
                 onHit = (time, x, y) -> {

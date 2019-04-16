@@ -1,8 +1,11 @@
 package com.edlplan.testgame;
 
 import android.annotation.SuppressLint;
+import android.os.Environment;
 
 import com.edplan.framework.MContext;
+import com.edplan.framework.database.v2.SimpleDBHelper;
+import com.edplan.framework.database.v2.SimpleSQLException;
 import com.edplan.framework.graphics.opengl.BaseCanvas;
 import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.main.EdMainActivity;
@@ -20,6 +23,8 @@ import com.edplan.framework.ui.widget.RoundedButton;
 import com.edplan.framework.ui.widget.ScrollLayout;
 import com.edplan.framework.ui.widget.TextView;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 public class MainActivity extends EdMainActivity {
@@ -27,6 +32,18 @@ public class MainActivity extends EdMainActivity {
     @Override
     protected void createGame() {
         initialWithView(TestView.class);
+        SimpleDBHelper dbHelper = new SimpleDBHelper(
+                new File(Environment.getExternalStorageDirectory(), "osu!lab/test.db").getAbsolutePath(), 2) {
+
+        };
+        try {
+            dbHelper.open();
+            System.out.println("db version : " + dbHelper.queryDatabaseVersion());
+        } catch (SimpleSQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public static class TestView extends RelativeLayout {
@@ -106,7 +123,6 @@ public class MainActivity extends EdMainActivity {
 
                             layoutParam(
                                     new MarginLayoutParam() {{
-
                                         width = Param.MODE_WRAP_CONTENT;
                                         height = Param.MODE_WRAP_CONTENT;
                                     }}

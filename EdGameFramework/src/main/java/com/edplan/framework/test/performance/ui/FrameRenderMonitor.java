@@ -1,12 +1,8 @@
 package com.edplan.framework.test.performance.ui;
 
 import com.edplan.framework.MContext;
-import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.GLWrapped;
-import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.test.performance.Tracker;
-import com.edplan.framework.ui.EdView;
 
 public class FrameRenderMonitor {
     public static float[] timelist = new float[90];

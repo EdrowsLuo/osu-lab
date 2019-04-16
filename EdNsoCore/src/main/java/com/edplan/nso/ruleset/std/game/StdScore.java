@@ -1,5 +1,6 @@
 package com.edplan.nso.ruleset.std.game;
 
+import com.edplan.framework.utils.functionality.Collector;
 import com.edplan.nso.difficulty.DifficultyUtil;
 import com.edplan.nso.ruleset.base.game.Score;
 
@@ -7,7 +8,48 @@ public class StdScore implements Score {
 
     private DifficultyUtil.BuiltDifficultyHelper difficultyHelper;
 
+    private int combo;
+
+    private Collector<Integer,Integer> maxCombo = Collector.max(0);
+
+
+
     public void applyHitResult(HitResult result) {
+        switch (result.hitType) {
+            case NoteHit:onNoteHit(result);break;
+            case SliderStartHit:onSliderStartHit(result);break;
+            case SliderTickHit:onSliderTickHit(result);break;
+        }
+        maxCombo.update(combo);
+    }
+
+    private void onComboBreak() {
+
+    }
+
+    protected void onNoteHit(HitResult result) {
+        if (result.isTimeOut) {
+            if (combo > 0) {
+                combo = 0;
+                onComboBreak();
+            }
+            return;
+        }
+        double offset = Math.abs(result.offset);
+        if (offset <= difficultyHelper.hitWindowFor300()) {
+
+        } else if (offset <= difficultyHelper.hitWindowFor100()) {
+
+        } else if (offset <= difficultyHelper.hitWindowFor50()) {
+
+        }
+    }
+
+    protected void onSliderStartHit(HitResult result) {
+
+    }
+
+    protected void onSliderTickHit(HitResult result) {
 
     }
 
@@ -28,7 +70,7 @@ public class StdScore implements Score {
 
     @Override
     public int getCombo() {
-        return 0;
+        return combo;
     }
 
     public static class HitResult {

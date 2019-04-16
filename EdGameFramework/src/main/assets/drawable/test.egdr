@@ -1,0 +1,86 @@
+{@template -type drawable
+    name => <@string -needed>,
+    width => <@float -default 24>, // standard canvas width
+    height => <@float -default 24>, // standard canvas height
+    anchor => <@vec2 -default @Anchor.Center>,
+    origin => <@vec2 -default (0, 0)>,
+
+    drawable => <@list -object.extends drawable.component>
+}
+
+{@template -type drawable.component
+
+}
+
+{@template -type drawable.path -extends drawable.component
+    d => <@list -object.extends drawable.path.control -format.enable true>
+}
+
+{@template -type drawable.path.control
+
+}
+
+{@template -type drawable.path.S -extends drawable.path.control
+    position => {vec2 -needed}
+}
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------
+
+public class DSASTTemplate {
+
+}
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------
+
+{
+    name : "test-drawable",
+    width : "24",
+    height : "24",
+    anchor : "@Anchor.Center"
+    data : [
+        {
+            type : "rect",
+            org : "(4, 4)",
+            width : "10",
+            height : "13"
+        },
+        {
+            type : "path",
+            var : {
+                pos1 : "(3,3)",
+                pos2 : "(21,21)",
+                width : "3",
+                ang : "#vec2.ang(@pos1, @pos2)",
+                deltaPos : "#sub(@pos1, @pos2)"
+                posStart : "#add(@pos2, #vec2.circle(@width, #add(@ang, @Pi.Half)))"
+            },
+            path : [
+                ["M", "@posStart"],
+                ["M", "@deltaPos"],
+                ["A", "@pos1", "@Pi"],
+                ["M", "#minus(@deltaPos)"],
+                ["A", "@pos2", "@Pi"]
+            ]
+        }
+    ]
+}
+
+-----------------------------------------------------
+
+

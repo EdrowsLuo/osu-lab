@@ -1,15 +1,13 @@
 package com.edplan.nso.ruleset.std.game;
 
+import com.edplan.nso.ruleset.base.game.judge.AreaHitObject;
 import com.edplan.nso.ruleset.base.game.judge.HitArea;
 import com.edplan.nso.ruleset.base.game.judge.HitWindow;
-import com.edplan.nso.ruleset.base.game.judge.PositionHitObject;
-import com.edplan.nso.ruleset.std.StdSkin;
-import com.edplan.nso.ruleset.std.beatmap.StdBeatmap;
 import com.edplan.nso.ruleset.std.game.drawables.ApproachCircle;
 import com.edplan.nso.ruleset.std.game.drawables.CirclePiece;
 
-import com.edplan.nso.ruleset.std.objects.v2.StdCircle;
-import com.edplan.nso.ruleset.std.objects.v2.StdGameObject;
+import com.edplan.nso.ruleset.std.objects.v2.raw.StdCircle;
+import com.edplan.nso.ruleset.std.objects.v2.raw.StdGameObject;
 
 public class WorkingStdHitCircle extends WorkingStdGameObject<StdCircle> {
 
@@ -45,7 +43,7 @@ public class WorkingStdHitCircle extends WorkingStdGameObject<StdCircle> {
         gameField.hitobjectLayer.scheduleAttachBehind(getShowTime(), circlePiece);
         gameField.approachCircleLayer.scheduleAttachBehind(getShowTime(), approachCircle);
 
-        PositionHitObject positionHitObject = new PositionHitObject() {{
+        AreaHitObject areaHitObject = new AreaHitObject() {{
 
             separateJudge = true;
 
@@ -59,7 +57,7 @@ public class WorkingStdHitCircle extends WorkingStdGameObject<StdCircle> {
 
         }};
 
-        gameField.world.getJudgeWorld().addJudgeObject(positionHitObject);
+        gameField.world.getJudgeWorld().addJudgeObject(areaHitObject);
     }
 
     protected void onHit(double time, float x, float y) {

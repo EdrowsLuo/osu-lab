@@ -18,6 +18,8 @@ public class ColorShader extends BaseShader{
 
     public static final Lazy<ColorShader> DEFAULT;
 
+    public static final Lazy<ColorShader> ALPHA; //only render alpha channel
+
     static {
         DEFAULT = Lazy.create(() -> new ColorShader(
                 GLProgram.createProgram(
@@ -43,6 +45,33 @@ public class ColorShader extends BaseShader{
                                 "\n" +
                                 "void main(){\n" +
                                 "    gl_FragColor = f_VaryingColor;\n" +
+                                "}"
+                )
+        ));
+        ALPHA = Lazy.create(() -> new ColorShader(
+                GLProgram.createProgram(
+                        "" +
+                                "uniform mat4 u_MVPMatrix;\n" +
+                                "uniform mat4 u_MaskMatrix;\n" +
+                                "uniform float u_FinalAlpha;\n" +
+                                "uniform vec4 u_AccentColor;\n" +
+                                "\n" +
+                                "attribute vec3 a_Position;\n" +
+                                "attribute vec4 a_VaryingColor;\n" +
+                                "\n" +
+                                "varying float f_VaryingColor;\n" +
+                                "\n" +
+                                "void main(){\n" +
+                                "    f_VaryingColor = u_AccentColor.a * a_VaryingColor.a * u_FinalAlpha;\n" +
+                                "    gl_Position = u_MVPMatrix * vec4(a_Position, 1.0);\n" +
+                                "}",
+                        "" +
+                                "precision mediump float;\n" +
+                                "\n" +
+                                "varying lowp float f_VaryingColor;\n" +
+                                "\n" +
+                                "void main(){\n" +
+                                "    gl_FragColor = vec4(f_VaryingColor);\n" +
                                 "}"
                 )
         ));

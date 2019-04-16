@@ -30,7 +30,16 @@ public class PathBuilder {
         return this;
     }
 
-    public PathBuilder circleMove(Vec2 o, float ang) {
+    public PathBuilder move(float x, float y) {
+        current.add(x, y);
+        editablePath.addPoint(current.copy());
+        return this;
+    }
+
+    /**
+     * 从当前位置以o为圆心旋转一个角度（ang）
+     */
+    public PathBuilder circleRotate(Vec2 o, float ang) {
         int sugClip = suggestedClip(ang);
         float deltaAng = ang / sugClip;
         for (int i = 0; i < sugClip; i++) {
@@ -38,6 +47,10 @@ public class PathBuilder {
             editablePath.addPoint(current.copy());
         }
         return this;
+    }
+
+    public PathBuilder circleRotateRelative(Vec2 o, float ang) {
+        return circleRotate(current.copy().add(o), ang);
     }
 
 

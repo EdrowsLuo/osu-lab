@@ -20,10 +20,10 @@ import com.edplan.nso.ruleset.std.StdSkin;
 import com.edplan.nso.ruleset.std.beatmap.StdBeatmap;
 import com.edplan.nso.ruleset.std.game.drawables.ApproachCircle;
 import com.edplan.nso.ruleset.std.game.drawables.TestFollowPoints;
-import com.edplan.nso.ruleset.std.objects.v2.StdCircle;
-import com.edplan.nso.ruleset.std.objects.v2.StdGameObject;
-import com.edplan.nso.ruleset.std.objects.v2.StdSlider;
-import com.edplan.nso.ruleset.std.objects.v2.StdSpinner;
+import com.edplan.nso.ruleset.std.objects.v2.raw.StdCircle;
+import com.edplan.nso.ruleset.std.objects.v2.raw.StdGameObject;
+import com.edplan.nso.ruleset.std.objects.v2.raw.StdSlider;
+import com.edplan.nso.ruleset.std.objects.v2.raw.StdSpinner;
 
 import org.json.JSONObject;
 
@@ -123,7 +123,7 @@ public class StdGameField extends NsoCoreBased {
             if (!object.isNewCombo()) {
                 comboIndex++;
                 if (i == 0) {
-                    throw new RuntimeException("第一个开始的物件不能不是new combo");
+                    //throw new RuntimeException("第一个开始的物件不能不是new combo");
                 }
             } else {
                 comboIndex = 1;

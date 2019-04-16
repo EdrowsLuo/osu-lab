@@ -196,6 +196,13 @@ public class Vec2 implements Interplateable<Vec2>, IVec2 {
         return this;
     }
 
+    public Vec2 rotate(float s, float c) {
+        float tmpX = x;
+        x = x * c - y * s;
+        y = y * c + tmpX * s;
+        return this;
+    }
+
     //顺时针，弧度
     public Vec2 rotate(Vec2 o, float r) {
         return rotate(o.x, o.y, r);

@@ -5,16 +5,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.opengl.GLES10;
 import android.opengl.GLES20;
 import android.opengl.GLUtils;
 
 import com.edplan.framework.MContext;
-import com.edplan.framework.graphics.layer.BufferedLayer;
-import com.edplan.framework.graphics.opengl.GLCanvas2D;
-import com.edplan.framework.graphics.opengl.GLPaint;
 import com.edplan.framework.graphics.opengl.GLWrapped;
-import com.edplan.framework.graphics.opengl.batch.v2.BatchEngine;
 import com.edplan.framework.math.IQuad;
 import com.edplan.framework.math.Quad;
 import com.edplan.framework.math.RectF;
@@ -27,7 +22,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.IntBuffer;
 
 public class GLTexture extends AbstractTexture {
     public static BitmapFactory.Options DEF_CREATE_OPTIONS;
@@ -173,6 +167,34 @@ public class GLTexture extends AbstractTexture {
         GLES20.glGenTextures(1, t, 0);
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, t[0]);
         GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_RGBA, w, h, 0, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, null);
+        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
+                GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
+                GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
+        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
+                GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE);
+        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
+                GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE);
+        GLTexture tex = new GLTexture();
+        tex.width = w;
+        tex.height = h;
+        tex.textureId = t[0];
+        tex.glHeight = 1;
+        tex.glWidth = 1;
+        tex.endCreate();
+        //Log.v("fbo","gen tx: "+tex.textureId);
+        return tex;
+    }
+
+    public static GLTexture createGPUAlphaTexture(int w, int h) {
+		/*if(w>GLWrapped.GL_MAX_TEXTURE_SIZE||h>GLWrapped.GL_MAX_TEXTURE_SIZE){
+			GLTexture t=createErrTexture();
+			return t;
+		}*/
+        int[] t = new int[1];
+        GLES20.glGenTextures(1, t, 0);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, t[0]);
+        GLES20.glTexImage2D(GLES20.GL_TEXTURE_2D, 0, GLES20.GL_ALPHA, w, h, 0, GLES20.GL_ALPHA, GLES20.GL_UNSIGNED_BYTE, null);
         GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,
                 GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
         GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D,

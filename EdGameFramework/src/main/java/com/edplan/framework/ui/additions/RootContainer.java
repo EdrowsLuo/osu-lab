@@ -1,6 +1,7 @@
 package com.edplan.framework.ui.additions;
 
 import com.edplan.framework.MContext;
+import com.edplan.framework.graphics.opengl.objs.Color4;
 import com.edplan.framework.ui.EdBufferedContainer;
 import com.edplan.framework.ui.EdView;
 import com.edplan.framework.ui.layout.EdLayoutParam;
@@ -21,6 +22,7 @@ public class RootContainer extends EdBufferedContainer {
     public RootContainer(MContext c) {
         super(c);
         setAlwaysRefresh(true);
+        setClearColor(Color4.Black);
         {
             EdLayoutParam p = new EdLayoutParam();
             p.width = Param.MODE_MATCH_PARENT;
@@ -37,7 +39,6 @@ public class RootContainer extends EdBufferedContainer {
 
     @Override
     public void invalidateDraw() {
-
         super.invalidateDraw();
     }
 
