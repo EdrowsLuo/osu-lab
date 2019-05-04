@@ -31,7 +31,7 @@ public class CompileRawStringStore {
         map = new HashMap<String, ProgramNode>();
     }
 
-    public String[] getDatas(String name) {
+    public String[] getData(String name) {
         return map.get(name).lines;
     }
 

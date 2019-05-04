@@ -55,6 +55,10 @@ public class SimpleDBHelper {
                 .asOneLine().asInt();
     }
 
+    /**
+     * Called when the database is created, you can exec your create table sentence here
+     * @throws SimpleSQLException
+     */
     protected void onDatabaseCreate() throws SimpleSQLException {
         simpleDB.exec("CREATE TABLE " + __helper_properties + " (" +
                 "key varchar(128) PRIMARY KEY NOT NULL," +
@@ -64,6 +68,11 @@ public class SimpleDBHelper {
                 "VALUES ('version','" + getVersion() + "')");
     }
 
+    /**
+     * Called when the database upgrade from oldVersion to newVersion
+     * @param oldVersion
+     * @param newVersion
+     */
     protected void onDatabaseUpgrade(int oldVersion, int newVersion) {
 
     }

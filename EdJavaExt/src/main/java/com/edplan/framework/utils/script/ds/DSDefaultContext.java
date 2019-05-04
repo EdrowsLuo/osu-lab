@@ -1,6 +1,5 @@
 package com.edplan.framework.utils.script.ds;
 
-import com.edplan.framework.math.FMath;
 import com.edplan.framework.utils.Lazy;
 
 import java.util.HashMap;
@@ -230,8 +229,8 @@ public class DSDefaultContext implements IDSContext {
                 }
             });
 
-            addValue("Pi", new DSFloat(FMath.Pi));
-            addValue("Pi.Half", new DSFloat(FMath.PiHalf));
+            addValue("Pi", new DSFloat((float) Math.PI));
+            addValue("Pi.Half", new DSFloat((float) (Math.PI / 2)));
         } catch (DSException e) {
             e.printStackTrace();
         }

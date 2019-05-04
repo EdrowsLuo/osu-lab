@@ -48,6 +48,7 @@ public class CirclePiece extends AdvancedDrawObject {
                         1, 1.5f)));
         addAnimTask(time, 200, time1 -> alpha.value = (float) (1 - time1));
         addTask(time + 200, this::detach);
+        detach();
     }
 
     public void initialFadeInAnim(double start, double duration) {

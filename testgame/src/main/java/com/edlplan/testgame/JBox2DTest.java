@@ -15,8 +15,6 @@ public class JBox2DTest implements ITest {
                 super.onCreate(context);
                 setContentView(new EdView(context) {
 
-
-
                     @Override
                     protected void onDraw(BaseCanvas canvas) {
                         super.onDraw(canvas);

@@ -22,6 +22,9 @@ import com.edplan.framework.ui.widget.RelativeLayout;
 import com.edplan.framework.ui.widget.RoundedButton;
 import com.edplan.framework.ui.widget.ScrollLayout;
 import com.edplan.framework.ui.widget.TextView;
+import com.edplan.framework.utils.json.JsonStream;
+
+import org.json.JSONException;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,6 +45,12 @@ public class MainActivity extends EdMainActivity {
         } catch (SimpleSQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JsonStream stream = new JsonStream("{test: 1.23123,\n\"hh\" : [ ]}");
+        try {
+            System.out.println(stream.dumpJSONObject().toString(2));
+        } catch (JSONException e) {
             e.printStackTrace();
         }
     }
@@ -158,7 +167,8 @@ public class MainActivity extends EdMainActivity {
         public ITest[] createTests() {
             return new ITest[]{
                     new SnakeTest(),
-                    new CanvasDrawTest()
+                    new CanvasDrawTest(),
+                    new JavaScriptTest()
             };
         }
 

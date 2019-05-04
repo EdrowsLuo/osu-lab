@@ -259,7 +259,6 @@ public class World implements RawInputHandler {
         }
     }
 
-
     public static class WorldConfig {
         //判定线程的休眠时间
         public int judgeThreadInterval = 1;

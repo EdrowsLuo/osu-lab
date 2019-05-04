@@ -59,8 +59,9 @@ public class NsoCore {
         return beatmapDecoder;
     }
 
-    public Ruleset getRulesetById(String id) {
-        return rulesetsMap.get(id);
+    @SuppressWarnings("unchecked")
+    public <T extends Ruleset> T getRulesetById(String id) {
+        return (T) rulesetsMap.get(id);
     }
 
     private void registerRuleset(Ruleset ruleset) {

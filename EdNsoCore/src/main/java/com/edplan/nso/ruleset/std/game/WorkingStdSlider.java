@@ -326,8 +326,8 @@ public class WorkingStdSlider extends WorkingStdGameObject<StdSlider> {
 
             onHit = (time, x, y) -> {
                 gameField.hitobjectLayer.postOperation(() -> {
+                    approachCircle.detach();
                     if (circlePiece.isAttached()) {
-                        approachCircle.detach();
                         circlePiece.expire(time);
                     }
                 });

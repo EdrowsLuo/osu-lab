@@ -1,5 +1,6 @@
 package com.edplan.framework.utils.script.ds.ast;
 
+import com.edplan.framework.utils.CharArray;
 import com.edplan.framework.utils.script.ds.ast.expression.DSASTBoolean;
 import com.edplan.framework.utils.script.ds.ast.expression.DSASTFloat;
 import com.edplan.framework.utils.script.ds.ast.expression.DSASTFunctionCall;
@@ -211,43 +212,6 @@ public class DSASTParser {
     public static class DSASTException extends Exception {
         public DSASTException(String m) {
             super(m);
-        }
-    }
-
-    public static class CharArray {
-        public char[] ary;
-        public int offset;
-        public int end;
-
-        public CharArray(char[] ary, int offset, int end) {
-            this.ary = ary;
-            this.offset = offset;
-            this.end = end == -1 ? ary.length : end;
-        }
-
-        public CharArray(CharArray copy) {
-            this.ary = copy.ary;
-            this.offset = copy.offset;
-            this.end = copy.end;
-        }
-
-        public char get(int i) {
-            return ary[offset + i];
-        }
-
-        public void trimBegin() {
-            while (offset < end && ary[offset] == ' ') {
-                offset++;
-            }
-        }
-
-        public boolean empty() {
-            return offset >= end;
-        }
-
-        @Override
-        public String toString() {
-            return new String(ary, offset, end - offset);
         }
     }
 

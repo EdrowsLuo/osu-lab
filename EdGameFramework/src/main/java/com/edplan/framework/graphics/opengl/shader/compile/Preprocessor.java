@@ -114,7 +114,7 @@ public class Preprocessor {
         switch (type) {
             case TYPE_INCLUDE: {
                 final String fileName = getStringData(command);
-                final String[] addLines = store.getDatas(fileName);
+                final String[] addLines = store.getData(fileName);
                 for (String s : addLines) {
                     sb.append(specs).append(s).append(StringUtil.LINE_BREAK);
                 }
