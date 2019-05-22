@@ -1,21 +1,12 @@
 package com.edplan.nso.ruleset.std;
 
-import com.edplan.framework.math.Vec2;
-import com.edplan.framework.resource.DirResource;
 import com.edplan.nso.NsoCore;
 import com.edplan.nso.ruleset.base.beatmap.BeatmapDescription;
 import com.edplan.nso.ruleset.base.beatmap.parser.BeatmapDecoder;
 import com.edplan.nso.ruleset.base.game.World;
 import com.edplan.nso.ruleset.base.game.WorldLoader;
-import com.edplan.nso.ruleset.base.game.judge.CursorData;
-import com.edplan.nso.ruleset.base.game.paint.GroupDrawObject;
 import com.edplan.nso.ruleset.std.beatmap.StdBeatmap;
 import com.edplan.nso.ruleset.std.game.StdGameField;
-
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Set;
@@ -32,13 +23,13 @@ public class StdWorldLoader extends WorldLoader {
     }
 
     @Override
-    public World loadWorld(BeatmapDescription description, JSONObject config) {
+    public World loadWorld(BeatmapDescription description) {
 
         StdBeatmap beatmap;
         if (description.cachedBeatmap == null || !(description.cachedBeatmap instanceof StdBeatmap)) {
             try {
                 BeatmapDecoder decoder = getCore().getBeatmapDecoder();
-                decoder.decode(description.openBeatmapStream(), null);
+                decoder.decode(description.openBeatmapStream());
                 BeatmapDecoder.Result result = decoder.getResult();
                 if (result.isSuccess()) {
                     if (result.getBeatmap() instanceof StdBeatmap) {
@@ -57,7 +48,7 @@ public class StdWorldLoader extends WorldLoader {
             beatmap = (StdBeatmap) description.cachedBeatmap;
         }
 
-        return (new StdGameField(getCore())).load(beatmap, description.openDirRes(), config);
+        return (new StdGameField(getCore())).load(beatmap, description.openDirRes());
     }
 
 }

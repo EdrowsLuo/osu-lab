@@ -168,7 +168,8 @@ public class MainActivity extends EdMainActivity {
             return new ITest[]{
                     new SnakeTest(),
                     new CanvasDrawTest(),
-                    new JavaScriptTest()
+                    new JavaScriptTest(),
+                    new SlideTest()
             };
         }
 

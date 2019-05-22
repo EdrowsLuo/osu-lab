@@ -26,13 +26,11 @@ public class BaseBeatmapParser {
      * @param generalCache
      * @param parserData
      * @param info
-     * @param config
      * @return
      */
     public static boolean parseDefault(Beatmap beatmap, NsoCore core, int formatVersion,
                                        String rulesetId, IniParser.StdOptionPage generalCache,
-                                       IniParser parserData, BaseDecoder.OpenInfo info,
-                                       JSONObject config) {
+                                       IniParser parserData, BaseDecoder.OpenInfo info) {
         Ruleset ruleset = core.getRulesetById(rulesetId);
         PartFactory factory = ruleset.getPartFactory();
 

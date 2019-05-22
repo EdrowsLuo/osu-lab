@@ -56,14 +56,16 @@ public class StdRuleset extends Ruleset{
 
     @Override
     public void onLoad() {
-        icon = FontAwesome.fa_osu_osu_o.getTexture();
         StdBeatmapParser.load();
-        stdSkin = StdSkin.createSkinDescription(getCore().getContext())
-                .load(getCore().getContext()
-                        .getAssetResource()
-                        .subResource("osu")
-                        .subResource("skins")
-                        .subResource("default"));
+        if (getCore().hasUI()) {
+            icon = FontAwesome.fa_osu_osu_o.getTexture();
+            stdSkin = StdSkin.createSkinDescription(getCore().getContext())
+                    .load(getCore().getContext()
+                            .getAssetResource()
+                            .subResource("osu")
+                            .subResource("skins")
+                            .subResource("default"));
+        }
     }
 
     @Override

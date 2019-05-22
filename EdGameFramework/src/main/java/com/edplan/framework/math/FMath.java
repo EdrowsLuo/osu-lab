@@ -83,4 +83,5 @@ public class FMath {
     public static double linear(double progress, double bottom, double top) {
         return bottom * (1 - progress) + top * progress;
     }
+
 }

@@ -36,23 +36,17 @@ public class NsoCore {
 
     private MContext context;
 
-    private NsoConfig config;
-
     private HashMap<String, Ruleset> rulesetsMap = new HashMap<String, Ruleset>();
 
     private ArrayList<Ruleset> rulesets = new ArrayList<>();
-
-    private BeatmapStorage beatmapStorage;
 
     private RulesetNameManager rulesetNameManager;
 
     private BeatmapDecoder beatmapDecoder;
 
-    public NsoCore(MContext context, NsoConfig conf) {
-        this.config = (conf != null) ? conf : new NsoConfig();
+    public NsoCore(MContext context) {
         this.context = context;
-        this.beatmapStorage = new BeatmapStorage(this);
-        beatmapDecoder = new BeatmapDecoder(this);
+        this.beatmapDecoder = new BeatmapDecoder(this);
     }
 
     public BeatmapDecoder getBeatmapDecoder() {
@@ -69,11 +63,10 @@ public class NsoCore {
         rulesets.add(ruleset);
     }
 
-    public Loader load(Runnable onLoadComplete) {
+    public Loader load() {
 
         final Loader loader = new Loader();
-        loader.onLoadComplete(onLoadComplete);
-        (new Thread(() -> {
+        loader.loadTread = new Thread(() -> {
 
             IntProgressHolder mainProgress = new IntProgressHolder();
             mainProgress.setMax(20);
@@ -107,17 +100,18 @@ public class NsoCore {
 
             /* END   : 加载铺面解析器 */
 
-            mainDir = new File(Environment.getExternalStorageDirectory(), "osu!lab");
-            FileUtils.checkExistDir(mainDir);
+            if (hasUI()) {
+                mainDir = new File(Environment.getExternalStorageDirectory(), "osu!lab");
+                FileUtils.checkExistDir(mainDir);
 
-            databaseDir = new File(mainDir, "database");
-            FileUtils.checkExistDir(databaseDir);
-
+                databaseDir = new File(mainDir, "database");
+                FileUtils.checkExistDir(databaseDir);
+            }
 
             if (loader.onLoadComplete != null) {
                 loader.onLoadComplete.run();
             }
-        })).start();
+        });
         return loader;
     }
 
@@ -129,14 +123,6 @@ public class NsoCore {
         return rulesetNameManager;
     }
 
-    protected void setConfig(NsoConfig config) {
-        this.config = config;
-    }
-
-    public NsoConfig getConfig() {
-        return config;
-    }
-
     public void setContext(MContext context) {
         this.context = context;
     }
@@ -145,13 +131,24 @@ public class NsoCore {
         return context;
     }
 
-
+    /**
+     * @return if the core is initialled with ui
+     */
+    public boolean hasUI() {
+        return context != null;
+    }
 
     public class Loader {
+
+        protected Thread loadTread;
 
         private Runnable onLoadComplete;
 
         ArrayList<ProgressHolder> progressHolders = new ArrayList<>();
+
+        public void start() {
+            loadTread.start();
+        }
 
         public synchronized void addProgress(ProgressHolder holder) {
             progressHolders.add(holder);

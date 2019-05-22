@@ -152,10 +152,11 @@ public class LabGame {
     }
 
     private void initialNsoCore(MContext c) {
-        nsoCore = new NsoCore(c, null);
-        nsoCore.load(null).onLoadComplete(()->
-                c.runOnUIThread(() -> PopupToast.toast(c, "ruleset loaded").show()));
-
+        nsoCore = new NsoCore(c);
+        nsoCore.load()
+                .onLoadComplete(
+                        () -> c.runOnUIThread(() -> PopupToast.toast(c, "ruleset loaded").show()))
+                .start();
     }
 
     public EdView createContentView(MContext c) {

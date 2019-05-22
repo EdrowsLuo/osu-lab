@@ -4,9 +4,11 @@ import com.edplan.framework.graphics.opengl.batch.v2.BatchEngine;
 import com.edplan.framework.graphics.opengl.batch.v2.object.AnyQuadTextureQuad;
 import com.edplan.framework.graphics.opengl.batch.v2.object.ColorTriangle;
 import com.edplan.framework.graphics.opengl.batch.v2.object.PackedColorTriangles;
+import com.edplan.framework.graphics.opengl.batch.v2.object.TextureQuad;
 import com.edplan.framework.graphics.opengl.batch.v2.object.TextureQuadBatch;
 import com.edplan.framework.graphics.opengl.objs.AbstractTexture;
 import com.edplan.framework.graphics.opengl.objs.Color4;
+import com.edplan.framework.graphics.opengl.objs.GLTexture;
 import com.edplan.framework.graphics.opengl.shader.advance.ColorShader;
 import com.edplan.framework.graphics.shape.IPath;
 import com.edplan.framework.graphics.shape.Path;
@@ -153,8 +155,27 @@ public abstract class BaseCanvas extends AbstractSRable<CanvasData> {
         TextureQuadBatch.getDefaultBatch().add(anyQuadTextureQuad);
     }
 
-    public void drawLine(float x1, float y1, float x2, float y2, float width, Color4 color, float alpha) {
+    public TextureQuad createLineQuad(float x1, float y1, float x2, float y2, float width, Color4 color, float alpha) {
+        TextureQuad quad = new TextureQuad();
+        quad.setTextureAndSize(GLTexture.White);
+        quad.size.set((float) Math.hypot(x1 - x2, y1 - y2), width);
+        quad.alpha.value = alpha;
+        quad.accentColor = color;
+        quad.position.set((x1 + x2) / 2, (y1 + y2) / 2);
+        quad.enableRotation().rotation.value = (float) Math.atan2(y1 - y2, x1 - x2);
+        return quad;
+    }
 
+    public TextureQuad createLineQuad(Vec2 v1, Vec2 v2, float width, Color4 color, float alpha) {
+        return createLineQuad(v1.x, v1.y, v2.x, v2.y, width, color, alpha);
+    }
+
+    public void drawLine(Vec2 v1, Vec2 v2, float width, Color4 color, float alpha) {
+        drawLine(v1.x, v1.y, v2.x, v2.y, width, color, alpha);
+    }
+
+    public void drawLine(float x1, float y1, float x2, float y2, float width, Color4 color, float alpha) {
+        TextureQuadBatch.getDefaultBatch().add(createLineQuad(x1, y1, x2, y2, width, color, alpha));
     }
 
     private static final int CIRCLE_SPLIT_RATE = 48, CIRCLE_SPLIT_RATE_HALF = 24, CIRCLE_SPLIT_RATE_HH = 12;

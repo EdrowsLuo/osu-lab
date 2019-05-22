@@ -93,7 +93,7 @@ public class StdGameField extends NsoCoreBased {
         buildContext.setSkin(skin);
     }
 
-    public World load(StdBeatmap beatmap, AResource dir, JSONObject config) {
+    public World load(StdBeatmap beatmap, AResource dir) {
         difficultyHelper = new DifficultyUtil.BuiltDifficultyHelper(
                 DifficultyUtil.DifficultyHelper.StdDifficulty,
                 beatmap.getDifficulty().getOverallDifficulty());

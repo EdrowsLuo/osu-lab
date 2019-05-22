@@ -51,8 +51,6 @@ public class ViewRoot implements MainCallBack {
 
     private InputManager inputManager;
 
-    private Focus focus = new Focus();
-
     private float baseScale = 1;
 
     private DirectMotionHandler directMotionHandler;
@@ -83,10 +81,6 @@ public class ViewRoot implements MainCallBack {
         if (this.directMotionHandler == directMotionHandler) {
             this.directMotionHandler = null;
         }
-    }
-
-    public Focus getFocus() {
-        return focus;
     }
 
     public PopupViewLayer getPopupViewLayer() {

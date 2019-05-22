@@ -42,14 +42,14 @@ public abstract class BaseDecoder {
 
     }
 
-    protected abstract void onParse(IniParser parser, JSONObject config);
+    protected abstract void onParse(IniParser parser);
 
-    public void decode(InputStream inputStream, JSONObject decodeConfig) throws IOException {
+    public void decode(InputStream inputStream) throws IOException {
         clear();
         parser = new IniParser();
         parser.parse(inputStream);
         prepareForParse(parser);
-        onParse(parser, decodeConfig);
+        onParse(parser);
     }
 
     public class OpenInfo {

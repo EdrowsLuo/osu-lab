@@ -89,6 +89,8 @@ public class CanvasDrawTest implements ITest {
                         //canvas.drawRoundedRect(RectF.xywh(150, 150, 500, 500), 70, Color4.Red, 1);
                         //canvas.drawTexture(GLTexture.ErrorTexture, RectF.xywh(100, 100, 500, 500));
                         canvas.drawTexture(shapeTexture.getTexture(), RectF.xywh(100, 100, 500, 500));
+
+                        canvas.drawLine(0, 0, canvas.getWidth(), canvas.getHeight(), 10, Color4.White, 1);
                     }
                 });
             }

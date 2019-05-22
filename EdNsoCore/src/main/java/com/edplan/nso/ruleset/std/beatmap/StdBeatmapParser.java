@@ -29,14 +29,14 @@ public class StdBeatmapParser implements BeatmapParser<StdBeatmap> {
     @Override
     public StdBeatmap parse(NsoCore core, int formatVersion, String ruleset,
                             IniParser.StdOptionPage generalCache, IniParser parserData,
-                            BaseDecoder.OpenInfo info, JSONObject config) {
+                            BaseDecoder.OpenInfo info) {
         StdBeatmap beatmap = new StdBeatmap();
         Behavior.wrap(() -> {
             Behavior.wrap(() ->
                     BaseBeatmapParser.parseDefault(
                             beatmap, core, formatVersion,
                             ruleset, generalCache, parserData,
-                            info, config))
+                            info))
                     .countTime(Tracker.printByTag("ParseDefault"))
                     .run();
 

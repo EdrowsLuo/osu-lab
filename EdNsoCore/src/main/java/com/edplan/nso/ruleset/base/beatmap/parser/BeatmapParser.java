@@ -19,6 +19,5 @@ public interface BeatmapParser<T extends Beatmap> {
      */
     T parse(NsoCore core, int formatVersion,
             String ruleset, IniParser.StdOptionPage generalCache,
-            IniParser parserData, BaseDecoder.OpenInfo info,
-            JSONObject config);
+            IniParser parserData, BaseDecoder.OpenInfo info);
 }

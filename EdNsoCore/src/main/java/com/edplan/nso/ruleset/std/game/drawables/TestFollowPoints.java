@@ -42,7 +42,7 @@ public class TestFollowPoints {
 
             TextureQuadObject quadObject = new TextureQuadObject();
             quadObject.sprite.setTextureAndSize(GLTexture.White);
-            quadObject.sprite.size.set(10, 5);
+            quadObject.sprite.size.set(10 * baseScale, 5 * baseScale);
             quadObject.sprite.position.set(endPos.x - moveVec.x, endPos.y - moveVec.y);
             quadObject.sprite.alpha.value = 0;
             quadObject.sprite.enableScale().scale.set(0.5f);
