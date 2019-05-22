@@ -1,12 +1,12 @@
 package com.edlplan.testgame;
 
-import com.edplan.framework.MContext;
-import com.edplan.framework.math.RectF;
-import com.edplan.framework.ui.EdView;
-import com.edplan.framework.ui.inputs.EdMotionEvent;
-import com.edplan.framework.ui.widget.Fragment;
-import com.edplan.nso.ruleset.base.game.World;
-import com.edplan.nso.ruleset.base.game.judge.CursorData;
+import com.edlplan.framework.MContext;
+import com.edlplan.framework.math.RectF;
+import com.edlplan.framework.ui.EdView;
+import com.edlplan.framework.ui.inputs.EdMotionEvent;
+import com.edlplan.framework.ui.widget.Fragment;
+import com.edlplan.nso.ruleset.base.game.World;
+import com.edlplan.nso.ruleset.base.game.judge.CursorData;
 
 public class NsoCoreTest implements ITest {
 

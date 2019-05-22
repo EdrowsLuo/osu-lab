@@ -1,9 +1,9 @@
 package com.edlplan.testgame;
 
-import com.edplan.framework.MContext;
-import com.edplan.framework.graphics.opengl.BaseCanvas;
-import com.edplan.framework.ui.EdView;
-import com.edplan.framework.ui.widget.Fragment;
+import com.edlplan.framework.MContext;
+import com.edlplan.framework.graphics.opengl.BaseCanvas;
+import com.edlplan.framework.ui.EdView;
+import com.edlplan.framework.ui.widget.Fragment;
 
 public class JBox2DTest implements ITest {
     @Override

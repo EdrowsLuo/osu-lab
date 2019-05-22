@@ -22,7 +22,7 @@ def getReleaseVersionName() {
 android {
     compileSdkVersion 28
     defaultConfig {
-        applicationId "com.edplan.osulab"
+        applicationId "com.edlplan.osulab"
         minSdkVersion 19
         targetSdkVersion 28
         versionCode getReleaseVersionCode()
@@ -53,7 +53,7 @@ dependencies {
     //testImplementation 'junit:junit:4.12'
     //androidTestImplementation 'com.android.support.test:runner:1.0.2'
     //androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation project(path: ':EdNsoCore')
-    implementation project(path: ':EdGameFramework')
-    implementation project(path: ':EdJavaExt')
+    implementation project(path: ':EdlNsoCore')
+    implementation project(path: ':EdlGameFramework')
+    implementation project(path: ':EdlJavaExt')
 }

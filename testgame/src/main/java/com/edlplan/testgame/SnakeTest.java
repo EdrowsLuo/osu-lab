@@ -1,13 +1,13 @@
 package com.edlplan.testgame;
 
-import com.edplan.framework.MContext;
-import com.edplan.framework.ui.ViewConfiguration;
-import com.edplan.framework.ui.layout.Gravity;
-import com.edplan.framework.ui.layout.MarginLayoutParam;
-import com.edplan.framework.ui.layout.Param;
-import com.edplan.framework.ui.widget.Fragment;
-import com.edplan.framework.ui.widget.RelativeLayout;
-import com.edplan.framework.ui.widget.RoundedButton;
+import com.edlplan.framework.MContext;
+import com.edlplan.framework.ui.ViewConfiguration;
+import com.edlplan.framework.ui.layout.Gravity;
+import com.edlplan.framework.ui.layout.MarginLayoutParam;
+import com.edlplan.framework.ui.layout.Param;
+import com.edlplan.framework.ui.widget.Fragment;
+import com.edlplan.framework.ui.widget.RelativeLayout;
+import com.edlplan.framework.ui.widget.RoundedButton;
 
 public class SnakeTest implements ITest {
 
